@@ -4,16 +4,91 @@
 
 {% block content %}
 
-<div class="govuk-grid-row">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+
+    <a href="https://planner.cloud.microsoft/DVSAUK.onmicrosoft.com/Home/PlanViews/NcHsbZ3tB02yaxkwzbKLUpYAHSoV?Type=PlanLink&Channel=Link&CreatedTime=638629505176500000" class="index-nav">Service Design Planner</a>
+    <a href="https://dvsa.atlassian.net/wiki/spaces/HVT/folder/731545764" class="index-nav">Service Design Confluence</a>
+    <a href="https://dvsa.atlassian.net/jira/software/c/projects/CB2/boards/973/backlog?selectedIssue=CB2-9597" class="index-nav">JIRA backlog</a>
+    <a href="#" class="index-nav">CVS Design System</a><p class="nav-tag">IN DEVELOPMENT</p>
+
+  </div>
   <div class="govuk-grid-column-two-thirds">
 
-    {% include "govuk-prototype-kit/includes/homepage-top.njk" %}
-
-    <h1 class="govuk-heading-xl">
-      {{ serviceName }}
+    <h1 class="govuk-heading-l">
+      CVS Prototypes
     </h1>
+    <p class="govuk-body">
+      An index of CVS prototypes developed by the CVS CI Service Design team
+    </p>
 
-    {% include "govuk-prototype-kit/includes/homepage-bottom.njk" %}
+    <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+    <ul class="list-border">
+      <li class="govuk-list list-padding">
+          {{govukTag({
+            text: "Active",
+            classes: "govuk-tag--turquoise"
+          })}}
+          <a href="vtm/month-picker.html" class="govuk-link index-link">VTM UX redesign</a>         
+          <p class="list-info">Redesign of primary user journeys in VTM</p>
+
+      </li>
+    </ul>
+
+      <ul class="list-border">
+        <li class="govuk-list list-padding">
+            {{govukTag({
+              text: "Active",
+              classes: "govuk-tag--turquoise"
+            })}}
+            <a href="vtm/month-picker.html" class="govuk-link index-link">Month of manufacture</a>         
+            <p class="list-info">Concepts for selecting the month of manufacture in VTM</p>
+
+        </li>
+      </ul>
+      <ul class="list-border">
+        <li class="govuk-list list-padding">
+            {{govukTag({
+              text: "Figma",
+              classes: "govuk-tag--purple"
+            })}}
+            <a href="https://www.figma.com/files/1379817982032485805/team/1390681482848277717" target="_blank" class="govuk-link index-link">Figma prototypes</a>         
+            <p class="list-info">Prototypes developed in Figma</p>
+
+        </li>
+      </ul>
+      <ul class="list-border">
+        <li class="govuk-list list-padding">
+            {{govukTag({
+              text: "Archived",
+              classes: "govuk-tag--grey"
+            })}}
+            <a href="#" class="govuk-link index-link">Archived prototypes</a>         
+            <p class="list-info">Archived prototypes not in development</p>
+
+        </li>
+      </ul>
+  </div>
+  <div class="govuk-grid-column-one-third">
+    <div class="side-pane">
+      {{govukTag({
+        text: "Prototyping tools",
+        classes: "govuk-tag--light-blue"
+      })}}
+      <li class="govuk-list list-padding side-list" style="margin-top:25px;">
+       <a href="https://github.com/auldb/cvs-prototypes" class="govuk-link">GitHub repo</a>
+      </li>
+      <li class="govuk-list list-padding side-list">
+        <a href="https://dashboard.heroku.com/login" class="govuk-link">Heroku</a>
+      </li>
+      <li class="govuk-list list-padding side-list">
+        <a href="https://github.com/alphagov/govuk-frontend" class="govuk-link">GOV.UK Frontend</a>
+      </li>
+      <li class="govuk-list list-padding side-list">
+        <a href="https://design-system.service.gov.uk/" class="govuk-link">GOV.UK Design System</a>
+      </li>
+    </div>
   </div>
 </div>
 

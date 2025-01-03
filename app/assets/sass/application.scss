@@ -4,3 +4,73 @@
 // 
 
 // Add extra styles here
+//
+// For guidance on how to add CSS and SCSS see:
+// https://prototype-kit.service.gov.uk/docs/adding-css-javascript-and-images
+// 
+
+// Add extra styles here
+
+.list-border {
+    border: 1px solid #b1b4b6;
+    padding-left:12px;
+    padding-top:15px;
+}
+
+.list-padding {
+    padding-top:0px;
+    padding-left:0px;
+}
+
+.side-list {
+    font-size:12pt;
+    margin-left:8px;
+}
+
+.list-info {
+    padding-top:15px;
+}
+
+.index-link {
+    margin-left:10px;
+}
+
+.index-nav {
+    font-family: "GDS Transport", arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-decoration: underline;
+    text-decoration-thickness: max(1px, .0625rem);
+    text-underline-offset: 0.1578em;
+    display: inline-block;
+    position: relative;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-right: 1em;
+    top:-40px;
+}
+
+.nav-tag {
+    font-family: arial;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-style: italic;
+    font-weight: 700;
+    display: inline-block;
+    position: relative;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: -4em;
+    top:-51px;
+    font-size: 12px;
+    background-color: red;
+    color: white;
+}
+
+.side-pane {
+    border: 1px solid #b1b4b6;
+    padding-left:12px;
+    padding-right:12px;
+    padding-top:15px;
+    padding-bottom:15px;
+}
