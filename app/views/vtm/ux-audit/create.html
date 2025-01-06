@@ -30,7 +30,7 @@
         Create a new technical record
       </h1>
 
-      <form class="form" action="/path/of/next/page" method="post">
+      <form class="form" action="new-record-details" method="post">
 
         <div class="govuk-form-group">
           <h1 class="govuk-label-wrapper">
@@ -41,7 +41,7 @@
           <div id="account-number-hint" class="govuk-hint">
             Must be between 3 and 21 characters
           </div>
-          <input class="govuk-input govuk-input--width-12" id="account-number" name="accountNumber" type="text" spellcheck="false" aria-describedby="account-number-hint" inputmode="numeric">
+          <input class="govuk-input govuk-input--width-20" id="width-20" name="width20" type="text">
         </div>
 
 
@@ -49,13 +49,16 @@
           <fieldset class="govuk-fieldset" aria-describedby="contact-hint">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
               <h2 class="govuk-fieldset__heading">
-                Generate or enter ID number
+                Do you want to generate an ID?
               </h2>
             </legend>
-            <div id="contact-hint" class="govuk-hint">
-              Select one option
-            </div>
             <div class="govuk-radios" data-module="govuk-radios">
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="contact-2" name="contact" type="radio" value="phone">
+                <label class="govuk-label govuk-radios__label" for="contact-2">
+                  Generate a C/T/Z number on submission of the new record
+                </label>
+              </div>
               <div class="govuk-radios__item">
                 <input class="govuk-radios__input" id="contact" name="contact" type="radio" value="email" data-aria-controls="conditional-contact">
                 <label class="govuk-label govuk-radios__label" for="contact">
@@ -69,12 +72,6 @@
                   </label>
                   <input class="govuk-input govuk-!-width-one-third" id="contact-by-email" name="contactByEmail" type="email" spellcheck="false" autocomplete="email">
                 </div>
-              </div>
-              <div class="govuk-radios__item">
-                <input class="govuk-radios__input" id="contact-2" name="contact" type="radio" value="phone">
-                <label class="govuk-label govuk-radios__label" for="contact-2">
-                  Generate a C/T/Z number on submission of the new record
-                </label>
               </div>
             </div>
           </fieldset>
@@ -180,10 +177,17 @@
                 </fieldset>
               </div>
 
+              <hr class="govuk-section-break govuk-section-break--m">
 
-        {{ govukButton({
-          text: "Continue"
-        }) }}
+              {% from "govuk/components/button/macro.njk" import govukButton %}
+
+              <div class="govuk-button-group">
+                {{ govukButton({
+                  text: "Continue"
+                }) }}
+              
+                <a class="govuk-link" href="#">Cancel</a>
+              </div>
 
       </form>
 
