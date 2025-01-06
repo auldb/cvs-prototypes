@@ -1,0 +1,60 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+Home – {{serviceName}} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-breadcrumbs" style="margin-top: -20px;">
+  <ol class="govuk-breadcrumbs__list">
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="/">Home</a>
+    </li>
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="/vtm/ux-audit/index">VTM UX Audit 2024</a>
+    </li>
+  </ol>
+
+  <hr class="govuk-section-break govuk-section-break--m">
+</div>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-xl">
+       VTM UX Audit
+      </h1>
+
+      <h3 class="govuk-heading-m">User journeys</h3>
+      <p class='govuk-body'><a href="/vtm/ux-audit/create.html">Create a new technical record journey</a>
+      </p>
+      <p class='govuk-body'><a href="/vtm/ux-audit/tech-record.html">Amend a technical record journey</a>
+      </p>
+
+
+  <hr class="govuk-section-break govuk-section-break--m">
+
+      <h2 class="govuk-heading-m">Description</h2>
+      <p class="govuk-body">A complete UX audit of the primary user journeys in VTM in order to:
+        <ul class="govuk-list govuk-list--bullet form-detail">
+          <li>update designs to GDS standards</li>
+          <li>prepare for future accessibility audits</li>
+        </ul>
+      </p>
+
+<!--
+      <details class="govuk-details" data-module="govuk-details">
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">
+            Sandbox
+          </span>
+        </summary>
+        <div class="govuk-details__text">
+          <ul class="govuk-list govuk-list--bullet form-detail">
+            <li><a href="/olcs-letters/sandbox/sidenav.html">Side navigation</a></li>
+
+        </div>
+      </details>
+-->
+
+{% endblock %}
