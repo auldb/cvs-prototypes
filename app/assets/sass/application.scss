@@ -74,3 +74,129 @@
     padding-top:15px;
     padding-bottom:15px;
 }
+
+// Numberplate component
+
+@font-face {
+    font-family: "UKNumberPlate";
+    src: url("/public/fonts/UKNumberPlate.ttf");
+    }
+
+.reg-mark-div {
+    padding-top: 0px;
+    padding-right: 0px;
+    padding-bottom: 0px;
+}
+.reg-mark-sm {
+    width: 110px;
+    max-width: 110px;
+    font: 24px 'UKNumberPlate',Verdana,sans-serif;
+    padding: 0.25em 0.15em;
+}
+.reg-mark, .reg-mark-sm {
+    margin-right: 10px;
+    text-align: center;
+    background-color: #ffd307;
+    border: 1px solid #c7a304;
+    border-radius: 0.25em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    
+}
+
+.advisories {
+    margin-left: 330px;
+}
+
+// Accordion
+
+.govuk-accordion__section-heading-vtm {
+    font-family: "GDS Transport", arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-weight: 700;
+    font-size: 1.1875rem;
+    line-height: 1.3157894737;
+    color: #0b0c0c;
+    margin: 0;
+    margin-bottom: 20px;
+  }
+
+@media (min-width: 40.0625em) {
+    .govuk-summary-list {
+        font-size: 1.1875rem;
+        line-height: 1.3157894737;
+    }
+}
+
+.govuk-frontend-supported 
+.govuk-accordion__section-toggle, 
+.govuk-frontend-supported 
+.govuk-accordion__section-heading-text, 
+.govuk-frontend-supported 
+.govuk-accordion__section-summary {
+    display: block;
+    margin-bottom: 0px;
+}
+
+.govuk-accordion__section-toggle {
+    float: right;
+    display: inline-block;
+    margin-top: -50px;
+}
+  
+.govuk-accordion__section-summary,
+.govuk-accordion__section-summary-focus {
+    margin-bottom: -30px;
+    padding-bottom: -30px;
+}
+
+.govuk-accordion__section-header {
+    margin-bottom: -20px;
+}
+
+.govuk-accordion-heading-vtm {
+    font-family: "GDS Transport", arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-weight: 700;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 14px;
+    padding: 5px 2px 5px 0;
+    border-width: 0;
+    color: black;
+    background: none;
+    font-size: 1.1875rem;
+    line-height: 1.3157894737;
+}
+
+.govuk-accordion__show-all {
+    float: right;
+    top:-5px;
+}
+
+.govuk-accordion__section-heading-top {
+    margin-top: 19px;
+}
+
+// Summary list
+
+.govuk-summary-list__value--overflow {
+    overflow-wrap: normal;
+}
+
+.govuk-summary-list__value--vin {
+    padding-right: 0px;
+}
+
+.govuk-summary-list__value--vrm {
+    padding-right: 0px;
+    overflow: visible;
+    white-space: nowrap;
+}
+
+.govuk-button-group-record {
+    float: right;
+    padding-top: 25px;
+}
