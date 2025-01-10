@@ -1,0 +1,159 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Vehicle Testing Management – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+
+{% block beforeContent %}
+{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+
+{{ govukPhaseBanner({
+  tag: {
+    text: "Beta"
+  },
+  html: 'This is a new service. Help us improve it and <a class="govuk-link" href="#">give your feedback (opens in new tab)</a>.'
+}) }}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">
+        Search for a technical record
+      </h1>
+
+      <form class="form" action="new-record-details" method="post">
+
+
+        <!--<div class="govuk-form-group">
+          <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+              <h2 class="govuk-fieldset__heading">
+                What are you searching for?
+              </h2>
+            </legend>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="whereDoYouLive-3" name="whereDoYouLive" type="radio" value="wales">
+              <label class="govuk-label govuk-radios__label" for="whereDoYouLive-3">
+                All filters
+              </label>
+            </div>
+            <div class="govuk-radios" data-module="govuk-radios">
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="whereDoYouLive" name="whereDoYouLive" type="radio" value="england">
+                <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
+                  Vehicle Registration Mark (VRM)
+                </label>
+              </div>
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio" value="scotland">
+                <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
+                  Vehicle Identification Number (VIN)
+                </label>
+              </div>
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="whereDoYouLive-3" name="whereDoYouLive" type="radio" value="wales">
+                <label class="govuk-label govuk-radios__label" for="whereDoYouLive-3">
+                  Partial VIN
+                </label>
+              </div>
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="whereDoYouLive-3" name="whereDoYouLive" type="radio" value="wales">
+                <label class="govuk-label govuk-radios__label" for="whereDoYouLive-3">
+                  Trailer ID
+                </label>
+              </div>
+            </div>
+          </fieldset>
+        </div>-->
+
+        <div class="govuk-form-group">
+          <h2 class="govuk-label-wrapper">
+            <label class="govuk-label govuk-label--m" for="account-number">
+              Enter a VIN, VRM or Trailer ID
+            </label>
+          </h2>
+          <input class="govuk-input govuk-input--width-20" id="width-20" name="width20" type="text">
+        </div>
+
+        <!-- <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+          Filter
+        </button> -->
+
+
+        <details class="govuk-details">
+          <summary class="govuk-details__summary">
+            <span class="govuk-details__summary-text">
+              Filter your search
+            </span>
+          </summary>
+          <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset">
+              <div class="govuk-radios govuk-radios--small" data-module="govuk-radios">
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="whereDoYouLive-3" name="whereDoYouLive" type="radio" value="wales">
+                <label class="govuk-label govuk-radios__label" for="whereDoYouLive-3">
+                  Vehicle Registration Mark (VRM), Vehicle Identification Number (VIN) or Trailer ID
+                </label>
+              </div>
+              <div class="govuk-radios" data-module="govuk-radios">
+                <div class="govuk-radios__item">
+                  <input class="govuk-radios__input" id="whereDoYouLive" name="whereDoYouLive" type="radio" value="england">
+                  <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
+                    Vehicle Registration Mark (VRM)
+                  </label>
+                </div>
+                <div class="govuk-radios__item">
+                  <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio" value="scotland">
+                  <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
+                    Vehicle Identification Number (VIN)
+                  </label>
+                </div>
+                <div class="govuk-radios__item">
+                  <input class="govuk-radios__input" id="whereDoYouLive-3" name="whereDoYouLive" type="radio" value="wales">
+                  <label class="govuk-label govuk-radios__label" for="whereDoYouLive-3">
+                    Partial VIN
+                  </label>
+                </div>
+                <div class="govuk-radios__item">
+                  <input class="govuk-radios__input" id="whereDoYouLive-3" name="whereDoYouLive" type="radio" value="wales">
+                  <label class="govuk-label govuk-radios__label" for="whereDoYouLive-3">
+                    Trailer ID
+                  </label>
+                </div>
+              </div>
+            </div>
+            </fieldset>
+          </div>
+        </details>
+
+
+
+        <div class="govuk-button-group">
+          {{ govukButton({
+            text: "Search"
+          }) }}
+      
+        </div>
+
+
+      
+
+
+
+
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

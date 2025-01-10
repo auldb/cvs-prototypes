@@ -1,0 +1,284 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Vehicle Testing Management – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+
+{% block beforeContent %}
+{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+
+{{ govukPhaseBanner({
+  tag: {
+    text: "Beta"
+  },
+  html: 'This is a new service. Help us improve it and <a class="govuk-link" href="#">give your feedback (opens in new tab)</a>.'
+}) }}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">
+        Search results
+      </h1>
+
+      <form class="form" action="new-record-details" method="post">
+
+        <div class="govuk-summary-card">
+          <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">
+                Technical record summary
+            </h2>
+            <ul class="govuk-summary-card__actions">
+              <li class="govuk-summary-card__action">
+                <a class="govuk-link" href="create">Select<span class="govuk-visually-hidden"></span></a>
+              </li>
+            </ul>
+          </div>
+          <div class="govuk-summary-card__content">
+            <dl class="govuk-summary-list">
+              <div class="govuk-summary-list__row govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Vehicle type
+                </dt>
+                <dd class="govuk-summary-list__value govuk-summary-list__value--overflow">
+                  HGV
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> age (Lead tenant)</span></a>
+                </dd>
+              </div>
+              <div class="govuk-summary-list__row govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  VIN
+                </dt>
+                <dd class="govuk-summary-list__value govuk-summary-list__value--vin">
+                  00000000000000000
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> nationality (Lead tenant)</span></a>
+                </dd>
+              </div>
+              <div class="govuk-summary-list__row govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  VRM
+                </dt>
+                <dd class="govuk-summary-list__value govuk-summary-list__value--vrm">
+                  <div class="reg-mark-div">
+                    <span class="reg-mark-sm">G854 HGE</span>
+                  </div>
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> working situation (Lead tenant)</span></a>
+                </dd>
+              </div>
+             <!-- <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                <dt class="govuk-summary-list__key">
+                  Previous VRM
+                </dt>
+                <dd class="govuk-summary-list__value govuk-summary-list__value--overflow">
+                  
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> working situation (Lead tenant)</span></a>
+                </dd>
+              </div>-->
+              <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                <dt class="govuk-summary-list__key">
+                  Make
+                </dt>
+                <dd class="govuk-summary-list__value govuk-summary-list__value--overflow">
+                  
+                </dd>
+                <!--<dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> working situation (Lead tenant)</span></a>
+                </dd>-->
+              </div>
+              <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                <dt class="govuk-summary-list__key">
+                  Model
+                </dt>
+                <dd class="govuk-summary-list__value govuk-summary-list__value--overflow">
+                  
+                </dd>
+                <!--<dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> working situation (Lead tenant)</span></a>
+                </dd>-->
+              </div>
+              <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                <dt class="govuk-summary-list__key">
+                  Year of manufacture
+                </dt>
+                <dd class="govuk-summary-list__value govuk-summary-list__value--overflow">
+                  2024
+                </dd>
+                <!--<dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> working situation (Lead tenant)</span></a>
+                </dd>-->
+              </div>
+              <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                <dt class="govuk-summary-list__key">
+                  Record type
+                </dt>
+                <dd class="govuk-summary-list__value govuk-summary-list__value--overflow">
+                  <strong class="govuk-tag govuk-tag--grey">
+                    Provisional
+                  </strong>
+                </dd>
+                <!--<dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> working situation (Lead tenant)</span></a>
+                </dd>-->
+              </div>
+              <div class="govuk-summary-list__row govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Email address
+                </dt>
+                <dd class="govuk-summary-list__value govuk-summary-list__value--overflow">
+                  test@email.com
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> working situation (Lead tenant)</span></a>
+                </dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+
+        <div class="govuk-summary-card">
+          <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">
+                Technical record summary
+            </h2>
+            <ul class="govuk-summary-card__actions">
+              <li class="govuk-summary-card__action">
+                <a class="govuk-link" href="create">Select<span class="govuk-visually-hidden"></span></a>
+              </li>
+            </ul>
+          </div>
+          <div class="govuk-summary-card__content">
+            <dl class="govuk-summary-list">
+              <div class="govuk-summary-list__row govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Vehicle type
+                </dt>
+                <dd class="govuk-summary-list__value govuk-summary-list__value--overflow">
+                  HGV
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> age (Lead tenant)</span></a>
+                </dd>
+              </div>
+              <div class="govuk-summary-list__row govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  VIN
+                </dt>
+                <dd class="govuk-summary-list__value govuk-summary-list__value--vin">
+                  00000000000000000
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> nationality (Lead tenant)</span></a>
+                </dd>
+              </div>
+              <div class="govuk-summary-list__row govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  VRM
+                </dt>
+                <dd class="govuk-summary-list__value govuk-summary-list__value--vrm">
+                  <div class="reg-mark-div">
+                    <span class="reg-mark-sm">G854 HGE</span>
+                  </div>
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> working situation (Lead tenant)</span></a>
+                </dd>
+              </div>
+             <!-- <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                <dt class="govuk-summary-list__key">
+                  Previous VRM
+                </dt>
+                <dd class="govuk-summary-list__value govuk-summary-list__value--overflow">
+                  
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> working situation (Lead tenant)</span></a>
+                </dd>
+              </div>-->
+              <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                <dt class="govuk-summary-list__key">
+                  Make
+                </dt>
+                <dd class="govuk-summary-list__value govuk-summary-list__value--overflow">
+                  
+                </dd>
+                <!--<dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> working situation (Lead tenant)</span></a>
+                </dd>-->
+              </div>
+              <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                <dt class="govuk-summary-list__key">
+                  Model
+                </dt>
+                <dd class="govuk-summary-list__value govuk-summary-list__value--overflow">
+                  
+                </dd>
+                <!--<dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> working situation (Lead tenant)</span></a>
+                </dd>-->
+              </div>
+              <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                <dt class="govuk-summary-list__key">
+                  Year of manufacture
+                </dt>
+                <dd class="govuk-summary-list__value govuk-summary-list__value--overflow">
+                  2024
+                </dd>
+                <!--<dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> working situation (Lead tenant)</span></a>
+                </dd>-->
+              </div>
+              <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                <dt class="govuk-summary-list__key">
+                  Record type
+                </dt>
+                <dd class="govuk-summary-list__value govuk-summary-list__value--overflow">
+                  <strong class="govuk-tag govuk-tag--blue">
+                    Current
+                  </strong>
+                </dd>
+                <!--<dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> working situation (Lead tenant)</span></a>
+                </dd>-->
+              </div>
+              <div class="govuk-summary-list__row govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Email address
+                </dt>
+                <dd class="govuk-summary-list__value govuk-summary-list__value--overflow">
+                  test@email.com
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> working situation (Lead tenant)</span></a>
+                </dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </div>
+
+      </div>
+
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}
