@@ -199,7 +199,6 @@
 }
 
 .govuk-button-group-record {
-    float: right;
     padding-top: 25px;
 }
 
@@ -227,4 +226,12 @@
 .govuk-select--tyres {
     min-width: 3em;
     width: 3.75em;
+}
+
+.govuk-summary-list__key-vtm {
+    width: 40%;
+}
+
+.govuk-summary-list__value-vtm {
+    float:right;
 }

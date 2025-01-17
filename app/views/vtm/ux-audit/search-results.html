@@ -39,12 +39,25 @@
        <!--<div id="event-name-hint" class="govuk-hint">
           Search by VIN, VRM or Trailer ID
         </div>-->
-        <input class="govuk-input govuk-input--width-full" id="width-20" name="width20" type="text">
+        <input class="govuk-input govuk-input--width-full" id="width-20" name="width20" type="text" value="WBABW33426PX70804">
       </div>
 
       <!-- <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">
         Filter
       </button> -->
+
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset">
+          <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="organisation" name="organisation" type="checkbox" value="hmrc">
+              <label class="govuk-label govuk-checkboxes__label" for="organisation">
+                Show archived records
+              </label>
+            </div>
+          </div>
+        </fieldset>
+      </div>
 
     <div class="govuk-search-results">
      <!-- <details class="govuk-details">
@@ -93,6 +106,7 @@
         </div>
       </details>-->
 
+
       <div class="govuk-button-group">
         {{ govukButton({
           text: "Search"
@@ -124,29 +138,23 @@
           </div>
           <div class="govuk-summary-card__content">
             <dl class="govuk-summary-list">
-              <div class="govuk-summary-list__row govuk-summary-list__row">
+              <div class="govuk-summary-list__row govuk-summary-list__row govuk-summary-list__row--no-actions">
                 <dt class="govuk-summary-list__key">
                   Vehicle type
                 </dt>
                 <dd class="govuk-summary-list__value govuk-summary-list__value--overflow">
                   HGV
                 </dd>
-                <dd class="govuk-summary-list__actions">
-                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> age (Lead tenant)</span></a>
-                </dd>
               </div>
-              <div class="govuk-summary-list__row govuk-summary-list__row">
+              <div class="govuk-summary-list__row govuk-summary-list__row govuk-summary-list__row--no-actions">
                 <dt class="govuk-summary-list__key">
                   VIN
                 </dt>
                 <dd class="govuk-summary-list__value govuk-summary-list__value--vin">
-                  00000000000000000
-                </dd>
-                <dd class="govuk-summary-list__actions">
-                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> nationality (Lead tenant)</span></a>
+                  WBABW33426PX70804
                 </dd>
               </div>
-              <div class="govuk-summary-list__row govuk-summary-list__row">
+              <div class="govuk-summary-list__row govuk-summary-list__row govuk-summary-list__row--no-actions">
                 <dt class="govuk-summary-list__key">
                   VRM
                 </dt>
@@ -154,9 +162,6 @@
                   <div class="reg-mark-div">
                     <span class="reg-mark-sm">GE61 VEH</span>
                   </div>
-                </dd>
-                <dd class="govuk-summary-list__actions">
-                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> working situation (Lead tenant)</span></a>
                 </dd>
               </div>
              <!-- <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
@@ -208,23 +213,31 @@
                   Record type
                 </dt>
                 <dd class="govuk-summary-list__value govuk-summary-list__value--overflow">
-                  <strong class="govuk-tag govuk-tag--orange">
-                    Provisional
+                  <strong class="govuk-tag govuk-tag--turquoise">
+                    Current
                   </strong>
                 </dd>
                 <!--<dd class="govuk-summary-list__actions">
                   <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> working situation (Lead tenant)</span></a>
                 </dd>-->
               </div>
-              <div class="govuk-summary-list__row govuk-summary-list__row">
+              <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                <dt class="govuk-summary-list__key">
+                  Plate issued
+                </dt>
+                <dd class="govuk-summary-list__value govuk-summary-list__value--overflow">
+                    Yes
+                </dd>
+                <!--<dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> working situation (Lead tenant)</span></a>
+                </dd>-->
+              </div>
+              <div class="govuk-summary-list__row govuk-summary-list__row govuk-summary-list__row--no-actions">
                 <dt class="govuk-summary-list__key">
                   Email address
                 </dt>
                 <dd class="govuk-summary-list__value govuk-summary-list__value--overflow">
                   user@email.com
-                </dd>
-                <dd class="govuk-summary-list__actions">
-                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> working situation (Lead tenant)</span></a>
                 </dd>
               </div>
             </dl>
@@ -244,29 +257,23 @@
           </div>
           <div class="govuk-summary-card__content">
             <dl class="govuk-summary-list">
-              <div class="govuk-summary-list__row govuk-summary-list__row">
+              <div class="govuk-summary-list__row govuk-summary-list__row govuk-summary-list__row--no-actions">
                 <dt class="govuk-summary-list__key">
                   Vehicle type
                 </dt>
                 <dd class="govuk-summary-list__value govuk-summary-list__value--overflow">
                   HGV
                 </dd>
-                <dd class="govuk-summary-list__actions">
-                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> age (Lead tenant)</span></a>
-                </dd>
               </div>
-              <div class="govuk-summary-list__row govuk-summary-list__row">
+              <div class="govuk-summary-list__row govuk-summary-list__row govuk-summary-list__row--no-actions">
                 <dt class="govuk-summary-list__key">
                   VIN
                 </dt>
                 <dd class="govuk-summary-list__value govuk-summary-list__value--vin">
                   00000000000000000
                 </dd>
-                <dd class="govuk-summary-list__actions">
-                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> nationality (Lead tenant)</span></a>
-                </dd>
               </div>
-              <div class="govuk-summary-list__row govuk-summary-list__row">
+              <div class="govuk-summary-list__row govuk-summary-list__row govuk-summary-list__row--no-actions">
                 <dt class="govuk-summary-list__key">
                   VRM
                 </dt>
@@ -274,9 +281,6 @@
                   <div class="reg-mark-div">
                     <span class="reg-mark-sm">AU63 PLE</span>
                   </div>
-                </dd>
-                <dd class="govuk-summary-list__actions">
-                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> working situation (Lead tenant)</span></a>
                 </dd>
               </div>
              <!-- <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
@@ -328,23 +332,31 @@
                   Record type
                 </dt>
                 <dd class="govuk-summary-list__value govuk-summary-list__value--overflow">
-                  <strong class="govuk-tag govuk-tag--turquoise">
-                    Current
+                  <strong class="govuk-tag govuk-tag--orange">
+                    Provisional
                   </strong>
                 </dd>
                 <!--<dd class="govuk-summary-list__actions">
                   <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> working situation (Lead tenant)</span></a>
                 </dd>-->
               </div>
-              <div class="govuk-summary-list__row govuk-summary-list__row">
+              <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
+                <dt class="govuk-summary-list__key">
+                  Plate issued
+                </dt>
+                <dd class="govuk-summary-list__value govuk-summary-list__value--overflow">
+                    Yes
+                </dd>
+                <!--<dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> working situation (Lead tenant)</span></a>
+                </dd>-->
+              </div>
+              <div class="govuk-summary-list__row govuk-summary-list__row govuk-summary-list__row--no-actions">
                 <dt class="govuk-summary-list__key">
                   Email address
                 </dt>
                 <dd class="govuk-summary-list__value govuk-summary-list__value--overflow">
                   user@email.com
-                </dd>
-                <dd class="govuk-summary-list__actions">
-                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> working situation (Lead tenant)</span></a>
                 </dd>
               </div>
             </dl>
