@@ -32,7 +32,7 @@
     <div class="govuk-summary-card">
       <div class="govuk-summary-card__title-wrapper">
         <h2 class="govuk-summary-card__title">
-          Summary
+         Summary
         </h2>
         <ul class="govuk-summary-card__actions">
           <li class="govuk-summary-card__action">
@@ -122,20 +122,22 @@
     <form class="form" action="tech-record" method="post">
 
       <div class="govuk-accordion govuk-accordion--vtm" data-module="govuk-accordion" id="accordion-with-summary-sections">
-        <h2 class="govuk-accordion__section-heading govuk-accordion__section-heading-top">
+        
+        <h2 class="govuk-accordion__section-heading-top">
           <span class="govuk-accordion-heading-vtm">
             Technical record
           </span>
         </h2>
+
         <div class="govuk-accordion__section">
           <div class="govuk-accordion__section-header">
             <h2 class="govuk-accordion__section-heading">
-              <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm" id="accordion-with-summary-sections-heading-1">
+              <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm-top govuk-accordion__section-button-vtm" id="accordion-with-summary-sections-heading-1">
                 Main characteristics
               </span>
             </h2>
             <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-1">
-              Date of registration, EU category, number of axles.
+              Date of registration, EU category, approval type.
             </div>
           </div>
           <div id="accordion-with-summary-sections-content-1" class="govuk-accordion__section-content">
@@ -191,6 +193,76 @@
                       </div>
                     </fieldset>
                     </div>
+
+                    <div class="govuk-form-group">
+                      <label class="govuk-label" for="phone-number">
+                        <strong>
+                        DTp number
+                      </strong>
+                      </label>
+                      <input class="govuk-input govuk-input--width-10" id="phone-number" name="phoneNumber" type="tel" autocomplete="tel">
+                    </div>
+
+                    <div class="govuk-form-group">
+                      <label class="govuk-label" for="sort">
+                        <strong>
+                        Body make
+                      </strong>
+                      </label>
+                      <select class="govuk-select" id="sort" name="sort">
+                        <option value="published" selected>Select body make</option>
+                        <option value="updated">AEC</option>
+                        <option value="views">AL-KO KOBER LTD</option>
+                        <option value="views">ALBION</option>
+                        <option value="views">AMERICAN LE FRANCE</option>
+                        <option value="views">ATKINSON</option>
+                      </select>
+                    </div>
+
+                    <div class="govuk-form-group">
+                      <label class="govuk-label" for="phone-number">
+                        <strong>
+                        Body model
+                      </strong>
+                      </label>
+                      <input class="govuk-input govuk-input--width-10" id="phone-number" name="phoneNumber" type="tel" autocomplete="tel">
+                    </div>
+
+                    <div class="govuk-form-group">
+                      <label class="govuk-label" for="sort">
+                        <strong>
+                        Body type
+                      </strong>
+                      </label>
+                      <select class="govuk-select" id="sort" name="sort">
+                        <option value="published" selected>Select body type</option>
+                        <option value="updated">NTA</option>
+                        <option value="views">ECTA</option>
+                        <option value="views">IVA</option>
+                      </select>
+                    </div>
+
+                    <div class="govuk-date-input__item">
+                      <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                          <strong>Function code</strong>
+                        </label>
+                          <select class="govuk-select" id="sort" name="sort">
+                            <option value="published" selected>Select function code</option>
+                            <option value="published">R</option>
+                            <option value="updated">A</option>
+                          </select>
+                      </div>
+                    </div>
+
+                    <div class="govuk-form-group">
+                      <label class="govuk-label" for="phone-number">
+                        <strong>
+                        Conversion reference number
+                      </strong>
+                      </label>
+                      <input class="govuk-input govuk-input--width-10" id="phone-number" name="phoneNumber" type="tel" autocomplete="tel">
+                    </div>
                   
                     <div class="govuk-form-group">
                       <fieldset class="govuk-fieldset">
@@ -220,6 +292,56 @@
                           </div>
                         </div>
                       </fieldset>
+                    </div>
+
+                    <div class="govuk-form-group">
+                      <label class="govuk-label" for="sort">
+                        <strong>
+                        Approval type
+                      </strong>
+                      </label>
+                      <select class="govuk-select" id="sort" name="sort">
+                        <option value="published" selected>Select approval type</option>
+                        <option value="updated">NTA</option>
+                        <option value="views">ECTA</option>
+                        <option value="views">IVA</option>
+                      </select>
+                    </div>
+
+                    <div class="govuk-form-group">
+                      <label class="govuk-label" for="phone-number">
+                        <strong>
+                        Approval type number
+                      </strong>
+                      </label>
+                      <input class="govuk-input govuk-input--width-20" id="phone-number" name="phoneNumber" type="tel" autocomplete="tel">
+                    </div>
+
+                    <div class="govuk-form-group">
+                      <label class="govuk-label" for="phone-number">
+                        <strong>
+                        National type number
+                      </strong>
+                      </label>
+                      <input class="govuk-input govuk-input--width-20" id="phone-number" name="phoneNumber" type="tel" autocomplete="tel">
+                    </div>
+
+                    <div class="govuk-form-group">
+                      <label class="govuk-label" for="phone-number">
+                        <strong>
+                        Variant number
+                      </strong>
+                      </label>
+                      <input class="govuk-input govuk-input--width-20" id="phone-number" name="phoneNumber" type="tel" autocomplete="tel">
+                    </div>
+
+                    <div class="govuk-form-group">
+                      <label class="govuk-label" for="phone-number">
+                        <strong>
+                        Variant version number
+                      </strong>
+                      </label>
+                      <input class="govuk-input govuk-input--width-20" id="phone-number" name="phoneNumber" type="tel" autocomplete="tel">
                     </div>
 
                     <div class="govuk-form-group">
@@ -670,16 +792,102 @@
           <div class="govuk-accordion__section-header">
             <h2 class="govuk-accordion__section-heading">
               <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm" id="accordion-with-summary-sections-heading-2">
-                Engine and suspension
+                Vehicle configuration and suspension
               </span>
             </h2>
             <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
-              Fuel type, road friendly suspension.
+              Off-road, fuel system, road friendly suspension.
             </div>
           </div>
           <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
             <ul class="govuk-list">
               <li>
+
+
+                <div class="govuk-form-group">
+                  <label class="govuk-label" for="sort">
+                    <strong>
+                    Vehicle configuration
+                  </strong>
+                  </label>
+                  <select class="govuk-select" id="sort" name="sort">
+                    <option value="published" selected>Select configuration</option>
+                    <option value="updated">Rigid</option>
+                    <option value="views">Articulated</option>
+                  </select>
+                </div>
+
+                <div class="govuk-form-group">
+                  <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                      <h1 class="govuk-fieldset__heading">
+                        Off-road vehicle
+                      </h1>
+                    </legend>
+                    <div class="govuk-radios" data-module="govuk-radios">
+                      <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="whereDoYouLive" name="whereDoYouLive" type="radio" value="england">
+                        <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
+                          Yes
+                        </label>
+                      </div>
+                      <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio" value="scotland">
+                        <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
+                          No
+                        </label>
+                      </div>
+                    </div>
+                  </fieldset>
+                </div>
+
+                <div class="govuk-form-group">
+                  <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                      <h1 class="govuk-fieldset__heading">
+                        Departmental vehicle marker
+                      </h1>
+                    </legend>
+                    <div class="govuk-radios" data-module="govuk-radios">
+                      <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="whereDoYouLive" name="whereDoYouLive" type="radio" value="england">
+                        <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
+                          Yes
+                        </label>
+                      </div>
+                      <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio" value="scotland">
+                        <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
+                          No
+                        </label>
+                      </div>
+                    </div>
+                  </fieldset>
+                </div>
+
+                <div class="govuk-form-group">
+                  <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                      <h1 class="govuk-fieldset__heading">
+                        Alteration marker
+                      </h1>
+                    </legend>
+                    <div class="govuk-radios" data-module="govuk-radios">
+                      <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="whereDoYouLive" name="whereDoYouLive" type="radio" value="england">
+                        <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
+                          Yes
+                        </label>
+                      </div>
+                      <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio" value="scotland">
+                        <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
+                          No
+                        </label>
+                      </div>
+                    </div>
+                  </fieldset>
+                </div>
                 
                 <div class="govuk-form-group">
                   <label class="govuk-label" for="location">
@@ -903,7 +1111,7 @@
           <div class="govuk-accordion__section-header">
             <h2 class="govuk-accordion__section-heading">
               <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm" id="accordion-with-summary-sections-heading-2">
-                Bodywork, emissions and speed limiter
+                Emissions and speed limiter
               </span>
             </h2>
             <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
@@ -1041,6 +1249,30 @@
                   </fieldset>
                 </div>
 
+                <div class="govuk-form-group">
+                  <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                      <h1 class="govuk-fieldset__heading">
+                        Tacho exempt
+                      </h1>
+                    </legend>
+                    <div class="govuk-radios" data-module="govuk-radios">
+                      <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="whereDoYouLive" name="whereDoYouLive" type="radio" value="england">
+                        <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
+                          Exempt
+                        </label>
+                      </div>
+                      <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio" value="scotland">
+                        <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
+                          Not exempt
+                        </label>
+                      </div>
+                    </div>
+                  </fieldset>
+                </div>
+
               </li>
             </ul>
           </div>
@@ -1116,18 +1348,6 @@
                                 Postcode
                               </label>
                               <input class="govuk-input govuk-input--width-10" id="address-postcode" name="addressPostcode" type="text" autocomplete="postal-code">
-                            </div>
-                            <div class="govuk-form-group">
-                              <label class="govuk-label" for="address-postcode">
-                                Phone number
-                              </label>
-                              <input class="govuk-input govuk-input--width-10" id="address-postcode" name="addressPostcode" type="text" autocomplete="postal-code">
-                            </div>
-                            <div class="govuk-form-group">
-                              <label class="govuk-label" for="address-postcode">
-                                Email address
-                              </label>
-                              <input class="govuk-input govuk-!-width-two-thirds" id="address-postcode" name="addressPostcode" type="text" autocomplete="postal-code">
                             </div>
                           </fieldset>      
                         </div>
@@ -1373,7 +1593,7 @@
                           </strong>
                           </label>
                           <div id="more-detail-hint" class="govuk-hint">
-                            Will not be present on the ADR certificate
+                            These will not be shown on the ADR certificate
                           </div>
                           <textarea class="govuk-textarea" id="label-as-page-heading" name="labelAsPageHeading" rows="5" aria-describedby="label-as-page-heading-info"></textarea>
                           <div id="label-as-page-heading-info" class="govuk-hint govuk-character-count__message">
@@ -1384,9 +1604,23 @@
                         <div class="govuk-form-group govuk-character-count" data-module="govuk-character-count" data-maxlength="1024">
                           <label class="govuk-label" for="label-as-page-heading">
                             <strong>
+                            Additional examiner notes history
+                          </strong>
+                          </label>
+                        
+                          <p class="govuk-body">No additional examiner notes history available</p>
+                          
+                        </div>
+
+                        <div class="govuk-form-group govuk-character-count" data-module="govuk-character-count" data-maxlength="1024">
+                          <label class="govuk-label" for="label-as-page-heading">
+                            <strong>
                             ADR certificate notes
                           </strong>
                           </label>
+                          <div id="more-detail-hint" class="govuk-hint">
+                            These will be shown on the ADR certificate
+                          </div>
                           <textarea class="govuk-textarea" id="label-as-page-heading" name="labelAsPageHeading" rows="5" aria-describedby="label-as-page-heading-info"></textarea>
                           <div id="label-as-page-heading-info" class="govuk-hint govuk-character-count__message">
                             You have 1500 characters remaining

@@ -22,6 +22,28 @@
 
 {% block content %}
 
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const wasteCheckbox = document.getElementById('waste'); // Get the checkbox
+    const vrmInput = document.getElementById('vrm-input'); // Get the VRM input field
+
+    // Function to toggle visibility of the VRM input
+    function toggleVrmInput() {
+      if (wasteCheckbox.checked) {
+        vrmInput.closest('.govuk-form-group').style.display = 'none'; // Hide the VRM input group
+      } else {
+        vrmInput.closest('.govuk-form-group').style.display = 'block'; // Show the VRM input group
+      }
+    }
+
+    // Listen for changes on the checkbox to trigger the toggle function
+    wasteCheckbox.addEventListener('change', toggleVrmInput);
+
+    // Initial call to set the correct visibility on page load
+    toggleVrmInput();
+  });
+</script>
+
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
@@ -45,7 +67,7 @@
         </div>
 
 
-        <div class="govuk-form-group">
+        <!--<div class="govuk-form-group">
           <fieldset class="govuk-fieldset" aria-describedby="contact-hint">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
               <h2 class="govuk-fieldset__heading">
@@ -75,6 +97,34 @@
               </div>
             </div>
           </fieldset>
+        </div>-->
+
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+              <h1 class="govuk-fieldset__heading">
+                Generate temporary ID
+              </h1>
+            </legend>
+            <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input" id="waste" name="waste" type="checkbox" value="carcasses">
+                <label class="govuk-label govuk-checkboxes__label" for="waste">
+                  Generate a C/T/Z number on submission of the new record
+                </label>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+
+
+        <div class="govuk-form-group" id="vrm-input">
+          <h1 class="govuk-label-wrapper">
+            <label class="govuk-label govuk-label--m" for="account-number">
+              Vehicle Registration Mark (VRM) or Trailer ID
+            </label>
+          </h1>
+          <input class="govuk-input govuk-input--width-20" id="width-20" name="width20" type="text">
         </div>
 
 
@@ -83,7 +133,7 @@
           <fieldset class="govuk-fieldset">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
               <h2 class="govuk-fieldset__heading">
-                What is the vehicle status?
+                Vehicle status
               </h2>
                   </legend>
                   <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
@@ -127,7 +177,7 @@
                 <fieldset class="govuk-fieldset">
                   <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
                     <h2 class="govuk-fieldset__heading">
-                      What is the vehicle type?
+                      Vehicle type
                     </h2>
                   </legend>
                   <div class="govuk-radios" data-module="govuk-radios">
