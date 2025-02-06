@@ -16,7 +16,7 @@
 }) }}
   {{ govukBackLink({
   text: "Back",
-  href: "javascript:window.history.back()"
+  href: "home"
 }) }}
 {% endblock %}
 
@@ -52,7 +52,7 @@
         Create a new technical record
       </h1>
 
-      <form class="form" action="new-record-details" method="post">
+      <form class="form" action="new-record-details-psv" method="post">
 
         <div class="govuk-form-group">
           <h1 class="govuk-label-wrapper">
@@ -63,7 +63,7 @@
           <div id="account-number-hint" class="govuk-hint">
             Must be between 3 and 21 characters
           </div>
-          <input class="govuk-input govuk-input--width-20" id="width-20" name="width20" type="text">
+          <input class="govuk-input govuk-input--width-20" id="width-20" name="width20" type="text" value="WBABW33426PX70804">
         </div>
 
 
@@ -108,7 +108,7 @@
             </legend>
             <div class="govuk-checkboxes" data-module="govuk-checkboxes">
               <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="waste" name="waste" type="checkbox" value="carcasses">
+                <input class="govuk-checkboxes__input" id="waste" name="waste" type="checkbox" value="carcasses" checked>
                 <label class="govuk-label govuk-checkboxes__label" for="waste">
                   Generate a C, T or Z number on submission of the new record
                 </label>
@@ -144,7 +144,7 @@
                       </label>
                     </div>
                     <div class="govuk-radios__item">
-                      <input class="govuk-radios__input" id="changedName-2" name="changedName" type="radio" value="no">
+                      <input class="govuk-radios__input" id="changedName-2" name="changedName" type="radio" value="no" checked>
                       <label class="govuk-label govuk-radios__label" for="changedName-2">
                         Provisional
                       </label>
@@ -206,7 +206,7 @@
                       </label>
                     </div>
                     <div class="govuk-radios__item">
-                      <input class="govuk-radios__input" id="whereDoYouLive-4" name="whereDoYouLive" type="radio" value="northern-ireland">
+                      <input class="govuk-radios__input" id="whereDoYouLive-4" name="whereDoYouLive" type="radio" value="northern-ireland" checked>
                       <label class="govuk-label govuk-radios__label" for="whereDoYouLive-4">
                         Public Service Vehicle (PSV) 
                       </label>
