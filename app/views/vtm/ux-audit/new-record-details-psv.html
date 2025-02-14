@@ -22,120 +22,65 @@ href: "create-psv"
 
 {% block content %}
 
+
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    const axleInput = document.getElementById('number-of-axles');  // Input for "number of axles"
-    const warningDiv = document.querySelector('#tyre-warning'); // Warning div
-
-    // Dimension fields
-    const axleFields = [
-      'axle1to2',
-      'axle2to3',
-      'axle3to4',
-      'axle4to5'
-    ];
-
-    // Weight fields
-    const weightFields = [
-      'weight-axle1',
-      'weight-axle2',
-      'weight-axle3',
-      'weight-axle4',
-      'weight-axle5'
-    ];
-
-    // Brake fields
-    const brakeFields = [
-      'brake-axle1',
-      'brake-axle2',
-      'brake-axle3',
-      'brake-axle4',
-      'brake-axle5'
-    ];
-
-    // Tyre fields
-    const tyreFields = [
-      'tyre-axle1',
-      'tyre-axle2',
-      'tyre-axle3',
-      'tyre-axle4',
-      'tyre-axle5'
-    ];
-
-    const parkingBrakeMessage = document.getElementById('parking-brake-message'); // Get the message element
-
-    // Function to show or hide fields based on number of axles
-    function toggleFields() {
-      const axles = parseInt(axleInput.value.trim(), 10);  // Get value from the number of axles field
-
-      // Show/Hide warning message if no value is entered in the number of axles field
-      if (!axles || axles <= 0) {
-        warningDiv.style.display = 'block';  // Show the warning if no number is entered or the value is less than or equal to 0
+      const axleInput = document.getElementById('number-of-axles');  
+      const warningDiv = document.getElementById('tyre-warning');
+      const parkingBrake = document.getElementById('pb-warning');
+      const weightsWarning = document.getElementById('weights-warning'); 
+  
+      const axleFields = ['axle1to2', 'axle2to3', 'axle3to4', 'axle4to5', 'axle5to6'];
+      const weightFields = ['weight-axle1', 'weight-axle2', 'weight-axle3', 'weight-axle4', 'weight-axle5'];
+      const brakeFields = ['brake-axle1', 'brake-axle2', 'brake-axle3', 'brake-axle4', 'brake-axle5'];
+      const tyreFields = ['tyre-axle1', 'tyre-axle2', 'tyre-axle3', 'tyre-axle4', 'tyre-axle5'];
+  
+      function toggleFields() {
+      const axlesValue = axleInput.value.trim();
+      const axles = axlesValue === '' ? 0 : parseInt(axlesValue, 10);
+  
+      if (axles <= 0) { 
+          warningDiv.style.display = 'block';
+          parkingBrake.style.display = 'block';
+          weightsWarning.style.display = 'block';
       } else {
-        warningDiv.style.display = 'none';   // Hide the warning when a valid number is entered
+          warningDiv.style.display = 'none';
+          parkingBrake.style.display = 'none';
+          weightsWarning.style.display = 'none';
       }
-
-      // Show/Hide parking brake message based on the input
-      if (axles && axles > 0) {
-        parkingBrakeMessage.style.display = 'none';  // Hide the message when a number is entered
-      } else {
-        parkingBrakeMessage.style.display = 'block';  // Show the message if no number is entered
+  
+          // Ensure axle-related fields are shown/hidden correctly
+          axleFields.forEach((field, index) => {
+              const axleField = document.getElementById(field);
+              if (axleField) axleField.style.display = axles > index ? 'block' : 'none';
+          });
+  
+          weightFields.forEach((field, index) => {
+              const weightField = document.getElementById(field);
+              if (weightField) weightField.style.display = axles > index ? 'block' : 'none';
+          });
+  
+          brakeFields.forEach((field, index) => {
+              const brakeField = document.getElementById(field);
+              if (brakeField) brakeField.style.display = axles > index ? 'block' : 'none';
+          });
+  
+          tyreFields.forEach((field, index) => {
+              const tyreField = document.getElementById(field);
+              if (tyreField) tyreField.style.display = axles > index ? 'block' : 'none';
+          });
       }
-
-      // Loop through the axle fields and show/hide based on number of axles
-      axleFields.forEach((field, index) => {
-        const axleField = document.getElementById(field);
-        if (axles >= index + 1) {
-          axleField.style.display = 'block';  // Show if axle number is >= index + 1
-        } else {
-          axleField.style.display = 'none';   // Hide if axle number is < index + 1
-        }
-      });
-
-      // Loop through the weight fields and show/hide based on number of axles
-      weightFields.forEach((field, index) => {
-        const weightField = document.getElementById(field);
-        if (axles >= index + 1) {
-          weightField.style.display = 'block';  // Show if axle number is >= index + 1
-        } else {
-          weightField.style.display = 'none';   // Hide if axle number is < index + 1
-        }
-      });
-
-      // Loop through the brake fields and show/hide based on number of axles
-      brakeFields.forEach((field, index) => {
-        const brakeField = document.getElementById(field);
-        if (axles >= index + 1) {
-          brakeField.style.display = 'block';  // Show if axle number is >= index + 1
-        } else {
-          brakeField.style.display = 'none';   // Hide if axle number is < index + 1
-        }
-      });
-
-      // Loop through the tyre fields and show/hide based on number of axles
-      tyreFields.forEach((field, index) => {
-        const tyreField = document.getElementById(field);
-        if (axles >= index + 1) {
-          tyreField.style.display = 'block';  // Show if axle number is >= index + 1
-        } else {
-          tyreField.style.display = 'none';   // Hide if axle number is < index + 1
-        }
-      });
-    }
-
-    // Add event listener to trigger the function on input change
-    axleInput.addEventListener('input', toggleFields);
-
-    // Call the function on page load to ensure the correct state
-    toggleFields();
+  
+      // Attach event listeners
+      axleInput.addEventListener('input', toggleFields);
+      axleInput.addEventListener('change', toggleFields);
+      axleInput.addEventListener('blur', toggleFields);
+  
+      // Ensure the fix runs AFTER other scripts have executed
+      setTimeout(toggleFields, 100);
   });
-</script>
-
-
-
-
-
-
+  
+  </script>
 
 <div class="govuk-width-container">
 
@@ -169,7 +114,7 @@ href: "create-psv"
         <div class="govuk-summary-card__content">
           <dl class="govuk-summary-list govuk-summary-list--no-border">
             <div class="govuk-summary-list__row">
-              <dt class="govuk-summary-list__key">
+              <dt class="govuk-summary-list__key govuk-summary-list__key-tech">
                 Vehicle type
               </dt>
             </div>
@@ -179,7 +124,7 @@ href: "create-psv"
               </dd>
             </div>
             <div class="govuk-summary-list__row">
-              <dt class="govuk-summary-list__key">
+              <dt class="govuk-summary-list__key govuk-summary-list__key-tech">
                 VIN
               </dt>
             </div>
@@ -189,7 +134,7 @@ href: "create-psv"
               </dd>
             </div>
             <div class="govuk-summary-list__row">
-              <dt class="govuk-summary-list__key">
+              <dt class="govuk-summary-list__key govuk-summary-list__key-tech">
                 VRM
               </dt>
             </div>
@@ -203,7 +148,7 @@ href: "create-psv"
 
             </div>
             <div class="govuk-summary-list__row">
-              <dt class="govuk-summary-list__key">
+              <dt class="govuk-summary-list__key govuk-summary-list__key-tech">
                 Previous VRM
               </dt>
             </div>
@@ -217,7 +162,7 @@ href: "create-psv"
 
             </div>
             <div class="govuk-summary-list__row">
-              <dt class="govuk-summary-list__key">
+              <dt class="govuk-summary-list__key govuk-summary-list__key-tech">
                 Record type
               </dt>
             </div>
@@ -230,7 +175,7 @@ href: "create-psv"
 
             </div>
             <div class="govuk-summary-list__row">
-              <dt class="govuk-summary-list__key">
+              <dt class="govuk-summary-list__key govuk-summary-list__key-tech">
                 Record status
               </dt>
             </div>
@@ -243,7 +188,7 @@ href: "create-psv"
 
             </div>
             <div class="govuk-summary-list__row">
-              <dt class="govuk-summary-list__key">
+              <dt class="govuk-summary-list__key govuk-summary-list__key-tech">
                 Visibility in VTA
               </dt>
             </div>
@@ -367,6 +312,19 @@ href: "create-psv"
                   </div>
 
                   <div class="govuk-form-group">
+                    <label class="govuk-label" for="sort">
+                      <strong>
+                        Vehicle configuration
+                      </strong>
+                    </label>
+                    <select class="govuk-select" id="sort" name="sort">
+                      <option value="published" selected>Select configuration</option>
+                      <option value="updated">Rigid</option>
+                      <option value="views">Articulated</option>
+                    </select>
+                  </div>
+
+                  <div class="govuk-form-group">
                     <label class="govuk-label" for="phone-number">
                       <strong>
                         Chassis make
@@ -478,6 +436,23 @@ href: "create-psv"
                             M3
                           </label>
                         </div>
+                      </div>
+                    </fieldset>
+                  </div>
+
+                  <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
+                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                        <h1 class="govuk-fieldset__heading">
+                          Number of axles
+                        </h1>
+                      </legend>
+                      <div id="event-name-hint" class="govuk-hint">
+                        This will affect how many axle-related fields appear in the record
+                      </div>
+                      <div class="govuk-input__wrapper">
+                        <input class="govuk-input govuk-input--width-2" id="number-of-axles" name="number-of-axles"
+                          type="text" inputmode="numeric">
                       </div>
                     </fieldset>
                   </div>
@@ -635,11 +610,11 @@ href: "create-psv"
                 <span
                   class="govuk-accordion__section-button govuk-accordion__section-button-vtm govuk-accordion__section-heading-vtm"
                   id="accordion-with-summary-sections-heading-2">
-                  Axles and dimensions
+                  Dimensions
                 </span>
               </h2>
               <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
-                Axles, axle distance, vehicle dimensions.
+                Axle distance, vehicle dimensions.
               </div>
               <div class="govuk-accordion__section-summary-padding"></div>
             </div>
@@ -650,20 +625,16 @@ href: "create-psv"
                 <li>
 
                   <div class="govuk-form-group">
-                    <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
-                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-                        <h1 class="govuk-fieldset__heading">
-                          Number of axles
-                        </h1>
-                      </legend>
-                      <div id="event-name-hint" class="govuk-hint">
-                        This will affect how many axle-related fields appear in the record
-                      </div>
-                      <div class="govuk-input__wrapper">
-                        <input class="govuk-input govuk-input--width-2" id="number-of-axles" name="number-of-axles"
-                          type="text" inputmode="numeric">
-                      </div>
-                    </fieldset>
+                    <h1 class="govuk-label-wrapper">
+                      <label class="govuk-label govuk-label--s" for="weight">
+                        Front axle to rear axle
+                      </label>
+                    </h1>
+                    <div class="govuk-input__wrapper">
+                      <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
+                        spellcheck="false">
+                      <div class="govuk-input__suffix" aria-hidden="true">mm</div>
+                    </div>
                   </div>
 
                   <div class="govuk-form-group" id="axle1to2" style="display: none;">
@@ -734,19 +705,6 @@ href: "create-psv"
                   <div class="govuk-form-group">
                     <h1 class="govuk-label-wrapper">
                       <label class="govuk-label govuk-label--s" for="weight">
-                        Height
-                      </label>
-                    </h1>
-                    <div class="govuk-input__wrapper">
-                      <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
-                        spellcheck="false">
-                      <div class="govuk-input__suffix" aria-hidden="true">mm</div>
-                    </div>
-                  </div>
-
-                  <div class="govuk-form-group">
-                    <h1 class="govuk-label-wrapper">
-                      <label class="govuk-label govuk-label--s" for="weight">
                         Length
                       </label>
                     </h1>
@@ -773,7 +731,7 @@ href: "create-psv"
                   <div class="govuk-form-group">
                     <h1 class="govuk-label-wrapper">
                       <label class="govuk-label govuk-label--s" for="weight">
-                        Front axle to rear axle
+                        Height
                       </label>
                     </h1>
                     <div class="govuk-input__wrapper">
@@ -808,6 +766,23 @@ href: "create-psv"
               </hr>
               <ul class="govuk-list">
                 <li>
+
+                  <div class="govuk-form-group" id="weights-warning" style="display:none;">
+                    <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                        <h1 class="govuk-fieldset__heading">
+                          Axle weight details
+                        </h1>
+                      </legend>
+                      <div class="govuk-warning-text">
+                        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                        <strong class="govuk-warning-text__text">
+                          <span class="govuk-visually-hidden">Warning</span>
+                          Enter the number of axles to be able to add axle weights.
+                        </strong>
+                      </div>
+                      </fieldset>
+                      </div>
 
                   <div class="govuk-form-group" id="weight-axle1" style="display: none;">
                     <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
@@ -1315,13 +1290,13 @@ href: "create-psv"
             </div>
           </div>
 
-          <!--VEHICLE CONFIGURATION-->
+          <!--CONFIGURATION-->
           <div class="govuk-accordion__section govuk-accordion__section-vtm">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
               <h2 class="govuk-accordion__section-heading">
                 <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
                   id="accordion-with-summary-sections-heading-2">
-                  Vehicle configuration
+                  Configuration
                 </span>
               </h2>
               <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
@@ -1334,19 +1309,6 @@ href: "create-psv"
               </hr>
               <ul class="govuk-list">
                 <li>
-
-                  <div class="govuk-form-group">
-                    <label class="govuk-label" for="sort">
-                      <strong>
-                        Vehicle configuration
-                      </strong>
-                    </label>
-                    <select class="govuk-select" id="sort" name="sort">
-                      <option value="published" selected>Select configuration</option>
-                      <option value="updated">Rigid</option>
-                      <option value="views">Articulated</option>
-                    </select>
-                  </div>
 
                   <div class="govuk-form-group">
                     <fieldset class="govuk-fieldset">
@@ -1492,10 +1454,6 @@ href: "create-psv"
                       </div>
                     </fieldset>
                   </div>
-
-
-
-
 
                 </li>
               </ul>
@@ -2774,21 +2732,22 @@ href: "create-psv"
                     </fieldset>
                   </div>
 
-                  <div class="govuk-form-group">
-                    <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
-                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-                        <h1 class="govuk-fieldset__heading">
-                          Parking brakes
-                        </h1>
-                      </legend>
 
-                        <div class="govuk-warning-text" id="parking-brake-message">
-                          <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-                          <strong class="govuk-warning-text__text">
-                            <span class="govuk-visually-hidden">Warning</span>
-                            Enter the number of axles to be able to add parking brakes.
-                          </strong>
-                        </div>
+                  <div class="govuk-form-group">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                      <h1 class="govuk-fieldset__heading">
+                        Parking brake
+                      </h1>
+                    </legend>
+                    <div class="govuk-warning-text" id="pb-warning">
+                      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                      <strong class="govuk-warning-text__text">
+                        <span class="govuk-visually-hidden">Warning</span>
+                        Enter the number of axles to be able to add parking brakes.
+                      </strong>
+                    </div>
+                  </div>
+                      
 
 
                       <div class="govuk-checkboxes" data-module="govuk-checkboxes">
@@ -2828,8 +2787,7 @@ href: "create-psv"
                           </label>
                         </div>
                       </div>
-                    </fieldset>
-                  </div>
+
 
                 </li>
               </ul>

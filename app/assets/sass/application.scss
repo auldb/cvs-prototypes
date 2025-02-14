@@ -156,10 +156,10 @@ padding-top: 25px !important;
 
 .govuk-accordion__section-button {
     width: 100%;
-    padding: 20px 0 0;
+    padding: 15px 0 20px !important;
     border: 0;
     border-top: none !important;
-    border-bottom: 10px solid transparent;
+    border-bottom: 0px solid transparent !important;
     color: #0b0c0c;
     background: none;
     text-align: left;
@@ -172,7 +172,7 @@ padding-top: 25px !important;
   padding: 20px 0 0;
   border: 0;
   border-top: none !important;
-  border-bottom: 10px solid transparent;
+  border-bottom: 0px solid transparent;
   color: #0b0c0c;
   background: none;
   text-align: left;
@@ -185,7 +185,7 @@ padding-top: 25px !important;
     margin-bottom: none !important;
     border: 0;
     border-top: none !important;
-    border-bottom: 10px solid transparent;
+    border-bottom: 0px solid transparent;
     color: #0b0c0c;
     background: none;
     text-align: left;
@@ -333,9 +333,9 @@ padding-top: 25px !important;
     width: 2.75em;
 }
 
-.govuk-summary-list__key {
-    width: 48%;
-    padding-bottom: 4px !important;
+.govuk-summary-list__key-tech {
+  width: 48%;
+  padding-bottom: 4px !important;
 }
 
 .govuk-summary-list__key-vtm-small {
@@ -595,3 +595,16 @@ padding-top: 25px !important;
   .govuk-checkboxes__input {
     vertical-align: middle;
   }
+
+  .govuk-date-input__item2 {
+    position: relative;
+    top: 15px !important;
+  }
+
+  .govuk-fieldset__legend2 {
+    margin-bottom: 3px !important;
+  }
+
+.govuk-date-input-brakes {
+margin-top: -10px;
+}
