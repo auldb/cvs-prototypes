@@ -23,8 +23,8 @@ href: "create-psv"
 {% block content %}
 
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-  const axleInput = document.getElementById('number-of-axles');  
+  document.addEventListener('DOMContentLoaded', function () {
+      const axleInput = document.getElementById('number-of-axles');  
       const warningDiv = document.getElementById('tyre-warning');
       const weightsWarning = document.getElementById('weights-warning'); 
   
@@ -69,62 +69,8 @@ document.addEventListener('DOMContentLoaded', function () {
   
       // Ensure the fix runs AFTER other scripts have executed
       setTimeout(toggleFields, 100);
-      
-    const platesFilter = document.getElementById('plates');
-    const requiredFilter = document.getElementById('required');
-
-    if (!platesFilter || !requiredFilter) {
-        console.error("Error: One or both filter buttons were not found in the DOM!");
-        return;
-    }
-
-    const platesText = platesFilter.querySelector('.app-c-filter-summary__remove-filter-text');
-    const requiredText = requiredFilter.querySelector('.app-c-filter-summary__remove-filter-text');
-
-    const untaggedElements = document.querySelectorAll('.untagged');
-    const platesElements = document.querySelectorAll('.plates');
-    const requiredElements = document.querySelectorAll('.required');
-    const optionalElements = document.querySelectorAll('.optional');
-
-    let isPlatesFiltered = false;
-    let isRequiredFiltered = false;
-
-    function applyFilters() {
-        document.querySelectorAll('.untagged, .plates, .required, .optional').forEach(element => {
-            let shouldShow = true;
-
-            if (isPlatesFiltered) {
-                shouldShow = element.classList.contains('plates');
-            }
-
-            if (isRequiredFiltered) {
-                shouldShow = element.classList.contains('required') || (isPlatesFiltered && element.classList.contains('plates'));
-            }
-
-            element.style.display = shouldShow ? '' : 'none';
-        });
-    }
-
-    platesFilter.addEventListener('click', function (event) {
-        event.preventDefault();
-        isPlatesFiltered = !isPlatesFiltered;
-        platesText.innerHTML = isPlatesFiltered ? '× Plates' : 'Plates';
-        platesFilter.classList.toggle('active-filter', isPlatesFiltered);
-        applyFilters();
-        platesFilter.blur();
-    });
-
-    requiredFilter.addEventListener('click', function (event) {
-        event.preventDefault();
-        isRequiredFiltered = !isRequiredFiltered;
-        requiredText.innerHTML = isRequiredFiltered ? '× Required' : 'Required';
-        requiredFilter.classList.toggle('active-filter', isRequiredFiltered);
-        applyFilters();
-        requiredFilter.blur();
-    });
-
-    applyFilters(); // Apply filters on page load to ensure state is correct
-});
+  });
+  
   </script>
 
 
@@ -134,9 +80,9 @@ document.addEventListener('DOMContentLoaded', function () {
     Create a new technical record
   </h1>
 
-  <!-- <div class="govuk-inset-text">
+  <div class="govuk-inset-text">
     Complete all required fields to create a testable record.
-  </div> -->
+  </div>
 
   <div class="govuk-grid-row">
 
@@ -238,7 +184,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 Visibility in VTA
               </dt>
             </div>
-            <div class="govuk-summary-list__row--last">
+            <div class="govuk-summary-list__row--value">
               <dd class="govuk-summary-list__value govuk-summary-list__value--tag">
                 <strong class="govuk-tag govuk-tag--red">
                   Hidden
@@ -246,22 +192,22 @@ document.addEventListener('DOMContentLoaded', function () {
               </dd>
 
             </div>
-            <!--<div class="govuk-summary-list__row">
+            <div class="govuk-summary-list__row">
               <dt class="govuk-summary-list__key govuk-summary-list__key-tech">
                 Filter by
               </dt>
-            </div> -->
-            <!-- <div class="govuk-summary-list__row--last">
+            </div>
+            <div class="govuk-summary-list__row--last">
               <dd class="govuk-summary-list__value govuk-summary-list__value--tag">
-                  <a class="app-c-filter-summary__remove-filter" href="#" id="plates">
-                    <span class="app-c-filter-summary__remove-filter-text">
+                  <a class="app-c-filter-summary__remove-filter app-c-filter-summary__remove-filter--selected" href="new-record-details-hgv.html">
+                    <span class="app-c-filter-summary__remove-filter-text app-c-filter-summary__remove-filter-text--selected">
                       <span class="govuk-visually-hidden">Remove filter</span>
-                      Plates
+                      × Plates
                     </span>
                   </a>
               </dd>
               <dd class="govuk-summary-list__value govuk-summary-list__value--tag">
-                <a class="app-c-filter-summary__remove-filter" href="#" id="required">
+                <a class="app-c-filter-summary__remove-filter" href="">
                   <span class="app-c-filter-summary__remove-filter-text">
                     <span class="govuk-visually-hidden">Remove filter</span>
                     Required
@@ -269,7 +215,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 </a>
               </dd>
 
-            </div> -->
+            </div>
             
             
           </dl>
@@ -289,28 +235,6 @@ document.addEventListener('DOMContentLoaded', function () {
               Technical record
             </span>
           </h2>
-
-          <div class="filter-box">
-            <dt class="govuk-summary-list__key-filter">
-              Filter by
-            </dt>
-            <dd class="govuk-summary-list__value govuk-summary-list__value--filter">
-              <a class="app-c-filter-summary__remove-filter" href="#" id="plates">
-                <span class="app-c-filter-summary__remove-filter-text">
-                  <span class="govuk-visually-hidden">Remove filter</span>
-                  Plates
-                </span>
-              </a>
-          </dd>
-            <dd class="govuk-summary-list__value govuk-summary-list__value--filter">
-              <a class="app-c-filter-summary__remove-filter" href="#" id="required">
-                <span class="app-c-filter-summary__remove-filter-text">
-                  <span class="govuk-visually-hidden">Remove filter</span>
-                  Required
-                </span>
-              </a>
-            </dd>
-          </div>
 
           <!--GENERAL-->
           <div class="govuk-accordion__section govuk-accordion__section-vtm">
@@ -334,7 +258,7 @@ document.addEventListener('DOMContentLoaded', function () {
               <ul class="govuk-list">
                 <li>
 
-                  <div class="govuk-form-group optional plates">
+                  <div class="govuk-form-group">
                     <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
                       <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                         <h1 class="govuk-fieldset__heading">
@@ -373,7 +297,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     </fieldset>
                   </div>
 
-                  <div class="govuk-form-group optional plates">
+                  <div class="govuk-form-group">
                     <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
                       <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                         <h1 class="govuk-fieldset__heading">
@@ -389,7 +313,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     </fieldset>
                   </div>
 
-                  <div class="govuk-form-group optional plates">
+                  <div class="govuk-form-group">
                     <label class="govuk-label" for="phone-number">
                       <strong>
                         DTp number
@@ -399,10 +323,13 @@ document.addEventListener('DOMContentLoaded', function () {
                       autocomplete="tel">
                   </div>
 
-                  <div class="govuk-form-group required plates">
+                  <div class="govuk-form-group">
                     <label class="govuk-label" for="sort">
                       <strong>
                         Vehicle configuration
+                      </strong>
+                      <strong class="govuk-tag govuk-tag-tech-record govuk-tag--red">
+                        Required
                       </strong>
                     </label>
                     <select class="govuk-select" id="sort" name="sort">
@@ -412,7 +339,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     </select>
                   </div>
 
-                  <div class="govuk-form-group optional plates">
+                  <div class="govuk-form-group">
                     <label class="govuk-label" for="phone-number">
                       <strong>
                         Body make
@@ -422,7 +349,7 @@ document.addEventListener('DOMContentLoaded', function () {
                       autocomplete="tel">
                   </div>
 
-                  <div class="govuk-form-group optional plates">
+                  <div class="govuk-form-group">
                     <label class="govuk-label" for="phone-number">
                       <strong>
                         Body model
@@ -432,10 +359,13 @@ document.addEventListener('DOMContentLoaded', function () {
                       autocomplete="tel">
                   </div>
 
-                  <div class="govuk-form-group required untagged">
+                  <div class="govuk-form-group">
                     <label class="govuk-label" for="sort">
                       <strong>
                         Body type
+                      </strong>
+                      <strong class="govuk-tag govuk-tag-tech-record govuk-tag--red">
+                        Required
                       </strong>
                     </label>
                     <select class="govuk-select" id="sort" name="sort">
@@ -459,7 +389,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     </select>
                   </div>
 
-                  <div class="govuk-date-input__item optional plates">
+                  <div class="govuk-date-input__item">
                     <div class="govuk-form-group">
                       <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
                         <strong>Function code</strong>
@@ -472,7 +402,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     </div>
                   </div>
 
-                  <div class="govuk-form-group optional untagged">
+                  <div class="govuk-form-group">
                     <label class="govuk-label" for="phone-number">
                       <strong>
                         Conversion reference number
@@ -482,7 +412,7 @@ document.addEventListener('DOMContentLoaded', function () {
                       autocomplete="tel">
                   </div>
 
-                  <div class="govuk-form-group optional untagged">
+                  <div class="govuk-form-group">
                     <fieldset class="govuk-fieldset">
                       <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                         <h1 class="govuk-fieldset__heading">
@@ -515,11 +445,14 @@ document.addEventListener('DOMContentLoaded', function () {
                     </fieldset>
                   </div>
 
-                  <div class="govuk-form-group required plates">
+                  <div class="govuk-form-group">
                     <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
                       <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                         <h1 class="govuk-fieldset__heading">
                           Number of axles
+                          <strong class="govuk-tag govuk-tag-tech-record govuk-tag--red">
+                            Required
+                          </strong>
                         </h1>
                       </legend>
                       <div id="event-name-hint" class="govuk-hint">
@@ -539,7 +472,7 @@ document.addEventListener('DOMContentLoaded', function () {
           </div>
 
           <!--APPROVAL TYPE-->
-          <div class="govuk-accordion__section govuk-accordion__section-vtm optional plates">
+          <div class="govuk-accordion__section govuk-accordion__section-vtm">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
               <h2 class="govuk-accordion__section-heading">
                 <span
@@ -559,7 +492,7 @@ document.addEventListener('DOMContentLoaded', function () {
               <ul class="govuk-list">
                 <li>
 
-                  <div class="govuk-form-group untagged">
+                  <div class="govuk-form-group">
                     <label class="govuk-label" for="sort">
                       <strong>
                         Approval type
@@ -573,7 +506,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     </select>
                   </div>
 
-                  <div class="govuk-form-group untagged">
+                  <div class="govuk-form-group">
                     <label class="govuk-label" for="phone-number">
                       <strong>
                         Approval type number
@@ -583,7 +516,7 @@ document.addEventListener('DOMContentLoaded', function () {
                       autocomplete="tel">
                   </div>
 
-                  <div class="govuk-form-group untagged">
+                  <div class="govuk-form-group">
                     <label class="govuk-label" for="phone-number">
                       <strong>
                         National type number
@@ -593,7 +526,7 @@ document.addEventListener('DOMContentLoaded', function () {
                       autocomplete="tel">
                   </div>
 
-                  <div class="govuk-form-group plates">
+                  <div class="govuk-form-group">
                     <label class="govuk-label" for="phone-number">
                       <strong>
                         Variant number
@@ -603,7 +536,7 @@ document.addEventListener('DOMContentLoaded', function () {
                       autocomplete="tel">
                   </div>
 
-                  <div class="govuk-form-group untagged">
+                  <div class="govuk-form-group">
                     <label class="govuk-label" for="phone-number">
                       <strong>
                         Variant version number
@@ -620,7 +553,7 @@ document.addEventListener('DOMContentLoaded', function () {
           </div>
 
           <!--AXLES AND DIMENSIONS-->
-          <div class="govuk-accordion__section govuk-accordion__section-vtm optional plates">
+          <div class="govuk-accordion__section govuk-accordion__section-vtm">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
               <h2 class="govuk-accordion__section-heading">
                 <span
@@ -640,7 +573,7 @@ document.addEventListener('DOMContentLoaded', function () {
               <ul class="govuk-list">
                 <li>
 
-                  <div class="govuk-form-group untagged">
+                  <div class="govuk-form-group">
                     <h1 class="govuk-label-wrapper">
                       <label class="govuk-label govuk-label--s" for="weight">
                         Front axle to rear axle
@@ -653,7 +586,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     </div>
                   </div>
 
-                  <div class="govuk-form-group untagged" id="axle1to2" style="display: none;">
+                  <div class="govuk-form-group" id="axle1to2" style="display: none;">
                     <h1 class="govuk-label-wrapper">
                       <label class="govuk-label govuk-label--s" for="weight">
                         Axle 1 to 2
@@ -666,7 +599,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     </div>
                   </div>
 
-                  <div class="govuk-form-group untagged" id="axle2to3" style="display: none;">
+                  <div class="govuk-form-group" id="axle2to3" style="display: none;">
                     <h1 class="govuk-label-wrapper">
                       <label class="govuk-label govuk-label--s" for="weight">
                         Axle 2 to 3
@@ -679,7 +612,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     </div>
                   </div>
 
-                  <div class="govuk-form-group untagged" id="axle3to4" style="display: none;">
+                  <div class="govuk-form-group" id="axle3to4" style="display: none;">
                     <h1 class="govuk-label-wrapper">
                       <label class="govuk-label govuk-label--s" for="weight">
                         Axle 3 to 4
@@ -692,7 +625,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     </div>
                   </div>
 
-                  <div class="govuk-form-group untagged" id="axle4to5" style="display: none;">
+                  <div class="govuk-form-group" id="axle4to5" style="display: none;">
                     <h1 class="govuk-label-wrapper">
                       <label class="govuk-label govuk-label--s" for="weight">
                         Axle 4 to 5
@@ -705,7 +638,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     </div>
                   </div>
 
-                  <div class="govuk-form-group untagged" id="axle5to6" style="display: none;">
+                  <div class="govuk-form-group" id="axle5to6" style="display: none;">
                     <h1 class="govuk-label-wrapper">
                       <label class="govuk-label govuk-label--s" for="weight">
                         Axle 5 to 6
@@ -718,7 +651,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     </div>
                   </div>
 
-                  <div class="govuk-form-group plates">
+                  <div class="govuk-form-group">
                     <h1 class="govuk-label-wrapper">
                       <label class="govuk-label govuk-label--s" for="weight">
                         Length
@@ -731,7 +664,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     </div>
                   </div>
 
-                  <div class="govuk-form-group plates">
+                  <div class="govuk-form-group">
                     <h1 class="govuk-label-wrapper">
                       <label class="govuk-label govuk-label--s" for="weight">
                         Width
@@ -744,7 +677,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     </div>
                   </div>
 
-                  <div class="govuk-form-group untagged">
+                  <div class="govuk-form-group">
                     <h1 class="govuk-label-wrapper">
                       <label class="govuk-label govuk-label--s" for="weight">
                         Height
@@ -757,7 +690,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     </div>
                   </div>
 
-                  <div class="govuk-form-group untagged">
+                  <div class="govuk-form-group">
                     <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
                       <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                         <h1 class="govuk-fieldset__heading">
@@ -794,7 +727,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     </fieldset>
                   </div>
   
-                  <div class="govuk-form-group untagged">
+                  <div class="govuk-form-group">
                     <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
                       <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                         <h1 class="govuk-fieldset__heading">
@@ -838,7 +771,7 @@ document.addEventListener('DOMContentLoaded', function () {
           </div>
 
           <!--WEIGHTS-->
-          <div class="govuk-accordion__section govuk-accordion__section-vtm optional plates">
+          <div class="govuk-accordion__section govuk-accordion__section-vtm">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
               <h2 class="govuk-accordion__section-heading">
                 <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
@@ -857,7 +790,7 @@ document.addEventListener('DOMContentLoaded', function () {
               <ul class="govuk-list">
                 <li>
 
-                  <div class="govuk-form-group plates" id="weights-warning" style="display:none;">
+                  <div class="govuk-form-group" id="weights-warning" style="display:none;">
                     <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
                       <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                         <h1 class="govuk-fieldset__heading">
@@ -874,7 +807,7 @@ document.addEventListener('DOMContentLoaded', function () {
                       </fieldset>
                       </div>
     
-                      <div class="govuk-form-group plates" id="weight-axle1" style="display: none;">
+                      <div class="govuk-form-group" id="weight-axle1" style="display: none;">
                         <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
                           <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                             <h1 class="govuk-fieldset__heading" for="weight-axle1">
@@ -926,7 +859,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         </fieldset>
                       </div>
     
-                      <div class="govuk-form-group plates" id="weight-axle2" style="display: none;">
+                      <div class="govuk-form-group" id="weight-axle2" style="display: none;">
                         <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
                           <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                             <h1 class="govuk-fieldset__heading" for="weight-axle2">
@@ -978,7 +911,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         </fieldset>
                       </div>
     
-                      <div class="govuk-form-group plates" id="weight-axle3" style="display: none;">
+                      <div class="govuk-form-group" id="weight-axle3" style="display: none;">
                         <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
                           <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                             <h1 class="govuk-fieldset__heading" for="weight-axle3">
@@ -1030,7 +963,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         </fieldset>
                       </div>
     
-                      <div class="govuk-form-group plates" id="weight-axle4" style="display: none;">
+                      <div class="govuk-form-group" id="weight-axle4" style="display: none;">
                         <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
                           <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                             <h1 class="govuk-fieldset__heading" for="weight-axle4">
@@ -1082,7 +1015,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         </fieldset>
                       </div>
     
-                      <div class="govuk-form-group plates" id="weight-axle5" style="display: none;">
+                      <div class="govuk-form-group" id="weight-axle5" style="display: none;">
                         <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
                           <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                             <h1 class="govuk-fieldset__heading" for="weight-axle5">
@@ -1186,7 +1119,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         </fieldset>
                       </div>
 
-                  <div class="govuk-form-group plates">
+                  <div class="govuk-form-group">
                     <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
                       <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                         <h1 class="govuk-fieldset__heading">
@@ -1239,7 +1172,7 @@ document.addEventListener('DOMContentLoaded', function () {
                   </div>
 
 
-                  <div class="govuk-form-group plates">
+                  <div class="govuk-form-group">
                     <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
                       <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                         <h1 class="govuk-fieldset__heading">
@@ -1296,8 +1229,8 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>
           </div>
 
-          <!--CONFIGURATION-->
-          <div class="govuk-accordion__section govuk-accordion__section-vtm optional plates">
+          <!--VEHICLE CONFIGURATION-->
+          <div class="govuk-accordion__section govuk-accordion__section-vtm">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
               <h2 class="govuk-accordion__section-heading">
                 <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
@@ -1316,7 +1249,7 @@ document.addEventListener('DOMContentLoaded', function () {
               <ul class="govuk-list">
                 <li>
 
-                  <div class="govuk-form-group untagged">
+                  <div class="govuk-form-group">
                     <fieldset class="govuk-fieldset">
                       <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                         <h1 class="govuk-fieldset__heading">
@@ -1342,7 +1275,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     </fieldset>
                   </div>
 
-                  <div class="govuk-form-group untagged">
+                  <div class="govuk-form-group">
                     <fieldset class="govuk-fieldset">
                       <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                         <h1 class="govuk-fieldset__heading">
@@ -1368,7 +1301,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     </fieldset>
                   </div>
 
-                  <div class="govuk-form-group untagged">
+                  <div class="govuk-form-group">
                     <fieldset class="govuk-fieldset">
                       <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                         <h1 class="govuk-fieldset__heading">
@@ -1394,7 +1327,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     </fieldset>
                   </div>
 
-                  <div class="govuk-form-group untagged">
+                  <div class="govuk-form-group">
                     <label class="govuk-label" for="location">
                       <strong>
                         Fuel system
@@ -1413,7 +1346,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     </select>
                   </div>
 
-                  <div class="govuk-form-group plates">
+                  <div class="govuk-form-group">
                     <fieldset class="govuk-fieldset">
                       <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                         <h1 class="govuk-fieldset__heading">
@@ -1445,7 +1378,7 @@ document.addEventListener('DOMContentLoaded', function () {
           </div>
 
           <!--TYRES-->
-          <div class="govuk-accordion__section govuk-accordion__section-vtm optional plates">
+          <div class="govuk-accordion__section govuk-accordion__section-vtm">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
               <h2 class="govuk-accordion__section-heading">
                 <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
@@ -1462,9 +1395,8 @@ document.addEventListener('DOMContentLoaded', function () {
               <hr class="expanded">
               </hr>
               <ul class="govuk-list">
-              
-                <li>
-                <div id="tyre-warning" class="plates">
+              <li>
+                <div id="tyre-warning">
                   <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                     <h1 class="govuk-fieldset__heading">
                       Tyre details
@@ -1479,7 +1411,7 @@ document.addEventListener('DOMContentLoaded', function () {
                   </div>
                 </div>
 
-                  <div id="tyre-axle1" class="govuk-form-group plates" style="display:none;">
+                  <div id="tyre-axle1" class="govuk-form-group" style="display:none;">
                     <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
                       <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                         <h1 class="govuk-fieldset__heading">
@@ -1552,7 +1484,7 @@ document.addEventListener('DOMContentLoaded', function () {
                   </div>
 
                   
-                  <div id="tyre-axle2" class="govuk-form-group plates" style="display:none;">
+                  <div id="tyre-axle2" class="govuk-form-group" style="display:none;">
                     <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
                       <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                         <h1 class="govuk-fieldset__heading">
@@ -1625,7 +1557,7 @@ document.addEventListener('DOMContentLoaded', function () {
                   </div>
 
                   
-                  <div id="tyre-axle3" class="govuk-form-group plates" style="display:none;">
+                  <div id="tyre-axle3" class="govuk-form-group" style="display:none;">
                     <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
                       <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                         <h1 class="govuk-fieldset__heading">
@@ -1698,7 +1630,7 @@ document.addEventListener('DOMContentLoaded', function () {
                   </div>
 
                   
-                  <div id="tyre-axle4" class="govuk-form-group plates" style="display:none;">
+                  <div id="tyre-axle4" class="govuk-form-group" style="display:none;">
                     <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
                       <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                         <h1 class="govuk-fieldset__heading">
@@ -1770,7 +1702,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     </fieldset>
                   </div>
 
-                  <div id="tyre-axle5" class="govuk-form-group plates" style="display:none;">
+                  <div id="tyre-axle5" class="govuk-form-group" style="display:none;">
                     <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
                       <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                         <h1 class="govuk-fieldset__heading">
@@ -1843,7 +1775,7 @@ document.addEventListener('DOMContentLoaded', function () {
                   </div>
 
 
-                  <div class="govuk-date-input__item plates">
+                  <div class="govuk-date-input__item">
                     <div class="govuk-form-group">
                       <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
                         <strong>Tyre use code</strong>
@@ -1863,7 +1795,7 @@ document.addEventListener('DOMContentLoaded', function () {
           </div>
 
           <!--EMISSIONS AND EXEMPTIONS-->
-          <div class="govuk-accordion__section govuk-accordion__section-vtm optional plates">
+          <div class="govuk-accordion__section govuk-accordion__section-vtm">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
               <h2 class="govuk-accordion__section-heading">
                 <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
@@ -1882,7 +1814,7 @@ document.addEventListener('DOMContentLoaded', function () {
               <ul class="govuk-list">
                 <li>
 
-                 <div class="govuk-form-group untagged">
+                 <div class="govuk-form-group">
                   <fieldset class="govuk-fieldset">
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                       <h1 class="govuk-fieldset__heading">
@@ -1906,7 +1838,7 @@ document.addEventListener('DOMContentLoaded', function () {
                   </fieldset>
                 </div>
 
-                  <div class="govuk-form-group untagged">
+                  <div class="govuk-form-group">
                     <fieldset class="govuk-fieldset">
                       <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                         <h1 class="govuk-fieldset__heading">
@@ -1981,7 +1913,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     </fieldset>
                   </div>
 
-                  <div class="govuk-form-group untagged">
+                  <div class="govuk-form-group">
                     <h1 class="govuk-label-wrapper">
                       <label class="govuk-label govuk-label--s" for="weight">
                         Emission limit (smoke absorption coeffecient)
@@ -1995,7 +1927,7 @@ document.addEventListener('DOMContentLoaded', function () {
                   </div>
 
 
-                  <div class="govuk-form-group plates">
+                  <div class="govuk-form-group">
                     <fieldset class="govuk-fieldset">
                       <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                         <h1 class="govuk-fieldset__heading">
@@ -2021,7 +1953,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     </fieldset>
                   </div>
 
-                  <div class="govuk-form-group untagged">
+                  <div class="govuk-form-group">
                     <fieldset class="govuk-fieldset">
                       <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                         <h1 class="govuk-fieldset__heading">
@@ -2348,7 +2280,7 @@ document.addEventListener('DOMContentLoaded', function () {
           </div> -->
            
           <!-- ADR -->
-          <div class="govuk-accordion__section govuk-accordion__section-vtm untagged">
+          <div class="govuk-accordion__section govuk-accordion__section-vtm">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
               <h2 class="govuk-accordion__section-heading">
                 <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
@@ -2721,7 +2653,7 @@ document.addEventListener('DOMContentLoaded', function () {
           </div>
 
           <!--LAST APPLICANT-->
-          <div class="govuk-accordion__section govuk-accordion__section-vtm untagged">
+          <div class="govuk-accordion__section govuk-accordion__section-vtm">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
               <h2 class="govuk-accordion__section-heading">
                 <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
@@ -2796,7 +2728,7 @@ document.addEventListener('DOMContentLoaded', function () {
           </div>
 
           <!--DOCUMENTS-->
-          <div class="govuk-accordion__section govuk-accordion__section-vtm untagged">
+          <div class="govuk-accordion__section govuk-accordion__section-vtm">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
               <h2 class="govuk-accordion__section-heading">
                 <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
@@ -2881,7 +2813,7 @@ document.addEventListener('DOMContentLoaded', function () {
           </div>
 
           <!--NOTES-->
-          <div class="govuk-accordion__section govuk-accordion__section-vtm untagged">
+          <div class="govuk-accordion__section govuk-accordion__section-vtm">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
               <h2 class="govuk-accordion__section-heading">
                 <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
@@ -2942,11 +2874,14 @@ document.addEventListener('DOMContentLoaded', function () {
               <ul class="govuk-list">
                 <li>
 
-                  <div class="govuk-form-group govuk-character-count required plates" data-module="govuk-character-count"
+                  <div class="govuk-form-group govuk-character-count" data-module="govuk-character-count"
                     data-maxlength="200">
                     <h1 class="govuk-label-wrapper">
                       <label class="govuk-label govuk-label--s" for="event-name">
                         Reason for creation                        
+                        <strong class="govuk-tag govuk-tag-tech-record govuk-tag--red">
+                          Required
+                        </strong>
                       </label>
                     </h1>
                     <label class="govuk-label" for="label-as-page-heading">
