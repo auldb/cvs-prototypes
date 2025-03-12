@@ -14,9 +14,19 @@ text: "Beta"
 html: 'This is a new service. Help us improve it and <a class="govuk-link" href="#">give your feedback (opens in new
   tab)</a>.'
 }) }}
-{{ govukBackLink({
-text: "Back",
-href: "create-psv"
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+
+{{ govukBreadcrumbs({
+  items: [
+    {
+      text: "Home",
+      href: "#"
+    },
+    {
+      text: "View technical record",
+      href: "#"
+    }
+  ]
 }) }}
 {% endblock %}
 
@@ -128,10 +138,23 @@ document.addEventListener('DOMContentLoaded', function () {
   </script>
 
 
-<div class="govuk-width-container">
+<div class="govuk-width-container" id="view-record">
+
+  <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+    <div class="govuk-notification-banner__header">
+      <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+        Success
+      </h2>
+    </div>
+    <div class="govuk-notification-banner__content">
+      <h3 class="govuk-notification-banner__heading">
+        You have created a technical record.
+      </h3>
+    </div>
+  </div>
 
   <h1 class="govuk-heading-l">
-    Create a new technical record
+    View technical record
   </h1>
 
   <!-- <div class="govuk-inset-text">
@@ -148,30 +171,36 @@ document.addEventListener('DOMContentLoaded', function () {
           <h2 class="govuk-summary-card__title govuk-summary-card__title-vtm govuk-heading-l">
             Summary
           </h2>
-          <ul class="govuk-summary-card__actions">
+         <!-- <ul class="govuk-summary-card__actions">
             <li class="govuk-summary-card__action">
               <a class="govuk-link" href="create-psv">Change<span class="govuk-visually-hidden"></span></a>
             </li>
             <li class="govuk-summary-card__action">
               <a class="govuk-link" href="home">Cancel<span class="govuk-visually-hidden"></span></a>
             </li>
-          </ul>
+          </ul> -->
         </div>
         <div class="govuk-summary-card__content">
           <dl class="govuk-summary-list govuk-summary-list--no-border">
             <div class="govuk-summary-list__row">
               <dt class="govuk-summary-list__key govuk-summary-list__key-tech">
                 Vehicle type
+                <div class="summary-link-wrapper">
+                  <a class="govuk-link summary-link" href="">Change</a> 
+                </div>
               </dt>
             </div>
             <div class="govuk-summary-list__row--value">
               <dd class="govuk-summary-list__value govuk-summary-list__value--overflow">
-                HGV
-              </dd>
+                HGV 
+              </dd>     
             </div>
             <div class="govuk-summary-list__row">
               <dt class="govuk-summary-list__key govuk-summary-list__key-tech">
                 VIN
+                <div class="summary-link-wrapper">
+                  <a class="govuk-link summary-link" href="">Change</a> 
+                </div>
               </dt>
             </div>
             <div class="govuk-summary-list__row--value">
@@ -182,13 +211,16 @@ document.addEventListener('DOMContentLoaded', function () {
             <div class="govuk-summary-list__row">
               <dt class="govuk-summary-list__key govuk-summary-list__key-tech">
                 VRM
+                <div class="summary-link-wrapper">
+                  <a class="govuk-link summary-link" href="">Change</a> 
+                </div>
               </dt>
             </div>
             <div class="govuk-summary-list__row--value">
               <dd class="govuk-summary-list__value govuk-summary-list__value--vrm">
                 <div class="reg-mark-div">
                   <span
-                    class="reg-mark-sm">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    class="reg-mark-sm">4001373Z</span>
                 </div>
               </dd>
 
@@ -199,17 +231,20 @@ document.addEventListener('DOMContentLoaded', function () {
               </dt>
             </div>
             <div class="govuk-summary-list__row--value">
-              <dd class="govuk-summary-list__value govuk-summary-list__value--vrm">
-                <div class="reg-mark-div">
-                  <span
-                    class="reg-mark-sm">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                </div>
-              </dd>
-
+                  <dd class="govuk-summary-list__value govuk-summary-list__value--overflow">
+              <!-- <div class="reg-mark-div">         
+                      <span class="reg-mark-sm">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    </div> -->
+                    None 
+                  </dd>  
             </div>
             <div class="govuk-summary-list__row">
               <dt class="govuk-summary-list__key govuk-summary-list__key-tech">
                 Record type
+                <div class="summary-link-wrapper">
+                  <a class="govuk-link summary-link summary-link-first" href="">Archive</a>
+                  <a class="govuk-link summary-link" href="">Promote</a>
+                </div>
               </dt>
             </div>
             <div class="govuk-summary-list__row--value">
@@ -227,8 +262,8 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>
             <div class="govuk-summary-list__row--value">
               <dd class="govuk-summary-list__value govuk-summary-list__value--tag">
-                <strong class="govuk-tag govuk-tag--red">
-                  Incomplete
+                <strong class="govuk-tag govuk-tag--green">
+                  Testable
                 </strong>
               </dd>
 
@@ -236,12 +271,15 @@ document.addEventListener('DOMContentLoaded', function () {
             <div class="govuk-summary-list__row">
               <dt class="govuk-summary-list__key govuk-summary-list__key-tech">
                 Visibility in VTA
+                <div class="summary-link-wrapper">
+                  <a class="govuk-link summary-link" href="">Change</a> 
+                </div>
               </dt>
             </div>
             <div class="govuk-summary-list__row--last">
               <dd class="govuk-summary-list__value govuk-summary-list__value--tag">
-                <strong class="govuk-tag govuk-tag--red">
-                  Hidden
+                <strong class="govuk-tag govuk-tag--green">
+                  Visible
                 </strong>
               </dd>
 
@@ -275,6 +313,14 @@ document.addEventListener('DOMContentLoaded', function () {
           </dl>
         </div>
       </div>
+
+      <div class="govuk-button-group govuk-button-group-record">
+        {{ govukButton({
+        text: "Amend record",
+        href: "amend-hgv"
+        }) }}
+      </div>
+
 
     </div>
 
@@ -310,6 +356,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 </span>
               </a>
             </dd>
+            <!-- <dd class="govuk-summary-list__value govuk-summary-list__value--filter">
+              <a class="app-c-filter-summary__remove-filter" href="#" id="required">
+                <span class="app-c-filter-summary__remove-filter-text">
+                  <span class="govuk-visually-hidden">Remove filter</span>
+                  Test history
+                </span>
+              </a>
+            </dd>-->
           </div>
 
           <!--GENERAL-->
@@ -348,7 +402,7 @@ document.addEventListener('DOMContentLoaded', function () {
                               Day
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                              id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric">
+                              id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric" value="21" disabled>
                           </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -357,7 +411,7 @@ document.addEventListener('DOMContentLoaded', function () {
                               Month
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                              id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric">
+                              id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric" value="08" disabled>
                           </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -366,7 +420,7 @@ document.addEventListener('DOMContentLoaded', function () {
                               Year
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="2024" disabled>
                           </div>
                         </div>
                       </div>
@@ -383,7 +437,7 @@ document.addEventListener('DOMContentLoaded', function () {
                       <div class="govuk-date-input__item">
                         <div class="govuk-form-group">
                           <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                            id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                            id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="2023" disabled>
                         </div>
                       </div>
                     </fieldset>
@@ -396,7 +450,7 @@ document.addEventListener('DOMContentLoaded', function () {
                       </strong>
                     </label>
                     <input class="govuk-input govuk-input--width-10" id="phone-number" name="phoneNumber" type="tel"
-                      autocomplete="tel">
+                      autocomplete="tel" value="" disabled>
                   </div>
 
                   <div class="govuk-form-group required plates">
@@ -405,9 +459,9 @@ document.addEventListener('DOMContentLoaded', function () {
                         Vehicle configuration
                       </strong>
                     </label>
-                    <select class="govuk-select" id="sort" name="sort">
-                      <option value="published" selected>Select configuration</option>
-                      <option value="updated">Rigid</option>
+                    <select class="govuk-select" id="sort" name="sort" disabled>
+                      <option value="published">Select configuration</option>
+                      <option value="updated" selected>Rigid</option>
                       <option value="views">Articulated</option>
                     </select>
                   </div>
@@ -419,7 +473,7 @@ document.addEventListener('DOMContentLoaded', function () {
                       </strong>
                     </label>
                     <input class="govuk-input govuk-input--width-10" id="phone-number" name="phoneNumber" type="tel"
-                      autocomplete="tel">
+                      autocomplete="tel" value="Scania" disabled>
                   </div>
 
                   <div class="govuk-form-group optional plates">
@@ -429,7 +483,7 @@ document.addEventListener('DOMContentLoaded', function () {
                       </strong>
                     </label>
                     <input class="govuk-input govuk-input--width-10" id="phone-number" name="phoneNumber" type="tel"
-                      autocomplete="tel">
+                      autocomplete="tel" value="770R" disabled>
                   </div>
 
                   <div class="govuk-form-group required untagged">
@@ -438,9 +492,9 @@ document.addEventListener('DOMContentLoaded', function () {
                         Body type
                       </strong>
                     </label>
-                    <select class="govuk-select" id="sort" name="sort">
-                      <option value="published" selected>Select body type</option>
-                      <option value="updated">Box</option>
+                    <select class="govuk-select" id="sort" name="sort" disabled>
+                      <option value="published">Select body type</option>
+                      <option value="updated" selected>Box</option>
                       <option value="views">Car transporter</option>
                       <option value="views">Concrete mixer</option>
                       <option value="views">Curtainsider</option>
@@ -464,9 +518,9 @@ document.addEventListener('DOMContentLoaded', function () {
                       <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
                         <strong>Function code</strong>
                       </label>
-                      <select class="govuk-select" id="sort" name="sort">
-                        <option value="published" selected>Select function code</option>
-                        <option value="published">R</option>
+                      <select class="govuk-select" id="sort" name="sort"disabled>
+                        <option value="published">Select function code</option>
+                        <option value="published" selected>R</option>
                         <option value="updated">A</option>
                       </select>
                     </div>
@@ -479,7 +533,7 @@ document.addEventListener('DOMContentLoaded', function () {
                       </strong>
                     </label>
                     <input class="govuk-input govuk-input--width-10" id="phone-number" name="phoneNumber" type="tel"
-                      autocomplete="tel">
+                      autocomplete="tel" disabled>
                   </div>
 
                   <div class="govuk-form-group optional untagged">
@@ -492,21 +546,21 @@ document.addEventListener('DOMContentLoaded', function () {
                       <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
                           <input class="govuk-radios__input" id="whereDoYouLive" name="whereDoYouLive" type="radio"
-                            value="england">
+                            value="england" disabled>
                           <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
                             N1
                           </label>
                         </div>
                         <div class="govuk-radios__item">
                           <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
-                            value="scotland">
+                            value="scotland" disabled>
                           <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
                             N2
                           </label>
                         </div>
                         <div class="govuk-radios__item">
                           <input class="govuk-radios__input" id="whereDoYouLive-3" name="whereDoYouLive" type="radio"
-                            value="wales">
+                            value="wales" checked disabled>
                           <label class="govuk-label govuk-radios__label" for="whereDoYouLive-3">
                             N3
                           </label>
@@ -527,7 +581,7 @@ document.addEventListener('DOMContentLoaded', function () {
                       </div>
                       <div class="govuk-input__wrapper">
                         <input class="govuk-input govuk-input--width-2" id="number-of-axles" name="number-of-axles"
-                          type="text" inputmode="numeric">
+                          type="text" inputmode="numeric" value="2" disabled>
                       </div>
                     </fieldset>
                   </div>
@@ -565,7 +619,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         Approval type
                       </strong>
                     </label>
-                    <select class="govuk-select" id="sort" name="sort">
+                    <select class="govuk-select" id="sort" name="sort" disabled>
                       <option value="published" selected>Select approval type</option>
                       <option value="updated">NTA</option>
                       <option value="views">ECTA</option>
@@ -580,7 +634,7 @@ document.addEventListener('DOMContentLoaded', function () {
                       </strong>
                     </label>
                     <input class="govuk-input govuk-input--width-20" id="phone-number" name="phoneNumber" type="tel"
-                      autocomplete="tel">
+                      autocomplete="tel" value="e4*2007/46*0785*13" disabled>
                   </div>
 
                   <div class="govuk-form-group untagged">
@@ -590,7 +644,7 @@ document.addEventListener('DOMContentLoaded', function () {
                       </strong>
                     </label>
                     <input class="govuk-input govuk-input--width-20" id="phone-number" name="phoneNumber" type="tel"
-                      autocomplete="tel">
+                      autocomplete="tel" disabled>
                   </div>
 
                   <div class="govuk-form-group plates">
@@ -600,7 +654,7 @@ document.addEventListener('DOMContentLoaded', function () {
                       </strong>
                     </label>
                     <input class="govuk-input govuk-input--width-20" id="phone-number" name="phoneNumber" type="tel"
-                      autocomplete="tel">
+                      autocomplete="tel" disabled>
                   </div>
 
                   <div class="govuk-form-group untagged">
@@ -610,7 +664,7 @@ document.addEventListener('DOMContentLoaded', function () {
                       </strong>
                     </label>
                     <input class="govuk-input govuk-input--width-20" id="phone-number" name="phoneNumber" type="tel"
-                      autocomplete="tel">
+                      autocomplete="tel" disabled>
                   </div>
 
 
@@ -648,7 +702,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     </h1>
                     <div class="govuk-input__wrapper">
                       <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
-                        spellcheck="false">
+                        spellcheck="false" value="13000" disabled>
                       <div class="govuk-input__suffix" aria-hidden="true">mm</div>
                     </div>
                   </div>
@@ -661,7 +715,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     </h1>
                     <div class="govuk-input__wrapper">
                       <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
-                        spellcheck="false">
+                        spellcheck="false" value="7000" disabled>
                       <div class="govuk-input__suffix" aria-hidden="true">mm</div>
                     </div>
                   </div>
@@ -674,7 +728,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     </h1>
                     <div class="govuk-input__wrapper">
                       <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
-                        spellcheck="false">
+                        spellcheck="false" value="2000" disabled>
                       <div class="govuk-input__suffix" aria-hidden="true">mm</div>
                     </div>
                   </div>
@@ -726,7 +780,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     </h1>
                     <div class="govuk-input__wrapper">
                       <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
-                        spellcheck="false">
+                        spellcheck="false" value="15500" disabled>
                       <div class="govuk-input__suffix" aria-hidden="true">mm</div>
                     </div>
                   </div>
@@ -739,7 +793,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     </h1>
                     <div class="govuk-input__wrapper">
                       <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
-                        spellcheck="false">
+                        spellcheck="false" value="2500" disabled>
                       <div class="govuk-input__suffix" aria-hidden="true">mm</div>
                     </div>
                   </div>
@@ -752,7 +806,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     </h1>
                     <div class="govuk-input__wrapper">
                       <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
-                        spellcheck="false">
+                        spellcheck="false" value="4000" disabled>
                       <div class="govuk-input__suffix" aria-hidden="true">mm</div>
                     </div>
                   </div>
@@ -772,7 +826,7 @@ document.addEventListener('DOMContentLoaded', function () {
                               Minimum
                             </label>
                             <div class="govuk-input__wrapper">
-                              <input class="govuk-input govuk-date-input__input govuk-input--width-5" id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                              <input class="govuk-input govuk-date-input__input govuk-input--width-5" id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="3000" disabled>
                               <div class="govuk-input__suffix" aria-hidden="true">mm</div>
                             </div>
                           </div>
@@ -784,7 +838,7 @@ document.addEventListener('DOMContentLoaded', function () {
                               Maximum
                             </label>
                             <div class="govuk-input__wrapper">
-                              <input class="govuk-input govuk-date-input__input govuk-input--width-5" id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                              <input class="govuk-input govuk-date-input__input govuk-input--width-5" id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="4000" disabled>
                               <div class="govuk-input__suffix" aria-hidden="true">mm</div>
                             </div>
                           </div>
@@ -809,7 +863,7 @@ document.addEventListener('DOMContentLoaded', function () {
                               Minimum
                             </label>
                             <div class="govuk-input__wrapper">
-                              <input class="govuk-input govuk-date-input__input govuk-input--width-5" id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                              <input class="govuk-input govuk-date-input__input govuk-input--width-5" id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="8000" disabled>
                               <div class="govuk-input__suffix" aria-hidden="true">mm</div>
                             </div>
                           </div>
@@ -821,7 +875,7 @@ document.addEventListener('DOMContentLoaded', function () {
                               Maximum
                             </label>
                             <div class="govuk-input__wrapper">
-                              <input class="govuk-input govuk-date-input__input govuk-input--width-5" id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                              <input class="govuk-input govuk-date-input__input govuk-input--width-5" id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="8500" disabled>
                               <div class="govuk-input__suffix" aria-hidden="true">mm</div>
                             </div>
                           </div>
@@ -890,7 +944,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 </label>
                                 <div class="govuk-input__wrapper">
                                   <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="4500" disabled>
                                   <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                                 </div>
                               </div>
@@ -903,7 +957,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 </label>
                                 <div class="govuk-input__wrapper">
                                   <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="4500" disabled>
                                   <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                                 </div>
                               </div>
@@ -916,7 +970,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 </label>
                                 <div class="govuk-input__wrapper">
                                   <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="4500" disabled>
                                   <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                                 </div>
                               </div>
@@ -942,7 +996,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 </label>
                                 <div class="govuk-input__wrapper">
                                   <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="4500" disabled>
                                   <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                                 </div>
                               </div>
@@ -955,7 +1009,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 </label>
                                 <div class="govuk-input__wrapper">
                                   <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="4500" disabled>
                                   <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                                 </div>
                               </div>
@@ -968,7 +1022,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 </label>
                                 <div class="govuk-input__wrapper">
                                   <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="4500" disabled>
                                   <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                                 </div>
                               </div>
@@ -994,7 +1048,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 </label>
                                 <div class="govuk-input__wrapper">
                                   <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="4500" disabled>
                                   <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                                 </div>
                               </div>
@@ -1007,7 +1061,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 </label>
                                 <div class="govuk-input__wrapper">
                                   <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="4500" disabled>
                                   <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                                 </div>
                               </div>
@@ -1020,7 +1074,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 </label>
                                 <div class="govuk-input__wrapper">
                                   <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="4500" disabled>
                                   <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                                 </div>
                               </div>
@@ -1150,7 +1204,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 </label>
                                 <div class="govuk-input__wrapper">
                                   <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="8000" disabled>
                                   <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                                 </div>
                               </div>
@@ -1163,7 +1217,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 </label>
                                 <div class="govuk-input__wrapper">
                                   <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="8000" disabled>
                                   <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                                 </div>
                               </div>
@@ -1176,7 +1230,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 </label>
                                 <div class="govuk-input__wrapper">
                                   <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="8000" disabled>
                                   <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                                 </div>
                               </div>
@@ -1202,7 +1256,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             </label>
                             <div class="govuk-input__wrapper">
                               <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="8000" disabled>
                               <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                             </div>
                           </div>
@@ -1215,7 +1269,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             </label>
                             <div class="govuk-input__wrapper">
                               <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="8000" disabled>
                               <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                             </div>
                           </div>
@@ -1228,7 +1282,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             </label>
                             <div class="govuk-input__wrapper">
                               <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="8000" disabled>
                               <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                             </div>
                           </div>
@@ -1255,7 +1309,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             </label>
                             <div class="govuk-input__wrapper">
                               <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="8500" disabled>
                               <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                             </div>
                           </div>
@@ -1268,7 +1322,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             </label>
                             <div class="govuk-input__wrapper">
                               <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="8500" disabled>
                               <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                             </div>
                           </div>
@@ -1281,7 +1335,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             </label>
                             <div class="govuk-input__wrapper">
                               <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="8500" disabled>
                               <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                             </div>
                           </div>
@@ -1325,16 +1379,16 @@ document.addEventListener('DOMContentLoaded', function () {
                       </legend>
                       <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="whereDoYouLive" name="whereDoYouLive" type="radio"
-                            value="england">
-                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
+                          <input class="govuk-radios__input" id="offroad" name="offroad" type="radio"
+                            value="offroadyes" disabled>
+                          <label class="govuk-label govuk-radios__label" for="offroad">
                             Yes
                           </label>
                         </div>
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
-                            value="scotland">
-                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
+                          <input class="govuk-radios__input" id="offroad-2" name="offroad" type="radio"
+                            value="offroadno" checked disabled>
+                          <label class="govuk-label govuk-radios__label" for="offroad-2">
                             No
                           </label>
                         </div>
@@ -1351,16 +1405,16 @@ document.addEventListener('DOMContentLoaded', function () {
                       </legend>
                       <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="whereDoYouLive" name="whereDoYouLive" type="radio"
-                            value="england">
-                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
+                          <input class="govuk-radios__input" id="departmental" name="departmental" type="radio"
+                            value="departmentalyes" disabled>
+                          <label class="govuk-label govuk-radios__label" for="departmental">
                             Yes
                           </label>
                         </div>
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
-                            value="scotland">
-                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
+                          <input class="govuk-radios__input" id="departmental-2" name="departmental" type="radio"
+                            value="departmentalno" checked disabled>
+                          <label class="govuk-label govuk-radios__label" for="departmental-2">
                             No
                           </label>
                         </div>
@@ -1377,16 +1431,16 @@ document.addEventListener('DOMContentLoaded', function () {
                       </legend>
                       <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="whereDoYouLive" name="whereDoYouLive" type="radio"
-                            value="england">
-                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
+                          <input class="govuk-radios__input" id="alteration" name="alteration" type="radio"
+                            value="alterationyes" disabled>
+                          <label class="govuk-label govuk-radios__label" for="alteration">
                             Yes
                           </label>
                         </div>
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
-                            value="scotland">
-                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
+                          <input class="govuk-radios__input" id="alteration-2" name="alteration" type="radio"
+                            value="alterationno" checked disabled>
+                          <label class="govuk-label govuk-radios__label" for="alteration-2">
                             No
                           </label>
                         </div>
@@ -1400,9 +1454,9 @@ document.addEventListener('DOMContentLoaded', function () {
                         Fuel system
                       </strong>
                     </label>
-                    <select class="govuk-select" id="location" name="location" aria-describedby="location-hint">
-                      <option value="choose" selected>Select fuel system</option>
-                      <option value="eastofengland">Diesel</option>
+                    <select class="govuk-select" id="location" name="location" aria-describedby="location-hint" disabled>
+                      <option value="choose">Select fuel system</option>
+                      <option value="eastofengland" selected>Diesel</option>
                       <option value="london">Petrol</option>
                       <option value="northeast">Hybrid</option>
                       <option value="northwest">Electric</option>
@@ -1422,16 +1476,16 @@ document.addEventListener('DOMContentLoaded', function () {
                       </legend>
                       <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="whereDoYouLive" name="whereDoYouLive" type="radio"
-                            value="england">
-                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
+                          <input class="govuk-radios__input" id="roadfriendly" name="roadfriendly" type="radio"
+                            value="roadfriendlyyes" checked disabled>
+                          <label class="govuk-label govuk-radios__label" for="roadfriendly">
                             Yes
                           </label>
                         </div>
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
-                            value="scotland">
-                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
+                          <input class="govuk-radios__input" id="roadfriendly-2" name="roadfriendly" type="radio"
+                            value="roadfriendlyno" disabled>
+                          <label class="govuk-label govuk-radios__label" for="roadfriendly-2">
                             No
                           </label>
                         </div>
@@ -1486,7 +1540,7 @@ document.addEventListener('DOMContentLoaded', function () {
                           Axle 1 tyre details
                         </h1>
                       </legend>
-                      <div class="govuk-button-group">
+                     <!--  <div class="govuk-button-group">
                         <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">
                           Search for tyre details
                         </button>
@@ -1494,7 +1548,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         <button type="submit" class="govuk-button govuk-button--warning" data-module="govuk-button">
                           Remove tyre
                         </button>
-                      </div>
+                      </div> -->
 
                       <div class="govuk-date-input" id="passport-issued">
                         <div class="govuk-date-input__item">
@@ -1503,7 +1557,7 @@ document.addEventListener('DOMContentLoaded', function () {
                               Code
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-3"
-                              id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric">
+                              id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric" value="788" disabled>
                           </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -1512,7 +1566,7 @@ document.addEventListener('DOMContentLoaded', function () {
                               Size
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-5.5"
-                              id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric"
+                              id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric" value="185/75-16"
                               disabled>
                           </div>
                         </div>
@@ -1532,7 +1586,7 @@ document.addEventListener('DOMContentLoaded', function () {
                               Load index
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-3"
-                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
+                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="114"
                               disabled>
                           </div>
                         </div>
@@ -1541,7 +1595,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
                               S/D
                             </label>
-                            <select class="govuk-select govuk-select--tyres" id="sort" name="sort">
+                            <select class="govuk-select govuk-select--tyres" id="sort" name="sort" disabled>
                               <option value="published">S</option>
                               <option value="updated" selected>D</option>
                             </select>
@@ -1559,7 +1613,7 @@ document.addEventListener('DOMContentLoaded', function () {
                           Axle 2 tyre details
                         </h1>
                       </legend>
-                      <div class="govuk-button-group">
+                      <!-- <div class="govuk-button-group">
                         <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">
                           Search for tyre details
                         </button>
@@ -1567,7 +1621,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         <button type="submit" class="govuk-button govuk-button--warning" data-module="govuk-button">
                           Remove tyre
                         </button>
-                      </div>
+                      </div> -->
 
                       <div class="govuk-date-input" id="passport-issued">
                         <div class="govuk-date-input__item">
@@ -1576,7 +1630,7 @@ document.addEventListener('DOMContentLoaded', function () {
                               Code
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-3"
-                              id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric">
+                              id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric" value="788" disabled>
                           </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -1585,7 +1639,7 @@ document.addEventListener('DOMContentLoaded', function () {
                               Size
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-5.5"
-                              id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric"
+                              id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric" value="185/75-16"
                               disabled>
                           </div>
                         </div>
@@ -1605,7 +1659,7 @@ document.addEventListener('DOMContentLoaded', function () {
                               Load index
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-3"
-                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
+                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="114"
                               disabled>
                           </div>
                         </div>
@@ -1614,7 +1668,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
                               S/D
                             </label>
-                            <select class="govuk-select govuk-select--tyres" id="sort" name="sort">
+                            <select class="govuk-select govuk-select--tyres" id="sort" name="sort" disabled>
                               <option value="published">S</option>
                               <option value="updated" selected>D</option>
                             </select>
@@ -1848,9 +1902,9 @@ document.addEventListener('DOMContentLoaded', function () {
                       <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
                         <strong>Tyre use code</strong>
                       </label>
-                      <select class="govuk-select" id="sort" name="sort">
-                        <option value="published" selected>Select tyre use code</option>
-                        <option value="published">2R</option>
+                      <select class="govuk-select" id="sort" name="sort" disabled>
+                        <option value="published">Select tyre use code</option>
+                        <option value="published" selected>2R</option>
                         <option value="updated">2B</option>
                         <option value="updated">2J</option>
                         <option value="updated">2M</option>
@@ -1891,14 +1945,14 @@ document.addEventListener('DOMContentLoaded', function () {
                     </legend>
                     <div class="govuk-radios" data-module="govuk-radios">
                       <div class="govuk-radios__item">
-                        <input class="govuk-radios__input" id="whereDoYouLive" name="whereDoYouLive" type="radio" value="england">
-                        <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
+                        <input class="govuk-radios__input" id="drawbar" name="drawbar" type="radio" value="drawbaryes" disabled>
+                        <label class="govuk-label govuk-radios__label" for="drawbar">
                           Yes
                         </label>
                       </div>
                       <div class="govuk-radios__item">
-                        <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio" value="scotland">
-                        <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
+                        <input class="govuk-radios__input" id="drawbar-2" name="drawbar" type="radio" value="drawbarno" checked disabled>
+                        <label class="govuk-label govuk-radios__label" for="drawbar-2">
                           No
                         </label>
                       </div>
@@ -1915,65 +1969,65 @@ document.addEventListener('DOMContentLoaded', function () {
                       </legend>
                       <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="whereDoYouLive" name="whereDoYouLive" type="radio"
-                            value="england">
-                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
+                          <input class="govuk-radios__input" id="eurostd" name="eurostd" type="radio"
+                            value="eurostd1" disabled>
+                          <label class="govuk-label govuk-radios__label" for="eurostd">
                             0.10 g/kWh Euro III PM
                           </label>
                         </div>
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
-                            value="scotland">
-                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
+                          <input class="govuk-radios__input" id="eurostd-2" name="eurostd" type="radio"
+                            value="eurostd2" disabled>
+                          <label class="govuk-label govuk-radios__label" for="eurostd-2">
                             0.03 g/kWh Euro IV PM
                           </label>
                         </div>
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
-                            value="scotland">
-                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
+                          <input class="govuk-radios__input" id="eurostd-3" name="eurostd" type="radio"
+                            value="eurostd3" disabled>
+                          <label class="govuk-label govuk-radios__label" for="eurostd-3">
                             Euro 3
                           </label>
                         </div>
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
-                            value="scotland">
-                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
+                          <input class="govuk-radios__input" id="eurostd-4" name="eurostd" type="radio"
+                            value="eurostd" disabled>
+                          <label class="govuk-label govuk-radios__label" for="eurostd-4">
                             Euro 4
                           </label>
                         </div>
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
-                            value="scotland">
-                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
+                          <input class="govuk-radios__input" id="eurostd-5" name="eurostd" type="radio"
+                            value="eurostd5" disabled>
+                          <label class="govuk-label govuk-radios__label" for="eurostd-5">
                             Euro 5
                           </label>
                         </div>
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
-                            value="scotland">
-                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
+                          <input class="govuk-radios__input" id="eurostd-6" name="eurostd" type="radio"
+                            value="eurostd6" checked disabled>
+                          <label class="govuk-label govuk-radios__label" for="eurostd-6">
                             Euro 6
                           </label>
                         </div>
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
-                            value="scotland">
-                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
+                          <input class="govuk-radios__input" id="eurostd-7" name="eurostd" type="radio"
+                            value="eurostd7" disabled>
+                          <label class="govuk-label govuk-radios__label" for="eurostd-7">
                             Euro V
                           </label>
                         </div>
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
-                            value="scotland">
-                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
+                          <input class="govuk-radios__input" id="eurostd-8" name="eurostd" type="radio"
+                            value="eurostd8" disabled>
+                          <label class="govuk-label govuk-radios__label" for="eurostd-8">
                             Euro VI
                           </label>
                         </div>
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
-                            value="scotland">
-                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
+                          <input class="govuk-radios__input" id="eurostd-9" name="eurostd" type="radio"
+                            value="eurostd9" disabled>
+                          <label class="govuk-label govuk-radios__label" for="eurostd-9">
                             Full electric
                           </label>
                         </div>
@@ -1989,7 +2043,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     </h1>
                     <div class="govuk-input__wrapper">
                       <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
-                        spellcheck="false">
+                        spellcheck="false" value="1.026" disabled>
                       <div class="govuk-input__suffix" aria-hidden="true">m<sup>-1</sup></div>
                     </div>
                   </div>
@@ -2004,16 +2058,16 @@ document.addEventListener('DOMContentLoaded', function () {
                       </legend>
                       <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="whereDoYouLive" name="whereDoYouLive" type="radio"
-                            value="england">
+                          <input class="govuk-radios__input" id="speedlimiter" name="speedlimiter" type="radio"
+                            value="speedlimiteryes" disabled>
                           <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
                             Exempt
                           </label>
                         </div>
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
-                            value="scotland">
-                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
+                          <input class="govuk-radios__input" id="speedlimiter-2" name="speedlimiter" type="radio"
+                            value="speedlimiterno" checked disabled>
+                          <label class="govuk-label govuk-radios__label" for="speedlimiter-2">
                             Not exempt
                           </label>
                         </div>
@@ -2030,16 +2084,16 @@ document.addEventListener('DOMContentLoaded', function () {
                       </legend>
                       <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="whereDoYouLive" name="whereDoYouLive" type="radio"
-                            value="england">
-                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
+                          <input class="govuk-radios__input" id="tachoexempt" name="tachoexempt" type="radio"
+                            value="tachoexemptyes" disabled>
+                          <label class="govuk-label govuk-radios__label" for="tachoexempt">
                             Exempt
                           </label>
                         </div>
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
-                            value="scotland">
-                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
+                          <input class="govuk-radios__input" id="tachoexempt-2" name="tachoexempt" type="radio"
+                            value="tachoexemptno" checked disabled>
+                          <label class="govuk-label govuk-radios__label" for="tachoexempt-2">
                             Not exempt
                           </label>
                         </div>
@@ -2052,17 +2106,17 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>
           </div>
 
-          <!--SEATS AND VEHICLE SIZE-->
-          <!-- <div class="govuk-accordion__section govuk-accordion__section-vtm">
+          <!--PLATES-->
+          <div class="govuk-accordion__section govuk-accordion__section-vtm plates">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
               <h2 class="govuk-accordion__section-heading">
                 <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
                   id="accordion-with-summary-sections-heading-2">
-                  Seats and vehicle size
+                  Plates
                 </span>
               </h2>
               <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
-                Seats, vehicle size, seatbelts.
+                Generate and view plates.
               </div>
               <div class="govuk-accordion__section-summary-padding"></div>
             </div>
@@ -2072,281 +2126,20 @@ document.addEventListener('DOMContentLoaded', function () {
               <ul class="govuk-list">
                 <li>
 
-
-                  <div class="govuk-form-group">
-                    <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
-                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-                        <h1 class="govuk-fieldset__heading">
-                          Upper deck seats
-                        </h1>
-                      </legend>
-                      <div class="govuk-date-input" id="passport-issued">
-                        <div class="govuk-date-input__item">
-                          <div class="govuk-form-group">
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                              id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric">
-                          </div>
-                        </div>
-                      </div>
-                    </fieldset>
+                  <div class="govuk-button-group">
+                    {{ govukButton({
+                    text: "Generate and send plate",
+                    classes: "govuk-button--secondary"
+                    }) }}
                   </div>
-
-                  <div class="govuk-form-group">
-                    <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
-                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-                        <h1 class="govuk-fieldset__heading">
-                          Lower deck seats
-                        </h1>
-                      </legend>
-                      <div class="govuk-date-input" id="passport-issued">
-                        <div class="govuk-date-input__item">
-                          <div class="govuk-form-group">
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                              id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric">
-                          </div>
-                        </div>
-                      </div>
-                    </fieldset>
-                  </div>
-
-                  <div class="govuk-form-group">
-                    <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
-                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-                        <h1 class="govuk-fieldset__heading">
-                          Standing capacity
-                        </h1>
-                      </legend>
-                      <div class="govuk-date-input" id="passport-issued">
-                        <div class="govuk-date-input__item">
-                          <div class="govuk-form-group">
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                              id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric">
-                          </div>
-                        </div>
-                      </div>
-                    </fieldset>
-                  </div>
-
-                  <div class="govuk-form-group">
-                    <fieldset class="govuk-fieldset">
-                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-                        <h1 class="govuk-fieldset__heading">
-                          Vehicle class
-                        </h1>
-                      </legend>
-                      <div id="signIn-hint" class="govuk-hint">
-                        Vehicle class is calculated based on the number of seats and standing capacity
-                      </div>
-                      <div class="govuk-radios" data-module="govuk-radios">
-                        <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="whereDoYouLive" name="whereDoYouLive" type="radio"
-                            value="england">
-                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
-                            Small PSV
-                          </label>
-                          <div id="signIn-item-hint" class="govuk-hint govuk-radios__hint">
-                            Less than or equal to 22 passengers
-                          </div>
-                        </div>
-                        <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
-                            value="scotland">
-                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
-                            Large PSV
-                          </label>
-                          <div id="signIn-item-hint" class="govuk-hint govuk-radios__hint">
-                            Greater than or equal to 23 passengers
-                          </div>
-                        </div>
-                      </div>
-                    </fieldset>
-                  </div>
-
-                  <div class="govuk-form-group">
-                    <fieldset class="govuk-fieldset">
-                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-                        <h1 class="govuk-fieldset__heading">
-                          Vehicle size
-                        </h1>
-                      </legend>
-                      <div id="signIn-hint" class="govuk-hint">
-                        Vehicle size is calculated based on the number of seats and standing capacity
-                      </div>
-                      <div class="govuk-radios" data-module="govuk-radios">
-                        <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="whereDoYouLive" name="whereDoYouLive" type="radio"
-                            value="england">
-                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
-                            Small
-                          </label>
-                        </div>
-                        <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
-                            value="scotland">
-                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
-                            Large
-                          </label>
-                        </div>
-                      </div>
-                    </fieldset>
-                  </div>
-
-                  <div class="govuk-form-group">
-                    <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
-                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-                        <h1 class="govuk-fieldset__heading">
-                          Number of seatbelts
-                        </h1>
-                      </legend>
-                      <div class="govuk-date-input" id="passport-issued">
-                        <div class="govuk-date-input__item">
-                          <div class="govuk-form-group">
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                              id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric">
-                          </div>
-                        </div>
-                      </div>
-                    </fieldset>
-                  </div>
-
-                  <div class="govuk-form-group">
-                    <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
-                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-                        <h1 class="govuk-fieldset__heading">
-                          Seatbelt installation approval date
-                        </h1>
-                      </legend>
-                      <div class="govuk-date-input" id="passport-issued">
-                        <div class="govuk-date-input__item">
-                          <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="passport-issued-day">
-                              Day
-                            </label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                              id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric">
-                          </div>
-                        </div>
-                        <div class="govuk-date-input__item">
-                          <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="passport-issued-month">
-                              Month
-                            </label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                              id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric">
-                          </div>
-                        </div>
-                        <div class="govuk-date-input__item">
-                          <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
-                              Year
-                            </label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
-                          </div>
-                        </div>
-                      </div>
-                    </fieldset>
-                  </div>
-
+                  <h3 class="govuk-heading-s">Plates history</h3>
+                  <p class="govuk-body">No plates history available.</p>
 
                 </li>
               </ul>
             </div>
-          </div> -->
+          </div>
 
-          <!-- <div class="govuk-accordion__section govuk-accordion__section-vtm">
-
-            <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
-              <h2 class="govuk-accordion__section-heading">
-                <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm" id="accordion-with-summary-sections-heading-2">
-                  Test record history
-                </span>
-              </h2>
-              <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
-                Workspaces, tools and techniques, user stories, planning.
-              </div>
-            </div>
-            <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
-              <ul class="govuk-list">
-                <li>
-                  
-                  <table class="govuk-table">
-                    <thead class="govuk-table__head">
-                      <tr class="govuk-table__row">
-                        <th scope="col" class="govuk-table__header app-custom-class">Date</th>
-                        <th scope="col" class="govuk-table__header app-custom-class">Test type</th>
-                        <th scope="col" class="govuk-table__header app-custom-class">Result</th>
-                        <th scope="col" class="govuk-table__header app-custom-class"></th>
-                      </tr>
-                    </thead>
-                    <tbody class="govuk-table__body">
-                      <tr class="govuk-table__row">
-                        <th scope="row" class="govuk-table__header">14/01/2025 13:43</th>
-                        <td class="govuk-table__cell">Annual test</td>
-                        <td class="govuk-table__cell">Pass</td>
-                        <td class="govuk-table__cell"><a href="/">View</a></td>
-                      </tr>
-                      <tr class="govuk-table__row">
-                        <th scope="row" class="govuk-table__header">13/01/2025 15:04</th>
-                        <td class="govuk-table__cell">Annual test</td>
-                        <td class="govuk-table__cell">Fail</td>
-                        <td class="govuk-table__cell"><a href="/">View</a></td>
-                      </tr>
-                    </tbody>
-                  </table>
-
-                </li>
-              </ul>
-            </div>
-          </div> -->
-          <!-- <div class="govuk-accordion__section govuk-accordion__section-vtm">
-            
-          <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
-              <h2 class="govuk-accordion__section-heading">
-                <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm" id="accordion-with-summary-sections-heading-2">
-                  Technical records history
-                </span>
-              </h2>
-              <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
-                Workspaces, tools and techniques, user stories, planning.
-              </div>
-            </div>
-            <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
-              <ul class="govuk-list">
-                <li>
-                  
-                  <table class="govuk-table">
-                    <thead class="govuk-table__head">
-                      <tr class="govuk-table__row">
-                        <th scope="col" class="govuk-table__header app-custom-class">Status</th>
-                        <th scope="col" class="govuk-table__header app-custom-class">Reason for creation</th>
-                        <th scope="col" class="govuk-table__header app-custom-class">Created by</th>
-                        <th scope="col" class="govuk-table__header app-custom-class">Date</th>
-                        <th scope="col" class="govuk-table__header app-custom-class"></th>
-                      </tr>
-                    </thead>
-                    <tbody class="govuk-table__body">
-                      <tr class="govuk-table__row">
-                        <th scope="row" class="govuk-table__header">Current</th>
-                        <td class="govuk-table__cell">Test</td>
-                        <td class="govuk-table__cell">User</td>
-                        <td class="govuk-table__cell">16/01/2025 09:36</td>
-                      </tr>
-                      <tr class="govuk-table__row">
-                        <th scope="row" class="govuk-table__header">Archived</th>
-                        <td class="govuk-table__cell">Test</td>
-                        <td class="govuk-table__cell">User</td>
-                        <td class="govuk-table__cell">15/01/2025 10:17</td>
-                        <td class="govuk-table__cell"><a href="/">View</a></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  
-                </li>
-              </ul>
-            </div>
-          </div> -->
-           
           <!-- ADR -->
           <div class="govuk-accordion__section govuk-accordion__section-vtm untagged">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
@@ -2374,8 +2167,8 @@ document.addEventListener('DOMContentLoaded', function () {
                       </legend>
                       <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="whereDoYouLive" name="whereDoYouLive" type="radio" value="england" data-aria-controls="conditional-adr">
-                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
+                          <input class="govuk-radios__input" id="adr" name="adr" type="radio" value="adryes" data-aria-controls="conditional-adr" disabled>
+                          <label class="govuk-label govuk-radios__label" for="adr">
                             Yes
                           </label>
                         </div>
@@ -2706,8 +2499,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         </div>
   
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio" value="scotland">
-                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
+                          <input class="govuk-radios__input" id="adr-2" name="adr" type="radio" value="adrno" checked disabled>
+                          <label class="govuk-label govuk-radios__label" for="adr-2">
                             No
                           </label>
                         </div>
@@ -2744,49 +2537,49 @@ document.addEventListener('DOMContentLoaded', function () {
                       <label class="govuk-label" for="address-line-1">
                         Name or company
                       </label>
-                      <input class="govuk-input govuk-!-width-two-thirds" id="address-line-1" name="addressLine1" type="text" autocomplete="address-line1">
+                      <input class="govuk-input govuk-!-width-two-thirds" id="address-line-1" name="addressLine1" type="text" autocomplete="address-line1" value="John Smith" disabled>
                     </div>
                     <div class="govuk-form-group">
                       <label class="govuk-label" for="address-line-1">
                         Address line 1
                       </label>
-                      <input class="govuk-input" id="address-line-1" name="addressLine1" type="text" autocomplete="address-line1">
+                      <input class="govuk-input" id="address-line-1" name="addressLine1" type="text" autocomplete="address-line1" value="123 West Street" disabled>
                     </div>
                     <div class="govuk-form-group">
                       <label class="govuk-label" for="address-line-2">
                         Address line 2 (optional)
                       </label>
-                      <input class="govuk-input" id="address-line-2" name="addressLine2" type="text" autocomplete="address-line2">
+                      <input class="govuk-input" id="address-line-2" name="addressLine2" type="text" autocomplete="address-line2" disabled>
                     </div>
                     <div class="govuk-form-group">
                       <label class="govuk-label" for="address-town">
                         Town or city
                       </label>
-                      <input class="govuk-input govuk-!-width-two-thirds" id="address-town" name="addressTown" type="text" autocomplete="address-level2">
+                      <input class="govuk-input govuk-!-width-two-thirds" id="address-town" name="addressTown" type="text" autocomplete="address-level2" value="York" disabled>
                     </div>
                     <div class="govuk-form-group">
                       <label class="govuk-label" for="address-county">
                         County
                       </label>
-                      <input class="govuk-input govuk-!-width-two-thirds" id="address-county" name="addressCounty" type="text">
+                      <input class="govuk-input govuk-!-width-two-thirds" id="address-county" name="addressCounty" type="text" value="Yorkshire" disabled>
                     </div>
                     <div class="govuk-form-group">
                       <label class="govuk-label" for="address-postcode">
                         Postcode
                       </label>
-                      <input class="govuk-input govuk-input--width-10" id="address-postcode" name="addressPostcode" type="text" autocomplete="postal-code">
+                      <input class="govuk-input govuk-input--width-10" id="address-postcode" name="addressPostcode" type="text" autocomplete="postal-code" value="YO42 3MD" disabled>
                     </div>
                     <div class="govuk-form-group">
                       <label class="govuk-label" for="address-postcode">
                         Phone number
                       </label>
-                      <input class="govuk-input govuk-input--width-10" id="address-postcode" name="addressPostcode" type="text" autocomplete="postal-code">
+                      <input class="govuk-input govuk-input--width-10" id="address-postcode" name="addressPostcode" type="text" autocomplete="postal-code" value="07734623316" disabled>
                     </div>
                     <div class="govuk-form-group">
                       <label class="govuk-label" for="address-postcode">
                         Email address
                       </label>
-                      <input class="govuk-input govuk-!-width-two-thirds" id="address-postcode" name="addressPostcode" type="text" autocomplete="postal-code">
+                      <input class="govuk-input govuk-!-width-two-thirds" id="address-postcode" name="addressPostcode" type="text" autocomplete="postal-code" value="john.smith@email.com" disabled>
                     </div>
                   </fieldset>
                   
@@ -2820,9 +2613,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     <label class="govuk-label" for="sort">
                       <strong>Microfilm document type</strong>
                     </label>
-                    <select class="govuk-select" id="sort" name="sort">
-                      <option value="published" selected>Select document type</option>
-                      <option value="updated">AAV - HGV Annual test</option>
+                    <select class="govuk-select" id="sort" name="sort" disabled>
+                      <option value="published">Select document type</option>
+                      <option value="updated" selected>AAV - HGV Annual test</option>
                       <option value="views">COIF Master</option>
                       <option value="comments">Tempo 100 Sp Ord</option>
                       <option value="comments">XPT - Tr Plating Cert paid</option>
@@ -2835,7 +2628,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         Microfilm roll number
                       </label>
                     </h3>
-                    <input class="govuk-input govuk-input--width-20" id="event-name" name="eventName" type="text">
+                    <input class="govuk-input govuk-input--width-20" id="event-name" name="eventName" type="text" disabled>
                   </div>
 
                   <div class="govuk-form-group">
@@ -2844,7 +2637,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         Microfilm serial number
                       </label>
                     </h3>
-                    <input class="govuk-input govuk-input--width-20" id="event-name" name="eventName" type="text">
+                    <input class="govuk-input govuk-input--width-20" id="event-name" name="eventName" type="text" disabled>
                   </div>
 
                   <!-- VIEW TECH RECORD DOCUMENTS -->
@@ -2874,6 +2667,111 @@ document.addEventListener('DOMContentLoaded', function () {
                     </dd>
                   </div>
                 </dl>-->
+
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!--TECH RECORD HISTORY-->
+          <div class="govuk-accordion__section govuk-accordion__section-vtm untagged">
+            <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
+              <h2 class="govuk-accordion__section-heading">
+                <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
+                  id="accordion-with-summary-sections-heading-2">
+                  Technical records history
+                </span>
+              </h2>
+              <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
+                View technical records history.
+              </div>
+              <div class="govuk-accordion__section-summary-padding"></div>
+            </div>
+            <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
+              <hr class="expanded">
+              </hr>
+              <ul class="govuk-list">
+                <li>
+
+                  <h3 class="govuk-heading-s">Technical records history</h3>
+                  <table class="govuk-table">
+                    <thead class="govuk-table__head">
+                      <tr class="govuk-table__row">
+                        <th scope="col" class="govuk-table__header">Status</th>
+                        <th scope="col" class="govuk-table__header">Reason for creation</th>
+                        <th scope="col" class="govuk-table__header">Created by</th>
+                        <th scope="col" class="govuk-table__header">Date</th>
+                      </tr>
+                    </thead>
+                    <tbody class="govuk-table__body">
+                      <tr class="govuk-table__row">
+                        <td scope="row" class="govuk-table__cell">Current</td>
+                        <td class="govuk-table__cell">User testing</td>
+                        <td class="govuk-table__cell">Ben</td>
+                        <td class="govuk-table__cell">05/02/2024 at 11:49</td>
+                      </tr>
+                      <tr class="govuk-table__row archive-row">
+                        <td scope="row" class="govuk-table__cell"><a href="#" class="archive-link">Archived</a></td>
+                        <td class="govuk-table__cell"><a href="#" class="archive-link">User testing</a></td>
+                        <td class="govuk-table__cell"><a href="#" class="archive-link">Ben</a></td>
+                        <td class="govuk-table__cell"><a href="#" class="archive-link">04/01/2024 at 09:12</a></td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!--TEST RECORD HISTORY-->
+          <div class="govuk-accordion__section govuk-accordion__section-vtm untagged">
+            <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
+              <h2 class="govuk-accordion__section-heading">
+                <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
+                  id="accordion-with-summary-sections-heading-2">
+                  Test records
+                </span>
+              </h2>
+              <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
+                Create and view test records.
+              </div>
+              <div class="govuk-accordion__section-summary-padding"></div>
+            </div>
+            <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
+              <hr class="expanded">
+              </hr>
+              <ul class="govuk-list">
+                <li>
+
+                  {{ govukButton({
+                    text: "Create test",
+                    classes: "govuk-button--secondary"
+                    }) }}
+
+                  <h3 class="govuk-heading-s">Test records history</h3>
+                  <table class="govuk-table test-records-table">
+                    <thead class="govuk-table__head">
+                      <tr class="govuk-table__row">
+                        <th scope="col" class="govuk-table__header">Test type</th>
+                        <th scope="col" class="govuk-table__header">Result</th>
+                        <th scope="col" class="govuk-table__header">Date</th>
+                      </tr>
+                    </thead>
+                    <tbody class="govuk-table__body">
+                      <tr class="govuk-table__row">
+                        <td scope="row" class="govuk-table__cell">Annual test</td>
+                        <td class="govuk-table__cell">Pass</td>
+                        <td class="govuk-table__cell">05/02/2024 at 11:49</td>
+                      </tr>
+                      <tr class="govuk-table__row archive-row">
+                        <td scope="row" class="govuk-table__cell"><a href="#" class="archive-link">Annual test</a></td>
+                        <td class="govuk-table__cell"><a href="#" class="archive-link">Pass</a></td>
+                        <td class="govuk-table__cell"><a href="#" class="archive-link">04/02/2023 at 09:12</a></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  
 
                 </li>
               </ul>
@@ -2911,7 +2809,7 @@ document.addEventListener('DOMContentLoaded', function () {
                       Enter any notes for this technical record
                     </label>
                     <textarea class="govuk-textarea" id="label-as-page-heading" name="labelAsPageHeading" rows="5"
-                      aria-describedby="label-as-page-heading-info"></textarea>
+                      aria-describedby="label-as-page-heading-info" disabled>Example of a note.</textarea>
                     <div id="label-as-page-heading-info" class="govuk-hint govuk-character-count__message">
                       You have 1024 characters remaining
                     </div>
@@ -2923,7 +2821,7 @@ document.addEventListener('DOMContentLoaded', function () {
           </div>
 
           <!--REASON FOR CREATION-->
-          <div class="govuk-accordion__section govuk-accordion__section-vtm">
+         <!-- <div class="govuk-accordion__section govuk-accordion__section-vtm">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
               <h2 class="govuk-accordion__section-heading">
                 <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
@@ -2953,7 +2851,7 @@ document.addEventListener('DOMContentLoaded', function () {
                       Enter a reason for creating this technical record
                     </label>
                     <textarea class="govuk-textarea" id="label-as-page-heading" name="labelAsPageHeading" rows="3"
-                      aria-describedby="label-as-page-heading-info"></textarea>
+                      aria-describedby="label-as-page-heading-info" disabled></textarea>
                     <div id="label-as-page-heading-info" class="govuk-hint govuk-character-count__message">
                       You have 500 characters remaining
                     </div>
@@ -2962,15 +2860,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 </li>
               </ul>
             </div>
-          </div>
-        </div>
-
-        <div class="govuk-button-group govuk-button-group-record">
-          {{ govukButton({
-          text: "Submit new record"
-          }) }}
-
-          <a class="govuk-link" href="#">Cancel</a>
+          </div> -->
         </div>
 
       </form>

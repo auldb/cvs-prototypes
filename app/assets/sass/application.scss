@@ -118,6 +118,11 @@
   top: -1px;
 }
 
+.govuk-notification-banner__content > * {
+  box-sizing: border-box;
+  max-width: 1000px;
+}
+
 .app-c-filter-summary__remove-filter {
   border: 1px solid #b1b4b6;
   border-radius: .3125em;
@@ -208,7 +213,11 @@
 //}
 
 .app-c-filter-summary__remove-filter:visited {
-  color: #000000
+  color: #1d70b8
+}
+
+.disabled-vtm {
+  cursor: not-allowed !important;
 }
 
 .app-c-filter-summary__clear-filters {
@@ -386,6 +395,14 @@ padding-top: 25px !important;
     padding: 20px;
 }
 
+.govuk-accordion__section-heading-top-review {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  background-color: #f3f2f1;
+  border-bottom: 0px solid #b1b4b6;
+  padding: 20px;
+}
+
 .govuk-accordion__show-all {
     top: 15px !important;
     right: 18px !important;
@@ -412,7 +429,168 @@ padding-top: 25px !important;
   padding: 5px 20px 5px 20px;
 }
 
+// View tech record page
+
+/* Targeting only the page with ID 'special-page' */
+#view-record select[disabled], 
+#view-record input[disabled] {
+  opacity: 1; /* Remove the opacity */
+  background-color: white; /* Reset any background color */
+  color: black; /* Set text color to black */
+  border-color: #000000;
+}
+
+#view-record .govuk-radios__input[disabled] {
+  color: black;
+  background-color: white;
+  opacity: 0;
+  border-color: black;
+}
+
+#view-record .govuk-radios__input[disabled] + .govuk-radios__label {
+  opacity: 1;
+}
+
+
+// Tech records list
+
+.archive-link:focus {
+  outline: none !important;
+  text-decoration: none !important;
+  box-shadow: none !important; 
+}
+
+.archive-row {
+  cursor: pointer;
+  border: 1px solid #b1b4b6;
+  padding: 5px 10px;
+  text-decoration: none;
+  color: #0b0c0c;
+  font-family: "GDS Transport",arial,sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 400;
+  font-size: 1.1875rem;
+  line-height: 1.3157894737;
+}
+.archive-row a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+.archive-row:hover,
+.archive-row:focus-within {
+  background-color: #f3f3f3;
+}
+
+/* Ensure entire row gets highlighted when any link inside is focused */
+.archive-row:has(.archive-link:focus) {
+  outline: 2px solid #000000; /* GOV.UK focus yellow */
+  background-color: #ffdd00; /* Light grey background */
+}
+
+/* Also apply hover effect to the whole row */
+.archive-row:hover {
+  background-color: #f3f2f1;
+}
+
+.govuk-table th:first-child {
+  white-space: nowrap !important; /* Prevent wrapping */
+  width: 1% !important; /* Shrink to fit content */
+}
+
+.govuk-table td, .govuk-table th {
+  white-space: nowrap !important; /* Prevent wrapping */
+}
+
+.govuk-table th:not(:first-child),
+.govuk-table td {
+  width: auto !important; /* Allow these columns to expand */
+}
+
+.govuk-table {
+  border: 1px solid #b1b4b6; /* GOV.UK grey */
+  border-collapse: collapse; /* Ensures a clean, single border */
+}
+
+.govuk-table th,
+.govuk-table td {
+  border: none; /* Keep internal styling clean */
+  padding: 5px; /* Adds space between text and cell borders */
+}
+
+.govuk-table thead {
+  border-bottom: 1px solid #b1b4b6; /* Adds a strong separation between header and body */
+}
+
+/* Align Date column to the right in Technical Records table */
+.govuk-table td:nth-child(4),
+.govuk-table th:nth-child(4) {
+  text-align: right;
+  padding: 5px; 
+}
+
+/* Align Date column to the right in Test Records table */
+.test-records-table td:nth-child(3),
+.test-records-table th:nth-child(3) {
+  text-align: right;
+  padding: 5px; 
+}
+
+// Test records table
+
+/* Fixes for the Test Records Table */
+.test-records-table {
+  width: 100%; /* Ensure full width usage */
+  table-layout: auto; /* Let columns distribute naturally */
+}
+
+/* Make sure columns distribute evenly */
+.test-records-table th,
+.test-records-table td {
+  text-align: left;
+  padding: 5px 10px;
+}
+
+/* Adjust spacing so columns don’t bunch up */
+.test-records-table th:nth-child(1),
+.test-records-table td:nth-child(1) {
+  width: 20%; /* First column (Test Type) slightly smaller */
+}
+
+.test-records-table th:nth-child(2),
+.test-records-table td:nth-child(2) {
+  width: 20%; /* Second column (Result) slightly smaller */
+}
+
+.test-records-table th:nth-child(3),
+.test-records-table td:nth-child(3) {
+  width: 60%; /* Third column (Date) takes more space */
+}
+
+
 // Summary list
+
+
+
+.summary-link-wrapper {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  float: right;
+  padding-left: 10px;
+}
+
+.summary-link {
+  font-size: 1rem;
+  padding-left: 1px;
+}
+
+.summary-link-first {
+  padding-right: 5px;
+  border-right: 1px solid #b1b4b6;
+}
 
 .govuk-summary-card__title-vtm {
   line-height: 1.3157894737 !important;
@@ -425,6 +603,12 @@ padding-top: 25px !important;
 
 @media (max-width: 1000px) {
   .vehicle-summary { position:relative !important; top: auto; }
+}
+
+.govuk-summary-list__value--view {
+  overflow-wrap: normal;
+  padding-top: 0px;
+  padding-bottom: 0px !important;
 }
 
 .govuk-summary-list__value--overflow {
@@ -455,7 +639,7 @@ padding-top: 25px !important;
 
 
 .govuk-button-group-record {
-    padding-top: 25px;
+    padding-top: 0px;
 }
 
 .govuk-search-results {
