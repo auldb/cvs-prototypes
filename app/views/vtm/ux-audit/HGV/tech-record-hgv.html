@@ -901,7 +901,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 </span>
               </h2>
               <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
-                Axle weights, unladen weight.
+                Axle, gross, and train weights.
               </div>
               <div class="govuk-accordion__section-summary-padding"></div>
             </div>
@@ -1596,8 +1596,9 @@ document.addEventListener('DOMContentLoaded', function () {
                               S/D
                             </label>
                             <select class="govuk-select govuk-select--tyres" id="sort" name="sort" disabled>
-                              <option value="published">S</option>
-                              <option value="updated" selected>D</option>
+                              <option value="updated"></option>
+                              <option value="published" selected>S</option>
+                              <option value="updated">D</option>
                             </select>
                           </div>
                         </div>
@@ -1669,8 +1670,9 @@ document.addEventListener('DOMContentLoaded', function () {
                               S/D
                             </label>
                             <select class="govuk-select govuk-select--tyres" id="sort" name="sort" disabled>
-                              <option value="published">S</option>
-                              <option value="updated" selected>D</option>
+                              <option value="updated"></option>
+                              <option value="published" selected>S</option>
+                              <option value="updated">D</option>
                             </select>
                           </div>
                         </div>
@@ -1741,9 +1743,10 @@ document.addEventListener('DOMContentLoaded', function () {
                             <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
                               S/D
                             </label>
-                            <select class="govuk-select govuk-select--tyres" id="sort" name="sort">
-                              <option value="published">S</option>
-                              <option value="updated" selected>D</option>
+                            <select class="govuk-select govuk-select--tyres" id="sort" name="sort" disabled>
+                              <option value="updated"></option>
+                              <option value="published" selected>S</option>
+                              <option value="updated">D</option>
                             </select>
                           </div>
                         </div>
@@ -1814,9 +1817,10 @@ document.addEventListener('DOMContentLoaded', function () {
                             <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
                               S/D
                             </label>
-                            <select class="govuk-select govuk-select--tyres" id="sort" name="sort">
+                            <select class="govuk-select govuk-select--tyres" id="sort" name="sort" disabled>
+                              <option value="updated" selected></option>
                               <option value="published">S</option>
-                              <option value="updated" selected>D</option>
+                              <option value="updated">D</option>
                             </select>
                           </div>
                         </div>
@@ -1886,9 +1890,10 @@ document.addEventListener('DOMContentLoaded', function () {
                             <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
                               S/D
                             </label>
-                            <select class="govuk-select govuk-select--tyres" id="sort" name="sort">
+                            <select class="govuk-select govuk-select--tyres" id="sort" name="sort" disabled>
+                              <option value="updated" selected></option>
                               <option value="published">S</option>
-                              <option value="updated" selected>D</option>
+                              <option value="updated">D</option>
                             </select>
                           </div>
                         </div>
@@ -2809,10 +2814,7 @@ document.addEventListener('DOMContentLoaded', function () {
                       Enter any notes for this technical record
                     </label>
                     <textarea class="govuk-textarea" id="label-as-page-heading" name="labelAsPageHeading" rows="5"
-                      aria-describedby="label-as-page-heading-info" disabled>Example of a note.</textarea>
-                    <div id="label-as-page-heading-info" class="govuk-hint govuk-character-count__message">
-                      You have 1024 characters remaining
-                    </div>
+                      aria-describedby="label-as-page-heading-info" disabled>Example notes.</textarea>
                   </div>
 
                 </li>

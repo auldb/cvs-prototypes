@@ -16,7 +16,7 @@
 }) }}
   {{ govukBackLink({
   text: "Back",
-  href: "home"
+  href: "javascript:window.history.back()"
 }) }}
 {% endblock %}
 
@@ -63,7 +63,7 @@
           <div id="account-number-hint" class="govuk-hint">
             Must be between 3 and 21 characters
           </div>
-          <input class="govuk-input govuk-input--width-20" id="width-20" name="width20" type="text" value="WBABW33426PX70804">
+          <input class="govuk-input govuk-input--width-20" id="width-20" name="width20" type="text">
         </div>
 
 
@@ -108,7 +108,7 @@
             </legend>
             <div class="govuk-checkboxes" data-module="govuk-checkboxes">
               <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="waste" name="waste" type="checkbox" value="carcasses" checked>
+                <input class="govuk-checkboxes__input" id="waste" name="waste" type="checkbox" value="carcasses">
                 <label class="govuk-label govuk-checkboxes__label" for="waste">
                   Generate a C, T or Z number on submission of the new record
                 </label>
@@ -144,7 +144,7 @@
                       </label>
                     </div>
                     <div class="govuk-radios__item">
-                      <input class="govuk-radios__input" id="changedName-2" name="changedName" type="radio" value="no" checked>
+                      <input class="govuk-radios__input" id="changedName-2" name="changedName" type="radio" value="no">
                       <label class="govuk-label govuk-radios__label" for="changedName-2">
                         Provisional
                       </label>
@@ -184,7 +184,7 @@
                     <div class="govuk-radios__item">
                       <input class="govuk-radios__input" id="whereDoYouLive" name="whereDoYouLive" type="radio" value="england">
                       <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
-                        Car
+                        Heavy Goods Vehicle (HGV)
                       </label>
                     </div>
                     <div class="govuk-radios__item">
@@ -196,19 +196,13 @@
                     <div class="govuk-radios__item">
                       <input class="govuk-radios__input" id="whereDoYouLive-3" name="whereDoYouLive" type="radio" value="wales">
                       <label class="govuk-label govuk-radios__label" for="whereDoYouLive-3">
-                        Heavy Goods Vehicle (HGV)
+                        Public Service Vehicle (PSV)
                       </label>
                     </div>
                     <div class="govuk-radios__item">
                       <input class="govuk-radios__input" id="whereDoYouLive-4" name="whereDoYouLive" type="radio" value="northern-ireland">
                       <label class="govuk-label govuk-radios__label" for="whereDoYouLive-4">
-                        Motorcycle 
-                      </label>
-                    </div>
-                    <div class="govuk-radios__item">
-                      <input class="govuk-radios__input" id="whereDoYouLive-4" name="whereDoYouLive" type="radio" value="northern-ireland" checked>
-                      <label class="govuk-label govuk-radios__label" for="whereDoYouLive-4">
-                        Public Service Vehicle (PSV) 
+                        Trailer (TRL)
                       </label>
                     </div>
                     <div class="govuk-radios__item">
@@ -220,7 +214,13 @@
                     <div class="govuk-radios__item">
                       <input class="govuk-radios__input" id="whereDoYouLive-4" name="whereDoYouLive" type="radio" value="northern-ireland">
                       <label class="govuk-label govuk-radios__label" for="whereDoYouLive-4">
-                        Trailer (TRL)
+                        Car
+                      </label>
+                    </div>
+                    <div class="govuk-radios__item">
+                      <input class="govuk-radios__input" id="whereDoYouLive-4" name="whereDoYouLive" type="radio" value="northern-ireland">
+                      <label class="govuk-label govuk-radios__label" for="whereDoYouLive-4">
+                        Motorcycle
                       </label>
                     </div>
                   </div>
