@@ -305,7 +305,6 @@ padding-top: 25px !important;
     background: none;
     text-align: left;
     cursor: pointer;
-    -webkit-appearance: none;
   }
 
 .govuk-accordion__section-button-vtm {
@@ -318,7 +317,6 @@ padding-top: 25px !important;
   background: none;
   text-align: left;
   cursor: pointer;
-  -webkit-appearance: none;
 }
 
 .govuk-accordion__section-button-vtm-bottom {
@@ -331,7 +329,6 @@ padding-top: 25px !important;
     background: none;
     text-align: left;
     cursor: pointer;
-    -webkit-appearance: none;
   }
 
 @media (min-width: 40.0625em) {
@@ -353,7 +350,6 @@ padding-top: 25px !important;
 
 .govuk-accordion__section-toggle {
     float: right;
-    display: inline-block;
     margin-top: -50px;
 }
   
@@ -653,10 +649,6 @@ padding-top: 25px !important;
 
 .govuk-details__summary-text--filter {
     text-decoration: none;
-}
-
-.govuk-search-results-count {
-
 }
 
 .govuk-radios--filter {
