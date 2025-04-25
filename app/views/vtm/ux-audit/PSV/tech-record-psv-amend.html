@@ -23,116 +23,118 @@ href: "create-psv"
 {% block content %}
 
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-      const axleInput = document.getElementById('number-of-axles');  
-      const warningDiv = document.getElementById('tyre-warning');
-      const parkingBrake = document.getElementById('pb-warning');
-      const weightsWarning = document.getElementById('weights-warning'); 
+  document.addEventListener('DOMContentLoaded', function () {
+        const axleInput = document.getElementById('number-of-axles');  
+        const warningDiv = document.getElementById('tyre-warning');
+        const parkingBrake = document.getElementById('pb-warning');
+        const weightsWarning = document.getElementById('weights-warning'); 
+    
+        const axleFields = ['axle1to2', 'axle2to3', 'axle3to4', 'axle4to5', 'axle5to6'];
+        const weightFields = ['weight-axle1', 'weight-axle2', 'weight-axle3', 'weight-axle4', 'weight-axle5'];
+        const brakeFields = ['brake-axle1', 'brake-axle2', 'brake-axle3', 'brake-axle4', 'brake-axle5'];
+        const tyreFields = ['tyre-axle1', 'tyre-axle2', 'tyre-axle3', 'tyre-axle4', 'tyre-axle5'];
+    
+        function toggleFields() {
+        const axlesValue = axleInput.value.trim();
+        const axles = axlesValue === '' ? 0 : parseInt(axlesValue, 10);
+    
+        if (axles <= 0) { 
+            warningDiv.style.display = 'block';
+            parkingBrake.style.display = 'block';
+            weightsWarning.style.display = 'block';
+        } else {
+            warningDiv.style.display = 'none';
+            parkingBrake.style.display = 'none';
+            weightsWarning.style.display = 'none';
+        }
+    
+            // Ensure axle-related fields are shown/hidden correctly
+            axleFields.forEach((field, index) => {
+                const axleField = document.getElementById(field);
+                if (axleField) axleField.style.display = axles > index ? 'block' : 'none';
+            });
+    
+            weightFields.forEach((field, index) => {
+                const weightField = document.getElementById(field);
+                if (weightField) weightField.style.display = axles > index ? 'block' : 'none';
+            });
+    
+            brakeFields.forEach((field, index) => {
+                const brakeField = document.getElementById(field);
+                if (brakeField) brakeField.style.display = axles > index ? 'block' : 'none';
+            });
+    
+            tyreFields.forEach((field, index) => {
+                const tyreField = document.getElementById(field);
+                if (tyreField) tyreField.style.display = axles > index ? 'block' : 'none';
+            });
+        }
+    
+        // Attach event listeners
+        axleInput.addEventListener('input', toggleFields);
+        axleInput.addEventListener('change', toggleFields);
+        axleInput.addEventListener('blur', toggleFields);
+    
+        // Ensure the fix runs AFTER other scripts have executed
+        setTimeout(toggleFields, 100);
   
-      const axleFields = ['axle1to2', 'axle2to3', 'axle3to4', 'axle4to5', 'axle5to6'];
-      const weightFields = ['weight-axle1', 'weight-axle2', 'weight-axle3', 'weight-axle4', 'weight-axle5'];
-      const brakeFields = ['brake-axle1', 'brake-axle2', 'brake-axle3', 'brake-axle4', 'brake-axle5'];
-      const tyreFields = ['tyre-axle1', 'tyre-axle2', 'tyre-axle3', 'tyre-axle4', 'tyre-axle5'];
+      const filters = [
+          { id: 'plates', className: 'plates' },
+          { id: 'required', className: 'required' },
+          { id: 'adr', className: 'adr' },
+          { id: 'admin', className: 'admin' },
+          { id: 'records', className: 'records' },
+          { id: 'untagged', className: 'untagged'}
+      ];
   
-      function toggleFields() {
-      const axlesValue = axleInput.value.trim();
-      const axles = axlesValue === '' ? 0 : parseInt(axlesValue, 10);
+      const filterStates = {
+          plates: false,
+          required: false,
+          adr: false,
+          admin: false,
+          records: false,
+          untagged: false
+      };
   
-      if (axles <= 0) { 
-          warningDiv.style.display = 'block';
-          parkingBrake.style.display = 'block';
-          weightsWarning.style.display = 'block';
-      } else {
-          warningDiv.style.display = 'none';
-          parkingBrake.style.display = 'none';
-          weightsWarning.style.display = 'none';
+      function applyFilters() {
+          const anyFilterActive = Object.values(filterStates).some(state => state === true);
+  
+          document.querySelectorAll('.plates, .required, .adr, .admin, .records, .untagged').forEach(element => {
+              const classList = element.classList;
+              const shouldShow = !anyFilterActive || filters.some(f => filterStates[f.id] && classList.contains(f.className));
+              element.style.display = shouldShow ? '' : 'none';
+          });
       }
   
-          // Ensure axle-related fields are shown/hidden correctly
-          axleFields.forEach((field, index) => {
-              const axleField = document.getElementById(field);
-              if (axleField) axleField.style.display = axles > index ? 'block' : 'none';
+      filters.forEach(({ id, className }) => {
+          const button = document.getElementById(id);
+          const text = button?.querySelector('.app-c-filter-summary__remove-filter-text');
+  
+          if (!button || !text) {
+              console.error(`Error: Filter button or text not found for ${id}`);
+              return;
+          }
+  
+          button.addEventListener('click', function (event) {
+              event.preventDefault();
+  
+              filterStates[id] = !filterStates[id];
+  
+              if (id === 'adr') {
+                  text.innerHTML = filterStates[id] ? '× ADR' : 'ADR';
+              } else {
+                  text.innerHTML = filterStates[id] ? `× ${id.charAt(0).toUpperCase() + id.slice(1)}` : id.charAt(0).toUpperCase() + id.slice(1);
+              }
+  
+              button.classList.toggle('active-filter', filterStates[id]);
+  
+              applyFilters();
+              button.blur();
           });
+      });
   
-          weightFields.forEach((field, index) => {
-              const weightField = document.getElementById(field);
-              if (weightField) weightField.style.display = axles > index ? 'block' : 'none';
-          });
-  
-          brakeFields.forEach((field, index) => {
-              const brakeField = document.getElementById(field);
-              if (brakeField) brakeField.style.display = axles > index ? 'block' : 'none';
-          });
-  
-          tyreFields.forEach((field, index) => {
-              const tyreField = document.getElementById(field);
-              if (tyreField) tyreField.style.display = axles > index ? 'block' : 'none';
-          });
-      }
-  
-      // Attach event listeners
-      axleInput.addEventListener('input', toggleFields);
-      axleInput.addEventListener('change', toggleFields);
-      axleInput.addEventListener('blur', toggleFields);
-  
-      // Ensure the fix runs AFTER other scripts have executed
-      setTimeout(toggleFields, 100);
-
-    const platesFilter = document.getElementById('plates');
-    const requiredFilter = document.getElementById('required');
-
-    if (!platesFilter || !requiredFilter) {
-        console.error("Error: One or both filter buttons were not found in the DOM!");
-        return;
-    }
-
-    const platesText = platesFilter.querySelector('.app-c-filter-summary__remove-filter-text');
-    const requiredText = requiredFilter.querySelector('.app-c-filter-summary__remove-filter-text');
-
-    const untaggedElements = document.querySelectorAll('.untagged');
-    const platesElements = document.querySelectorAll('.plates');
-    const requiredElements = document.querySelectorAll('.required');
-    const optionalElements = document.querySelectorAll('.optional');
-
-    let isPlatesFiltered = false;
-    let isRequiredFiltered = false;
-
-    function applyFilters() {
-        document.querySelectorAll('.untagged, .plates, .required, .optional').forEach(element => {
-            let shouldShow = true;
-
-            if (isPlatesFiltered) {
-                shouldShow = element.classList.contains('plates');
-            }
-
-            if (isRequiredFiltered) {
-                shouldShow = element.classList.contains('required') || (isPlatesFiltered && element.classList.contains('plates'));
-            }
-
-            element.style.display = shouldShow ? '' : 'none';
-        });
-    }
-
-    platesFilter.addEventListener('click', function (event) {
-        event.preventDefault();
-        isPlatesFiltered = !isPlatesFiltered;
-        platesText.innerHTML = isPlatesFiltered ? '× Plates' : 'Plates';
-        platesFilter.classList.toggle('active-filter', isPlatesFiltered);
-        applyFilters();
-        platesFilter.blur();
-    });
-
-    requiredFilter.addEventListener('click', function (event) {
-        event.preventDefault();
-        isRequiredFiltered = !isRequiredFiltered;
-        requiredText.innerHTML = isRequiredFiltered ? '× Required' : 'Required';
-        requiredFilter.classList.toggle('active-filter', isRequiredFiltered);
-        applyFilters();
-        requiredFilter.blur();
-    });
-
-    applyFilters(); // Apply filters on page load to ensure state is correct
-});
+      applyFilters();
+  });
   </script>
 
 
@@ -294,25 +296,25 @@ document.addEventListener('DOMContentLoaded', function () {
               Filter by
             </dt>
              <dd class="govuk-summary-list__value govuk-summary-list__value--filter">
-              <a class="app-c-filter-summary__remove-filter" href="#" id="plates">
-                <span class="app-c-filter-summary__remove-filter-text">
-                  <span class="govuk-visually-hidden">Remove filter</span>
-                  Plates
-                </span>
-              </a>
-          </dd>
-            <dd class="govuk-summary-list__value govuk-summary-list__value--filter">
               <a class="app-c-filter-summary__remove-filter" href="#" id="required">
                 <span class="app-c-filter-summary__remove-filter-text">
                   <span class="govuk-visually-hidden">Remove filter</span>
                   Required
                 </span>
               </a>
+          </dd>
+            <dd class="govuk-summary-list__value govuk-summary-list__value--filter">
+              <a class="app-c-filter-summary__remove-filter" href="#" id="records">
+                <span class="app-c-filter-summary__remove-filter-text">
+                  <span class="govuk-visually-hidden">Remove filter</span>
+                  Records
+                </span>
+              </a>
             </dd>
           </div>
 
           <!--GENERAL-->
-          <div class="govuk-accordion__section govuk-accordion__section-vtm">
+          <div class="govuk-accordion__section govuk-accordion__section-vtm required">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
               <h2 class="govuk-accordion__section-heading">
                 <span
@@ -557,7 +559,7 @@ document.addEventListener('DOMContentLoaded', function () {
           </div>
 
           <!--APPROVAL TYPE-->
-          <div class="govuk-accordion__section govuk-accordion__section-vtm">
+          <div class="govuk-accordion__section govuk-accordion__section-vtm untagged">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
               <h2 class="govuk-accordion__section-heading">
                 <span
@@ -697,7 +699,7 @@ document.addEventListener('DOMContentLoaded', function () {
           </div>
 
           <!--AXLES AND DIMENSIONS-->
-          <div class="govuk-accordion__section govuk-accordion__section-vtm">
+          <div class="govuk-accordion__section govuk-accordion__section-vtm untagged">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
               <h2 class="govuk-accordion__section-heading">
                 <span
@@ -841,7 +843,7 @@ document.addEventListener('DOMContentLoaded', function () {
           </div>
 
           <!--WEIGHTS-->
-          <div class="govuk-accordion__section govuk-accordion__section-vtm">
+          <div class="govuk-accordion__section govuk-accordion__section-vtm untagged">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
               <h2 class="govuk-accordion__section-heading">
                 <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
@@ -1383,178 +1385,8 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>
           </div>
 
-          <!--CONFIGURATION-->
-          <div class="govuk-accordion__section govuk-accordion__section-vtm">
-            <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
-              <h2 class="govuk-accordion__section-heading">
-                <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
-                  id="accordion-with-summary-sections-heading-2">
-                  Configuration
-                </span>
-              </h2>
-              <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
-                Off-road, fuel system, road friendly suspension.
-              </div>
-              <div class="govuk-accordion__section-summary-padding"></div>
-            </div>
-            <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
-              <hr class="expanded">
-              </hr>
-              <ul class="govuk-list">
-                <li>
-
-                  <div class="govuk-form-group untagged">
-                    <fieldset class="govuk-fieldset">
-                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-                        <h1 class="govuk-fieldset__heading">
-                          Off-road vehicle
-                        </h1>
-                      </legend>
-                      <div class="govuk-radios" data-module="govuk-radios">
-                        <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="offroad" name="offroad" type="radio"
-                            value="offroadyes" >
-                          <label class="govuk-label govuk-radios__label" for="offroad">
-                            Yes
-                          </label>
-                        </div>
-                        <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="offroad-2" name="offroad" type="radio"
-                            value="offroadno" checked >
-                          <label class="govuk-label govuk-radios__label" for="offroad-2">
-                            No
-                          </label>
-                        </div>
-                      </div>
-                    </fieldset>
-                  </div>
-
-                  <div class="govuk-form-group untagged">
-                    <fieldset class="govuk-fieldset">
-                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-                        <h1 class="govuk-fieldset__heading">
-                          Departmental vehicle marker
-                        </h1>
-                      </legend>
-                      <div class="govuk-radios" data-module="govuk-radios">
-                        <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="departmental" name="departmental" type="radio"
-                            value="departmentalyes" >
-                          <label class="govuk-label govuk-radios__label" for="departmental">
-                            Yes
-                          </label>
-                        </div>
-                        <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="departmental-2" name="departmental" type="radio"
-                            value="departmentalno" checked >
-                          <label class="govuk-label govuk-radios__label" for="departmental-2">
-                            No
-                          </label>
-                        </div>
-                      </div>
-                    </fieldset>
-                  </div>
-
-                  <div class="govuk-form-group untagged">
-                    <fieldset class="govuk-fieldset">
-                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-                        <h1 class="govuk-fieldset__heading">
-                          Alteration marker
-                        </h1>
-                      </legend>
-                      <div class="govuk-radios" data-module="govuk-radios">
-                        <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="alteration" name="alteration" type="radio"
-                            value="alterationyes" >
-                          <label class="govuk-label govuk-radios__label" for="alteration">
-                            Yes
-                          </label>
-                        </div>
-                        <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="alteration-2" name="alteration" type="radio"
-                            value="alterationno" checked >
-                          <label class="govuk-label govuk-radios__label" for="alteration-2">
-                            No
-                          </label>
-                        </div>
-                      </div>
-                    </fieldset>
-                  </div>
-
-                  <div class="govuk-form-group untagged">
-                    <label class="govuk-label" for="location">
-                      <strong>
-                        Fuel system
-                      </strong>
-                    </label>
-                    <select class="govuk-select" id="location" name="location" aria-describedby="location-hint" >
-                      <option value="choose">Select fuel system</option>
-                      <option value="eastofengland" selected>Diesel</option>
-                      <option value="london">Petrol</option>
-                      <option value="northeast">Hybrid</option>
-                      <option value="northwest">Electric</option>
-                      <option value="southeast">CNG</option>
-                      <option value="southwest">Fuel cell</option>
-                      <option value="westmidlands">LNG</option>
-                      <option value="yorkshire">Other</option>
-                    </select>
-                  </div>
-
-                  <div class="govuk-form-group">
-                    <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
-                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-                        <h1 class="govuk-fieldset__heading">
-                          Maximum speed
-                        </h1>
-                      </legend>
-                      <div class="govuk-date-input" id="passport-issued">
-
-                        <div class="govuk-date-input__item">
-                          <div class="govuk-form-group">
-                            <div class="govuk-input__wrapper">
-                              <input class="govuk-input govuk-date-input__input govuk-input--width-3"
-                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="60" >
-                              <div class="govuk-input__suffix" aria-hidden="true">mph</div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </fieldset>
-                  </div>
-
-                  <div class="govuk-form-group plates">
-                    <fieldset class="govuk-fieldset">
-                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-                        <h1 class="govuk-fieldset__heading">
-                          Road friendly suspension
-                        </h1>
-                      </legend>
-                      <div class="govuk-radios" data-module="govuk-radios">
-                        <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="roadfriendly" name="roadfriendly" type="radio"
-                            value="roadfriendlyyes" checked >
-                          <label class="govuk-label govuk-radios__label" for="roadfriendly">
-                            Yes
-                          </label>
-                        </div>
-                        <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="roadfriendly-2" name="roadfriendly" type="radio"
-                            value="roadfriendlyno" >
-                          <label class="govuk-label govuk-radios__label" for="roadfriendly-2">
-                            No
-                          </label>
-                        </div>
-                      </div>
-                    </fieldset>
-                  </div>
-
-                </li>
-              </ul>
-            </div>
-          </div>
-
           <!--TYRES-->
-          <div class="govuk-accordion__section govuk-accordion__section-vtm">
+          <div class="govuk-accordion__section govuk-accordion__section-vtm untagged">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
               <h2 class="govuk-accordion__section-heading">
                 <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
@@ -2036,8 +1868,178 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>
           </div>
 
+          <!--CONFIGURATION-->
+          <div class="govuk-accordion__section govuk-accordion__section-vtm untagged">
+            <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
+              <h2 class="govuk-accordion__section-heading">
+                <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
+                  id="accordion-with-summary-sections-heading-2">
+                  Configuration
+                </span>
+              </h2>
+              <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
+                Off-road, fuel system, road friendly suspension.
+              </div>
+              <div class="govuk-accordion__section-summary-padding"></div>
+            </div>
+            <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
+              <hr class="expanded">
+              </hr>
+              <ul class="govuk-list">
+                <li>
+
+                  <div class="govuk-form-group untagged">
+                    <fieldset class="govuk-fieldset">
+                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                        <h1 class="govuk-fieldset__heading">
+                          Off-road vehicle
+                        </h1>
+                      </legend>
+                      <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                          <input class="govuk-radios__input" id="offroad" name="offroad" type="radio"
+                            value="offroadyes" >
+                          <label class="govuk-label govuk-radios__label" for="offroad">
+                            Yes
+                          </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                          <input class="govuk-radios__input" id="offroad-2" name="offroad" type="radio"
+                            value="offroadno" checked >
+                          <label class="govuk-label govuk-radios__label" for="offroad-2">
+                            No
+                          </label>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+
+                  <div class="govuk-form-group untagged">
+                    <fieldset class="govuk-fieldset">
+                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                        <h1 class="govuk-fieldset__heading">
+                          Departmental vehicle marker
+                        </h1>
+                      </legend>
+                      <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                          <input class="govuk-radios__input" id="departmental" name="departmental" type="radio"
+                            value="departmentalyes" >
+                          <label class="govuk-label govuk-radios__label" for="departmental">
+                            Yes
+                          </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                          <input class="govuk-radios__input" id="departmental-2" name="departmental" type="radio"
+                            value="departmentalno" checked >
+                          <label class="govuk-label govuk-radios__label" for="departmental-2">
+                            No
+                          </label>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+
+                  <div class="govuk-form-group untagged">
+                    <fieldset class="govuk-fieldset">
+                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                        <h1 class="govuk-fieldset__heading">
+                          Alteration marker
+                        </h1>
+                      </legend>
+                      <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                          <input class="govuk-radios__input" id="alteration" name="alteration" type="radio"
+                            value="alterationyes" >
+                          <label class="govuk-label govuk-radios__label" for="alteration">
+                            Yes
+                          </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                          <input class="govuk-radios__input" id="alteration-2" name="alteration" type="radio"
+                            value="alterationno" checked >
+                          <label class="govuk-label govuk-radios__label" for="alteration-2">
+                            No
+                          </label>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+
+                  <div class="govuk-form-group untagged">
+                    <label class="govuk-label" for="location">
+                      <strong>
+                        Fuel system
+                      </strong>
+                    </label>
+                    <select class="govuk-select" id="location" name="location" aria-describedby="location-hint" >
+                      <option value="choose">Select fuel system</option>
+                      <option value="eastofengland" selected>Diesel</option>
+                      <option value="london">Petrol</option>
+                      <option value="northeast">Hybrid</option>
+                      <option value="northwest">Electric</option>
+                      <option value="southeast">CNG</option>
+                      <option value="southwest">Fuel cell</option>
+                      <option value="westmidlands">LNG</option>
+                      <option value="yorkshire">Other</option>
+                    </select>
+                  </div>
+
+                  <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
+                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                        <h1 class="govuk-fieldset__heading">
+                          Maximum speed
+                        </h1>
+                      </legend>
+                      <div class="govuk-date-input" id="passport-issued">
+
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <div class="govuk-input__wrapper">
+                              <input class="govuk-input govuk-date-input__input govuk-input--width-3"
+                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="60" >
+                              <div class="govuk-input__suffix" aria-hidden="true">mph</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+
+                  <div class="govuk-form-group plates">
+                    <fieldset class="govuk-fieldset">
+                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                        <h1 class="govuk-fieldset__heading">
+                          Road friendly suspension
+                        </h1>
+                      </legend>
+                      <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                          <input class="govuk-radios__input" id="roadfriendly" name="roadfriendly" type="radio"
+                            value="roadfriendlyyes" checked >
+                          <label class="govuk-label govuk-radios__label" for="roadfriendly">
+                            Yes
+                          </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                          <input class="govuk-radios__input" id="roadfriendly-2" name="roadfriendly" type="radio"
+                            value="roadfriendlyno" >
+                          <label class="govuk-label govuk-radios__label" for="roadfriendly-2">
+                            No
+                          </label>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+
+                </li>
+              </ul>
+            </div>
+          </div>
+
           <!--EMISSIONS AND EXEMPTIONS-->
-          <div class="govuk-accordion__section govuk-accordion__section-vtm">
+          <div class="govuk-accordion__section govuk-accordion__section-vtm untagged">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
               <h2 class="govuk-accordion__section-heading">
                 <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
@@ -2227,7 +2229,7 @@ document.addEventListener('DOMContentLoaded', function () {
           </div>
 
           <!--SEATS AND VEHICLE SIZE-->
-          <div class="govuk-accordion__section govuk-accordion__section-vtm">
+          <div class="govuk-accordion__section govuk-accordion__section-vtm untagged">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
               <h2 class="govuk-accordion__section-heading">
                 <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
@@ -2592,7 +2594,7 @@ document.addEventListener('DOMContentLoaded', function () {
         </div> -->
 
           <!--BRAKES-->
-          <div class="govuk-accordion__section govuk-accordion__section-vtm">
+          <div class="govuk-accordion__section govuk-accordion__section-vtm untagged">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
               <h2 class="govuk-accordion__section-heading">
                 <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
@@ -2950,7 +2952,7 @@ document.addEventListener('DOMContentLoaded', function () {
           </div>
 
           <!--DISABILITY DISCRIMINATION ACT-->
-          <div class="govuk-accordion__section govuk-accordion__section-vtm">
+          <div class="govuk-accordion__section govuk-accordion__section-vtm untagged">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
               <h2 class="govuk-accordion__section-heading">
                 <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
@@ -3258,113 +3260,113 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>
           </div>
 
-                    <!--TECH RECORD HISTORY-->
-                    <div class="govuk-accordion__section govuk-accordion__section-vtm untagged">
-                      <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
-                        <h2 class="govuk-accordion__section-heading">
-                          <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
-                            id="accordion-with-summary-sections-heading-2">
-                            Technical records history
-                          </span>
-                        </h2>
-                        <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
-                          View technical records history.
-                        </div>
-                        <div class="govuk-accordion__section-summary-padding"></div>
-                      </div>
-                      <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
-                        <hr class="expanded">
-                        </hr>
-                        <ul class="govuk-list">
-                          <li>
-          
-                            <h3 class="govuk-heading-s">Technical records history</h3>
-                            <table class="govuk-table">
-                              <thead class="govuk-table__head">
-                                <tr class="govuk-table__row">
-                                  <th scope="col" class="govuk-table__header">Status</th>
-                                  <th scope="col" class="govuk-table__header">Reason for creation</th>
-                                  <th scope="col" class="govuk-table__header">Created by</th>
-                                  <th scope="col" class="govuk-table__header">Date</th>
-                                </tr>
-                              </thead>
-                              <tbody class="govuk-table__body">
-                                <tr class="govuk-table__row">
-                                  <td scope="row" class="govuk-table__cell">Current</td>
-                                  <td class="govuk-table__cell">User testing</td>
-                                  <td class="govuk-table__cell">Ben</td>
-                                  <td class="govuk-table__cell">05/02/2024 at 11:49</td>
-                                </tr>
-                                <tr class="govuk-table__row archive-row">
-                                  <td scope="row" class="govuk-table__cell"><a href="#" class="archive-link">Archived</a></td>
-                                  <td class="govuk-table__cell"><a href="#" class="archive-link">User testing</a></td>
-                                  <td class="govuk-table__cell"><a href="#" class="archive-link">Ben</a></td>
-                                  <td class="govuk-table__cell"><a href="#" class="archive-link">04/01/2024 at 09:12</a></td>
-                                </tr>
-                              </tbody>
-                            </table>
-          
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-          
-                    <!--TEST RECORD HISTORY-->
-                    <div class="govuk-accordion__section govuk-accordion__section-vtm untagged">
-                      <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
-                        <h2 class="govuk-accordion__section-heading">
-                          <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
-                            id="accordion-with-summary-sections-heading-2">
-                            Test records
-                          </span>
-                        </h2>
-                        <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
-                          Create and view test records.
-                        </div>
-                        <div class="govuk-accordion__section-summary-padding"></div>
-                      </div>
-                      <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
-                        <hr class="expanded">
-                        </hr>
-                        <ul class="govuk-list">
-                          <li>
-          
-                            {{ govukButton({
-                              text: "Create test",
-                              classes: "govuk-button--secondary"
-                              }) }}
-          
-                            <h3 class="govuk-heading-s">Test records history</h3>
-                            <table class="govuk-table test-records-table">
-                              <thead class="govuk-table__head">
-                                <tr class="govuk-table__row">
-                                  <th scope="col" class="govuk-table__header">Test type</th>
-                                  <th scope="col" class="govuk-table__header">Result</th>
-                                  <th scope="col" class="govuk-table__header">Date</th>
-                                </tr>
-                              </thead>
-                              <tbody class="govuk-table__body">
-                                <tr class="govuk-table__row">
-                                  <td scope="row" class="govuk-table__cell">Annual test</td>
-                                  <td class="govuk-table__cell">Pass</td>
-                                  <td class="govuk-table__cell">05/02/2024 at 11:49</td>
-                                </tr>
-                                <tr class="govuk-table__row archive-row">
-                                  <td scope="row" class="govuk-table__cell"><a href="#" class="archive-link">Annual test</a></td>
-                                  <td class="govuk-table__cell"><a href="#" class="archive-link">Pass</a></td>
-                                  <td class="govuk-table__cell"><a href="#" class="archive-link">04/02/2023 at 09:12</a></td>
-                                </tr>
-                              </tbody>
-                            </table>
-                            
-          
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
+          <!--TECH RECORD HISTORY-->
+          <div class="govuk-accordion__section govuk-accordion__section-vtm records">
+            <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
+              <h2 class="govuk-accordion__section-heading">
+                <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
+                  id="accordion-with-summary-sections-heading-2">
+                  Technical records history
+                </span>
+              </h2>
+              <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
+                View technical records history.
+              </div>
+              <div class="govuk-accordion__section-summary-padding"></div>
+            </div>
+            <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
+              <hr class="expanded">
+              </hr>
+              <ul class="govuk-list">
+                <li>
+
+                  <h3 class="govuk-heading-s">Technical records history</h3>
+                  <table class="govuk-table">
+                    <thead class="govuk-table__head">
+                      <tr class="govuk-table__row">
+                        <th scope="col" class="govuk-table__header">Status</th>
+                        <th scope="col" class="govuk-table__header">Reason for creation</th>
+                        <th scope="col" class="govuk-table__header">Created by</th>
+                        <th scope="col" class="govuk-table__header">Date</th>
+                      </tr>
+                    </thead>
+                    <tbody class="govuk-table__body">
+                      <tr class="govuk-table__row">
+                        <td scope="row" class="govuk-table__cell">Current</td>
+                        <td class="govuk-table__cell">User testing</td>
+                        <td class="govuk-table__cell">Ben</td>
+                        <td class="govuk-table__cell">05/02/2024 at 11:49</td>
+                      </tr>
+                      <tr class="govuk-table__row archive-row">
+                        <td scope="row" class="govuk-table__cell"><a href="#" class="archive-link">Archived</a></td>
+                        <td class="govuk-table__cell"><a href="#" class="archive-link">User testing</a></td>
+                        <td class="govuk-table__cell"><a href="#" class="archive-link">Ben</a></td>
+                        <td class="govuk-table__cell"><a href="#" class="archive-link">04/01/2024 at 09:12</a></td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!--TEST RECORD HISTORY-->
+          <div class="govuk-accordion__section govuk-accordion__section-vtm records">
+            <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
+              <h2 class="govuk-accordion__section-heading">
+                <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
+                  id="accordion-with-summary-sections-heading-2">
+                  Test records
+                </span>
+              </h2>
+              <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
+                Create and view test records.
+              </div>
+              <div class="govuk-accordion__section-summary-padding"></div>
+            </div>
+            <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
+              <hr class="expanded">
+              </hr>
+              <ul class="govuk-list">
+                <li>
+
+                  {{ govukButton({
+                    text: "Create test",
+                    classes: "govuk-button--secondary"
+                    }) }}
+
+                  <h3 class="govuk-heading-s">Test records history</h3>
+                  <table class="govuk-table test-records-table">
+                    <thead class="govuk-table__head">
+                      <tr class="govuk-table__row">
+                        <th scope="col" class="govuk-table__header">Test type</th>
+                        <th scope="col" class="govuk-table__header">Result</th>
+                        <th scope="col" class="govuk-table__header">Date</th>
+                      </tr>
+                    </thead>
+                    <tbody class="govuk-table__body">
+                      <tr class="govuk-table__row">
+                        <td scope="row" class="govuk-table__cell">Annual test</td>
+                        <td class="govuk-table__cell">Pass</td>
+                        <td class="govuk-table__cell">05/02/2024 at 11:49</td>
+                      </tr>
+                      <tr class="govuk-table__row archive-row">
+                        <td scope="row" class="govuk-table__cell"><a href="#" class="archive-link">Annual test</a></td>
+                        <td class="govuk-table__cell"><a href="#" class="archive-link">Pass</a></td>
+                        <td class="govuk-table__cell"><a href="#" class="archive-link">04/02/2023 at 09:12</a></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  
+
+                </li>
+              </ul>
+            </div>
+          </div>
 
           <!--NOTES-->
-          <div class="govuk-accordion__section govuk-accordion__section-vtm">
+          <div class="govuk-accordion__section govuk-accordion__section-vtm untagged">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
               <h2 class="govuk-accordion__section-heading">
                 <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
@@ -3409,6 +3411,43 @@ document.addEventListener('DOMContentLoaded', function () {
                     </label>
                     <textarea class="govuk-textarea" id="label-as-page-heading" name="labelAsPageHeading" rows="3"
                       aria-describedby="label-as-page-heading-info" disabed>Example dispensations.</textarea>
+                  </div>
+
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!--REASON FOR CREATION-->
+          <div class="govuk-accordion__section govuk-accordion__section-vtm required">
+            <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
+              <h2 class="govuk-accordion__section-heading">
+                <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
+                  id="accordion-with-summary-sections-heading-2">
+                  Reason for creation
+                </span>
+              </h2>
+              <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
+                Tell us why you're creating this record.
+              </div>
+              <div class="govuk-accordion__section-summary-padding"></div>
+            </div>
+            <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
+              <hr class="expanded">
+              </hr>
+              <ul class="govuk-list">
+                <li>
+
+                  <div class="govuk-form-group govuk-character-count" data-module="govuk-character-count"
+                    data-maxlength="200">
+                    <label class="govuk-label" for="label-as-page-heading">
+                      Enter a reason for creating this technical record
+                    </label>
+                    <textarea class="govuk-textarea" id="label-as-page-heading" name="labelAsPageHeading" rows="3"
+                      aria-describedby="label-as-page-heading-info"></textarea>
+                    <div id="label-as-page-heading-info" class="govuk-hint govuk-character-count__message">
+                      You have 500 characters remaining
+                    </div>
                   </div>
 
                 </li>

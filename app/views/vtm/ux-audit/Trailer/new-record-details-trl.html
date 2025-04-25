@@ -14,132 +14,117 @@ text: "Beta"
 html: 'This is a new service. Help us improve it and <a class="govuk-link" href="#">give your feedback (opens in new
   tab)</a>.'
 }) }}
-{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
-
-{{ govukBreadcrumbs({
-  items: [
-    {
-      text: "Home",
-      href: "#"
-    },
-    {
-      text: "View technical record",
-      href: "#"
-    }
-  ]
+{{ govukBackLink({
+text: "Back",
+href: "create-psv"
 }) }}
 {% endblock %}
 
 {% block content %}
 
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-      const axleInput = document.getElementById('number-of-axles');  
-      const warningDiv = document.getElementById('tyre-warning');
-      const weightsWarning = document.getElementById('weights-warning'); 
-  
-      const axleFields = ['axle1to2', 'axle2to3', 'axle3to4', 'axle4to5', 'axle5to6'];
-      const weightFields = ['weight-axle1', 'weight-axle2', 'weight-axle3', 'weight-axle4', 'weight-axle5'];
-      const tyreFields = ['tyre-axle1', 'tyre-axle2', 'tyre-axle3', 'tyre-axle4', 'tyre-axle5'];
-  
-      function toggleFields() {
-          const axlesValue = axleInput.value.trim();
-          const axles = axlesValue === '' ? 0 : parseInt(axlesValue, 10);
-  
-          warningDiv.style.display = axles <= 0 ? 'block' : 'none';
-          weightsWarning.style.display = axles <= 0 ? 'block' : 'none';
-  
-          axleFields.forEach((field, index) => {
-              const axleField = document.getElementById(field);
-              if (axleField) axleField.style.display = axles > index ? 'block' : 'none';
-          });
-  
-          weightFields.forEach((field, index) => {
-              const weightField = document.getElementById(field);
-              if (weightField) weightField.style.display = axles > index ? 'block' : 'none';
-          });
-  
-          tyreFields.forEach((field, index) => {
-              const tyreField = document.getElementById(field);
-              if (tyreField) tyreField.style.display = axles > index ? 'block' : 'none';
-          });
-      }
-  
-      axleInput.addEventListener('input', toggleFields);
-      axleInput.addEventListener('change', toggleFields);
-      axleInput.addEventListener('blur', toggleFields);
-  
-      setTimeout(toggleFields, 100);
-  
-      const filters = [
-          { id: 'plates', className: 'plates' },
-          { id: 'required', className: 'required' },
-          { id: 'adr', className: 'adr' },
-          { id: 'admin', className: 'admin' },
-          { id: 'records', className: 'records' },
-          { id: 'untagged', className: 'untagged'}
-      ];
-  
-      const filterStates = {
-          plates: false,
-          required: false,
-          adr: false,
-          admin: false,
-          records: false,
-          untagged: false
-      };
-  
-      function applyFilters() {
-          const anyFilterActive = Object.values(filterStates).some(state => state === true);
-  
-          document.querySelectorAll('.plates, .required, .adr, .admin, .records, .untagged').forEach(element => {
-              const classList = element.classList;
-              const shouldShow = !anyFilterActive || filters.some(f => filterStates[f.id] && classList.contains(f.className));
-              element.style.display = shouldShow ? '' : 'none';
-          });
-      }
-  
-      filters.forEach(({ id, className }) => {
-          const button = document.getElementById(id);
-          const text = button?.querySelector('.app-c-filter-summary__remove-filter-text');
-  
-          if (!button || !text) {
-              console.error(`Error: Filter button or text not found for ${id}`);
-              return;
-          }
-  
-          button.addEventListener('click', function (event) {
-              event.preventDefault();
-  
-              filterStates[id] = !filterStates[id];
-  
-              if (id === 'adr') {
-                  text.innerHTML = filterStates[id] ? '× ADR' : 'ADR';
-              } else {
-                  text.innerHTML = filterStates[id] ? `× ${id.charAt(0).toUpperCase() + id.slice(1)}` : id.charAt(0).toUpperCase() + id.slice(1);
-              }
-  
-              button.classList.toggle('active-filter', filterStates[id]);
-  
-              applyFilters();
-              button.blur();
-          });
-      });
-  
-      applyFilters();
-  });
-  </script>
+document.addEventListener('DOMContentLoaded', function () {
+    const axleInput = document.getElementById('number-of-axles');  
+    const warningDiv = document.getElementById('tyre-warning');
+    const weightsWarning = document.getElementById('weights-warning'); 
 
+    const axleFields = ['axle1to2', 'axle2to3', 'axle3to4', 'axle4to5', 'axle5to6'];
+    const weightFields = ['weight-axle1', 'weight-axle2', 'weight-axle3', 'weight-axle4', 'weight-axle5'];
+    const tyreFields = ['tyre-axle1', 'tyre-axle2', 'tyre-axle3', 'tyre-axle4', 'tyre-axle5'];
 
-<div class="govuk-width-container" id="view-record">
+    function toggleFields() {
+        const axlesValue = axleInput.value.trim();
+        const axles = axlesValue === '' ? 0 : parseInt(axlesValue, 10);
+
+        warningDiv.style.display = axles <= 0 ? 'block' : 'none';
+        weightsWarning.style.display = axles <= 0 ? 'block' : 'none';
+
+        axleFields.forEach((field, index) => {
+            const axleField = document.getElementById(field);
+            if (axleField) axleField.style.display = axles > index ? 'block' : 'none';
+        });
+
+        weightFields.forEach((field, index) => {
+            const weightField = document.getElementById(field);
+            if (weightField) weightField.style.display = axles > index ? 'block' : 'none';
+        });
+
+        tyreFields.forEach((field, index) => {
+            const tyreField = document.getElementById(field);
+            if (tyreField) tyreField.style.display = axles > index ? 'block' : 'none';
+        });
+    }
+
+    axleInput.addEventListener('input', toggleFields);
+    axleInput.addEventListener('change', toggleFields);
+    axleInput.addEventListener('blur', toggleFields);
+
+    setTimeout(toggleFields, 100);
+
+    const filters = [
+        { id: 'plates', className: 'plates' },
+        { id: 'required', className: 'required' },
+        { id: 'adr', className: 'adr' },
+        { id: 'admin', className: 'admin' },
+        { id: 'records', className: 'records' },
+        { id: 'untagged', className: 'untagged'}
+    ];
+
+    const filterStates = {
+        plates: false,
+        required: false,
+        adr: false,
+        admin: false,
+        records: false,
+        untagged: false
+    };
+
+    function applyFilters() {
+        const anyFilterActive = Object.values(filterStates).some(state => state === true);
+
+        document.querySelectorAll('.plates, .required, .adr, .admin, .records, .untagged').forEach(element => {
+            const classList = element.classList;
+            const shouldShow = !anyFilterActive || filters.some(f => filterStates[f.id] && classList.contains(f.className));
+            element.style.display = shouldShow ? '' : 'none';
+        });
+    }
+
+    filters.forEach(({ id, className }) => {
+        const button = document.getElementById(id);
+        const text = button?.querySelector('.app-c-filter-summary__remove-filter-text');
+
+        if (!button || !text) {
+            console.error(`Error: Filter button or text not found for ${id}`);
+            return;
+        }
+
+        button.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            filterStates[id] = !filterStates[id];
+
+            if (id === 'adr') {
+                text.innerHTML = filterStates[id] ? '× ADR' : 'ADR';
+            } else {
+                text.innerHTML = filterStates[id] ? `× ${id.charAt(0).toUpperCase() + id.slice(1)}` : id.charAt(0).toUpperCase() + id.slice(1);
+            }
+
+            button.classList.toggle('active-filter', filterStates[id]);
+
+            applyFilters();
+            button.blur();
+        });
+    });
+
+    applyFilters();
+});
+</script>
+
+<div class="govuk-width-container">
 
   <h1 class="govuk-heading-l">
-    View technical record
+    Create a new technical record
   </h1>
-
-  <!-- <div class="govuk-inset-text">
-    Complete all required fields to create a testable record.
-  </div> -->
 
   <div class="govuk-grid-row">
 
@@ -151,36 +136,30 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
           <h2 class="govuk-summary-card__title govuk-summary-card__title-vtm govuk-heading-l">
             Summary
           </h2>
-         <!-- <ul class="govuk-summary-card__actions">
+          <ul class="govuk-summary-card__actions">
             <li class="govuk-summary-card__action">
               <a class="govuk-link" href="create-psv">Change<span class="govuk-visually-hidden"></span></a>
             </li>
             <li class="govuk-summary-card__action">
               <a class="govuk-link" href="home">Cancel<span class="govuk-visually-hidden"></span></a>
             </li>
-          </ul> -->
+          </ul>
         </div>
         <div class="govuk-summary-card__content">
           <dl class="govuk-summary-list govuk-summary-list--no-border">
             <div class="govuk-summary-list__row">
               <dt class="govuk-summary-list__key govuk-summary-list__key-tech">
                 Vehicle type
-                <div class="summary-link-wrapper">
-                  <a class="govuk-link summary-link" href="">Change</a> 
-                </div>
               </dt>
             </div>
             <div class="govuk-summary-list__row--value">
               <dd class="govuk-summary-list__value govuk-summary-list__value--overflow">
-                HGV 
-              </dd>     
+                TRL
+              </dd>
             </div>
             <div class="govuk-summary-list__row">
               <dt class="govuk-summary-list__key govuk-summary-list__key-tech">
                 VIN
-                <div class="summary-link-wrapper">
-                  <a class="govuk-link summary-link" href="">Change</a> 
-                </div>
               </dt>
             </div>
             <div class="govuk-summary-list__row--value">
@@ -190,17 +169,13 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
             </div>
             <div class="govuk-summary-list__row">
               <dt class="govuk-summary-list__key govuk-summary-list__key-tech">
-                VRM
-                <div class="summary-link-wrapper">
-                  <a class="govuk-link summary-link" href="">Change</a> 
-                </div>
+                Trailer ID
               </dt>
             </div>
             <div class="govuk-summary-list__row--value">
               <dd class="govuk-summary-list__value govuk-summary-list__value--vrm">
-                <div class="reg-mark-div">
-                  <span
-                    class="reg-mark-sm">4001373Z</span>
+                <div>
+                  <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 </div>
               </dd>
 
@@ -211,20 +186,16 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
               </dt>
             </div>
             <div class="govuk-summary-list__row--value">
-                  <dd class="govuk-summary-list__value govuk-summary-list__value--overflow">
-              <!-- <div class="reg-mark-div">         
-                      <span class="reg-mark-sm">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                    </div> -->
-                    None 
-                  </dd>  
+              <dd class="govuk-summary-list__value govuk-summary-list__value--overflow">
+          <!-- <div class="reg-mark-div">         
+                  <span class="reg-mark-sm">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                </div> -->
+                None 
+              </dd>  
             </div>
             <div class="govuk-summary-list__row">
               <dt class="govuk-summary-list__key govuk-summary-list__key-tech">
                 Record type
-                <div class="summary-link-wrapper">
-                  <a class="govuk-link summary-link summary-link-first" href="">Archive</a>
-                  <a class="govuk-link summary-link" href="">Promote</a>
-                </div>
               </dt>
             </div>
             <div class="govuk-summary-list__row--value">
@@ -242,8 +213,8 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
             </div>
             <div class="govuk-summary-list__row--value">
               <dd class="govuk-summary-list__value govuk-summary-list__value--tag">
-                <strong class="govuk-tag govuk-tag--green">
-                  Testable
+                <strong class="govuk-tag govuk-tag--red">
+                  Incomplete
                 </strong>
               </dd>
 
@@ -251,56 +222,25 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
             <div class="govuk-summary-list__row">
               <dt class="govuk-summary-list__key govuk-summary-list__key-tech">
                 Visibility in VTA
-                <div class="summary-link-wrapper">
-                  <a class="govuk-link summary-link" href="">Change</a> 
-                </div>
               </dt>
             </div>
             <div class="govuk-summary-list__row--last">
               <dd class="govuk-summary-list__value govuk-summary-list__value--tag">
-                <strong class="govuk-tag govuk-tag--green">
-                  Visible
+                <strong class="govuk-tag govuk-tag--red">
+                  Hidden
                 </strong>
               </dd>
-
             </div>
-            <!--<div class="govuk-summary-list__row">
-              <dt class="govuk-summary-list__key govuk-summary-list__key-tech">
-                Filter by
-              </dt>
-            </div> -->
-            <!-- <div class="govuk-summary-list__row--last">
-              <dd class="govuk-summary-list__value govuk-summary-list__value--tag">
-                  <a class="app-c-filter-summary__remove-filter" href="#" id="plates">
-                    <span class="app-c-filter-summary__remove-filter-text">
-                      <span class="govuk-visually-hidden">Remove filter</span>
-                      Plates
-                    </span>
-                  </a>
-              </dd>
-              <dd class="govuk-summary-list__value govuk-summary-list__value--tag">
-                <a class="app-c-filter-summary__remove-filter" href="#" id="required">
-                  <span class="app-c-filter-summary__remove-filter-text">
-                    <span class="govuk-visually-hidden">Remove filter</span>
-                    Required
-                  </span>
-                </a>
-              </dd>
-
-            </div> -->
-            
-            
           </dl>
         </div>
       </div>
 
       <div class="govuk-button-group govuk-button-group-record">
         {{ govukButton({
-        text: "Amend record",
-        href: "amend-hgv"
+        text: "Create new record",
+        href: "tech-record-hgv.html"
         }) }}
       </div>
-
 
     </div>
 
@@ -344,14 +284,6 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                 </span>
               </a>
             </dd>
-            <dd class="govuk-summary-list__value govuk-summary-list__value--filter">
-              <a class="app-c-filter-summary__remove-filter" href="#" id="records">
-                <span class="app-c-filter-summary__remove-filter-text">
-                  <span class="govuk-visually-hidden">Remove filter</span>
-                  Records
-                </span>
-              </a>
-            </dd>
           </div>
 
           <!--GENERAL-->
@@ -376,13 +308,16 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
               <ul class="govuk-list">
                 <li>
 
-                  <div class="govuk-form-group optional plates">
+                  <div class="govuk-form-group plates">
                     <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
                       <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                         <h1 class="govuk-fieldset__heading">
                           Date of first registration
                         </h1>
                       </legend>
+                      <div id="passport-issued-hint" class="govuk-hint">
+                        For example, 27 3 2024
+                      </div>
                       <div class="govuk-date-input" id="passport-issued">
                         <div class="govuk-date-input__item">
                           <div class="govuk-form-group">
@@ -390,7 +325,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                               Day
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                              id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric" value="21" disabled>
+                              id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric">
                           </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -399,7 +334,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                               Month
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                              id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric" value="08" disabled>
+                              id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric">
                           </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -408,14 +343,14 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                               Year
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="2024" disabled>
+                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
                           </div>
                         </div>
                       </div>
                     </fieldset>
                   </div>
 
-                  <div class="govuk-form-group optional plates">
+                  <div class="govuk-form-group plates">
                     <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
                       <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                         <h1 class="govuk-fieldset__heading">
@@ -425,20 +360,20 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                       <div class="govuk-date-input__item">
                         <div class="govuk-form-group">
                           <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                            id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="2023" disabled>
+                            id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
                         </div>
                       </div>
                     </fieldset>
                   </div>
 
-                  <div class="govuk-form-group optional plates">
+                  <div class="govuk-form-group plates">
                     <label class="govuk-label" for="phone-number">
                       <strong>
                         DTp number
                       </strong>
                     </label>
                     <input class="govuk-input govuk-input--width-10" id="phone-number" name="phoneNumber" type="tel"
-                      autocomplete="tel" value="" disabled>
+                      autocomplete="tel">
                   </div>
 
                   <div class="govuk-form-group required plates">
@@ -447,42 +382,42 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                         Vehicle configuration
                       </strong>
                     </label>
-                    <select class="govuk-select" id="sort" name="sort" disabled>
-                      <option value="published">Select configuration</option>
-                      <option value="updated" selected>Rigid</option>
+                    <select class="govuk-select" id="sort" name="sort">
+                      <option value="published" selected>Select configuration</option>
+                      <option value="updated">Rigid</option>
                       <option value="views">Articulated</option>
                     </select>
                   </div>
 
-                  <div class="govuk-form-group optional plates">
+                  <div class="govuk-form-group plates adr">
                     <label class="govuk-label" for="phone-number">
                       <strong>
                         Body make
                       </strong>
                     </label>
                     <input class="govuk-input govuk-input--width-10" id="phone-number" name="phoneNumber" type="tel"
-                      autocomplete="tel" value="Scania" disabled>
+                      autocomplete="tel">
                   </div>
 
-                  <div class="govuk-form-group optional plates">
+                  <div class="govuk-form-group plates">
                     <label class="govuk-label" for="phone-number">
                       <strong>
                         Body model
                       </strong>
                     </label>
                     <input class="govuk-input govuk-input--width-10" id="phone-number" name="phoneNumber" type="tel"
-                      autocomplete="tel" value="770R" disabled>
+                      autocomplete="tel">
                   </div>
 
-                  <div class="govuk-form-group required untagged">
+                  <div class="govuk-form-group required">
                     <label class="govuk-label" for="sort">
                       <strong>
                         Body type
                       </strong>
                     </label>
-                    <select class="govuk-select" id="sort" name="sort" disabled>
-                      <option value="published">Select body type</option>
-                      <option value="updated" selected>Box</option>
+                    <select class="govuk-select" id="sort" name="sort">
+                      <option value="published" selected>Select body type</option>
+                      <option value="updated">Box</option>
                       <option value="views">Car transporter</option>
                       <option value="views">Concrete mixer</option>
                       <option value="views">Curtainsider</option>
@@ -501,30 +436,30 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                     </select>
                   </div>
 
-                  <div class="govuk-date-input__item optional plates">
+                  <div class="govuk-date-input__item plates">
                     <div class="govuk-form-group">
                       <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
                         <strong>Function code</strong>
                       </label>
-                      <select class="govuk-select" id="sort" name="sort"disabled>
-                        <option value="published">Select function code</option>
-                        <option value="published" selected>R</option>
+                      <select class="govuk-select" id="sort" name="sort">
+                        <option value="published" selected>Select function code</option>
+                        <option value="published">R</option>
                         <option value="updated">A</option>
                       </select>
                     </div>
                   </div>
 
-                  <div class="govuk-form-group optional untagged">
+                  <div class="govuk-form-group untagged">
                     <label class="govuk-label" for="phone-number">
                       <strong>
                         Conversion reference number
                       </strong>
                     </label>
                     <input class="govuk-input govuk-input--width-10" id="phone-number" name="phoneNumber" type="tel"
-                      autocomplete="tel" disabled>
+                      autocomplete="tel">
                   </div>
 
-                  <div class="govuk-form-group optional untagged">
+                  <div class="govuk-form-group untagged">
                     <fieldset class="govuk-fieldset">
                       <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                         <h1 class="govuk-fieldset__heading">
@@ -534,21 +469,21 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                       <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
                           <input class="govuk-radios__input" id="whereDoYouLive" name="whereDoYouLive" type="radio"
-                            value="england" disabled>
+                            value="england">
                           <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
                             N1
                           </label>
                         </div>
                         <div class="govuk-radios__item">
                           <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
-                            value="scotland" disabled>
+                            value="scotland">
                           <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
                             N2
                           </label>
                         </div>
                         <div class="govuk-radios__item">
                           <input class="govuk-radios__input" id="whereDoYouLive-3" name="whereDoYouLive" type="radio"
-                            value="wales" checked disabled>
+                            value="wales">
                           <label class="govuk-label govuk-radios__label" for="whereDoYouLive-3">
                             N3
                           </label>
@@ -569,7 +504,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                       </div>
                       <div class="govuk-input__wrapper">
                         <input class="govuk-input govuk-input--width-2" id="number-of-axles" name="number-of-axles"
-                          type="text" inputmode="numeric" value="2" disabled>
+                          type="text" inputmode="numeric">
                       </div>
                     </fieldset>
                   </div>
@@ -607,7 +542,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                         Approval type
                       </strong>
                     </label>
-                    <select class="govuk-select" id="sort" name="sort" disabled>
+                    <select class="govuk-select" id="sort" name="sort">
                       <option value="published" selected>Select approval type</option>
                       <option value="updated">NTA</option>
                       <option value="views">ECTA</option>
@@ -622,7 +557,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                       </strong>
                     </label>
                     <input class="govuk-input govuk-input--width-20" id="phone-number" name="phoneNumber" type="tel"
-                      autocomplete="tel" value="e4*2007/46*0785*13" disabled>
+                      autocomplete="tel">
                   </div>
 
                   <div class="govuk-form-group untagged">
@@ -632,7 +567,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                       </strong>
                     </label>
                     <input class="govuk-input govuk-input--width-20" id="phone-number" name="phoneNumber" type="tel"
-                      autocomplete="tel" disabled>
+                      autocomplete="tel">
                   </div>
 
                   <div class="govuk-form-group plates">
@@ -642,7 +577,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                       </strong>
                     </label>
                     <input class="govuk-input govuk-input--width-20" id="phone-number" name="phoneNumber" type="tel"
-                      autocomplete="tel" disabled>
+                      autocomplete="tel">
                   </div>
 
                   <div class="govuk-form-group untagged">
@@ -652,7 +587,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                       </strong>
                     </label>
                     <input class="govuk-input govuk-input--width-20" id="phone-number" name="phoneNumber" type="tel"
-                      autocomplete="tel" disabled>
+                      autocomplete="tel">
                   </div>
 
 
@@ -690,7 +625,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                     </h1>
                     <div class="govuk-input__wrapper">
                       <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
-                        spellcheck="false" value="13000" disabled>
+                        spellcheck="false">
                       <div class="govuk-input__suffix" aria-hidden="true">mm</div>
                     </div>
                   </div>
@@ -703,7 +638,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                     </h1>
                     <div class="govuk-input__wrapper">
                       <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
-                        spellcheck="false" value="7000" disabled>
+                        spellcheck="false">
                       <div class="govuk-input__suffix" aria-hidden="true">mm</div>
                     </div>
                   </div>
@@ -716,7 +651,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                     </h1>
                     <div class="govuk-input__wrapper">
                       <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
-                        spellcheck="false" value="2000" disabled>
+                        spellcheck="false">
                       <div class="govuk-input__suffix" aria-hidden="true">mm</div>
                     </div>
                   </div>
@@ -768,7 +703,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                     </h1>
                     <div class="govuk-input__wrapper">
                       <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
-                        spellcheck="false" value="15500" disabled>
+                        spellcheck="false">
                       <div class="govuk-input__suffix" aria-hidden="true">mm</div>
                     </div>
                   </div>
@@ -781,7 +716,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                     </h1>
                     <div class="govuk-input__wrapper">
                       <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
-                        spellcheck="false" value="2500" disabled>
+                        spellcheck="false">
                       <div class="govuk-input__suffix" aria-hidden="true">mm</div>
                     </div>
                   </div>
@@ -794,7 +729,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                     </h1>
                     <div class="govuk-input__wrapper">
                       <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
-                        spellcheck="false" value="4000" disabled>
+                        spellcheck="false">
                       <div class="govuk-input__suffix" aria-hidden="true">mm</div>
                     </div>
                   </div>
@@ -814,7 +749,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                               Minimum
                             </label>
                             <div class="govuk-input__wrapper">
-                              <input class="govuk-input govuk-date-input__input govuk-input--width-5" id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="3000" disabled>
+                              <input class="govuk-input govuk-date-input__input govuk-input--width-5" id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
                               <div class="govuk-input__suffix" aria-hidden="true">mm</div>
                             </div>
                           </div>
@@ -826,7 +761,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                               Maximum
                             </label>
                             <div class="govuk-input__wrapper">
-                              <input class="govuk-input govuk-date-input__input govuk-input--width-5" id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="4000" disabled>
+                              <input class="govuk-input govuk-date-input__input govuk-input--width-5" id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
                               <div class="govuk-input__suffix" aria-hidden="true">mm</div>
                             </div>
                           </div>
@@ -851,7 +786,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                               Minimum
                             </label>
                             <div class="govuk-input__wrapper">
-                              <input class="govuk-input govuk-date-input__input govuk-input--width-5" id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="8000" disabled>
+                              <input class="govuk-input govuk-date-input__input govuk-input--width-5" id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
                               <div class="govuk-input__suffix" aria-hidden="true">mm</div>
                             </div>
                           </div>
@@ -863,7 +798,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                               Maximum
                             </label>
                             <div class="govuk-input__wrapper">
-                              <input class="govuk-input govuk-date-input__input govuk-input--width-5" id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="8500" disabled>
+                              <input class="govuk-input govuk-date-input__input govuk-input--width-5" id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
                               <div class="govuk-input__suffix" aria-hidden="true">mm</div>
                             </div>
                           </div>
@@ -932,7 +867,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                                 </label>
                                 <div class="govuk-input__wrapper">
                                   <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="4500" disabled>
+                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
                                   <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                                 </div>
                               </div>
@@ -945,7 +880,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                                 </label>
                                 <div class="govuk-input__wrapper">
                                   <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="4500" disabled>
+                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
                                   <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                                 </div>
                               </div>
@@ -958,7 +893,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                                 </label>
                                 <div class="govuk-input__wrapper">
                                   <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="4500" disabled>
+                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
                                   <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                                 </div>
                               </div>
@@ -984,7 +919,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                                 </label>
                                 <div class="govuk-input__wrapper">
                                   <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="4500" disabled>
+                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
                                   <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                                 </div>
                               </div>
@@ -997,7 +932,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                                 </label>
                                 <div class="govuk-input__wrapper">
                                   <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="4500" disabled>
+                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
                                   <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                                 </div>
                               </div>
@@ -1010,7 +945,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                                 </label>
                                 <div class="govuk-input__wrapper">
                                   <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="4500" disabled>
+                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
                                   <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                                 </div>
                               </div>
@@ -1036,7 +971,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                                 </label>
                                 <div class="govuk-input__wrapper">
                                   <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="4500" disabled>
+                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
                                   <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                                 </div>
                               </div>
@@ -1049,7 +984,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                                 </label>
                                 <div class="govuk-input__wrapper">
                                   <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="4500" disabled>
+                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
                                   <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                                 </div>
                               </div>
@@ -1062,7 +997,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                                 </label>
                                 <div class="govuk-input__wrapper">
                                   <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="4500" disabled>
+                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
                                   <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                                 </div>
                               </div>
@@ -1192,7 +1127,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                                 </label>
                                 <div class="govuk-input__wrapper">
                                   <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="8000" disabled>
+                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
                                   <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                                 </div>
                               </div>
@@ -1205,7 +1140,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                                 </label>
                                 <div class="govuk-input__wrapper">
                                   <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="8000" disabled>
+                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
                                   <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                                 </div>
                               </div>
@@ -1218,7 +1153,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                                 </label>
                                 <div class="govuk-input__wrapper">
                                   <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="8000" disabled>
+                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
                                   <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                                 </div>
                               </div>
@@ -1244,7 +1179,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                             </label>
                             <div class="govuk-input__wrapper">
                               <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="8000" disabled>
+                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
                               <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                             </div>
                           </div>
@@ -1257,7 +1192,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                             </label>
                             <div class="govuk-input__wrapper">
                               <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="8000" disabled>
+                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
                               <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                             </div>
                           </div>
@@ -1270,7 +1205,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                             </label>
                             <div class="govuk-input__wrapper">
                               <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="8000" disabled>
+                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
                               <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                             </div>
                           </div>
@@ -1297,7 +1232,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                             </label>
                             <div class="govuk-input__wrapper">
                               <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="8500" disabled>
+                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
                               <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                             </div>
                           </div>
@@ -1310,7 +1245,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                             </label>
                             <div class="govuk-input__wrapper">
                               <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="8500" disabled>
+                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
                               <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                             </div>
                           </div>
@@ -1323,7 +1258,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                             </label>
                             <div class="govuk-input__wrapper">
                               <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="8500" disabled>
+                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
                               <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                             </div>
                           </div>
@@ -1380,15 +1315,15 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                           Axle 1 tyre details
                         </h1>
                       </legend>
-                     <!--  <div class="govuk-button-group">
+                      <div class="govuk-button-group">
                         <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">
                           Search for tyre details
                         </button>
 
-                        <button type="submit" class="govuk-button govuk-button--warning" data-module="govuk-button">
+                        <!-- <button type="submit" class="govuk-button govuk-button--warning" data-module="govuk-button">
                           Remove tyre
-                        </button>
-                      </div> -->
+                        </button> -->
+                      </div>
 
                       <div class="govuk-date-input" id="passport-issued">
                         <div class="govuk-date-input__item">
@@ -1397,7 +1332,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                               Code
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-3"
-                              id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric" value="788" disabled>
+                              id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric">
                           </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -1406,7 +1341,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                               Size
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-5.5"
-                              id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric" value="185/75-16"
+                              id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric"
                               disabled>
                           </div>
                         </div>
@@ -1426,7 +1361,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                               Load index
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-3"
-                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="114"
+                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
                               disabled>
                           </div>
                         </div>
@@ -1435,9 +1370,9 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                             <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
                               S/D
                             </label>
-                            <select class="govuk-select govuk-select--tyres" id="sort" name="sort" disabled>
-                              <option value="updated"></option>
-                              <option value="published" selected>S</option>
+                            <select class="govuk-select govuk-select--tyres" id="sort" name="sort">
+                              <option value="updated" selected></option>
+                              <option value="published">S</option>
                               <option value="updated">D</option>
                             </select>
                           </div>
@@ -1454,15 +1389,15 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                           Axle 2 tyre details
                         </h1>
                       </legend>
-                      <!-- <div class="govuk-button-group">
+                      <div class="govuk-button-group">
                         <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">
                           Search for tyre details
                         </button>
 
-                        <button type="submit" class="govuk-button govuk-button--warning" data-module="govuk-button">
+                        <!-- <button type="submit" class="govuk-button govuk-button--warning" data-module="govuk-button">
                           Remove tyre
-                        </button>
-                      </div> -->
+                        </button> -->
+                      </div>
 
                       <div class="govuk-date-input" id="passport-issued">
                         <div class="govuk-date-input__item">
@@ -1471,7 +1406,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                               Code
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-3"
-                              id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric" value="788" disabled>
+                              id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric">
                           </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -1480,7 +1415,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                               Size
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-5.5"
-                              id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric" value="185/75-16"
+                              id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric"
                               disabled>
                           </div>
                         </div>
@@ -1500,7 +1435,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                               Load index
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-3"
-                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="114"
+                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
                               disabled>
                           </div>
                         </div>
@@ -1509,9 +1444,9 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                             <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
                               S/D
                             </label>
-                            <select class="govuk-select govuk-select--tyres" id="sort" name="sort" disabled>
-                              <option value="updated"></option>
-                              <option value="published" selected>S</option>
+                            <select class="govuk-select govuk-select--tyres" id="sort" name="sort">
+                              <option value="updated" selected></option>
+                              <option value="published">S</option>
                               <option value="updated">D</option>
                             </select>
                           </div>
@@ -1533,9 +1468,9 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                           Search for tyre details
                         </button>
 
-                        <button type="submit" class="govuk-button govuk-button--warning" data-module="govuk-button">
+                        <!-- <button type="submit" class="govuk-button govuk-button--warning" data-module="govuk-button">
                           Remove tyre
-                        </button>
+                        </button> -->
                       </div>
 
                       <div class="govuk-date-input" id="passport-issued">
@@ -1583,9 +1518,9 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                             <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
                               S/D
                             </label>
-                            <select class="govuk-select govuk-select--tyres" id="sort" name="sort" disabled>
-                              <option value="updated"></option>
-                              <option value="published" selected>S</option>
+                            <select class="govuk-select govuk-select--tyres" id="sort" name="sort">
+                              <option value="updated" selected></option>
+                              <option value="published">S</option>
                               <option value="updated">D</option>
                             </select>
                           </div>
@@ -1607,9 +1542,9 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                           Search for tyre details
                         </button>
 
-                        <button type="submit" class="govuk-button govuk-button--warning" data-module="govuk-button">
+                        <!-- <button type="submit" class="govuk-button govuk-button--warning" data-module="govuk-button">
                           Remove tyre
-                        </button>
+                        </button> -->
                       </div>
 
                       <div class="govuk-date-input" id="passport-issued">
@@ -1657,7 +1592,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                             <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
                               S/D
                             </label>
-                            <select class="govuk-select govuk-select--tyres" id="sort" name="sort" disabled>
+                            <select class="govuk-select govuk-select--tyres" id="sort" name="sort">
                               <option value="updated" selected></option>
                               <option value="published">S</option>
                               <option value="updated">D</option>
@@ -1680,9 +1615,9 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                           Search for tyre details
                         </button>
 
-                        <button type="submit" class="govuk-button govuk-button--warning" data-module="govuk-button">
+                       <!-- <button type="submit" class="govuk-button govuk-button--warning" data-module="govuk-button">
                           Remove tyre
-                        </button>
+                        </button> -->
                       </div>
 
                       <div class="govuk-date-input" id="passport-issued">
@@ -1730,7 +1665,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                             <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
                               S/D
                             </label>
-                            <select class="govuk-select govuk-select--tyres" id="sort" name="sort" disabled>
+                            <select class="govuk-select govuk-select--tyres" id="sort" name="sort">
                               <option value="updated" selected></option>
                               <option value="published">S</option>
                               <option value="updated">D</option>
@@ -1747,9 +1682,9 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                       <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
                         <strong>Tyre use code</strong>
                       </label>
-                      <select class="govuk-select" id="sort" name="sort" disabled>
-                        <option value="published">Select tyre use code</option>
-                        <option value="published" selected>2R</option>
+                      <select class="govuk-select" id="sort" name="sort">
+                        <option value="published" selected>Select tyre use code</option>
+                        <option value="published">2R</option>
                         <option value="updated">2B</option>
                         <option value="updated">2J</option>
                         <option value="updated">2M</option>
@@ -1759,7 +1694,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
               </li>
               </ul>
             </div>
-          </div>
+          </div>          
 
           <!--CONFIGURATION-->
           <div class="govuk-accordion__section govuk-accordion__section-vtm plates">
@@ -1790,16 +1725,16 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                       </legend>
                       <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="offroad" name="offroad" type="radio"
-                            value="offroadyes" disabled>
-                          <label class="govuk-label govuk-radios__label" for="offroad">
+                          <input class="govuk-radios__input" id="whereDoYouLive" name="whereDoYouLive" type="radio"
+                            value="england">
+                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
                             Yes
                           </label>
                         </div>
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="offroad-2" name="offroad" type="radio"
-                            value="offroadno" checked disabled>
-                          <label class="govuk-label govuk-radios__label" for="offroad-2">
+                          <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
+                            value="scotland">
+                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
                             No
                           </label>
                         </div>
@@ -1816,16 +1751,16 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                       </legend>
                       <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="departmental" name="departmental" type="radio"
-                            value="departmentalyes" disabled>
-                          <label class="govuk-label govuk-radios__label" for="departmental">
+                          <input class="govuk-radios__input" id="whereDoYouLive" name="whereDoYouLive" type="radio"
+                            value="england">
+                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
                             Yes
                           </label>
                         </div>
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="departmental-2" name="departmental" type="radio"
-                            value="departmentalno" checked disabled>
-                          <label class="govuk-label govuk-radios__label" for="departmental-2">
+                          <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
+                            value="scotland">
+                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
                             No
                           </label>
                         </div>
@@ -1842,16 +1777,16 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                       </legend>
                       <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="alteration" name="alteration" type="radio"
-                            value="alterationyes" disabled>
-                          <label class="govuk-label govuk-radios__label" for="alteration">
+                          <input class="govuk-radios__input" id="whereDoYouLive" name="whereDoYouLive" type="radio"
+                            value="england">
+                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
                             Yes
                           </label>
                         </div>
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="alteration-2" name="alteration" type="radio"
-                            value="alterationno" checked disabled>
-                          <label class="govuk-label govuk-radios__label" for="alteration-2">
+                          <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
+                            value="scotland">
+                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
                             No
                           </label>
                         </div>
@@ -1865,9 +1800,9 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                         Fuel system
                       </strong>
                     </label>
-                    <select class="govuk-select" id="location" name="location" aria-describedby="location-hint" disabled>
-                      <option value="choose">Select fuel system</option>
-                      <option value="eastofengland" selected>Diesel</option>
+                    <select class="govuk-select" id="location" name="location" aria-describedby="location-hint">
+                      <option value="choose" selected>Select fuel system</option>
+                      <option value="eastofengland">Diesel</option>
                       <option value="london">Petrol</option>
                       <option value="northeast">Hybrid</option>
                       <option value="northwest">Electric</option>
@@ -1887,16 +1822,16 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                       </legend>
                       <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="roadfriendly" name="roadfriendly" type="radio"
-                            value="roadfriendlyyes" checked disabled>
-                          <label class="govuk-label govuk-radios__label" for="roadfriendly">
+                          <input class="govuk-radios__input" id="whereDoYouLive" name="whereDoYouLive" type="radio"
+                            value="england">
+                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
                             Yes
                           </label>
                         </div>
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="roadfriendly-2" name="roadfriendly" type="radio"
-                            value="roadfriendlyno" disabled>
-                          <label class="govuk-label govuk-radios__label" for="roadfriendly-2">
+                          <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
+                            value="scotland">
+                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
                             No
                           </label>
                         </div>
@@ -1938,14 +1873,14 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                     </legend>
                     <div class="govuk-radios" data-module="govuk-radios">
                       <div class="govuk-radios__item">
-                        <input class="govuk-radios__input" id="drawbar" name="drawbar" type="radio" value="drawbaryes" disabled>
-                        <label class="govuk-label govuk-radios__label" for="drawbar">
+                        <input class="govuk-radios__input" id="whereDoYouLive" name="whereDoYouLive" type="radio" value="england">
+                        <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
                           Yes
                         </label>
                       </div>
                       <div class="govuk-radios__item">
-                        <input class="govuk-radios__input" id="drawbar-2" name="drawbar" type="radio" value="drawbarno" checked disabled>
-                        <label class="govuk-label govuk-radios__label" for="drawbar-2">
+                        <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio" value="scotland">
+                        <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
                           No
                         </label>
                       </div>
@@ -1962,65 +1897,65 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                       </legend>
                       <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="eurostd" name="eurostd" type="radio"
-                            value="eurostd1" disabled>
-                          <label class="govuk-label govuk-radios__label" for="eurostd">
+                          <input class="govuk-radios__input" id="whereDoYouLive" name="whereDoYouLive" type="radio"
+                            value="england">
+                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
                             0.10 g/kWh Euro III PM
                           </label>
                         </div>
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="eurostd-2" name="eurostd" type="radio"
-                            value="eurostd2" disabled>
-                          <label class="govuk-label govuk-radios__label" for="eurostd-2">
+                          <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
+                            value="scotland">
+                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
                             0.03 g/kWh Euro IV PM
                           </label>
                         </div>
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="eurostd-3" name="eurostd" type="radio"
-                            value="eurostd3" disabled>
-                          <label class="govuk-label govuk-radios__label" for="eurostd-3">
+                          <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
+                            value="scotland">
+                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
                             Euro 3
                           </label>
                         </div>
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="eurostd-4" name="eurostd" type="radio"
-                            value="eurostd" disabled>
-                          <label class="govuk-label govuk-radios__label" for="eurostd-4">
+                          <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
+                            value="scotland">
+                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
                             Euro 4
                           </label>
                         </div>
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="eurostd-5" name="eurostd" type="radio"
-                            value="eurostd5" disabled>
-                          <label class="govuk-label govuk-radios__label" for="eurostd-5">
+                          <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
+                            value="scotland">
+                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
                             Euro 5
                           </label>
                         </div>
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="eurostd-6" name="eurostd" type="radio"
-                            value="eurostd6" checked disabled>
-                          <label class="govuk-label govuk-radios__label" for="eurostd-6">
+                          <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
+                            value="scotland">
+                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
                             Euro 6
                           </label>
                         </div>
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="eurostd-7" name="eurostd" type="radio"
-                            value="eurostd7" disabled>
-                          <label class="govuk-label govuk-radios__label" for="eurostd-7">
+                          <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
+                            value="scotland">
+                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
                             Euro V
                           </label>
                         </div>
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="eurostd-8" name="eurostd" type="radio"
-                            value="eurostd8" disabled>
-                          <label class="govuk-label govuk-radios__label" for="eurostd-8">
+                          <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
+                            value="scotland">
+                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
                             Euro VI
                           </label>
                         </div>
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="eurostd-9" name="eurostd" type="radio"
-                            value="eurostd9" disabled>
-                          <label class="govuk-label govuk-radios__label" for="eurostd-9">
+                          <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
+                            value="scotland">
+                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
                             Full electric
                           </label>
                         </div>
@@ -2036,7 +1971,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                     </h1>
                     <div class="govuk-input__wrapper">
                       <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
-                        spellcheck="false" value="1.026" disabled>
+                        spellcheck="false">
                       <div class="govuk-input__suffix" aria-hidden="true">m<sup>-1</sup></div>
                     </div>
                   </div>
@@ -2051,16 +1986,16 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                       </legend>
                       <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="speedlimiter" name="speedlimiter" type="radio"
-                            value="speedlimiteryes" disabled>
+                          <input class="govuk-radios__input" id="whereDoYouLive" name="whereDoYouLive" type="radio"
+                            value="england">
                           <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
                             Exempt
                           </label>
                         </div>
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="speedlimiter-2" name="speedlimiter" type="radio"
-                            value="speedlimiterno" checked disabled>
-                          <label class="govuk-label govuk-radios__label" for="speedlimiter-2">
+                          <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
+                            value="scotland">
+                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
                             Not exempt
                           </label>
                         </div>
@@ -2077,16 +2012,16 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                       </legend>
                       <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="tachoexempt" name="tachoexempt" type="radio"
-                            value="tachoexemptyes" disabled>
-                          <label class="govuk-label govuk-radios__label" for="tachoexempt">
+                          <input class="govuk-radios__input" id="whereDoYouLive" name="whereDoYouLive" type="radio"
+                            value="england">
+                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
                             Exempt
                           </label>
                         </div>
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="tachoexempt-2" name="tachoexempt" type="radio"
-                            value="tachoexemptno" checked disabled>
-                          <label class="govuk-label govuk-radios__label" for="tachoexempt-2">
+                          <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
+                            value="scotland">
+                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
                             Not exempt
                           </label>
                         </div>
@@ -2098,41 +2033,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
               </ul>
             </div>
           </div>
-
-          <!--PLATES-->
-          <div class="govuk-accordion__section govuk-accordion__section-vtm plates">
-            <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
-              <h2 class="govuk-accordion__section-heading">
-                <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
-                  id="accordion-with-summary-sections-heading-2">
-                  Plates
-                </span>
-              </h2>
-              <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
-                Generate and view plates.
-              </div>
-              <div class="govuk-accordion__section-summary-padding"></div>
-            </div>
-            <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
-              <hr class="expanded">
-              </hr>
-              <ul class="govuk-list">
-                <li>
-
-                  <div class="govuk-button-group">
-                    {{ govukButton({
-                    text: "Generate and send plate",
-                    classes: "govuk-button--secondary"
-                    }) }}
-                  </div>
-                  <h3 class="govuk-heading-s">Plates history</h3>
-                  <p class="govuk-body">No plates history available.</p>
-
-                </li>
-              </ul>
-            </div>
-          </div>
-
+           
           <!-- ADR -->
           <div class="govuk-accordion__section govuk-accordion__section-vtm adr">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
@@ -2160,8 +2061,8 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                       </legend>
                       <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="adr" name="adr" type="radio" value="adryes" data-aria-controls="conditional-adr" disabled>
-                          <label class="govuk-label govuk-radios__label" for="adr">
+                          <input class="govuk-radios__input" id="whereDoYouLive" name="whereDoYouLive" type="radio" value="england" data-aria-controls="conditional-adr">
+                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
                             Yes
                           </label>
                         </div>
@@ -2492,8 +2393,8 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                         </div>
   
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="adr-2" name="adr" type="radio" value="adrno" checked disabled>
-                          <label class="govuk-label govuk-radios__label" for="adr-2">
+                          <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio" value="scotland">
+                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
                             No
                           </label>
                         </div>
@@ -2530,49 +2431,49 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                       <label class="govuk-label" for="address-line-1">
                         Name or company
                       </label>
-                      <input class="govuk-input govuk-!-width-two-thirds" id="address-line-1" name="addressLine1" type="text" autocomplete="address-line1" value="John Smith" disabled>
+                      <input class="govuk-input govuk-!-width-two-thirds" id="address-line-1" name="addressLine1" type="text" autocomplete="address-line1">
                     </div>
                     <div class="govuk-form-group">
                       <label class="govuk-label" for="address-line-1">
                         Address line 1
                       </label>
-                      <input class="govuk-input" id="address-line-1" name="addressLine1" type="text" autocomplete="address-line1" value="123 West Street" disabled>
+                      <input class="govuk-input" id="address-line-1" name="addressLine1" type="text" autocomplete="address-line1">
                     </div>
                     <div class="govuk-form-group">
                       <label class="govuk-label" for="address-line-2">
                         Address line 2 (optional)
                       </label>
-                      <input class="govuk-input" id="address-line-2" name="addressLine2" type="text" autocomplete="address-line2" disabled>
+                      <input class="govuk-input" id="address-line-2" name="addressLine2" type="text" autocomplete="address-line2">
                     </div>
                     <div class="govuk-form-group">
                       <label class="govuk-label" for="address-town">
                         Town or city
                       </label>
-                      <input class="govuk-input govuk-!-width-two-thirds" id="address-town" name="addressTown" type="text" autocomplete="address-level2" value="York" disabled>
+                      <input class="govuk-input govuk-!-width-two-thirds" id="address-town" name="addressTown" type="text" autocomplete="address-level2">
                     </div>
                     <div class="govuk-form-group">
                       <label class="govuk-label" for="address-county">
                         County
                       </label>
-                      <input class="govuk-input govuk-!-width-two-thirds" id="address-county" name="addressCounty" type="text" value="Yorkshire" disabled>
+                      <input class="govuk-input govuk-!-width-two-thirds" id="address-county" name="addressCounty" type="text">
                     </div>
                     <div class="govuk-form-group">
                       <label class="govuk-label" for="address-postcode">
                         Postcode
                       </label>
-                      <input class="govuk-input govuk-input--width-10" id="address-postcode" name="addressPostcode" type="text" autocomplete="postal-code" value="YO42 3MD" disabled>
+                      <input class="govuk-input govuk-input--width-10" id="address-postcode" name="addressPostcode" type="text" autocomplete="postal-code">
                     </div>
                     <div class="govuk-form-group">
                       <label class="govuk-label" for="address-postcode">
                         Phone number
                       </label>
-                      <input class="govuk-input govuk-input--width-10" id="address-postcode" name="addressPostcode" type="text" autocomplete="postal-code" value="07734623316" disabled>
+                      <input class="govuk-input govuk-input--width-10" id="address-postcode" name="addressPostcode" type="text" autocomplete="postal-code">
                     </div>
                     <div class="govuk-form-group">
                       <label class="govuk-label" for="address-postcode">
                         Email address
                       </label>
-                      <input class="govuk-input govuk-!-width-two-thirds" id="address-postcode" name="addressPostcode" type="text" autocomplete="postal-code" value="john.smith@email.com" disabled>
+                      <input class="govuk-input govuk-!-width-two-thirds" id="address-postcode" name="addressPostcode" type="text" autocomplete="postal-code">
                     </div>
                   </fieldset>
                   
@@ -2582,7 +2483,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
           </div>
 
           <!--DOCUMENTS-->
-          <div class="govuk-accordion__section govuk-accordion__section-vtm untagged">
+          <div class="govuk-accordion__section govuk-accordion__section-vtm admin">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
               <h2 class="govuk-accordion__section-heading">
                 <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
@@ -2606,9 +2507,9 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                     <label class="govuk-label" for="sort">
                       <strong>Microfilm document type</strong>
                     </label>
-                    <select class="govuk-select" id="sort" name="sort" disabled>
-                      <option value="published">Select document type</option>
-                      <option value="updated" selected>AAV - HGV Annual test</option>
+                    <select class="govuk-select" id="sort" name="sort">
+                      <option value="published" selected>Select document type</option>
+                      <option value="updated">AAV - HGV Annual test</option>
                       <option value="views">COIF Master</option>
                       <option value="comments">Tempo 100 Sp Ord</option>
                       <option value="comments">XPT - Tr Plating Cert paid</option>
@@ -2621,7 +2522,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                         Microfilm roll number
                       </label>
                     </h3>
-                    <input class="govuk-input govuk-input--width-20" id="event-name" name="eventName" type="text" disabled>
+                    <input class="govuk-input govuk-input--width-20" id="event-name" name="eventName" type="text">
                   </div>
 
                   <div class="govuk-form-group">
@@ -2630,7 +2531,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                         Microfilm serial number
                       </label>
                     </h3>
-                    <input class="govuk-input govuk-input--width-20" id="event-name" name="eventName" type="text" disabled>
+                    <input class="govuk-input govuk-input--width-20" id="event-name" name="eventName" type="text">
                   </div>
 
                   <!-- VIEW TECH RECORD DOCUMENTS -->
@@ -2666,113 +2567,8 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
             </div>
           </div>
 
-          <!--TECH RECORD HISTORY-->
-          <div class="govuk-accordion__section govuk-accordion__section-vtm records">
-            <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
-              <h2 class="govuk-accordion__section-heading">
-                <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
-                  id="accordion-with-summary-sections-heading-2">
-                  Technical records history
-                </span>
-              </h2>
-              <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
-                View technical records history.
-              </div>
-              <div class="govuk-accordion__section-summary-padding"></div>
-            </div>
-            <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
-              <hr class="expanded">
-              </hr>
-              <ul class="govuk-list">
-                <li>
-
-                  <h3 class="govuk-heading-s">Technical records history</h3>
-                  <table class="govuk-table">
-                    <thead class="govuk-table__head">
-                      <tr class="govuk-table__row">
-                        <th scope="col" class="govuk-table__header">Status</th>
-                        <th scope="col" class="govuk-table__header">Reason for creation</th>
-                        <th scope="col" class="govuk-table__header">Created by</th>
-                        <th scope="col" class="govuk-table__header">Date</th>
-                      </tr>
-                    </thead>
-                    <tbody class="govuk-table__body">
-                      <tr class="govuk-table__row">
-                        <td scope="row" class="govuk-table__cell">Current</td>
-                        <td class="govuk-table__cell">User testing</td>
-                        <td class="govuk-table__cell">Ben</td>
-                        <td class="govuk-table__cell">05/02/2024 at 11:49</td>
-                      </tr>
-                      <tr class="govuk-table__row archive-row">
-                        <td scope="row" class="govuk-table__cell"><a href="#" class="archive-link">Archived</a></td>
-                        <td class="govuk-table__cell"><a href="#" class="archive-link">User testing</a></td>
-                        <td class="govuk-table__cell"><a href="#" class="archive-link">Ben</a></td>
-                        <td class="govuk-table__cell"><a href="#" class="archive-link">04/01/2024 at 09:12</a></td>
-                      </tr>
-                    </tbody>
-                  </table>
-
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <!--TEST RECORD HISTORY-->
-          <div class="govuk-accordion__section govuk-accordion__section-vtm records">
-            <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
-              <h2 class="govuk-accordion__section-heading">
-                <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
-                  id="accordion-with-summary-sections-heading-2">
-                  Test records
-                </span>
-              </h2>
-              <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
-                Create and view test records.
-              </div>
-              <div class="govuk-accordion__section-summary-padding"></div>
-            </div>
-            <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
-              <hr class="expanded">
-              </hr>
-              <ul class="govuk-list">
-                <li>
-
-                  {{ govukButton({
-                    text: "Create test",
-                    classes: "govuk-button--secondary"
-                    }) }}
-
-                  <h3 class="govuk-heading-s">Test records history</h3>
-                  <table class="govuk-table test-records-table">
-                    <thead class="govuk-table__head">
-                      <tr class="govuk-table__row">
-                        <th scope="col" class="govuk-table__header">Test type</th>
-                        <th scope="col" class="govuk-table__header">Result</th>
-                        <th scope="col" class="govuk-table__header">Date</th>
-                      </tr>
-                    </thead>
-                    <tbody class="govuk-table__body">
-                      <tr class="govuk-table__row">
-                        <td scope="row" class="govuk-table__cell">Annual test</td>
-                        <td class="govuk-table__cell">Pass</td>
-                        <td class="govuk-table__cell">05/02/2024 at 11:49</td>
-                      </tr>
-                      <tr class="govuk-table__row archive-row">
-                        <td scope="row" class="govuk-table__cell"><a href="#" class="archive-link">Annual test</a></td>
-                        <td class="govuk-table__cell"><a href="#" class="archive-link">Pass</a></td>
-                        <td class="govuk-table__cell"><a href="#" class="archive-link">04/02/2023 at 09:12</a></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  
-
-                </li>
-              </ul>
-            </div>
-          </div>
-
           <!--NOTES-->
-          <div class="govuk-accordion__section govuk-accordion__section-vtm untagged">
+          <div class="govuk-accordion__section govuk-accordion__section-vtm admin">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
               <h2 class="govuk-accordion__section-heading">
                 <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
@@ -2802,7 +2598,10 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                       Enter any notes for this technical record
                     </label>
                     <textarea class="govuk-textarea" id="label-as-page-heading" name="labelAsPageHeading" rows="5"
-                      aria-describedby="label-as-page-heading-info" disabled>Example notes.</textarea>
+                      aria-describedby="label-as-page-heading-info"></textarea>
+                    <div id="label-as-page-heading-info" class="govuk-hint govuk-character-count__message">
+                      You have 1024 characters remaining
+                    </div>
                   </div>
 
                 </li>
@@ -2811,7 +2610,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
           </div>
 
           <!--REASON FOR CREATION-->
-         <!-- <div class="govuk-accordion__section govuk-accordion__section-vtm">
+          <div class="govuk-accordion__section govuk-accordion__section-vtm required adr plates">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
               <h2 class="govuk-accordion__section-heading">
                 <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
@@ -2830,7 +2629,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
               <ul class="govuk-list">
                 <li>
 
-                  <div class="govuk-form-group govuk-character-count required plates" data-module="govuk-character-count"
+                  <div class="govuk-form-group govuk-character-count" data-module="govuk-character-count"
                     data-maxlength="200">
                     <h1 class="govuk-label-wrapper">
                       <label class="govuk-label govuk-label--s" for="event-name">
@@ -2841,7 +2640,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                       Enter a reason for creating this technical record
                     </label>
                     <textarea class="govuk-textarea" id="label-as-page-heading" name="labelAsPageHeading" rows="3"
-                      aria-describedby="label-as-page-heading-info" disabled></textarea>
+                      aria-describedby="label-as-page-heading-info"></textarea>
                     <div id="label-as-page-heading-info" class="govuk-hint govuk-character-count__message">
                       You have 500 characters remaining
                     </div>
@@ -2850,7 +2649,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                 </li>
               </ul>
             </div>
-          </div> -->
+          </div>
         </div>
 
       </form>
