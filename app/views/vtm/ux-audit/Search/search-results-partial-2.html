@@ -52,7 +52,7 @@
       <h1 class="govuk-heading-l">
         Search for a technical record
       </h1>
-
+      
        <form class="form" action="search-results-partial" method="post">
       
         <div class="govuk-form-group">
@@ -61,7 +61,7 @@
               Enter a VIN, VRM or Trailer ID
             </label>
           </h2>
-          <input class="govuk-input govuk-!-width-search" id="width-10" name="width20" type="text" value="WBABW33426PX70804">
+          <input class="govuk-input govuk-!-width-search" id="width-10" name="width20" type="text" value="WBABW">
 
 
           <button type="submit" class="govuk-button search-button" data-module="govuk-button" href="/vtm/ux-audit/Search/search-results-partial">
@@ -74,14 +74,14 @@
         </div>
 
         <div class="app-c-filter-panel__header">
-        <button 
-          class="app-c-filter-panel__button govuk-link" 
-          id="filterToggleButton"
-          aria-expanded="false"
-          aria-controls="filterPanel"
-        >
-          <span class="app-c-filter-panel__button-inner">Filter results</span>
-        </button>
+          <button 
+            class="app-c-filter-panel__button govuk-link is-open" 
+            id="filterToggleButton"
+            aria-expanded="true"
+            aria-controls="filterPanel"
+          >
+            <span class="app-c-filter-panel__button-inner">Filter results</span>
+          </button>
 
         <div id="changedName-hint" class="govuk-hint govuk-search-results-count">
           Showing 1 result
@@ -89,11 +89,11 @@
         </div>
 
 
-        <div id="filterPanel" class="govuk-form-group app-c-filter-panel__content" hidden>
+        <div id="filterPanel" class="govuk-form-group app-c-filter-panel__content">
           <fieldset class="govuk-fieldset">
             <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
               <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="fullvin" name="fullvin" type="checkbox" value="fullvin">
+                <input class="govuk-checkboxes__input" id="fullvin" name="fullvin" type="checkbox" value="fullvin" checked>
                 <label class="govuk-label govuk-checkboxes__label" for="fullvin">
                   Full VIN
                 </label>
@@ -140,7 +140,13 @@
 
         </div>
 
+
+
     <div class="govuk-search-results">
+
+
+
+
       </div>
       
 
@@ -153,7 +159,7 @@
           </h2>
             <ul class="govuk-summary-card__actions">
               <li class="govuk-summary-card__action">
-                <a class="govuk-link" href="tech-record-hgv">Select<span class="govuk-visually-hidden"></span></a>
+                <a class="govuk-link" href="create">Select<span class="govuk-visually-hidden"></span></a>
               </li>
             </ul>
           </div>
@@ -172,7 +178,7 @@
                   VIN
                 </dt>
                 <dd class="govuk-summary-list__value govuk-summary-list__value--vin">
-                  WBABW33426PX70804
+                  WBABW
                 </dd>
               </div>
               <div class="govuk-summary-list__row govuk-summary-list__row govuk-summary-list__row--no-actions">
@@ -247,7 +253,7 @@
                   Plate issued
                 </dt>
                 <dd class="govuk-summary-list__value govuk-summary-list__value--overflow">
-                    Issued on 29/09/2023
+                    Issued on 04/06/2024
                 </dd>
                 <!--<dd class="govuk-summary-list__actions">
                   <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> working situation (Lead tenant)</span></a>
@@ -265,151 +271,9 @@
           </div>
         </div>
 
-        <!-- <div class="govuk-summary-card">
-          <div class="govuk-summary-card__title-wrapper">
-            <h2 class="govuk-summary-card__title">
-                Technical record summary
-            </h2>
-            <ul class="govuk-summary-card__actions">
-              <li class="govuk-summary-card__action">
-                <a class="govuk-link" href="create">Select<span class="govuk-visually-hidden"></span></a>
-              </li>
-            </ul>
-          </div>
-          <div class="govuk-summary-card__content">
-            <dl class="govuk-summary-list">
-              <div class="govuk-summary-list__row govuk-summary-list__row govuk-summary-list__row--no-actions">
-                <dt class="govuk-summary-list__key">
-                  Vehicle type
-                </dt>
-                <dd class="govuk-summary-list__value govuk-summary-list__value--overflow">
-                  HGV
-                </dd>
-              </div>
-              <div class="govuk-summary-list__row govuk-summary-list__row govuk-summary-list__row--no-actions">
-                <dt class="govuk-summary-list__key">
-                  VIN
-                </dt>
-                <dd class="govuk-summary-list__value govuk-summary-list__value--vin">
-                  00000000000000000
-                </dd>
-              </div>
-              <div class="govuk-summary-list__row govuk-summary-list__row govuk-summary-list__row--no-actions">
-                <dt class="govuk-summary-list__key">
-                  VRM
-                </dt>
-                <dd class="govuk-summary-list__value govuk-summary-list__value--vrm">
-                  <div class="reg-mark-div">
-                    <span class="reg-mark-sm">AU63 PLE</span>
-                  </div>
-                </dd>
-              </div>
-             <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
-                <dt class="govuk-summary-list__key">
-                  Previous VRM
-                </dt>
-                <dd class="govuk-summary-list__value govuk-summary-list__value--overflow">
-                  
-                </dd>
-                <dd class="govuk-summary-list__actions">
-                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> working situation (Lead tenant)</span></a>
-                </dd>
-              </div>
-              <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
-                <dt class="govuk-summary-list__key">
-                  Make
-                </dt>
-                <dd class="govuk-summary-list__value govuk-summary-list__value--overflow">
-                  Scania
-                </dd>
-               <dd class="govuk-summary-list__actions">
-                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> working situation (Lead tenant)</span></a>
-                </dd>
-              </div>
-              <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
-                <dt class="govuk-summary-list__key">
-                  Model
-                </dt>
-                <dd class="govuk-summary-list__value govuk-summary-list__value--overflow">
-                  770S
-                </dd>
-                <dd class="govuk-summary-list__actions">
-                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> working situation (Lead tenant)</span></a>
-                </dd>
-              </div>
-              <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
-                <dt class="govuk-summary-list__key">
-                  Year of manufacture
-                </dt>
-                <dd class="govuk-summary-list__value govuk-summary-list__value--overflow">
-                  2023
-                </dd>
-                <dd class="govuk-summary-list__actions">
-                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> working situation (Lead tenant)</span></a>
-                </dd>
-              </div>
-              <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
-                <dt class="govuk-summary-list__key">
-                  Record type
-                </dt>
-                <dd class="govuk-summary-list__value govuk-summary-list__value--overflow">
-                  <strong class="govuk-tag govuk-tag--orange">
-                    Provisional
-                  </strong>
-                </dd>
-                <dd class="govuk-summary-list__actions">
-                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> working situation (Lead tenant)</span></a>
-                </dd>
-              </div>
-              <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
-                <dt class="govuk-summary-list__key">
-                  Plate issued
-                </dt>
-                <dd class="govuk-summary-list__value govuk-summary-list__value--overflow">
-                    Yes
-                </dd>
-                <dd class="govuk-summary-list__actions">
-                  <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> working situation (Lead tenant)</span></a>
-                </dd>
-              </div>
-              <div class="govuk-summary-list__row govuk-summary-list__row govuk-summary-list__row--no-actions">
-                <dt class="govuk-summary-list__key">
-                  Email address
-                </dt>
-                <dd class="govuk-summary-list__value govuk-summary-list__value--overflow">
-                  user@email.com
-                </dd>
-              </div>
-            </dl>
-          </div>
-        </div> -->
 
         </form>
 
-        <!-- <nav class="govuk-pagination" aria-label="Pagination">
-          <ul class="govuk-pagination__list">
-            <li class="govuk-pagination__item govuk-pagination__item--current">
-              <a class="govuk-link govuk-pagination__link" href="#" aria-label="Page 1" aria-current="page">
-                1
-              </a>
-            </li>
-            <li class="govuk-pagination__item">
-              <a class="govuk-link govuk-pagination__link" href="#" aria-label="Page 2">
-                2
-              </a>
-            </li>
-          </ul>
-          <div class="govuk-pagination__next">
-            <a class="govuk-link govuk-pagination__link" href="#" rel="next">
-              <span class="govuk-pagination__link-title">
-                Next<span class="govuk-visually-hidden"> page</span>
-              </span>
-              <svg class="govuk-pagination__icon govuk-pagination__icon--next" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13">
-                <path d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"></path>
-              </svg>
-            </a>
-          </div>
-        </nav> -->
 
         </div>
       </div>      

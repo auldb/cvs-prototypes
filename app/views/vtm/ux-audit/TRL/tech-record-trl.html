@@ -14,9 +14,19 @@ text: "Beta"
 html: 'This is a new service. Help us improve it and <a class="govuk-link" href="#">give your feedback (opens in new
   tab)</a>.'
 }) }}
-{{ govukBackLink({
-text: "Back",
-href: "create-psv"
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+
+{{ govukBreadcrumbs({
+  items: [
+    {
+      text: "Home",
+      href: "#"
+    },
+    {
+      text: "View technical record",
+      href: "#"
+    }
+  ]
 }) }}
 {% endblock %}
 
@@ -123,8 +133,21 @@ href: "create-psv"
 
 <div class="govuk-width-container" id="view-record">
 
+  <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+    <div class="govuk-notification-banner__header">
+      <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+        Success
+      </h2>
+    </div>
+    <div class="govuk-notification-banner__content">
+      <h3 class="govuk-notification-banner__heading">
+        You have created a technical record.
+      </h3>
+    </div>
+  </div>
+
   <h1 class="govuk-heading-l">
-    Amend technical record
+    View technical record
   </h1>
 
   <!-- <div class="govuk-inset-text">
@@ -155,16 +178,22 @@ href: "create-psv"
             <div class="govuk-summary-list__row">
               <dt class="govuk-summary-list__key govuk-summary-list__key-tech">
                 Vehicle type
+                <div class="summary-link-wrapper">
+                  <a class="govuk-link summary-link" href="">Change</a> 
+                </div>
               </dt>
             </div>
             <div class="govuk-summary-list__row--value">
               <dd class="govuk-summary-list__value govuk-summary-list__value--overflow">
-                HGV 
+                TRL 
               </dd>     
             </div>
             <div class="govuk-summary-list__row">
               <dt class="govuk-summary-list__key govuk-summary-list__key-tech">
                 VIN
+                <div class="summary-link-wrapper">
+                  <a class="govuk-link summary-link" href="">Change</a> 
+                </div>
               </dt>
             </div>
             <div class="govuk-summary-list__row--value">
@@ -175,6 +204,9 @@ href: "create-psv"
             <div class="govuk-summary-list__row">
               <dt class="govuk-summary-list__key govuk-summary-list__key-tech">
                 VRM
+                <div class="summary-link-wrapper">
+                  <a class="govuk-link summary-link" href="">Change</a> 
+                </div>
               </dt>
             </div>
             <div class="govuk-summary-list__row--value">
@@ -202,6 +234,10 @@ href: "create-psv"
             <div class="govuk-summary-list__row">
               <dt class="govuk-summary-list__key govuk-summary-list__key-tech">
                 Record type
+                <div class="summary-link-wrapper">
+                  <a class="govuk-link summary-link summary-link-first" href="">Archive</a>
+                  <a class="govuk-link summary-link" href="">Promote</a>
+                </div>
               </dt>
             </div>
             <div class="govuk-summary-list__row--value">
@@ -228,6 +264,9 @@ href: "create-psv"
             <div class="govuk-summary-list__row">
               <dt class="govuk-summary-list__key govuk-summary-list__key-tech">
                 Visibility in VTA
+                <div class="summary-link-wrapper">
+                  <a class="govuk-link summary-link" href="">Change</a> 
+                </div>
               </dt>
             </div>
             <div class="govuk-summary-list__row--last">
@@ -270,10 +309,9 @@ href: "create-psv"
 
       <div class="govuk-button-group govuk-button-group-record">
         {{ govukButton({
-        text: "Review",
-        href: "tech-record-hgv-review"
+        text: "Amend record",
+        href: "amend-trl"
         }) }}
-        <a class="govuk-link" href="#">Cancel</a>        
       </div>
 
 
@@ -328,7 +366,7 @@ href: "create-psv"
               </a>
             </dd>
           </div>
-          
+
           <!--GENERAL-->
           <div class="govuk-accordion__section govuk-accordion__section-vtm required adr plates">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
@@ -365,7 +403,7 @@ href: "create-psv"
                               Day
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                              id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric" value="21" >
+                              id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric" value="21" disabled>
                           </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -374,7 +412,7 @@ href: "create-psv"
                               Month
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                              id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric" value="08" >
+                              id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric" value="08" disabled>
                           </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -383,14 +421,28 @@ href: "create-psv"
                               Year
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="2024" >
+                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="2024" disabled>
                           </div>
                         </div>
                       </div>
                     </fieldset>
                   </div>
 
-                  <div class="govuk-form-group optional plates">
+                  <div class="govuk-date-input__item untagged">
+                    <div class="govuk-form-group">
+                      <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                        <strong>Month of manufacture</strong>
+                      </label>
+                      <select class="govuk-select" id="sort" name="sort" disabled>
+                        <option value="published" selected>Select month</option>
+                        <option value="published">January</option>
+                        <option value="updated">February</option>
+                        <option value="updated">March</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="govuk-form-group plates">
                     <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
                       <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                         <h1 class="govuk-fieldset__heading">
@@ -400,20 +452,62 @@ href: "create-psv"
                       <div class="govuk-date-input__item">
                         <div class="govuk-form-group">
                           <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                            id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="2023" >
+                            id="passport-issued-year" name="passport-issued-year" type="text" disabled inputmode="numeric">
                         </div>
                       </div>
                     </fieldset>
                   </div>
 
-                  <div class="govuk-form-group optional plates">
+                  <div class="govuk-form-group untagged">
+                    <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
+                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                        <h1 class="govuk-fieldset__heading">
+                          Date of first use
+                        </h1>
+                      </legend>
+                      <div id="passport-issued-hint" class="govuk-hint">
+                        For example, 27 3 2024
+                      </div>
+                      <div class="govuk-date-input" id="passport-issued">
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-day">
+                              Day
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                              id="passport-issued-day" name="passport-issued-day" type="text" disabled inputmode="numeric">
+                          </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-month">
+                              Month
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                              id="passport-issued-month" name="passport-issued-month" type="text" disabled inputmode="numeric">
+                          </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                              Year
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-4"
+                              id="passport-issued-year" name="passport-issued-year" type="text" disabled inputmode="numeric">
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+
+                  <div class="govuk-form-group plates">
                     <label class="govuk-label" for="phone-number">
                       <strong>
                         DTp number
                       </strong>
                     </label>
-                    <input class="govuk-input govuk-input--width-10" id="phone-number" name="phoneNumber" type="tel"
-                      autocomplete="tel" value="" >
+                    <input class="govuk-input govuk-input--width-10" id="phone-number" name="phoneNumber" disabled type="tel"
+                      autocomplete="tel">
                   </div>
 
                   <div class="govuk-form-group required plates">
@@ -422,42 +516,60 @@ href: "create-psv"
                         Vehicle configuration
                       </strong>
                     </label>
-                    <select class="govuk-select" id="sort" name="sort" >
-                      <option value="published">Select configuration</option>
-                      <option value="updated" selected>Rigid</option>
+                    <select class="govuk-select" id="sort" name="sort" disabled>
+                      <option value="published" selected>Select configuration</option>
+                      <option value="updated">Rigid</option>
                       <option value="views">Articulated</option>
                     </select>
                   </div>
 
-                  <div class="govuk-form-group optional plates">
-                    <label class="govuk-label" for="phone-number">
+                  <div class="govuk-form-group required untagged">
+                    <label class="govuk-label" for="sort">
+                      <strong>
+                        Frame description
+                      </strong>
+                    </label>
+                    <select class="govuk-select" id="sort" name="sort" disabled>
+                      <option value="published" selected>Select frame description</option>
+                      <option value="updated">Channel section</option>
+                      <option value="views">Space frame</option>
+                      <option value="views">I section</option>
+                    </select>
+                  </div>
+
+                  <div class="govuk-form-group plates required adr">
+                    <label class="govuk-label" for="sort">
                       <strong>
                         Body make
                       </strong>
                     </label>
-                    <input class="govuk-input govuk-input--width-10" id="phone-number" name="phoneNumber" type="tel"
-                      autocomplete="tel" value="Scania" >
+                    <select class="govuk-select" id="sort" name="sort" disabled>
+                      <option value="published" selected>Select body make</option>
+                      <option value="updated">4 Sure Trailers</option>
+                      <option value="views">A & R</option>
+                      <option value="views">A E Wilson</option>
+                    </select>
                   </div>
 
-                  <div class="govuk-form-group optional plates">
+                  <div class="govuk-form-group plates">
                     <label class="govuk-label" for="phone-number">
                       <strong>
                         Body model
                       </strong>
                     </label>
                     <input class="govuk-input govuk-input--width-10" id="phone-number" name="phoneNumber" type="tel"
-                      autocomplete="tel" value="770R" >
+                      autocomplete="tel" disabled>
                   </div>
 
-                  <div class="govuk-form-group required untagged">
+                  <div class="govuk-form-group plates required">
                     <label class="govuk-label" for="sort">
                       <strong>
                         Body type
                       </strong>
                     </label>
-                    <select class="govuk-select" id="sort" name="sort" >
-                      <option value="published">Select body type</option>
-                      <option value="updated" selected>Box</option>
+                    <select class="govuk-select" id="sort" name="sort" disabled>
+                      <option value="published" selected>Select body type</option>
+                      <option value="updated">Box</option>
                       <option value="views">Car transporter</option>
                       <option value="views">Concrete mixer</option>
                       <option value="views">Curtainsider</option>
@@ -476,30 +588,30 @@ href: "create-psv"
                     </select>
                   </div>
 
-                  <div class="govuk-date-input__item optional plates">
+                  <div class="govuk-date-input__item plates">
                     <div class="govuk-form-group">
                       <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
                         <strong>Function code</strong>
                       </label>
-                      <select class="govuk-select" id="sort" name="sort">
-                        <option value="published">Select function code</option>
-                        <option value="published" selected>R</option>
+                      <select class="govuk-select" id="sort" name="sort" disabled>
+                        <option value="published" selected>Select function code</option>
+                        <option value="published">R</option>
                         <option value="updated">A</option>
                       </select>
                     </div>
                   </div>
 
-                  <div class="govuk-form-group optional untagged">
+                  <div class="govuk-form-group untagged">
                     <label class="govuk-label" for="phone-number">
                       <strong>
                         Conversion reference number
                       </strong>
                     </label>
                     <input class="govuk-input govuk-input--width-10" id="phone-number" name="phoneNumber" type="tel"
-                      autocomplete="tel" >
+                      autocomplete="tel" disabled>
                   </div>
 
-                  <div class="govuk-form-group optional untagged">
+                  <div class="govuk-form-group untagged">
                     <fieldset class="govuk-fieldset">
                       <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                         <h1 class="govuk-fieldset__heading">
@@ -509,23 +621,16 @@ href: "create-psv"
                       <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
                           <input class="govuk-radios__input" id="whereDoYouLive" name="whereDoYouLive" type="radio"
-                            value="england" >
+                            value="england" disabled>
                           <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
-                            N1
+                            O3
                           </label>
                         </div>
                         <div class="govuk-radios__item">
                           <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
-                            value="scotland" >
+                            value="scotland" disabled>
                           <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
-                            N2
-                          </label>
-                        </div>
-                        <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="whereDoYouLive-3" name="whereDoYouLive" type="radio"
-                            value="wales" checked >
-                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-3">
-                            N3
+                            O4
                           </label>
                         </div>
                       </div>
@@ -539,19 +644,12 @@ href: "create-psv"
                           Number of axles
                         </h1>
                       </legend>
-                      <div class="govuk-warning-text">
-                        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-                        <strong class="govuk-warning-text__text">
-                          <span class="govuk-visually-hidden">Warning</span>
-                          You can add or remove axles in the weights and tyres sections.
-                        </strong>
-                      </div>
                       <div id="event-name-hint" class="govuk-hint">
                         This will affect how many axle-related fields appear in the record
                       </div>
                       <div class="govuk-input__wrapper">
                         <input class="govuk-input govuk-input--width-2" id="number-of-axles" name="number-of-axles"
-                          type="text" inputmode="numeric" value="2" disabled>
+                          type="text" inputmode="numeric" disabled>
                       </div>
                     </fieldset>
                   </div>
@@ -589,7 +687,7 @@ href: "create-psv"
                         Approval type
                       </strong>
                     </label>
-                    <select class="govuk-select" id="sort" name="sort" >
+                    <select class="govuk-select" id="sort" name="sort" disabled>
                       <option value="published" selected>Select approval type</option>
                       <option value="updated">NTA</option>
                       <option value="views">ECTA</option>
@@ -604,7 +702,7 @@ href: "create-psv"
                       </strong>
                     </label>
                     <input class="govuk-input govuk-input--width-20" id="phone-number" name="phoneNumber" type="tel"
-                      autocomplete="tel" value="e4*2007/46*0785*13" >
+                      autocomplete="tel" disabled>
                   </div>
 
                   <div class="govuk-form-group untagged">
@@ -614,7 +712,7 @@ href: "create-psv"
                       </strong>
                     </label>
                     <input class="govuk-input govuk-input--width-20" id="phone-number" name="phoneNumber" type="tel"
-                      autocomplete="tel" >
+                      autocomplete="tel" disabled>
                   </div>
 
                   <div class="govuk-form-group plates">
@@ -624,7 +722,7 @@ href: "create-psv"
                       </strong>
                     </label>
                     <input class="govuk-input govuk-input--width-20" id="phone-number" name="phoneNumber" type="tel"
-                      autocomplete="tel" >
+                      autocomplete="tel" disabled>
                   </div>
 
                   <div class="govuk-form-group untagged">
@@ -634,7 +732,7 @@ href: "create-psv"
                       </strong>
                     </label>
                     <input class="govuk-input govuk-input--width-20" id="phone-number" name="phoneNumber" type="tel"
-                      autocomplete="tel" >
+                      autocomplete="tel" disabled>
                   </div>
 
 
@@ -643,7 +741,7 @@ href: "create-psv"
             </div>
           </div>
 
-          <!--AXLES AND DIMENSIONS-->
+          <!--DIMENSIONS-->
           <div class="govuk-accordion__section govuk-accordion__section-vtm plates">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
               <h2 class="govuk-accordion__section-heading">
@@ -672,9 +770,30 @@ href: "create-psv"
                     </h1>
                     <div class="govuk-input__wrapper">
                       <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
-                        spellcheck="false" value="13000" >
+                        spellcheck="false" disabled>
                       <div class="govuk-input__suffix" aria-hidden="true">mm</div>
                     </div>
+                  </div>
+
+                  <div class="govuk-form-group untagged">
+                    <h1 class="govuk-label-wrapper">
+                      <label class="govuk-label govuk-label--s" for="weight">
+                        Rear axle to rear of trailer
+                      </label>
+                    </h1>
+                    <div class="govuk-input__wrapper">
+                      <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
+                        spellcheck="false" disabled>
+                      <div class="govuk-input__suffix" aria-hidden="true">mm</div>
+                    </div>
+                  </div>
+
+                  <div class="govuk-warning-text" id="axle-size-warning">
+                    <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                    <strong class="govuk-warning-text__text">
+                      <span class="govuk-visually-hidden">Warning</span>
+                      Enter the number of axles to be able to add axle dimensions.
+                    </strong>
                   </div>
 
                   <div class="govuk-form-group untagged" id="axle1to2" style="display: none;">
@@ -685,7 +804,7 @@ href: "create-psv"
                     </h1>
                     <div class="govuk-input__wrapper">
                       <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
-                        spellcheck="false" value="7000" >
+                        spellcheck="false" disabled>
                       <div class="govuk-input__suffix" aria-hidden="true">mm</div>
                     </div>
                   </div>
@@ -698,7 +817,7 @@ href: "create-psv"
                     </h1>
                     <div class="govuk-input__wrapper">
                       <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
-                        spellcheck="false" value="2000" >
+                        spellcheck="false" disabled>
                       <div class="govuk-input__suffix" aria-hidden="true">mm</div>
                     </div>
                   </div>
@@ -711,7 +830,7 @@ href: "create-psv"
                     </h1>
                     <div class="govuk-input__wrapper">
                       <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
-                        spellcheck="false">
+                        spellcheck="false" disabled>
                       <div class="govuk-input__suffix" aria-hidden="true">mm</div>
                     </div>
                   </div>
@@ -724,7 +843,7 @@ href: "create-psv"
                     </h1>
                     <div class="govuk-input__wrapper">
                       <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
-                        spellcheck="false">
+                        spellcheck="false" disabled>
                       <div class="govuk-input__suffix" aria-hidden="true">mm</div>
                     </div>
                   </div>
@@ -737,7 +856,7 @@ href: "create-psv"
                     </h1>
                     <div class="govuk-input__wrapper">
                       <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
-                        spellcheck="false">
+                        spellcheck="false" disabled>
                       <div class="govuk-input__suffix" aria-hidden="true">mm</div>
                     </div>
                   </div>
@@ -750,7 +869,7 @@ href: "create-psv"
                     </h1>
                     <div class="govuk-input__wrapper">
                       <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
-                        spellcheck="false" value="15500" >
+                        spellcheck="false">
                       <div class="govuk-input__suffix" aria-hidden="true">mm</div>
                     </div>
                   </div>
@@ -763,96 +882,96 @@ href: "create-psv"
                     </h1>
                     <div class="govuk-input__wrapper">
                       <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
-                        spellcheck="false" value="2500" >
+                        spellcheck="false" disabled>
                       <div class="govuk-input__suffix" aria-hidden="true">mm</div>
                     </div>
+                  </div>
+
+                  <div class="govuk-form-group untagged">
+                    <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
+                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                        <h1 class="govuk-fieldset__heading">
+                          Coupling centre to rear axle
+                        </h1>
+                      </legend>
+                      <div class="govuk-date-input" id="passport-issued">
+                        
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                              Minimum
+                            </label>
+                            <div class="govuk-input__wrapper">
+                              <input class="govuk-input govuk-date-input__input govuk-input--width-5" id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" disabled>
+                              <div class="govuk-input__suffix" aria-hidden="true">mm</div>
+                            </div>
+                          </div>
+                        </div>
+  
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                              Maximum
+                            </label>
+                            <div class="govuk-input__wrapper">
+                              <input class="govuk-input govuk-date-input__input govuk-input--width-5" id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" disabled>
+                              <div class="govuk-input__suffix" aria-hidden="true">mm</div>
+                            </div>
+                          </div>
+                        </div>
+  
+                      </div>
+                    </fieldset>
+                  </div>
+  
+                  <div class="govuk-form-group plates">
+                    <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
+                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                        <h1 class="govuk-fieldset__heading">
+                          Coupling centre to rear of trailer
+                        </h1>
+                      </legend>
+                      <div class="govuk-date-input" id="passport-issued">
+                        
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                              Minimum
+                            </label>
+                            <div class="govuk-input__wrapper">
+                              <input class="govuk-input govuk-date-input__input govuk-input--width-5" id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" disabled>
+                              <div class="govuk-input__suffix" aria-hidden="true">mm</div>
+                            </div>
+                          </div>
+                        </div>
+  
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                              Maximum
+                            </label>
+                            <div class="govuk-input__wrapper">
+                              <input class="govuk-input govuk-date-input__input govuk-input--width-5" id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" disabled>
+                              <div class="govuk-input__suffix" aria-hidden="true">mm</div>
+                            </div>
+                          </div>
+                        </div>
+  
+                      </div>
+                    </fieldset>
                   </div>
 
                   <div class="govuk-form-group untagged">
                     <h1 class="govuk-label-wrapper">
                       <label class="govuk-label govuk-label--s" for="weight">
-                        Height
+                        Centre of rear axle to rear of trailer
                       </label>
                     </h1>
                     <div class="govuk-input__wrapper">
                       <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
-                        spellcheck="false" value="4000" >
+                        spellcheck="false" disabled>
                       <div class="govuk-input__suffix" aria-hidden="true">mm</div>
                     </div>
-                  </div>
-
-                  <div class="govuk-form-group untagged">
-                    <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
-                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-                        <h1 class="govuk-fieldset__heading">
-                          Front of vehicle to fifth wheel
-                        </h1>
-                      </legend>
-                      <div class="govuk-date-input" id="passport-issued">
-                        
-                        <div class="govuk-date-input__item">
-                          <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
-                              Minimum
-                            </label>
-                            <div class="govuk-input__wrapper">
-                              <input class="govuk-input govuk-date-input__input govuk-input--width-5" id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="3000" >
-                              <div class="govuk-input__suffix" aria-hidden="true">mm</div>
-                            </div>
-                          </div>
-                        </div>
-  
-                        <div class="govuk-date-input__item">
-                          <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
-                              Maximum
-                            </label>
-                            <div class="govuk-input__wrapper">
-                              <input class="govuk-input govuk-date-input__input govuk-input--width-5" id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="4000" >
-                              <div class="govuk-input__suffix" aria-hidden="true">mm</div>
-                            </div>
-                          </div>
-                        </div>
-  
-                      </div>
-                    </fieldset>
-                  </div>
-  
-                  <div class="govuk-form-group untagged">
-                    <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
-                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-                        <h1 class="govuk-fieldset__heading">
-                          Front of vehicle to coupling device
-                        </h1>
-                      </legend>
-                      <div class="govuk-date-input" id="passport-issued">
-                        
-                        <div class="govuk-date-input__item">
-                          <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
-                              Minimum
-                            </label>
-                            <div class="govuk-input__wrapper">
-                              <input class="govuk-input govuk-date-input__input govuk-input--width-5" id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="8000" >
-                              <div class="govuk-input__suffix" aria-hidden="true">mm</div>
-                            </div>
-                          </div>
-                        </div>
-  
-                        <div class="govuk-date-input__item">
-                          <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
-                              Maximum
-                            </label>
-                            <div class="govuk-input__wrapper">
-                              <input class="govuk-input govuk-date-input__input govuk-input--width-5" id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="8500" >
-                              <div class="govuk-input__suffix" aria-hidden="true">mm</div>
-                            </div>
-                          </div>
-                        </div>
-  
-                      </div>
-                    </fieldset>
                   </div>
 
 
@@ -871,7 +990,7 @@ href: "create-psv"
                 </span>
               </h2>
               <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
-                Axle, gross, and train weights.
+                Axle and gross weights, coupling type.
               </div>
               <div class="govuk-accordion__section-summary-padding"></div>
             </div>
@@ -914,7 +1033,7 @@ href: "create-psv"
                                 </label>
                                 <div class="govuk-input__wrapper">
                                   <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="4500" >
+                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" disabled>
                                   <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                                 </div>
                               </div>
@@ -927,7 +1046,7 @@ href: "create-psv"
                                 </label>
                                 <div class="govuk-input__wrapper">
                                   <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="4500" >
+                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" disabled>
                                   <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                                 </div>
                               </div>
@@ -940,22 +1059,11 @@ href: "create-psv"
                                 </label>
                                 <div class="govuk-input__wrapper">
                                   <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="4500" >
+                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" disabled>
                                   <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                                 </div>
                               </div>
                             </div>
-
-                            <div class="govuk-date-input__item">
-                              <div class="govuk-form-group">
-                                <div class="govuk-input__wrapper">
-                                <button type="submit" class="govuk-button govuk-button--warning remove-axle-button" data-module="govuk-button">
-                                  Remove axle
-                                </button>
-                                </div>
-                              </div>
-                            </div>
-
     
                           </div>
                         </fieldset>
@@ -977,7 +1085,7 @@ href: "create-psv"
                                 </label>
                                 <div class="govuk-input__wrapper">
                                   <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="4500" >
+                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" disabled>
                                   <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                                 </div>
                               </div>
@@ -990,7 +1098,7 @@ href: "create-psv"
                                 </label>
                                 <div class="govuk-input__wrapper">
                                   <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="4500" >
+                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" disabled>
                                   <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                                 </div>
                               </div>
@@ -1003,18 +1111,8 @@ href: "create-psv"
                                 </label>
                                 <div class="govuk-input__wrapper">
                                   <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="4500" >
+                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" disabled>
                                   <div class="govuk-input__suffix" aria-hidden="true">kg</div>
-                                </div>
-                              </div>
-                            </div>
-
-                            <div class="govuk-date-input__item">
-                              <div class="govuk-form-group">
-                                <div class="govuk-input__wrapper">
-                                <button type="submit" class="govuk-button govuk-button--warning remove-axle-button" data-module="govuk-button">
-                                  Remove axle
-                                </button>
                                 </div>
                               </div>
                             </div>
@@ -1039,7 +1137,7 @@ href: "create-psv"
                                 </label>
                                 <div class="govuk-input__wrapper">
                                   <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="4500" >
+                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" disabled>
                                   <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                                 </div>
                               </div>
@@ -1052,7 +1150,7 @@ href: "create-psv"
                                 </label>
                                 <div class="govuk-input__wrapper">
                                   <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="4500" >
+                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" disabled>
                                   <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                                 </div>
                               </div>
@@ -1065,7 +1163,7 @@ href: "create-psv"
                                 </label>
                                 <div class="govuk-input__wrapper">
                                   <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="4500" >
+                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" disabled>
                                   <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                                 </div>
                               </div>
@@ -1091,7 +1189,7 @@ href: "create-psv"
                                 </label>
                                 <div class="govuk-input__wrapper">
                                   <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" disabled>
                                   <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                                 </div>
                               </div>
@@ -1104,7 +1202,7 @@ href: "create-psv"
                                 </label>
                                 <div class="govuk-input__wrapper">
                                   <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" disabled>
                                   <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                                 </div>
                               </div>
@@ -1117,7 +1215,7 @@ href: "create-psv"
                                 </label>
                                 <div class="govuk-input__wrapper">
                                   <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" disabled>
                                   <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                                 </div>
                               </div>
@@ -1143,7 +1241,7 @@ href: "create-psv"
                                 </label>
                                 <div class="govuk-input__wrapper">
                                   <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" disabled>
                                   <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                                 </div>
                               </div>
@@ -1156,7 +1254,7 @@ href: "create-psv"
                                 </label>
                                 <div class="govuk-input__wrapper">
                                   <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" disabled>
                                   <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                                 </div>
                               </div>
@@ -1169,7 +1267,7 @@ href: "create-psv"
                                 </label>
                                 <div class="govuk-input__wrapper">
                                   <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" disabled>
                                   <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                                 </div>
                               </div>
@@ -1195,7 +1293,7 @@ href: "create-psv"
                                 </label>
                                 <div class="govuk-input__wrapper">
                                   <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="8000" >
+                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" disabled>
                                   <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                                 </div>
                               </div>
@@ -1208,7 +1306,7 @@ href: "create-psv"
                                 </label>
                                 <div class="govuk-input__wrapper">
                                   <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="8000" >
+                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" disabled>
                                   <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                                 </div>
                               </div>
@@ -1221,7 +1319,7 @@ href: "create-psv"
                                 </label>
                                 <div class="govuk-input__wrapper">
                                   <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="8000" >
+                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" disabled>
                                   <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                                 </div>
                               </div>
@@ -1231,7 +1329,7 @@ href: "create-psv"
                         </fieldset>
                       </div>
 
-                  <div class="govuk-form-group plates">
+                 <!-- <div class="govuk-form-group plates">
                     <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
                       <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                         <h1 class="govuk-fieldset__heading">
@@ -1247,7 +1345,7 @@ href: "create-psv"
                             </label>
                             <div class="govuk-input__wrapper">
                               <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="8000" >
+                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
                               <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                             </div>
                           </div>
@@ -1260,7 +1358,7 @@ href: "create-psv"
                             </label>
                             <div class="govuk-input__wrapper">
                               <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="8000" >
+                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
                               <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                             </div>
                           </div>
@@ -1273,7 +1371,7 @@ href: "create-psv"
                             </label>
                             <div class="govuk-input__wrapper">
                               <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="8000" >
+                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
                               <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                             </div>
                           </div>
@@ -1300,7 +1398,7 @@ href: "create-psv"
                             </label>
                             <div class="govuk-input__wrapper">
                               <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="8500" >
+                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
                               <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                             </div>
                           </div>
@@ -1313,7 +1411,7 @@ href: "create-psv"
                             </label>
                             <div class="govuk-input__wrapper">
                               <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="8500" >
+                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
                               <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                             </div>
                           </div>
@@ -1326,7 +1424,47 @@ href: "create-psv"
                             </label>
                             <div class="govuk-input__wrapper">
                               <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="8500" >
+                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                              <div class="govuk-input__suffix" aria-hidden="true">kg</div>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                    </fieldset>
+                  </div> -->
+
+                  <div class="govuk-date-input__item plates">
+                    <div class="govuk-form-group">
+                      <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                        <strong>Coupling type</strong>
+                      </label>
+                      <select class="govuk-select" id="sort" name="sort" disabled>
+                        <option value="published" selected>Select coupling type</option>
+                        <option value="published">Fifth wheel</option>
+                        <option value="updated">Drawbar</option>
+                        <option value="updated">Automatic</option>
+                        <option value="updated">Dolly</option>
+                        <option value="updated">Semi</option>
+                        <option value="updated">Other</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="govuk-form-group plates">
+                    <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
+                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                        <h1 class="govuk-fieldset__heading">
+                          Max load on coupling
+                        </h1>
+                      </legend>
+                      <div class="govuk-date-input" id="passport-issued">
+
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <div class="govuk-input__wrapper">
+                              <input class="govuk-input govuk-date-input__input govuk-input--width-4"
+                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" disabled>
                               <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                             </div>
                           </div>
@@ -1335,10 +1473,6 @@ href: "create-psv"
                       </div>
                     </fieldset>
                   </div>
-
-                      <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">
-                        Add axle
-                      </button>
 
                 </li>
               </ul>
@@ -1392,10 +1526,10 @@ href: "create-psv"
                           Search for tyre details
                         </button>
 
-                        <button type="submit" class="govuk-button govuk-button--warning" data-module="govuk-button">
+                        <!-- <button type="submit" class="govuk-button govuk-button--warning" data-module="govuk-button">
                           Remove tyre
-                        </button>
-                      </div> 
+                        </button> -->
+                      </div>
 
                       <div class="govuk-date-input" id="passport-issued">
                         <div class="govuk-date-input__item">
@@ -1404,7 +1538,7 @@ href: "create-psv"
                               Code
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-3"
-                              id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric" value="788" >
+                              id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric" disabled>
                           </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -1413,8 +1547,8 @@ href: "create-psv"
                               Size
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-5.5"
-                              id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric" value="185/75-16"
-                              >
+                              id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric"
+                              disabled>
                           </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -1424,7 +1558,7 @@ href: "create-psv"
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-3"
                               id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
-                              >
+                              disabled>
                           </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -1433,8 +1567,8 @@ href: "create-psv"
                               Load index
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-3"
-                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="114"
-                              >
+                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
+                              disabled>
                           </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -1442,9 +1576,10 @@ href: "create-psv"
                             <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
                               S/D
                             </label>
-                            <select class="govuk-select govuk-select--tyres" id="sort" name="sort" >
+                            <select class="govuk-select govuk-select--tyres" id="sort" name="sort">
+                              <option value="updated" selected></option>
                               <option value="published">S</option>
-                              <option value="updated" selected>D</option>
+                              <option value="updated">D</option>
                             </select>
                           </div>
                         </div>
@@ -1465,9 +1600,9 @@ href: "create-psv"
                           Search for tyre details
                         </button>
 
-                        <button type="submit" class="govuk-button govuk-button--warning" data-module="govuk-button">
+                        <!-- <button type="submit" class="govuk-button govuk-button--warning" data-module="govuk-button">
                           Remove tyre
-                        </button>
+                        </button> -->
                       </div>
 
                       <div class="govuk-date-input" id="passport-issued">
@@ -1477,7 +1612,7 @@ href: "create-psv"
                               Code
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-3"
-                              id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric" value="788" >
+                              id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric" disabled>
                           </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -1486,8 +1621,8 @@ href: "create-psv"
                               Size
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-5.5"
-                              id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric" value="185/75-16"
-                              >
+                              id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric"
+                              disabled>
                           </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -1497,7 +1632,7 @@ href: "create-psv"
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-3"
                               id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
-                              >
+                              disabled>
                           </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -1506,8 +1641,8 @@ href: "create-psv"
                               Load index
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-3"
-                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="114"
-                              >
+                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
+                              disabled>
                           </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -1515,15 +1650,17 @@ href: "create-psv"
                             <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
                               S/D
                             </label>
-                            <select class="govuk-select govuk-select--tyres" id="sort" name="sort" >
+                            <select class="govuk-select govuk-select--tyres" id="sort" name="sort">
+                              <option value="updated" selected></option>
                               <option value="published">S</option>
-                              <option value="updated" selected>D</option>
+                              <option value="updated">D</option>
                             </select>
                           </div>
                         </div>
                       </div>
                     </fieldset>
                   </div>
+
                   
                   <div id="tyre-axle3" class="govuk-form-group plates" style="display:none;">
                     <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
@@ -1537,9 +1674,9 @@ href: "create-psv"
                           Search for tyre details
                         </button>
 
-                        <button type="submit" class="govuk-button govuk-button--warning" data-module="govuk-button">
+                        <!-- <button type="submit" class="govuk-button govuk-button--warning" data-module="govuk-button">
                           Remove tyre
-                        </button>
+                        </button> -->
                       </div>
 
                       <div class="govuk-date-input" id="passport-issued">
@@ -1559,7 +1696,7 @@ href: "create-psv"
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-5.5"
                               id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric"
-                              >
+                              disabled>
                           </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -1569,7 +1706,7 @@ href: "create-psv"
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-3"
                               id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
-                              >
+                              disabled>
                           </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -1579,7 +1716,7 @@ href: "create-psv"
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-3"
                               id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
-                              >
+                              disabled>
                           </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -1588,8 +1725,9 @@ href: "create-psv"
                               S/D
                             </label>
                             <select class="govuk-select govuk-select--tyres" id="sort" name="sort">
+                              <option value="updated" selected></option>
                               <option value="published">S</option>
-                              <option value="updated" selected>D</option>
+                              <option value="updated">D</option>
                             </select>
                           </div>
                         </div>
@@ -1610,9 +1748,9 @@ href: "create-psv"
                           Search for tyre details
                         </button>
 
-                        <button type="submit" class="govuk-button govuk-button--warning" data-module="govuk-button">
+                        <!-- <button type="submit" class="govuk-button govuk-button--warning" data-module="govuk-button">
                           Remove tyre
-                        </button>
+                        </button> -->
                       </div>
 
                       <div class="govuk-date-input" id="passport-issued">
@@ -1632,7 +1770,7 @@ href: "create-psv"
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-5.5"
                               id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric"
-                              >
+                              disabled>
                           </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -1642,7 +1780,7 @@ href: "create-psv"
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-3"
                               id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
-                              >
+                              disabled>
                           </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -1652,7 +1790,7 @@ href: "create-psv"
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-3"
                               id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
-                              >
+                              disabled>
                           </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -1661,8 +1799,9 @@ href: "create-psv"
                               S/D
                             </label>
                             <select class="govuk-select govuk-select--tyres" id="sort" name="sort">
+                              <option value="updated" selected></option>
                               <option value="published">S</option>
-                              <option value="updated" selected>D</option>
+                              <option value="updated">D</option>
                             </select>
                           </div>
                         </div>
@@ -1682,9 +1821,9 @@ href: "create-psv"
                           Search for tyre details
                         </button>
 
-                        <button type="submit" class="govuk-button govuk-button--warning" data-module="govuk-button">
+                       <!-- <button type="submit" class="govuk-button govuk-button--warning" data-module="govuk-button">
                           Remove tyre
-                        </button>
+                        </button> -->
                       </div>
 
                       <div class="govuk-date-input" id="passport-issued">
@@ -1704,7 +1843,7 @@ href: "create-psv"
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-5.5"
                               id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric"
-                              >
+                              disabled>
                           </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -1714,7 +1853,7 @@ href: "create-psv"
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-3"
                               id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
-                              >
+                              disabled>
                           </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -1724,7 +1863,7 @@ href: "create-psv"
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-3"
                               id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
-                              >
+                              disabled>
                           </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -1732,9 +1871,10 @@ href: "create-psv"
                             <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
                               S/D
                             </label>
-                            <select class="govuk-select govuk-select--tyres" id="sort" name="sort">
+                            <select class="govuk-select govuk-select--tyres" id="sort" name="sort" disabled>
+                              <option value="updated" selected></option>
                               <option value="published">S</option>
-                              <option value="updated" selected>D</option>
+                              <option value="updated">D</option>
                             </select>
                           </div>
                         </div>
@@ -1748,27 +1888,19 @@ href: "create-psv"
                       <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
                         <strong>Tyre use code</strong>
                       </label>
-                      <select class="govuk-select" id="sort" name="sort" >
-                        <option value="published">Select tyre use code</option>
-                        <option value="published" selected>2R</option>
+                      <select class="govuk-select" id="sort" name="sort" disabled>
+                        <option value="published" selected>Select tyre use code</option>
+                        <option value="published">2R</option>
                         <option value="updated">2B</option>
                         <option value="updated">2J</option>
                         <option value="updated">2M</option>
                       </select>
                     </div>
                   </div>
-
-                  <br>
-
-                      <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">
-                        Add axle
-                      </button>
-
               </li>
               </ul>
-
             </div>
-          </div>
+          </div>          
 
           <!--CONFIGURATION-->
           <div class="govuk-accordion__section govuk-accordion__section-vtm plates">
@@ -1780,7 +1912,7 @@ href: "create-psv"
                 </span>
               </h2>
               <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
-                Off-road, fuel system, road friendly suspension.
+                Vehicle markers, road friendly suspension.
               </div>
               <div class="govuk-accordion__section-summary-padding"></div>
             </div>
@@ -1794,47 +1926,21 @@ href: "create-psv"
                     <fieldset class="govuk-fieldset">
                       <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                         <h1 class="govuk-fieldset__heading">
-                          Off-road vehicle
-                        </h1>
-                      </legend>
-                      <div class="govuk-radios" data-module="govuk-radios">
-                        <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="offroad" name="offroad" type="radio"
-                            value="offroadyes" >
-                          <label class="govuk-label govuk-radios__label" for="offroad">
-                            Yes
-                          </label>
-                        </div>
-                        <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="offroad-2" name="offroad" type="radio"
-                            value="offroadno" checked >
-                          <label class="govuk-label govuk-radios__label" for="offroad-2">
-                            No
-                          </label>
-                        </div>
-                      </div>
-                    </fieldset>
-                  </div>
-
-                  <div class="govuk-form-group untagged">
-                    <fieldset class="govuk-fieldset">
-                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-                        <h1 class="govuk-fieldset__heading">
                           Departmental vehicle marker
                         </h1>
                       </legend>
                       <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="departmental" name="departmental" type="radio"
-                            value="departmentalyes" >
-                          <label class="govuk-label govuk-radios__label" for="departmental">
+                          <input class="govuk-radios__input" id="whereDoYouLive" name="whereDoYouLive" type="radio"
+                            value="england">
+                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
                             Yes
                           </label>
                         </div>
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="departmental-2" name="departmental" type="radio"
-                            value="departmentalno" checked >
-                          <label class="govuk-label govuk-radios__label" for="departmental-2">
+                          <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
+                            value="scotland" disabled>
+                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
                             No
                           </label>
                         </div>
@@ -1851,40 +1957,21 @@ href: "create-psv"
                       </legend>
                       <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="alteration" name="alteration" type="radio"
-                            value="alterationyes" >
-                          <label class="govuk-label govuk-radios__label" for="alteration">
+                          <input class="govuk-radios__input" id="whereDoYouLive" name="whereDoYouLive" type="radio"
+                            value="england">
+                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
                             Yes
                           </label>
                         </div>
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="alteration-2" name="alteration" type="radio"
-                            value="alterationno" checked >
-                          <label class="govuk-label govuk-radios__label" for="alteration-2">
+                          <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
+                            value="scotland" disabled>
+                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
                             No
                           </label>
                         </div>
                       </div>
                     </fieldset>
-                  </div>
-
-                  <div class="govuk-form-group untagged">
-                    <label class="govuk-label" for="location">
-                      <strong>
-                        Fuel system
-                      </strong>
-                    </label>
-                    <select class="govuk-select" id="location" name="location" aria-describedby="location-hint" >
-                      <option value="choose">Select fuel system</option>
-                      <option value="eastofengland" selected>Diesel</option>
-                      <option value="london">Petrol</option>
-                      <option value="northeast">Hybrid</option>
-                      <option value="northwest">Electric</option>
-                      <option value="southeast">CNG</option>
-                      <option value="southwest">Fuel cell</option>
-                      <option value="westmidlands">LNG</option>
-                      <option value="yorkshire">Other</option>
-                    </select>
                   </div>
 
                   <div class="govuk-form-group plates">
@@ -1896,16 +1983,16 @@ href: "create-psv"
                       </legend>
                       <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="roadfriendly" name="roadfriendly" type="radio"
-                            value="roadfriendlyyes" checked >
-                          <label class="govuk-label govuk-radios__label" for="roadfriendly">
+                          <input class="govuk-radios__input" id="whereDoYouLive" name="whereDoYouLive" type="radio"
+                            value="england" disabled>
+                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
                             Yes
                           </label>
                         </div>
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="roadfriendly-2" name="roadfriendly" type="radio"
-                            value="roadfriendlyno" >
-                          <label class="govuk-label govuk-radios__label" for="roadfriendly-2">
+                          <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
+                            value="scotland" disabled>
+                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
                             No
                           </label>
                         </div>
@@ -1913,22 +2000,38 @@ href: "create-psv"
                     </fieldset>
                   </div>
 
+                  <div class="govuk-form-group untagged">
+                    <label class="govuk-label" for="location">
+                      <strong>
+                        Suspension type
+                      </strong>
+                    </label>
+                    <select class="govuk-select" id="location" name="location" aria-describedby="location-hint" disabled>
+                      <option value="choose" selected>Select suspension type</option>
+                      <option value="eastofengland">Steel</option>
+                      <option value="london">Rubber</option>
+                      <option value="northeast">Air</option>
+                      <option value="northwest">Hydraulic</option>
+                      <option value="southeast">Other</option>
+                    </select>
+                  </div>
+
                 </li>
               </ul>
             </div>
           </div>
 
-          <!--EMISSIONS AND EXEMPTIONS-->
-          <div class="govuk-accordion__section govuk-accordion__section-vtm plates">
+          <!--BRAKES-->
+          <div class="govuk-accordion__section govuk-accordion__section-vtm untagged">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
               <h2 class="govuk-accordion__section-heading">
                 <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
                   id="accordion-with-summary-sections-heading-2">
-                  Emissions and exemptions
+                  Brakes
                 </span>
               </h2>
               <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
-                Drawbar coupling, Euro standard, tacho exemption.
+                Axle brake details, parking brakes.
               </div>
               <div class="govuk-accordion__section-summary-padding"></div>
             </div>
@@ -1938,176 +2041,338 @@ href: "create-psv"
               <ul class="govuk-list">
                 <li>
 
-                 <div class="govuk-form-group untagged">
-                  <fieldset class="govuk-fieldset">
+                  <div class="govuk-warning-text" id="brakes-warning">
+                    <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                    <strong class="govuk-warning-text__text">
+                      <span class="govuk-visually-hidden">Warning</span>
+                      Enter the number of axles to be able to add axle brake details.
+                    </strong>
+                  </div>
+
+                  <div id="braking-axle1" class="govuk-form-group plates" style="display:none;">
+                    <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
+                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                        <h1 class="govuk-fieldset__heading">
+                          Axle 1 brake details
+                        </h1>
+                      </legend>
+                      <div class="govuk-date-input" id="passport-issued">
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-day">
+                              Brake actuator
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-5"
+                              id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric" disabled>
+                          </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-month">
+                              Lever length
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-5"
+                              id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric" disabled
+                              >
+                          </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                              Spring brake parking
+                            </label>
+                            <select class="govuk-select govuk-select--brake" id="sort" name="sort">
+                              <option value="updated" selected></option>
+                              <option value="published">Yes</option>
+                              <option value="updated">No</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+
+                  <div id="braking-axle2" class="govuk-form-group plates" style="display:none;">
+                    <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
+                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                        <h1 class="govuk-fieldset__heading">
+                          Axle 2 brake details
+                        </h1>
+                      </legend>
+                      <div class="govuk-date-input" id="passport-issued">
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-day">
+                              Brake actuator
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-5"
+                              id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric">
+                          </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-month">
+                              Lever length
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-5"
+                              id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric"
+                              >
+                          </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                              Spring brake parking
+                            </label>
+                            <select class="govuk-select govuk-select--brake" id="sort" name="sort">
+                              <option value="updated" selected></option>
+                              <option value="published">Yes</option>
+                              <option value="updated">No</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+
+                  <div id="braking-axle3" class="govuk-form-group plates" style="display:none;">
+                    <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
+                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                        <h1 class="govuk-fieldset__heading">
+                          Axle 3 brake details
+                        </h1>
+                      </legend>
+                      <div class="govuk-date-input" id="passport-issued">
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-day">
+                              Brake actuator
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-5"
+                              id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric">
+                          </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-month">
+                              Lever length
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-5"
+                              id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric"
+                              >
+                          </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                              Spring brake parking
+                            </label>
+                            <select class="govuk-select govuk-select--brake" id="sort" name="sort">
+                              <option value="updated" selected></option>
+                              <option value="published">Yes</option>
+                              <option value="updated">No</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+
+                  <div id="braking-axle4" class="govuk-form-group plates" style="display:none;">
+                    <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
+                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                        <h1 class="govuk-fieldset__heading">
+                          Axle 4 brake details
+                        </h1>
+                      </legend>
+                      <div class="govuk-date-input" id="passport-issued">
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-day">
+                              Brake actuator
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-5"
+                              id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric">
+                          </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-month">
+                              Lever length
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-5"
+                              id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric"
+                              >
+                          </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                              Spring brake parking
+                            </label>
+                            <select class="govuk-select govuk-select--brake" id="sort" name="sort">
+                              <option value="updated" selected></option>
+                              <option value="published">Yes</option>
+                              <option value="updated">No</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+
+                  <div id="braking-axle5" class="govuk-form-group plates" style="display:none;">
+                    <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
+                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                        <h1 class="govuk-fieldset__heading">
+                          Axle 5 brake details
+                        </h1>
+                      </legend>
+                      <div class="govuk-date-input" id="passport-issued">
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-day">
+                              Brake actuator
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-5"
+                              id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric">
+                          </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-month">
+                              Lever length
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-5"
+                              id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric"
+                              >
+                          </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                              Spring brake parking
+                            </label>
+                            <select class="govuk-select govuk-select--brake" id="sort" name="sort">
+                              <option value="updated" selected></option>
+                              <option value="published">Yes</option>
+                              <option value="updated">No</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+
+                  <div class="govuk-form-group untagged">
+                    <fieldset class="govuk-fieldset">
+                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                        <h1 class="govuk-fieldset__heading">
+                          Load sensing valve
+                        </h1>
+                      </legend>
+                      <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                          <input class="govuk-radios__input" id="whereDoYouLive" name="whereDoYouLive" type="radio" value="england">
+                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
+                            Yes
+                          </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                          <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio" value="scotland">
+                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
+                            No
+                          </label>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+
+                  <div class="govuk-form-group untagged">
+                    <fieldset class="govuk-fieldset">
+                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                        <h1 class="govuk-fieldset__heading">
+                          Anti-lock braking system
+                        </h1>
+                      </legend>
+                      <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                          <input class="govuk-radios__input" id="abs" name="abs" type="radio" value="absyes">
+                          <label class="govuk-label govuk-radios__label" for="abs">
+                            Yes
+                          </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                          <input class="govuk-radios__input" id="abs-2" name="abs" type="radio" value="absno">
+                          <label class="govuk-label govuk-radios__label" for="abs-2">
+                            No
+                          </label>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>                  
+
+                  <div class="govuk-form-group">
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                       <h1 class="govuk-fieldset__heading">
-                        Drawbar coupling fitted
+                        Parking brake
                       </h1>
                     </legend>
-                    <div class="govuk-radios" data-module="govuk-radios">
-                      <div class="govuk-radios__item">
-                        <input class="govuk-radios__input" id="drawbar" name="drawbar" type="radio" value="drawbaryes" >
-                        <label class="govuk-label govuk-radios__label" for="drawbar">
-                          Yes
-                        </label>
-                      </div>
-                      <div class="govuk-radios__item">
-                        <input class="govuk-radios__input" id="drawbar-2" name="drawbar" type="radio" value="drawbarno" checked >
-                        <label class="govuk-label govuk-radios__label" for="drawbar-2">
-                          No
-                        </label>
-                      </div>
-                    </div>
-                  </fieldset>
-                </div>
-
-                  <div class="govuk-form-group untagged">
-                    <fieldset class="govuk-fieldset">
-                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-                        <h1 class="govuk-fieldset__heading">
-                          Euro standard
-                        </h1>
-                      </legend>
-                      <div class="govuk-radios" data-module="govuk-radios">
-                        <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="eurostd" name="eurostd" type="radio"
-                            value="eurostd1" >
-                          <label class="govuk-label govuk-radios__label" for="eurostd">
-                            0.10 g/kWh Euro III PM
-                          </label>
-                        </div>
-                        <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="eurostd-2" name="eurostd" type="radio"
-                            value="eurostd2" >
-                          <label class="govuk-label govuk-radios__label" for="eurostd-2">
-                            0.03 g/kWh Euro IV PM
-                          </label>
-                        </div>
-                        <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="eurostd-3" name="eurostd" type="radio"
-                            value="eurostd3" >
-                          <label class="govuk-label govuk-radios__label" for="eurostd-3">
-                            Euro 3
-                          </label>
-                        </div>
-                        <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="eurostd-4" name="eurostd" type="radio"
-                            value="eurostd" >
-                          <label class="govuk-label govuk-radios__label" for="eurostd-4">
-                            Euro 4
-                          </label>
-                        </div>
-                        <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="eurostd-5" name="eurostd" type="radio"
-                            value="eurostd5" >
-                          <label class="govuk-label govuk-radios__label" for="eurostd-5">
-                            Euro 5
-                          </label>
-                        </div>
-                        <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="eurostd-6" name="eurostd" type="radio"
-                            value="eurostd6" checked >
-                          <label class="govuk-label govuk-radios__label" for="eurostd-6">
-                            Euro 6
-                          </label>
-                        </div>
-                        <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="eurostd-7" name="eurostd" type="radio"
-                            value="eurostd7" >
-                          <label class="govuk-label govuk-radios__label" for="eurostd-7">
-                            Euro V
-                          </label>
-                        </div>
-                        <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="eurostd-8" name="eurostd" type="radio"
-                            value="eurostd8" >
-                          <label class="govuk-label govuk-radios__label" for="eurostd-8">
-                            Euro VI
-                          </label>
-                        </div>
-                        <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="eurostd-9" name="eurostd" type="radio"
-                            value="eurostd9" >
-                          <label class="govuk-label govuk-radios__label" for="eurostd-9">
-                            Full electric
-                          </label>
-                        </div>
-                      </div>
-                    </fieldset>
-                  </div>
-
-                  <div class="govuk-form-group untagged">
-                    <h1 class="govuk-label-wrapper">
-                      <label class="govuk-label govuk-label--s" for="weight">
-                        Emission limit (smoke absorption coeffecient)
-                      </label>
-                    </h1>
-                    <div class="govuk-input__wrapper">
-                      <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
-                        spellcheck="false" value="1.026" >
-                      <div class="govuk-input__suffix" aria-hidden="true">m<sup>-1</sup></div>
+                    <div class="govuk-warning-text" id="pb-warning">
+                      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                      <strong class="govuk-warning-text__text">
+                        <span class="govuk-visually-hidden">Warning</span>
+                        Enter the number of axles to be able to add parking brakes.
+                      </strong>
                     </div>
                   </div>
+                      
 
 
-                  <div class="govuk-form-group plates">
-                    <fieldset class="govuk-fieldset">
-                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-                        <h1 class="govuk-fieldset__heading">
-                          Speed limiter exempt
-                        </h1>
-                      </legend>
-                      <div class="govuk-radios" data-module="govuk-radios">
-                        <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="speedlimiter" name="speedlimiter" type="radio"
-                            value="speedlimiteryes" >
-                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
-                            Exempt
+                      <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                        <div class="govuk-checkboxes__item" id="brake-axle1" style="display: none;">
+                          <input class="govuk-checkboxes__input" id="brake-axle1-checkbox" name="brake-axle1"
+                            type="checkbox">
+                          <label class="govuk-label govuk-checkboxes__label" for="brake-axle1-checkbox">
+                            Axle 1 Brake
                           </label>
                         </div>
-                        <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="speedlimiter-2" name="speedlimiter" type="radio"
-                            value="speedlimiterno" checked >
-                          <label class="govuk-label govuk-radios__label" for="speedlimiter-2">
-                            Not exempt
+                        <div class="govuk-checkboxes__item" id="brake-axle2" style="display: none;">
+                          <input class="govuk-checkboxes__input" id="brake-axle2-checkbox" name="brake-axle2"
+                            type="checkbox">
+                          <label class="govuk-label govuk-checkboxes__label" for="brake-axle2-checkbox">
+                            Axle 2 Brake
+                          </label>
+                        </div>
+                        <div class="govuk-checkboxes__item" id="brake-axle3" style="display: none;">
+                          <input class="govuk-checkboxes__input" id="brake-axle3-checkbox" name="brake-axle3"
+                            type="checkbox">
+                          <label class="govuk-label govuk-checkboxes__label" for="brake-axle3-checkbox">
+                            Axle 3 Brake
+                          </label>
+                        </div>
+                        <div class="govuk-checkboxes__item" id="brake-axle4" style="display: none;">
+                          <input class="govuk-checkboxes__input" id="brake-axle4-checkbox" name="brake-axle4"
+                            type="checkbox">
+                          <label class="govuk-label govuk-checkboxes__label" for="brake-axle4-checkbox">
+                            Axle 4 Brake
+                          </label>
+                        </div>
+                        <div class="govuk-checkboxes__item" id="brake-axle5" style="display: none;">
+                          <input class="govuk-checkboxes__input" id="brake-axle5-checkbox" name="brake-axle5"
+                            type="checkbox">
+                          <label class="govuk-label govuk-checkboxes__label" for="brake-axle5-checkbox">
+                            Axle 5 Brake
                           </label>
                         </div>
                       </div>
-                    </fieldset>
-                  </div>
 
-                  <div class="govuk-form-group untagged">
-                    <fieldset class="govuk-fieldset">
-                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-                        <h1 class="govuk-fieldset__heading">
-                          Tacho exempt
-                        </h1>
-                      </legend>
-                      <div class="govuk-radios" data-module="govuk-radios">
-                        <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="tachoexempt" name="tachoexempt" type="radio"
-                            value="tachoexemptyes" >
-                          <label class="govuk-label govuk-radios__label" for="tachoexempt">
-                            Exempt
-                          </label>
-                        </div>
-                        <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="tachoexempt-2" name="tachoexempt" type="radio"
-                            value="tachoexemptno" checked >
-                          <label class="govuk-label govuk-radios__label" for="tachoexempt-2">
-                            Not exempt
-                          </label>
-                        </div>
-                      </div>
-                    </fieldset>
-                  </div>
 
                 </li>
               </ul>
             </div>
           </div>
-
+           
           <!-- ADR -->
           <div class="govuk-accordion__section govuk-accordion__section-vtm adr">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
@@ -2135,8 +2400,8 @@ href: "create-psv"
                       </legend>
                       <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="adr" name="adr" type="radio" value="adryes" data-aria-controls="conditional-adr" >
-                          <label class="govuk-label govuk-radios__label" for="adr">
+                          <input class="govuk-radios__input" id="whereDoYouLive" name="whereDoYouLive" type="radio" value="england" data-aria-controls="conditional-adr">
+                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
                             Yes
                           </label>
                         </div>
@@ -2467,8 +2732,8 @@ href: "create-psv"
                         </div>
   
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="adr-2" name="adr" type="radio" value="adrno" checked >
-                          <label class="govuk-label govuk-radios__label" for="adr-2">
+                          <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio" value="scotland">
+                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
                             No
                           </label>
                         </div>
@@ -2481,8 +2746,404 @@ href: "create-psv"
             </div>
           </div>
 
-          <!--LAST APPLICANT-->
+          <!--NOTES-->
+          <div class="govuk-accordion__section govuk-accordion__section-vtm admin">
+            <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
+              <h2 class="govuk-accordion__section-heading">
+                <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
+                  id="accordion-with-summary-sections-heading-2">
+                  Authorisation into service
+                </span>
+              </h2>
+              <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
+                COC date, authorisation date, rejected date.
+              </div>
+              <div class="govuk-accordion__section-summary-padding"></div>
+            </div>
+            <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
+              <hr class="expanded">
+              </hr>
+              <ul class="govuk-list">
+                <li>
+
+                  <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
+                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                        <h1 class="govuk-fieldset__heading">
+                          COC issue date
+                        </h1>
+                      </legend>
+                      <div class="govuk-date-input" id="passport-issued">
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-day">
+                              Day
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                              id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric">
+                          </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-month">
+                              Month
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                              id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric">
+                          </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                              Year
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-4"
+                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+
+                  <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
+                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                        <h1 class="govuk-fieldset__heading">
+                          Date received
+                        </h1>
+                      </legend>
+                      <div class="govuk-date-input" id="passport-issued">
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-day">
+                              Day
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                              id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric">
+                          </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-month">
+                              Month
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                              id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric">
+                          </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                              Year
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-4"
+                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+
+                  <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
+                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                        <h1 class="govuk-fieldset__heading">
+                          Date pending
+                        </h1>
+                      </legend>
+                      <div class="govuk-date-input" id="passport-issued">
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-day">
+                              Day
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                              id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric">
+                          </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-month">
+                              Month
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                              id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric">
+                          </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                              Year
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-4"
+                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+
+                  <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
+                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                        <h1 class="govuk-fieldset__heading">
+                          Date authorised
+                        </h1>
+                      </legend>
+                      <div class="govuk-date-input" id="passport-issued">
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-day">
+                              Day
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                              id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric">
+                          </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-month">
+                              Month
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                              id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric">
+                          </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                              Year
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-4"
+                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+
+                  <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
+                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                        <h1 class="govuk-fieldset__heading">
+                          Date rejected
+                        </h1>
+                      </legend>
+                      <div class="govuk-date-input" id="passport-issued">
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-day">
+                              Day
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                              id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric">
+                          </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-month">
+                              Month
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                              id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric">
+                          </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                              Year
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-4"
+                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!--PURCHASERS-->
           <div class="govuk-accordion__section govuk-accordion__section-vtm untagged">
+            <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
+              <h2 class="govuk-accordion__section-heading">
+                <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
+                  id="accordion-with-summary-sections-heading-2">
+                  Purchasers
+                </span>
+              </h2>
+              <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
+                Contact details for the purchaser.
+              </div>
+            </div>
+            <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
+              <hr class="expanded">
+            </hr>
+              <ul class="govuk-list">
+                <li>
+                  
+                  <fieldset class="govuk-fieldset">
+                    <div class="govuk-form-group">
+                      <label class="govuk-label" for="address-line-1">
+                        Name or company
+                      </label>
+                      <input class="govuk-input govuk-!-width-two-thirds" id="address-line-1" name="addressLine1" type="text" autocomplete="address-line1">
+                    </div>
+                    <div class="govuk-form-group">
+                      <label class="govuk-label" for="address-line-1">
+                        Address line 1
+                      </label>
+                      <input class="govuk-input" id="address-line-1" name="addressLine1" type="text" autocomplete="address-line1">
+                    </div>
+                    <div class="govuk-form-group">
+                      <label class="govuk-label" for="address-line-2">
+                        Address line 2 (optional)
+                      </label>
+                      <input class="govuk-input" id="address-line-2" name="addressLine2" type="text" autocomplete="address-line2">
+                    </div>
+                    <div class="govuk-form-group">
+                      <label class="govuk-label" for="address-town">
+                        Town or city
+                      </label>
+                      <input class="govuk-input govuk-!-width-two-thirds" id="address-town" name="addressTown" type="text" autocomplete="address-level2">
+                    </div>
+                    <div class="govuk-form-group">
+                      <label class="govuk-label" for="address-county">
+                        County
+                      </label>
+                      <input class="govuk-input govuk-!-width-two-thirds" id="address-county" name="addressCounty" type="text">
+                    </div>
+                    <div class="govuk-form-group">
+                      <label class="govuk-label" for="address-postcode">
+                        Postcode
+                      </label>
+                      <input class="govuk-input govuk-input--width-10" id="address-postcode" name="addressPostcode" type="text" autocomplete="postal-code">
+                    </div>
+                    <div class="govuk-form-group">
+                      <label class="govuk-label" for="address-postcode">
+                        Phone number
+                      </label>
+                      <input class="govuk-input govuk-input--width-10" id="address-postcode" name="addressPostcode" type="text" autocomplete="postal-code">
+                    </div>
+                    <div class="govuk-form-group">
+                      <label class="govuk-label" for="address-postcode">
+                        Email address
+                      </label>
+                      <input class="govuk-input govuk-!-width-two-thirds" id="address-postcode" name="addressPostcode" type="text" autocomplete="postal-code">
+                    </div>
+                    <div class="govuk-form-group govuk-character-count" data-module="govuk-character-count"
+                    data-maxlength="1024">
+                    <h1 class="govuk-label-wrapper">
+                      <label class="govuk-label" for="event-name">
+                        Purchaser notes
+                      </label>
+                    </h1>
+                    <textarea class="govuk-textarea" id="label-as-page-heading" name="labelAsPageHeading" rows="5"
+                      aria-describedby="label-as-page-heading-info"></textarea>
+                    <div id="label-as-page-heading-info" class="govuk-hint govuk-character-count__message">
+                      You have 1024 characters remaining
+                    </div>
+                  </div>
+                  </fieldset>
+                  
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!--MANUFACTURER-->
+          <div class="govuk-accordion__section govuk-accordion__section-vtm untagged">
+            <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
+              <h2 class="govuk-accordion__section-heading">
+                <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
+                  id="accordion-with-summary-sections-heading-2">
+                  Manufacturer
+                </span>
+              </h2>
+              <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
+                Contact details for the manufacturer.
+              </div>
+            </div>
+            <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
+              <hr class="expanded">
+            </hr>
+              <ul class="govuk-list">
+                <li>
+                  
+                  <fieldset class="govuk-fieldset">
+                    <div class="govuk-form-group">
+                      <label class="govuk-label" for="address-line-1">
+                        Name or company
+                      </label>
+                      <input class="govuk-input govuk-!-width-two-thirds" id="address-line-1" name="addressLine1" type="text" autocomplete="address-line1">
+                    </div>
+                    <div class="govuk-form-group">
+                      <label class="govuk-label" for="address-line-1">
+                        Address line 1
+                      </label>
+                      <input class="govuk-input" id="address-line-1" name="addressLine1" type="text" autocomplete="address-line1">
+                    </div>
+                    <div class="govuk-form-group">
+                      <label class="govuk-label" for="address-line-2">
+                        Address line 2 (optional)
+                      </label>
+                      <input class="govuk-input" id="address-line-2" name="addressLine2" type="text" autocomplete="address-line2">
+                    </div>
+                    <div class="govuk-form-group">
+                      <label class="govuk-label" for="address-town">
+                        Town or city
+                      </label>
+                      <input class="govuk-input govuk-!-width-two-thirds" id="address-town" name="addressTown" type="text" autocomplete="address-level2">
+                    </div>
+                    <div class="govuk-form-group">
+                      <label class="govuk-label" for="address-county">
+                        County
+                      </label>
+                      <input class="govuk-input govuk-!-width-two-thirds" id="address-county" name="addressCounty" type="text">
+                    </div>
+                    <div class="govuk-form-group">
+                      <label class="govuk-label" for="address-postcode">
+                        Postcode
+                      </label>
+                      <input class="govuk-input govuk-input--width-10" id="address-postcode" name="addressPostcode" type="text" autocomplete="postal-code">
+                    </div>
+                    <div class="govuk-form-group">
+                      <label class="govuk-label" for="address-postcode">
+                        Phone number
+                      </label>
+                      <input class="govuk-input govuk-input--width-10" id="address-postcode" name="addressPostcode" type="text" autocomplete="postal-code">
+                    </div>
+                    <div class="govuk-form-group">
+                      <label class="govuk-label" for="address-postcode">
+                        Email address
+                      </label>
+                      <input class="govuk-input govuk-!-width-two-thirds" id="address-postcode" name="addressPostcode" type="text" autocomplete="postal-code">
+                    </div>
+                    <div class="govuk-form-group govuk-character-count" data-module="govuk-character-count"
+                    data-maxlength="1024">
+                    <h1 class="govuk-label-wrapper">
+                      <label class="govuk-label" for="event-name">
+                        Manufacturer notes
+                      </label>
+                    </h1>
+                    <textarea class="govuk-textarea" id="label-as-page-heading" name="labelAsPageHeading" rows="5"
+                      aria-describedby="label-as-page-heading-info"></textarea>
+                    <div id="label-as-page-heading-info" class="govuk-hint govuk-character-count__message">
+                      You have 1024 characters remaining
+                    </div>
+                  </div>
+                  </fieldset>
+                  
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!--LAST APPLICANT-->
+          <div class="govuk-accordion__section govuk-accordion__section-vtm plates">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
               <h2 class="govuk-accordion__section-heading">
                 <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
@@ -2505,49 +3166,49 @@ href: "create-psv"
                       <label class="govuk-label" for="address-line-1">
                         Name or company
                       </label>
-                      <input class="govuk-input govuk-!-width-two-thirds" id="address-line-1" name="addressLine1" type="text" autocomplete="address-line1" value="John Smith" >
+                      <input class="govuk-input govuk-!-width-two-thirds" id="address-line-1" name="addressLine1" type="text" autocomplete="address-line1">
                     </div>
                     <div class="govuk-form-group">
                       <label class="govuk-label" for="address-line-1">
                         Address line 1
                       </label>
-                      <input class="govuk-input" id="address-line-1" name="addressLine1" type="text" autocomplete="address-line1" value="123 West Street" >
+                      <input class="govuk-input" id="address-line-1" name="addressLine1" type="text" autocomplete="address-line1">
                     </div>
                     <div class="govuk-form-group">
                       <label class="govuk-label" for="address-line-2">
                         Address line 2 (optional)
                       </label>
-                      <input class="govuk-input" id="address-line-2" name="addressLine2" type="text" autocomplete="address-line2" >
+                      <input class="govuk-input" id="address-line-2" name="addressLine2" type="text" autocomplete="address-line2">
                     </div>
                     <div class="govuk-form-group">
                       <label class="govuk-label" for="address-town">
                         Town or city
                       </label>
-                      <input class="govuk-input govuk-!-width-two-thirds" id="address-town" name="addressTown" type="text" autocomplete="address-level2" value="York" >
+                      <input class="govuk-input govuk-!-width-two-thirds" id="address-town" name="addressTown" type="text" autocomplete="address-level2">
                     </div>
                     <div class="govuk-form-group">
                       <label class="govuk-label" for="address-county">
                         County
                       </label>
-                      <input class="govuk-input govuk-!-width-two-thirds" id="address-county" name="addressCounty" type="text" value="Yorkshire" >
+                      <input class="govuk-input govuk-!-width-two-thirds" id="address-county" name="addressCounty" type="text">
                     </div>
                     <div class="govuk-form-group">
                       <label class="govuk-label" for="address-postcode">
                         Postcode
                       </label>
-                      <input class="govuk-input govuk-input--width-10" id="address-postcode" name="addressPostcode" type="text" autocomplete="postal-code" value="YO42 3MD" >
+                      <input class="govuk-input govuk-input--width-10" id="address-postcode" name="addressPostcode" type="text" autocomplete="postal-code">
                     </div>
                     <div class="govuk-form-group">
                       <label class="govuk-label" for="address-postcode">
                         Phone number
                       </label>
-                      <input class="govuk-input govuk-input--width-10" id="address-postcode" name="addressPostcode" type="text" autocomplete="postal-code" value="07734623316" >
+                      <input class="govuk-input govuk-input--width-10" id="address-postcode" name="addressPostcode" type="text" autocomplete="postal-code">
                     </div>
                     <div class="govuk-form-group">
                       <label class="govuk-label" for="address-postcode">
                         Email address
                       </label>
-                      <input class="govuk-input govuk-!-width-two-thirds" id="address-postcode" name="addressPostcode" type="text" autocomplete="postal-code" value="john.smith@email.com" >
+                      <input class="govuk-input govuk-!-width-two-thirds" id="address-postcode" name="addressPostcode" type="text" autocomplete="postal-code">
                     </div>
                   </fieldset>
                   
@@ -2557,7 +3218,7 @@ href: "create-psv"
           </div>
 
           <!--DOCUMENTS-->
-          <div class="govuk-accordion__section govuk-accordion__section-vtm untagged">
+          <div class="govuk-accordion__section govuk-accordion__section-vtm admin">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
               <h2 class="govuk-accordion__section-heading">
                 <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
@@ -2581,9 +3242,9 @@ href: "create-psv"
                     <label class="govuk-label" for="sort">
                       <strong>Microfilm document type</strong>
                     </label>
-                    <select class="govuk-select" id="sort" name="sort" >
-                      <option value="published">Select document type</option>
-                      <option value="updated" selected>AAV - HGV Annual test</option>
+                    <select class="govuk-select" id="sort" name="sort">
+                      <option value="published" selected>Select document type</option>
+                      <option value="updated">AAV - HGV Annual test</option>
                       <option value="views">COIF Master</option>
                       <option value="comments">Tempo 100 Sp Ord</option>
                       <option value="comments">XPT - Tr Plating Cert paid</option>
@@ -2596,7 +3257,7 @@ href: "create-psv"
                         Microfilm roll number
                       </label>
                     </h3>
-                    <input class="govuk-input govuk-input--width-20" id="event-name" name="eventName" type="text" >
+                    <input class="govuk-input govuk-input--width-20" id="event-name" name="eventName" type="text">
                   </div>
 
                   <div class="govuk-form-group">
@@ -2605,7 +3266,7 @@ href: "create-psv"
                         Microfilm serial number
                       </label>
                     </h3>
-                    <input class="govuk-input govuk-input--width-20" id="event-name" name="eventName" type="text" >
+                    <input class="govuk-input govuk-input--width-20" id="event-name" name="eventName" type="text">
                   </div>
 
                   <!-- VIEW TECH RECORD DOCUMENTS -->
@@ -2641,7 +3302,7 @@ href: "create-psv"
             </div>
           </div>
 
-          <!--TECH RECORD HISTORY-->
+                    <!--TECH RECORD HISTORY-->
           <div class="govuk-accordion__section govuk-accordion__section-vtm records">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
               <h2 class="govuk-accordion__section-heading">
@@ -2747,7 +3408,7 @@ href: "create-psv"
           </div>
 
           <!--NOTES-->
-          <div class="govuk-accordion__section govuk-accordion__section-vtm untagged">
+          <div class="govuk-accordion__section govuk-accordion__section-vtm admin">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
               <h2 class="govuk-accordion__section-heading">
                 <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
@@ -2777,7 +3438,7 @@ href: "create-psv"
                       Enter any notes for this technical record
                     </label>
                     <textarea class="govuk-textarea" id="label-as-page-heading" name="labelAsPageHeading" rows="5"
-                      aria-describedby="label-as-page-heading-info" >Example of a note.</textarea>
+                      aria-describedby="label-as-page-heading-info"></textarea>
                     <div id="label-as-page-heading-info" class="govuk-hint govuk-character-count__message">
                       You have 1024 characters remaining
                     </div>
@@ -2788,47 +3449,6 @@ href: "create-psv"
             </div>
           </div>
 
-          <!--REASON FOR CREATION-->
-          <div class="govuk-accordion__section govuk-accordion__section-vtm plates required adr records">
-            <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
-              <h2 class="govuk-accordion__section-heading">
-                <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
-                  id="accordion-with-summary-sections-heading-2">
-                  Reason for creation
-                </span>
-              </h2>
-              <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
-                Tell us why you're creating this record.
-              </div>
-              <div class="govuk-accordion__section-summary-padding"></div>
-            </div>
-            <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
-              <hr class="expanded">
-              </hr>
-              <ul class="govuk-list">
-                <li>
-
-                  <div class="govuk-form-group govuk-character-count" data-module="govuk-character-count"
-                    data-maxlength="200">
-                    <h1 class="govuk-label-wrapper">
-                      <label class="govuk-label govuk-label--s" for="event-name">
-                        Reason for creation                        
-                      </label>
-                    </h1>
-                    <label class="govuk-label" for="label-as-page-heading">
-                      Enter a reason for creating this technical record
-                    </label>
-                    <textarea class="govuk-textarea" id="label-as-page-heading" name="labelAsPageHeading" rows="3"
-                      aria-describedby="label-as-page-heading-info" ></textarea>
-                    <div id="label-as-page-heading-info" class="govuk-hint govuk-character-count__message">
-                      You have 500 characters remaining
-                    </div>
-                  </div>
-
-                </li>
-              </ul>
-            </div>
-          </div>
         </div>
 
       </form>

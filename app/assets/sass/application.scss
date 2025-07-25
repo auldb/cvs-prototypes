@@ -535,6 +535,125 @@ padding-top: 25px !important;
   padding: 5px; 
 }
 
+// Buttons and search filter
+
+.remove-axle-button {
+  margin-bottom: 0px !important; 
+}
+
+.search-button {
+  display: inline-block;
+  position: relative;
+  margin-bottom: 0px !important;
+  float: right;
+  background-color: #1d70b8 !important
+}
+
+.govuk-\!-width-search {
+    width: 86% !important;
+}
+
+.app-c-filter-panel__button:focus, .app-c-filter-panel__button:focus-visible {
+    text-decoration: none;
+    background-color: #fd0;
+    text-decoration-thickness: max(3px, .1875rem, .12em);
+    -webkit-text-decoration-skip-ink: none;
+    text-decoration-skip-ink: none;
+    -webkit-text-decoration-skip: none;
+    text-decoration-skip: none;
+    outline: 3px solid rgba(0, 0, 0, 0);
+    color: #0b0c0c;
+    background-color: #fd0;
+    box-shadow: 0 -2px #fd0, 0 4px #0b0c0c;
+    text-decoration: none;
+}
+
+.app-c-filter-panel__button {
+    background-color: rgba(0, 0, 0, 0);
+    color: #1d70b8;
+    text-decoration: none;
+    border-style: none;
+    padding-left: 0;
+    cursor: pointer;
+    font-family: "GDS Transport", arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-weight: 400;
+    font-size: 1.1875rem;
+    line-height: 1.3157894737;
+}
+
+.app-c-filter-panel__button::before {
+    margin: 0 10px 5px 0;
+}
+
+.app-c-filter-panel__button::before {
+    border-style: solid;
+    border-width: 2px 2px 0 0;
+    content: "";
+    display: inline-block;
+    height: 10px;
+    left: 5px;
+    position: relative;
+    vertical-align: middle;
+    width: 10px;
+    border-color: initial;
+    clip-path: unset;
+    -webkit-transform: translateY(-25%) rotate(135deg) scale(1);
+    -ms-transform: translateY(-25%) rotate(135deg) scale(1);
+    transform: translateY(-25%) rotate(135deg) scale(1);
+}
+
+.app-c-filter-panel__button.is-open::before {
+  transform: translateY(1px) rotate(-45deg);
+}
+
+.app-c-filter-panel__content {
+    background-color: #f3f2f1;
+    padding: 20px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.app-c-filter-panel__header {
+    display: flex
+;
+    flex-wrap: wrap;
+    place-content: space-between;
+    align-items: baseline;
+    gap: 10px;
+}
+
+.app-c-filter-panel__actions {
+    display: flex
+;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 15px;
+    padding: 20px 0 0 0;
+    margin-bottom: 0px !important;
+}
+
+.app-c-filter-panel__action--submit {
+    flex: 2 0 60%;
+    margin-bottom: 0;
+}
+
+@media (min-width: 40.0625em) {
+    .govuk-button {
+        width: auto;
+    }
+}
+@media (min-width: 40.0625em) {
+    .govuk-button {
+        margin-bottom: 32px;
+    }
+}
+
+.app-c-filter-panel__action--submit {
+  margin-bottom: 0px !important; 
+}
+
 // Test records table
 
 /* Fixes for the Test Records Table */
@@ -593,7 +712,7 @@ padding-top: 25px !important;
 }
 
 .vehicle-summary {
-   position: sticky !important;
+  position: sticky !important;
   top: 40px;
 }
 
@@ -658,6 +777,11 @@ padding-top: 25px !important;
 .govuk-select--tyres {
     min-width: 2em;
     width: 2.75em;
+}
+
+.govuk-select--brake {
+  min-width: 3em;
+  width: 5.5em;
 }
 
 .govuk-select--sr {
