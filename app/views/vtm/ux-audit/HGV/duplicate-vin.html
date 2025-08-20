@@ -1,0 +1,92 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Vehicle Testing Management – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+
+{% block beforeContent %}
+{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+
+{{ govukPhaseBanner({
+  tag: {
+    text: "Beta"
+  },
+  html: 'This is a new service. Help us improve it and <a class="govuk-link" href="#">give your feedback (opens in new tab)</a>.'
+}) }}
+  {{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const wasteCheckbox = document.getElementById('waste'); // Get the checkbox
+    const vrmInput = document.getElementById('vrm-input'); // Get the VRM input field
+
+    // Function to toggle visibility of the VRM input
+    function toggleVrmInput() {
+      if (wasteCheckbox.checked) {
+        vrmInput.closest('.govuk-form-group').style.display = 'none'; // Hide the VRM input group
+      } else {
+        vrmInput.closest('.govuk-form-group').style.display = 'block'; // Show the VRM input group
+      }
+    }
+
+    // Listen for changes on the checkbox to trigger the toggle function
+    wasteCheckbox.addEventListener('change', toggleVrmInput);
+
+    // Initial call to set the correct visibility on page load
+    toggleVrmInput();
+  });
+</script>
+
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">
+        Duplicate VIN found
+      </h1>
+
+      <form class="form" action="new-record-details-hgv" method="post">
+
+      <p class="govuk-body">A technical record already exists with this VIN:</p>
+        
+
+     <!-- <div class="govuk-form-group">
+        <label class="govuk-label" for="authentication-code">
+          <strong>VIN</strong>
+        </label>
+        <input class="govuk-input govuk-input--width-20 govuk-input--extra-letter-spacing" id="authentication-code" name="authenticationCode" type="text" spellcheck="false" value="WBABW33426PX70804" aria-describedby="authentication-code-hint" disabled>
+      </div> -->
+
+      <div class="govuk-inset-text">
+        <strong>WBABW33426PX70804</strong>
+      </div>
+
+        
+
+      <p class="govuk-body">Confirm if you want to create another record with this VIN.</p>
+
+              <hr class="govuk-section-break govuk-section-break--m">
+
+              {% from "govuk/components/button/macro.njk" import govukButton %}
+
+              <div class="govuk-button-group">
+                {{ govukButton({
+                  text: "Confirm"
+                }) }}
+              
+                <a class="govuk-link" href="#">Back</a>
+              </div>
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

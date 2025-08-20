@@ -24,108 +24,101 @@ href: "create-psv"
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-  const axleInput = document.getElementById('number-of-axles');  
-      const warningDiv = document.getElementById('tyre-warning');
-      const weightsWarning = document.getElementById('weights-warning'); 
-  
-      const axleFields = ['axle1to2', 'axle2to3', 'axle3to4', 'axle4to5', 'axle5to6'];
-      const weightFields = ['weight-axle1', 'weight-axle2', 'weight-axle3', 'weight-axle4', 'weight-axle5'];
-      const tyreFields = ['tyre-axle1', 'tyre-axle2', 'tyre-axle3', 'tyre-axle4', 'tyre-axle5'];
-  
-      function toggleFields() {
-      const axlesValue = axleInput.value.trim();
-      const axles = axlesValue === '' ? 0 : parseInt(axlesValue, 10);
-  
-      if (axles <= 0) { 
-          warningDiv.style.display = 'block';
-          weightsWarning.style.display = 'block';
-      } else {
-          warningDiv.style.display = 'none';
-          weightsWarning.style.display = 'none';
-      }
-  
-          // Ensure axle-related fields are shown/hidden correctly
-          axleFields.forEach((field, index) => {
-              const axleField = document.getElementById(field);
-              if (axleField) axleField.style.display = axles > index ? 'block' : 'none';
-          });
-  
-          weightFields.forEach((field, index) => {
-              const weightField = document.getElementById(field);
-              if (weightField) weightField.style.display = axles > index ? 'block' : 'none';
-          });
-  
-          tyreFields.forEach((field, index) => {
-              const tyreField = document.getElementById(field);
-              if (tyreField) tyreField.style.display = axles > index ? 'block' : 'none';
-          });
-  
-      }
-  
-      // Attach event listeners
-      axleInput.addEventListener('input', toggleFields);
-      axleInput.addEventListener('change', toggleFields);
-      axleInput.addEventListener('blur', toggleFields);
-  
-      // Ensure the fix runs AFTER other scripts have executed
-      setTimeout(toggleFields, 100);
+    const axleInput = document.getElementById('number-of-axles');  
+    const warningDiv = document.getElementById('tyre-warning');
+    const weightsWarning = document.getElementById('weights-warning'); 
 
-    const platesFilter = document.getElementById('plates');
-    const requiredFilter = document.getElementById('required');
+    const axleFields = ['axle1to2', 'axle2to3', 'axle3to4', 'axle4to5', 'axle5to6'];
+    const weightFields = ['weight-axle1', 'weight-axle2', 'weight-axle3', 'weight-axle4', 'weight-axle5'];
+    const tyreFields = ['tyre-axle1', 'tyre-axle2', 'tyre-axle3', 'tyre-axle4', 'tyre-axle5'];
 
-    if (!platesFilter || !requiredFilter) {
-        console.error("Error: One or both filter buttons were not found in the DOM!");
-        return;
+    function toggleFields() {
+        const axlesValue = axleInput.value.trim();
+        const axles = axlesValue === '' ? 0 : parseInt(axlesValue, 10);
+
+        warningDiv.style.display = axles <= 0 ? 'block' : 'none';
+        weightsWarning.style.display = axles <= 0 ? 'block' : 'none';
+
+        axleFields.forEach((field, index) => {
+            const axleField = document.getElementById(field);
+            if (axleField) axleField.style.display = axles > index ? 'block' : 'none';
+        });
+
+        weightFields.forEach((field, index) => {
+            const weightField = document.getElementById(field);
+            if (weightField) weightField.style.display = axles > index ? 'block' : 'none';
+        });
+
+        tyreFields.forEach((field, index) => {
+            const tyreField = document.getElementById(field);
+            if (tyreField) tyreField.style.display = axles > index ? 'block' : 'none';
+        });
     }
 
-    const platesText = platesFilter.querySelector('.app-c-filter-summary__remove-filter-text');
-    const requiredText = requiredFilter.querySelector('.app-c-filter-summary__remove-filter-text');
+    axleInput.addEventListener('input', toggleFields);
+    axleInput.addEventListener('change', toggleFields);
+    axleInput.addEventListener('blur', toggleFields);
 
-    const untaggedElements = document.querySelectorAll('.untagged');
-    const platesElements = document.querySelectorAll('.plates');
-    const requiredElements = document.querySelectorAll('.required');
-    const optionalElements = document.querySelectorAll('.optional');
+    setTimeout(toggleFields, 100);
 
-    let isPlatesFiltered = false;
-    let isRequiredFiltered = false;
+    const filters = [
+        { id: 'plates', className: 'plates' },
+        { id: 'required', className: 'required' },
+        { id: 'adr', className: 'adr' },
+        { id: 'admin', className: 'admin' },
+        { id: 'records', className: 'records' },
+        { id: 'untagged', className: 'untagged'}
+    ];
+
+    const filterStates = {
+        plates: false,
+        required: false,
+        adr: false,
+        admin: false,
+        records: false,
+        untagged: false
+    };
 
     function applyFilters() {
-        document.querySelectorAll('.untagged, .plates, .required, .optional').forEach(element => {
-            let shouldShow = true;
+        const anyFilterActive = Object.values(filterStates).some(state => state === true);
 
-            if (isPlatesFiltered) {
-                shouldShow = element.classList.contains('plates');
-            }
-
-            if (isRequiredFiltered) {
-                shouldShow = element.classList.contains('required') || (isPlatesFiltered && element.classList.contains('plates'));
-            }
-
+        document.querySelectorAll('.plates, .required, .adr, .admin, .records, .untagged').forEach(element => {
+            const classList = element.classList;
+            const shouldShow = !anyFilterActive || filters.some(f => filterStates[f.id] && classList.contains(f.className));
             element.style.display = shouldShow ? '' : 'none';
         });
     }
 
-    platesFilter.addEventListener('click', function (event) {
-        event.preventDefault();
-        isPlatesFiltered = !isPlatesFiltered;
-        platesText.innerHTML = isPlatesFiltered ? '× Plates' : 'Plates';
-        platesFilter.classList.toggle('active-filter', isPlatesFiltered);
-        applyFilters();
-        platesFilter.blur();
+    filters.forEach(({ id, className }) => {
+        const button = document.getElementById(id);
+        const text = button?.querySelector('.app-c-filter-summary__remove-filter-text');
+
+        if (!button || !text) {
+            console.error(`Error: Filter button or text not found for ${id}`);
+            return;
+        }
+
+        button.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            filterStates[id] = !filterStates[id];
+
+            if (id === 'adr') {
+                text.innerHTML = filterStates[id] ? '× ADR' : 'ADR';
+            } else {
+                text.innerHTML = filterStates[id] ? `× ${id.charAt(0).toUpperCase() + id.slice(1)}` : id.charAt(0).toUpperCase() + id.slice(1);
+            }
+
+            button.classList.toggle('active-filter', filterStates[id]);
+
+            applyFilters();
+            button.blur();
+        });
     });
 
-    requiredFilter.addEventListener('click', function (event) {
-        event.preventDefault();
-        isRequiredFiltered = !isRequiredFiltered;
-        requiredText.innerHTML = isRequiredFiltered ? '× Required' : 'Required';
-        requiredFilter.classList.toggle('active-filter', isRequiredFiltered);
-        applyFilters();
-        requiredFilter.blur();
-    });
-
-    applyFilters(); // Apply filters on page load to ensure state is correct
+    applyFilters();
 });
-  </script>
+</script>
 
 
 <div class="govuk-width-container">
@@ -224,7 +217,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 Record status
               </dt>
             </div>
-            <div class="govuk-summary-list__row--value">
+            <div class="govuk-summary-list__row--last">
               <dd class="govuk-summary-list__value govuk-summary-list__value--tag">
                 <strong class="govuk-tag govuk-tag--red">
                   Incomplete
@@ -232,7 +225,7 @@ document.addEventListener('DOMContentLoaded', function () {
               </dd>
 
             </div>
-            <div class="govuk-summary-list__row">
+            <!-- <div class="govuk-summary-list__row">
               <dt class="govuk-summary-list__key govuk-summary-list__key-tech">
                 Visibility in VTA
               </dt>
@@ -244,7 +237,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 </strong>
               </dd>
 
-            </div>
+            </div> -->
 
             <!-- <div class="govuk-summary-list__row">
               <dt class="govuk-summary-list__key govuk-summary-list__key-tech">
@@ -302,14 +295,6 @@ document.addEventListener('DOMContentLoaded', function () {
               Filter by
             </dt>
             <dd class="govuk-summary-list__value govuk-summary-list__value--filter">
-              <a class="app-c-filter-summary__remove-filter" href="#" id="plates">
-                <span class="app-c-filter-summary__remove-filter-text">
-                  <span class="govuk-visually-hidden">Remove filter</span>
-                  Plates
-                </span>
-              </a>
-          </dd>
-            <dd class="govuk-summary-list__value govuk-summary-list__value--filter">
               <a class="app-c-filter-summary__remove-filter" href="#" id="required">
                 <span class="app-c-filter-summary__remove-filter-text">
                   <span class="govuk-visually-hidden">Remove filter</span>
@@ -348,6 +333,9 @@ document.addEventListener('DOMContentLoaded', function () {
                           Date of first registration
                         </h1>
                       </legend>
+                      <div id="passport-issued-hint" class="govuk-hint">
+                        For example, 27 3 2024
+                      </div>
                       <div class="govuk-date-input" id="passport-issued">
                         <div class="govuk-date-input__item">
                           <div class="govuk-form-group">
@@ -494,51 +482,9 @@ document.addEventListener('DOMContentLoaded', function () {
                           <div class="govuk-radios" data-module="govuk-radios">
                             <div class="govuk-radios__item">
                               <input class="govuk-radios__input" id="whereDoYouLive" name="whereDoYouLive" type="radio"
-                                value="england">
+                                value="england" checked>
                               <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
-                                L1
-                              </label>
-                            </div>
-                            <div class="govuk-radios__item">
-                              <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
-                                value="scotland">
-                              <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
-                                L2
-                              </label>
-                            </div>
-                            <div class="govuk-radios__item">
-                              <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
-                                value="scotland">
-                              <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
-                                L3
-                              </label>
-                            </div>
-                            <div class="govuk-radios__item">
-                              <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
-                                value="scotland">
-                              <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
-                                L4
-                              </label>
-                            </div>
-                            <div class="govuk-radios__item">
-                              <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
-                                value="scotland">
-                              <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
-                                L5
-                              </label>
-                            </div>
-                            <div class="govuk-radios__item">
-                              <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
-                                value="scotland">
-                              <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
-                                L6
-                              </label>
-                            </div>
-                            <div class="govuk-radios__item">
-                              <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
-                                value="scotland">
-                              <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
-                                L7
+                                M1
                               </label>
                             </div>
                           </div>

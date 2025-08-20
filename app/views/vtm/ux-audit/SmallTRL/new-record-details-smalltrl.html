@@ -25,34 +25,20 @@ href: "create-psv"
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     const axleInput = document.getElementById('number-of-axles');  
-    const warningDiv = document.getElementById('tyre-warning'); 
-    const axlesBrakesWarning = document.getElementById('axles-brakes-warning'); 
-    const parkingBrake = document.getElementById('pb-warning');
+    const warningDiv = document.getElementById('tyre-warning');
     const weightsWarning = document.getElementById('weights-warning'); 
 
     const axleFields = ['axle1to2', 'axle2to3', 'axle3to4', 'axle4to5', 'axle5to6'];
     const weightFields = ['weight-axle1', 'weight-axle2', 'weight-axle3', 'weight-axle4', 'weight-axle5'];
-    const brakeFields = ['brake-axle1', 'brake-axle2', 'brake-axle3', 'brake-axle4', 'brake-axle5'];
     const tyreFields = ['tyre-axle1', 'tyre-axle2', 'tyre-axle3', 'tyre-axle4', 'tyre-axle5'];
-    const axleSections = ['axle1-section', 'axle2-section', 'axle3-section'];
 
     function toggleFields() {
-    const axlesValue = axleInput.value.trim();
-    const axles = axlesValue === '' ? 0 : parseInt(axlesValue, 10);
+        const axlesValue = axleInput.value.trim();
+        const axles = axlesValue === '' ? 0 : parseInt(axlesValue, 10);
 
-    if (axles <= 0) { 
-        warningDiv.style.display = 'block';
-        axlesBrakesWarning.style.display = 'block';
-        parkingBrake.style.display = 'block';
-        weightsWarning.style.display = 'block';
-    } else {
-        warningDiv.style.display = 'none';
-        axlesBrakesWarning.style.display = 'none';
-        parkingBrake.style.display = 'none';
-        weightsWarning.style.display = 'none';
-    }
+        warningDiv.style.display = axles <= 0 ? 'block' : 'none';
+        weightsWarning.style.display = axles <= 0 ? 'block' : 'none';
 
-        // Ensure axle-related fields are shown/hidden correctly
         axleFields.forEach((field, index) => {
             const axleField = document.getElementById(field);
             if (axleField) axleField.style.display = axles > index ? 'block' : 'none';
@@ -63,31 +49,75 @@ document.addEventListener('DOMContentLoaded', function () {
             if (weightField) weightField.style.display = axles > index ? 'block' : 'none';
         });
 
-        brakeFields.forEach((field, index) => {
-            const brakeField = document.getElementById(field);
-            if (brakeField) brakeField.style.display = axles > index ? 'block' : 'none';
-        });
-
         tyreFields.forEach((field, index) => {
             const tyreField = document.getElementById(field);
             if (tyreField) tyreField.style.display = axles > index ? 'block' : 'none';
         });
-
-        axleSections.forEach((section, index) => {
-            const axleSection = document.getElementById(section);
-            if (axleSection) axleSection.style.display = axles > index ? 'block' : 'none';
-        });
     }
 
-    // Attach event listeners
     axleInput.addEventListener('input', toggleFields);
     axleInput.addEventListener('change', toggleFields);
     axleInput.addEventListener('blur', toggleFields);
 
-    // Ensure the fix runs AFTER other scripts have executed
     setTimeout(toggleFields, 100);
-});
 
+    const filters = [
+        { id: 'plates', className: 'plates' },
+        { id: 'required', className: 'required' },
+        { id: 'adr', className: 'adr' },
+        { id: 'admin', className: 'admin' },
+        { id: 'records', className: 'records' },
+        { id: 'untagged', className: 'untagged'}
+    ];
+
+    const filterStates = {
+        plates: false,
+        required: false,
+        adr: false,
+        admin: false,
+        records: false,
+        untagged: false
+    };
+
+    function applyFilters() {
+        const anyFilterActive = Object.values(filterStates).some(state => state === true);
+
+        document.querySelectorAll('.plates, .required, .adr, .admin, .records, .untagged').forEach(element => {
+            const classList = element.classList;
+            const shouldShow = !anyFilterActive || filters.some(f => filterStates[f.id] && classList.contains(f.className));
+            element.style.display = shouldShow ? '' : 'none';
+        });
+    }
+
+    filters.forEach(({ id, className }) => {
+        const button = document.getElementById(id);
+        const text = button?.querySelector('.app-c-filter-summary__remove-filter-text');
+
+        if (!button || !text) {
+            console.error(`Error: Filter button or text not found for ${id}`);
+            return;
+        }
+
+        button.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            filterStates[id] = !filterStates[id];
+
+            if (id === 'adr') {
+                text.innerHTML = filterStates[id] ? '× ADR' : 'ADR';
+            } else {
+                text.innerHTML = filterStates[id] ? `× ${id.charAt(0).toUpperCase() + id.slice(1)}` : id.charAt(0).toUpperCase() + id.slice(1);
+            }
+
+            button.classList.toggle('active-filter', filterStates[id]);
+
+            applyFilters();
+            button.blur();
+        });
+    });
+
+    applyFilters();
+});
 </script>
 
 
@@ -98,23 +128,19 @@ document.addEventListener('DOMContentLoaded', function () {
     Create a new technical record
   </h1>
 
-  <div class="govuk-inset-text">
-    Complete all required fields to create a testable record.
-  </div>
-
   <div class="govuk-grid-row">
 
-    <!-- Summary card -->
-    <div class="govuk-grid-column-one-third-from-desktop">
+     <!-- Summary card -->
+    <div class="govuk-grid-column-one-third-from-desktop vehicle-summary">
 
-      <div class="govuk-summary-card vehicle-summary">
+      <div class="govuk-summary-card">
         <div class="govuk-summary-card__title-wrapper">
-          <h2 class="govuk-summary-card__title govuk-heading-l">
+          <h2 class="govuk-summary-card__title govuk-summary-card__title-vtm govuk-heading-l">
             Summary
           </h2>
           <ul class="govuk-summary-card__actions">
             <li class="govuk-summary-card__action">
-              <a class="govuk-link" href="create-psv">Change<span class="govuk-visually-hidden"></span></a>
+              <a class="govuk-link" href="create-trl">Change<span class="govuk-visually-hidden"></span></a>
             </li>
             <li class="govuk-summary-card__action">
               <a class="govuk-link" href="home">Cancel<span class="govuk-visually-hidden"></span></a>
@@ -130,7 +156,7 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>
             <div class="govuk-summary-list__row--value">
               <dd class="govuk-summary-list__value govuk-summary-list__value--overflow">
-                Car
+                Small TRL
               </dd>
             </div>
             <div class="govuk-summary-list__row">
@@ -145,26 +171,12 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>
             <div class="govuk-summary-list__row">
               <dt class="govuk-summary-list__key govuk-summary-list__key-tech">
-                VRM
+                Trailer ID
               </dt>
             </div>
             <div class="govuk-summary-list__row--value">
               <dd class="govuk-summary-list__value govuk-summary-list__value--vrm">
-                <div class="reg-mark-div">
-                  <span
-                    class="reg-mark-sm">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                </div>
-              </dd>
-
-            </div>
-            <div class="govuk-summary-list__row">
-              <dt class="govuk-summary-list__key govuk-summary-list__key-tech">
-                Previous VRM
-              </dt>
-            </div>
-            <div class="govuk-summary-list__row--value">
-              <dd class="govuk-summary-list__value govuk-summary-list__value--vrm">
-                <div class="reg-mark-div">
+                <div>
                   <span
                     class="reg-mark-sm">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 </div>
@@ -178,7 +190,7 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>
             <div class="govuk-summary-list__row--value">
               <dd class="govuk-summary-list__value govuk-summary-list__value--tag">
-                <strong class="govuk-tag govuk-tag--orange">
+                <strong class="govuk-tag govuk-tag--red">
                   Provisional
                 </strong>
               </dd>
@@ -189,29 +201,35 @@ document.addEventListener('DOMContentLoaded', function () {
                 Record status
               </dt>
             </div>
-            <div class="govuk-summary-list__row--value">
+            <div class="govuk-summary-list__row--last">
               <dd class="govuk-summary-list__value govuk-summary-list__value--tag">
-                <strong class="govuk-tag govuk-tag--orange">
+                <strong class="govuk-tag govuk-tag--red">
                   Incomplete
                 </strong>
               </dd>
 
             </div>
-            <div class="govuk-summary-list__row">
+            <!-- <div class="govuk-summary-list__row">
               <dt class="govuk-summary-list__key govuk-summary-list__key-tech">
                 Visibility in VTA
               </dt>
             </div>
             <div class="govuk-summary-list__row--last">
               <dd class="govuk-summary-list__value govuk-summary-list__value--tag">
-                <strong class="govuk-tag govuk-tag--orange">
+                <strong class="govuk-tag govuk-tag--red">
                   Hidden
                 </strong>
               </dd>
-
-            </div>
+            </div> -->
           </dl>
         </div>
+      </div>
+
+      <div class="govuk-button-group govuk-button-group-record">
+        {{ govukButton({
+        text: "Create new record",
+        href: "tech-record-smalltrl.html"
+        }) }}
       </div>
 
     </div>
@@ -228,9 +246,23 @@ document.addEventListener('DOMContentLoaded', function () {
             </span>
           </h2>
 
+          <div class="filter-box">
+            <dt class="govuk-summary-list__key-filter">
+              Filter by
+            </dt>
+            <dd class="govuk-summary-list__value govuk-summary-list__value--filter">
+              <a class="app-c-filter-summary__remove-filter" href="#" id="required">
+                <span class="app-c-filter-summary__remove-filter-text">
+                  <span class="govuk-visually-hidden">Remove filter</span>
+                  Required
+                </span>
+              </a>
+            </dd>
+          </div>
+
           <!--GENERAL-->
-          <div class="govuk-accordion__section govuk-accordion__section-vtm">
-            <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm-top">
+          <div class="govuk-accordion__section govuk-accordion__section-vtm required adr plates">
+            <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
               <h2 class="govuk-accordion__section-heading">
                 <span
                   class="govuk-accordion__section-button govuk-accordion__section-button-vtm govuk-accordion__section-heading-vtm"
@@ -257,6 +289,9 @@ document.addEventListener('DOMContentLoaded', function () {
                           Date of first registration
                         </h1>
                       </legend>
+                      <div id="passport-issued-hint" class="govuk-hint">
+                        For example, 27 3 2024
+                      </div>
                       <div class="govuk-date-input" id="passport-issued">
                         <div class="govuk-date-input__item">
                           <div class="govuk-form-group">
@@ -286,7 +321,21 @@ document.addEventListener('DOMContentLoaded', function () {
                     </fieldset>
                   </div>
   
-                  <div class="govuk-form-group">
+                  <div class="govuk-date-input__item untagged">
+                    <div class="govuk-form-group">
+                      <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                        <strong>Month of manufacture</strong>
+                      </label>
+                      <select class="govuk-select" id="sort" name="sort">
+                        <option value="published" selected>Select month</option>
+                        <option value="published">January</option>
+                        <option value="updated">February</option>
+                        <option value="updated">March</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="govuk-form-group plates">
                     <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
                       <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                         <h1 class="govuk-fieldset__heading">
@@ -405,49 +454,14 @@ document.addEventListener('DOMContentLoaded', function () {
                               <input class="govuk-radios__input" id="whereDoYouLive" name="whereDoYouLive" type="radio"
                                 value="england">
                               <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
-                                L1
+                                O1
                               </label>
                             </div>
                             <div class="govuk-radios__item">
                               <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
                                 value="scotland">
                               <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
-                                L2
-                              </label>
-                            </div>
-                            <div class="govuk-radios__item">
-                              <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
-                                value="scotland">
-                              <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
-                                L3
-                              </label>
-                            </div>
-                            <div class="govuk-radios__item">
-                              <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
-                                value="scotland">
-                              <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
-                                L4
-                              </label>
-                            </div>
-                            <div class="govuk-radios__item">
-                              <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
-                                value="scotland">
-                              <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
-                                L5
-                              </label>
-                            </div>
-                            <div class="govuk-radios__item">
-                              <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
-                                value="scotland">
-                              <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
-                                L6
-                              </label>
-                            </div>
-                            <div class="govuk-radios__item">
-                              <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
-                                value="scotland">
-                              <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
-                                L7
+                                O2
                               </label>
                             </div>
                           </div>
@@ -725,14 +739,6 @@ document.addEventListener('DOMContentLoaded', function () {
           </div> -->     
 
 
-        </div>
-
-        <div class="govuk-button-group govuk-button-group-record">
-          {{ govukButton({
-          text: "Submit new record"
-          }) }}
-
-          <a class="govuk-link" href="#">Cancel</a>
         </div>
 
       </form>
