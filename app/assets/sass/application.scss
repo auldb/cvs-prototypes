@@ -726,10 +726,10 @@ padding-top: 25px !important;
 .govuk-summary-card__title-vtm {
   line-height: 1.3157894737 !important;
 }
-//.vehicle-summary {
-  //position: sticky !important;
-  //top: 40px;
-//}
+.vehicle-summary {
+  position: sticky !important;
+  top: 40px;
+}
 
 @media (max-width: 1000px) {
   .vehicle-summary { position:relative !important; top: auto; }
