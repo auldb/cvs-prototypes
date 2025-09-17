@@ -33,102 +33,98 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
 {% block content %}
 
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-      const axleInput = document.getElementById('number-of-axles');  
-      const warningDiv = document.getElementById('tyre-warning');
-      const weightsWarning = document.getElementById('weights-warning'); 
-  
-      const axleFields = ['axle1to2', 'axle2to3', 'axle3to4', 'axle4to5', 'axle5to6'];
-      const weightFields = ['weight-axle1', 'weight-axle2', 'weight-axle3', 'weight-axle4', 'weight-axle5'];
-      const tyreFields = ['tyre-axle1', 'tyre-axle2', 'tyre-axle3', 'tyre-axle4', 'tyre-axle5'];
-  
-      function toggleFields() {
-          const axlesValue = axleInput.value.trim();
-          const axles = axlesValue === '' ? 0 : parseInt(axlesValue, 10);
-  
-          warningDiv.style.display = axles <= 0 ? 'block' : 'none';
-          weightsWarning.style.display = axles <= 0 ? 'block' : 'none';
-  
-          axleFields.forEach((field, index) => {
-              const axleField = document.getElementById(field);
-              if (axleField) axleField.style.display = axles > index ? 'block' : 'none';
-          });
-  
-          weightFields.forEach((field, index) => {
-              const weightField = document.getElementById(field);
-              if (weightField) weightField.style.display = axles > index ? 'block' : 'none';
-          });
-  
-          tyreFields.forEach((field, index) => {
-              const tyreField = document.getElementById(field);
-              if (tyreField) tyreField.style.display = axles > index ? 'block' : 'none';
-          });
-      }
-  
-      axleInput.addEventListener('input', toggleFields);
-      axleInput.addEventListener('change', toggleFields);
-      axleInput.addEventListener('blur', toggleFields);
-  
-      setTimeout(toggleFields, 100);
-  
-      const filters = [
-          { id: 'plates', className: 'plates' },
-          { id: 'required', className: 'required' },
-          { id: 'adr', className: 'adr' },
-          { id: 'admin', className: 'admin' },
-          { id: 'records', className: 'records' },
-          { id: 'untagged', className: 'untagged'}
-      ];
-  
-      const filterStates = {
-          plates: false,
-          required: false,
-          adr: false,
-          admin: false,
-          records: false,
-          untagged: false
-      };
-  
-      function applyFilters() {
-          const anyFilterActive = Object.values(filterStates).some(state => state === true);
-  
-          document.querySelectorAll('.plates, .required, .adr, .admin, .records, .untagged').forEach(element => {
-              const classList = element.classList;
-              const shouldShow = !anyFilterActive || filters.some(f => filterStates[f.id] && classList.contains(f.className));
-              element.style.display = shouldShow ? '' : 'none';
-          });
-      }
-  
-      filters.forEach(({ id, className }) => {
-          const button = document.getElementById(id);
-          const text = button?.querySelector('.app-c-filter-summary__remove-filter-text');
-  
-          if (!button || !text) {
-              console.error(`Error: Filter button or text not found for ${id}`);
-              return;
-          }
-  
-          button.addEventListener('click', function (event) {
-              event.preventDefault();
-  
-              filterStates[id] = !filterStates[id];
-  
-              if (id === 'adr') {
-                  text.innerHTML = filterStates[id] ? '× ADR' : 'ADR';
-              } else {
-                  text.innerHTML = filterStates[id] ? `× ${id.charAt(0).toUpperCase() + id.slice(1)}` : id.charAt(0).toUpperCase() + id.slice(1);
-              }
-  
-              button.classList.toggle('active-filter', filterStates[id]);
-  
-              applyFilters();
-              button.blur();
-          });
-      });
-  
-      applyFilters();
-  });
-  </script>
+document.addEventListener('DOMContentLoaded', function () {
+    const axleInput = document.getElementById('number-of-axles');  
+    const axlesButton = document.querySelector('.axles-button');
+
+    // Confirm / Reset number of axles button
+    if (axlesButton && axleInput) {
+        axlesButton.classList.add('govuk-button');
+
+        function confirmHandler(event) {
+            event.preventDefault();
+            axleInput.disabled = true;
+
+            axlesButton.textContent = 'Remove and clear all axles';
+            axlesButton.classList.add('govuk-button--warning');
+
+            axlesButton.removeEventListener('click', confirmHandler);
+            axlesButton.addEventListener('click', resetHandler);
+        }
+
+        function resetHandler(event) {
+            event.preventDefault();
+            axleInput.disabled = false;
+            axleInput.value = '';
+
+            axlesButton.textContent = 'Confirm number of axles';
+            axlesButton.classList.remove('govuk-button--warning');
+
+            axlesButton.removeEventListener('click', resetHandler);
+            axlesButton.addEventListener('click', confirmHandler);
+        }
+
+        axlesButton.addEventListener('click', confirmHandler);
+    }
+
+    // Filters (unchanged)
+    const filters = [
+        { id: 'plates', className: 'plates' },
+        { id: 'required', className: 'required' },
+        { id: 'adr', className: 'adr' },
+        { id: 'admin', className: 'admin' },
+        { id: 'records', className: 'records' },
+        { id: 'untagged', className: 'untagged'}
+    ];
+
+    const filterStates = {
+        plates: false,
+        required: false,
+        adr: false,
+        admin: false,
+        records: false,
+        untagged: false
+    };
+
+    function applyFilters() {
+        const anyFilterActive = Object.values(filterStates).some(state => state === true);
+
+        document.querySelectorAll('.plates, .required, .adr, .admin, .records, .untagged').forEach(element => {
+            const classList = element.classList;
+            const shouldShow = !anyFilterActive || filters.some(f => filterStates[f.id] && classList.contains(f.className));
+            element.style.display = shouldShow ? '' : 'none';
+        });
+    }
+
+    filters.forEach(({ id }) => {
+        const button = document.getElementById(id);
+        const text = button?.querySelector('.app-c-filter-summary__remove-filter-text');
+
+        if (!button || !text) return;
+
+        button.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            filterStates[id] = !filterStates[id];
+
+            if (id === 'adr') {
+                text.innerHTML = filterStates[id] ? '× ADR' : 'ADR';
+            } else {
+                text.innerHTML = filterStates[id] 
+                    ? `× ${id.charAt(0).toUpperCase() + id.slice(1)}` 
+                    : id.charAt(0).toUpperCase() + id.slice(1);
+            }
+
+            button.classList.toggle('active-filter', filterStates[id]);
+
+            applyFilters();
+            button.blur();
+        });
+    });
+
+    applyFilters();
+});
+</script>
 
 
 <div class="govuk-width-container" id="view-record">
@@ -334,14 +330,6 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
               Filter by
             </dt>
             <dd class="govuk-summary-list__value govuk-summary-list__value--filter">
-              <a class="app-c-filter-summary__remove-filter" href="#" id="plates">
-                <span class="app-c-filter-summary__remove-filter-text">
-                  <span class="govuk-visually-hidden">Remove filter</span>
-                  Plates
-                </span>
-              </a>
-          </dd>
-            <dd class="govuk-summary-list__value govuk-summary-list__value--filter">
               <a class="app-c-filter-summary__remove-filter" href="#" id="required">
                 <span class="app-c-filter-summary__remove-filter-text">
                   <span class="govuk-visually-hidden">Remove filter</span>
@@ -396,6 +384,9 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                           Date of first registration
                         </h1>
                       </legend>
+                      <div id="passport-issued-hint" class="govuk-hint">
+                        For example, 27 3 2024
+                      </div>
                       <div class="govuk-date-input" id="passport-issued">
                         <div class="govuk-date-input__item">
                           <div class="govuk-form-group">
@@ -464,67 +455,67 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                           </legend>
                           <div class="govuk-checkboxes disabled-vtm" data-module="govuk-checkboxes">
                             <div class="govuk-checkboxes__item disabled-vtm">
-                              <input class="govuk-checkboxes__input disabled-vtm" id="waste" name="waste" type="checkbox" value="carcasses" checked>
+                              <input class="govuk-checkboxes__input disabled-vtm" id="waste" name="waste" type="checkbox" value="carcasses" disabled checked>
                               <label class="govuk-label govuk-checkboxes__label disabled-vtm" for="waste">
                                 N
                               </label>
                             </div>
                             <div class="govuk-checkboxes__item">
-                              <input class="govuk-checkboxes__input" id="waste-2" name="waste" type="checkbox" value="mines">
+                              <input class="govuk-checkboxes__input" id="waste-2" name="waste" type="checkbox" value="mines" disabled>
                               <label class="govuk-label govuk-checkboxes__label disabled-vtm" for="waste-2">
                                 P
                               </label>
                             </div>
                             <div class="govuk-checkboxes__item">
-                              <input class="govuk-checkboxes__input" id="waste-3" name="waste" type="checkbox" value="farm">
+                              <input class="govuk-checkboxes__input" id="waste-3" name="waste" type="checkbox" value="farm" disabled>
                               <label class="govuk-label govuk-checkboxes__label disabled-vtm" for="waste-3">
                                 A
                               </label>
                             </div>
                             <div class="govuk-checkboxes__item">
-                              <input class="govuk-checkboxes__input" id="waste-4" name="waste" type="checkbox" value="4">
+                              <input class="govuk-checkboxes__input" id="waste-4" name="waste" type="checkbox" value="4" disabled>
                               <label class="govuk-label govuk-checkboxes__label disabled-vtm" for="waste-4">
                                 S
                               </label>
                             </div>
                             <div class="govuk-checkboxes__item">
-                              <input class="govuk-checkboxes__input" id="waste-5" name="waste" type="checkbox" value="5">
+                              <input class="govuk-checkboxes__input" id="waste-5" name="waste" type="checkbox" value="5" disabled>
                               <label class="govuk-label govuk-checkboxes__label" for="waste-5">
                                 C
                               </label>
                             </div>
                             <div class="govuk-checkboxes__item">
-                              <input class="govuk-checkboxes__input" id="waste-6" name="waste" type="checkbox" value="6">
+                              <input class="govuk-checkboxes__input" id="waste-6" name="waste" type="checkbox" value="6" disabled>
                               <label class="govuk-label govuk-checkboxes__label disabled-vtm" for="waste-6">
                                 L
                               </label>
                             </div>
                             <div class="govuk-checkboxes__item">
-                              <input class="govuk-checkboxes__input" id="waste-7" name="waste" type="checkbox" value="7">
+                              <input class="govuk-checkboxes__input" id="waste-7" name="waste" type="checkbox" value="7" disabled>
                               <label class="govuk-label govuk-checkboxes__label disabled-vtm" for="waste-7">
                                 T
                               </label>
                             </div>
                             <div class="govuk-checkboxes__item">
-                              <input class="govuk-checkboxes__input" id="waste-8" name="waste" type="checkbox" value="8">
+                              <input class="govuk-checkboxes__input" id="waste-8" name="waste" type="checkbox" value="8" disabled>
                               <label class="govuk-label govuk-checkboxes__label disabled-vtm" for="waste-8">
                                 E
                               </label>
                             </div>
                             <div class="govuk-checkboxes__item">
-                              <input class="govuk-checkboxes__input" id="waste-9" name="waste" type="checkbox" value="9">
+                              <input class="govuk-checkboxes__input" id="waste-9" name="waste" type="checkbox" value="9" disabled>
                               <label class="govuk-label govuk-checkboxes__label disabled-vtm" for="waste-9">
                                 M
                               </label>
                             </div>
                             <div class="govuk-checkboxes__item">
-                              <input class="govuk-checkboxes__input" id="waste-10" name="waste" type="checkbox" value="10">
+                              <input class="govuk-checkboxes__input" id="waste-10" name="waste" type="checkbox" value="10" disabled>
                               <label class="govuk-label govuk-checkboxes__label disabled-vtm" for="waste-10">
                                 R
                               </label>
                             </div>
                             <div class="govuk-checkboxes__item">
-                              <input class="govuk-checkboxes__input" id="waste-11" name="waste" type="checkbox" value="11">
+                              <input class="govuk-checkboxes__input" id="waste-11" name="waste" type="checkbox" value="11" disabled>
                               <label class="govuk-label govuk-checkboxes__label disabled-vtm" for="waste-11">
                                 W
                               </label>
@@ -543,23 +534,9 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                           <div class="govuk-radios" data-module="govuk-radios">
                             <div class="govuk-radios__item">
                               <input class="govuk-radios__input" id="whereDoYouLive" name="whereDoYouLive" type="radio"
-                                value="england" disabled>
+                                value="england" disabled checked>
                               <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
                                 N1
-                              </label>
-                            </div>
-                            <div class="govuk-radios__item">
-                              <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
-                                value="scotland" disabled>
-                              <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
-                                N2
-                              </label>
-                            </div>
-                            <div class="govuk-radios__item">
-                              <input class="govuk-radios__input" id="whereDoYouLive-3" name="whereDoYouLive" type="radio"
-                                value="wales" checked disabled>
-                              <label class="govuk-label govuk-radios__label" for="whereDoYouLive-3">
-                                N3
                               </label>
                             </div>
                           </div>
@@ -574,9 +551,6 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                           Number of axles
                         </h1>
                       </legend>
-                      <div id="event-name-hint" class="govuk-hint">
-                        This will affect how many axle-related fields appear in the record
-                      </div>
                       <div class="govuk-input__wrapper">
                         <input class="govuk-input govuk-input--width-2" id="number-of-axles" name="number-of-axles"
                           type="text" inputmode="numeric" disabled value="2">
@@ -961,7 +935,108 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                 </li>
               </ul>
             </div>
-          </div>        
+          </div>
+          
+          <!--ADR CERTIFICATES -->
+          <div class="govuk-accordion__section govuk-accordion__section-vtm adr">
+            <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
+              <h2 class="govuk-accordion__section-heading">
+                <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
+                  id="accordion-with-summary-sections-heading-2">
+                  ADR certificates
+                </span>
+              </h2>
+              <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
+                Generate and view ADR certificates.
+              </div>
+              <div class="govuk-accordion__section-summary-padding"></div>
+            </div>
+            <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
+              <hr class="expanded">
+              </hr>
+              <ul class="govuk-list">
+                <li>
+
+                  <div class="govuk-button-group">
+                    {{ govukButton({
+                    text: "Generate ADR certificate",
+                    classes: "govuk-button--secondary"
+                    }) }}
+                  </div>
+                  <h3 class="govuk-heading-s">ADR certificates history</h3>
+                  <!-- <p class="govuk-body">No plates history available.</p> -->
+
+                  <table class="govuk-table test-records-table">
+                    <thead class="govuk-table__head">
+                      <tr class="govuk-table__row">
+                        <th scope="col" class="govuk-table__header">Certificate type</th>
+                        <th scope="col" class="govuk-table__header">Created by</th>
+                        <th scope="col" class="govuk-table__header">Date</th>
+                      </tr>
+                    </thead>
+                    <tbody class="govuk-table__body">
+                      <tr class="govuk-table__row archive-row">
+                        <td class="govuk-table__cell"><a href="#" class="archive-link">Pass</a></td>
+                        <td class="govuk-table__cell"><a href="#" class="archive-link">Ben</a></td>
+                        <td class="govuk-table__cell"><a href="#" class="archive-link">05/02/2024 at 11:49</a></td>
+                      </tr>
+                      <tr class="govuk-table__row archive-row">
+                        <td class="govuk-table__cell"><a href="#" class="archive-link">Pass</a></td>
+                        <td class="govuk-table__cell"><a href="#" class="archive-link">Ben</a></td>
+                        <td class="govuk-table__cell"><a href="#" class="archive-link">04/01/2024 at 09:12</a></td>
+                      </tr>
+                      <tr class="govuk-table__row archive-row">
+                        <td class="govuk-table__cell"><a href="#" class="archive-link">Fail</a></td>
+                        <td class="govuk-table__cell"><a href="#" class="archive-link">Ben</a></td>
+                        <td class="govuk-table__cell"><a href="#" class="archive-link">12/08/2023 at 14:16</a></td>
+                      </tr>
+                      <tr class="govuk-table__row archive-row">
+                        <td class="govuk-table__cell"><a href="#" class="archive-link">Pass</a></td>
+                        <td class="govuk-table__cell"><a href="#" class="archive-link">Ben</a></td>
+                        <td class="govuk-table__cell"><a href="#" class="archive-link">23/06/2023 at 15:08</a></td>
+                      </tr>
+                      <tr class="govuk-table__row archive-row">
+                        <td class="govuk-table__cell"><a href="#" class="archive-link">Pass</a></td>
+                        <td class="govuk-table__cell"><a href="#" class="archive-link">Ben</a></td>
+                        <td class="govuk-table__cell"><a href="#" class="archive-link">17/03/2023 at 11:54</a></td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                <nav class="govuk-pagination" aria-label="Pagination">
+                  <ul class="govuk-pagination__list">
+                    <li class="govuk-pagination__item govuk-pagination__item--current">
+                      <a class="govuk-link govuk-pagination__link" href="#" aria-label="Page 1" aria-current="page">
+                        1
+                      </a>
+                    </li>
+                    <li class="govuk-pagination__item">
+                      <a class="govuk-link govuk-pagination__link" href="#" aria-label="Page 2">
+                        2
+                      </a>
+                    </li>
+                    <li class="govuk-pagination__item">
+                      <a class="govuk-link govuk-pagination__link" href="#" aria-label="Page 3">
+                        3
+                      </a>
+                    </li>
+                  </ul>
+                  <div class="govuk-pagination__next">
+                    <a class="govuk-link govuk-pagination__link" href="#" rel="next">
+                      <span class="govuk-pagination__link-title">
+                        Next<span class="govuk-visually-hidden"> page</span>
+                      </span>
+                      <svg class="govuk-pagination__icon govuk-pagination__icon--next" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13">
+                        <path d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"></path>
+                      </svg>
+                    </a>
+                  </div>
+                </nav>
+
+                </li>
+              </ul>
+            </div>
+          </div>
 
           <!--LAST APPLICANT-->
           <div class="govuk-accordion__section govuk-accordion__section-vtm plates">
@@ -985,49 +1060,65 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                   <fieldset class="govuk-fieldset">
                     <div class="govuk-form-group">
                       <label class="govuk-label" for="address-line-1">
+                        <strong>
                         Name or company
+                        </strong>
                       </label>
                       <input class="govuk-input govuk-!-width-two-thirds" id="address-line-1" name="addressLine1" type="text" autocomplete="address-line1" value="John Smith" disabled>
                     </div>
                     <div class="govuk-form-group">
                       <label class="govuk-label" for="address-line-1">
+                        <strong>
                         Address line 1
+                        </strong>
                       </label>
                       <input class="govuk-input" id="address-line-1" name="addressLine1" type="text" autocomplete="address-line1" value="123 West Street" disabled>
                     </div>
                     <div class="govuk-form-group">
                       <label class="govuk-label" for="address-line-2">
+                        <strong>
                         Address line 2 (optional)
+                        </strong>
                       </label>
                       <input class="govuk-input" id="address-line-2" name="addressLine2" type="text" autocomplete="address-line2" disabled>
                     </div>
                     <div class="govuk-form-group">
                       <label class="govuk-label" for="address-town">
+                        <strong>
                         Town or city
+                        </strong>
                       </label>
                       <input class="govuk-input govuk-!-width-two-thirds" id="address-town" name="addressTown" type="text" autocomplete="address-level2" value="York" disabled>
                     </div>
                     <div class="govuk-form-group">
                       <label class="govuk-label" for="address-county">
+                        <strong>
                         County
+                        </strong>
                       </label>
                       <input class="govuk-input govuk-!-width-two-thirds" id="address-county" name="addressCounty" type="text" value="Yorkshire" disabled>
                     </div>
                     <div class="govuk-form-group">
                       <label class="govuk-label" for="address-postcode">
+                        <strong>
                         Postcode
+                        </strong>
                       </label>
                       <input class="govuk-input govuk-input--width-10" id="address-postcode" name="addressPostcode" type="text" autocomplete="postal-code" value="YO42 3MD" disabled>
                     </div>
                     <div class="govuk-form-group">
                       <label class="govuk-label" for="address-postcode">
-                        Phone number
+                        <strong>
+                        Telephone number
+                        </strong>
                       </label>
                       <input class="govuk-input govuk-input--width-10" id="address-postcode" name="addressPostcode" type="text" autocomplete="postal-code" value="07734623316" disabled>
                     </div>
                     <div class="govuk-form-group">
                       <label class="govuk-label" for="address-postcode">
+                        <strong>
                         Email address
+                        </strong>
                       </label>
                       <input class="govuk-input govuk-!-width-two-thirds" id="address-postcode" name="addressPostcode" type="text" autocomplete="postal-code" value="john.smith@email.com" disabled>
                     </div>

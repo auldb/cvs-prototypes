@@ -1,7 +1,7 @@
 {% extends "layouts/main.html" %}
 
 {% block pageTitle %}
-GOV.UK page template – {{ serviceName }} – GOV.UK Prototype Kit
+Create a technical record – {{ serviceName }} – GOV.UK Prototype Kit
 {% endblock %}
 
 {% block beforeContent %}
@@ -14,9 +14,19 @@ text: "Beta"
 html: 'This is a new service. Help us improve it and <a class="govuk-link" href="#">give your feedback (opens in new
   tab)</a>.'
 }) }}
-{{ govukBackLink({
-text: "Back",
-href: "create-psv"
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+
+{{ govukBreadcrumbs({
+  items: [
+    {
+      text: "Home",
+      href: "#"
+    },
+    {
+      text: "View technical record",
+      href: "#"
+    }
+  ]
 }) }}
 {% endblock %}
 
@@ -27,12 +37,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const axleInput = document.getElementById('number-of-axles');  
     const axlesButton = document.querySelector('.axles-button');
 
-    // Confirm / Reset number of axles button
     if (axlesButton && axleInput) {
         axlesButton.classList.add('govuk-button');
 
         function confirmHandler(event) {
-            event.preventDefault();
+            if (event) event.preventDefault();
             axleInput.disabled = true;
 
             axlesButton.textContent = 'Remove and clear all axles';
@@ -43,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         function resetHandler(event) {
-            event.preventDefault();
+            if (event) event.preventDefault();
             axleInput.disabled = false;
             axleInput.value = '';
 
@@ -54,7 +63,13 @@ document.addEventListener('DOMContentLoaded', function () {
             axlesButton.addEventListener('click', confirmHandler);
         }
 
+        // Always start with confirm handler
         axlesButton.addEventListener('click', confirmHandler);
+
+        // 🔑 If number-of-axles already has a value on load, simulate "confirmed" state
+        if (axleInput.value.trim() !== '') {
+            confirmHandler(); 
+        }
     }
 
     // Filters (unchanged)
@@ -120,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function () {
 <div class="govuk-width-container" id="view-record">
 
   <h1 class="govuk-heading-l">
-    Create a new technical record
+    Amend technical record
   </h1>
 
   <!-- <div class="govuk-inset-text">
@@ -139,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function () {
           </h2>
           <ul class="govuk-summary-card__actions">
             <li class="govuk-summary-card__action">
-              <a class="govuk-link" href="create-psv">Change<span class="govuk-visually-hidden"></span></a>
+              <a class="govuk-link" href="create-trl">Change<span class="govuk-visually-hidden"></span></a>
             </li>
             <li class="govuk-summary-card__action">
               <a class="govuk-link" href="home">Cancel<span class="govuk-visually-hidden"></span></a>
@@ -155,7 +170,7 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>
             <div class="govuk-summary-list__row--value">
               <dd class="govuk-summary-list__value govuk-summary-list__value--overflow">
-                Motorcycle
+                Small TRL
               </dd>
             </div>
             <div class="govuk-summary-list__row">
@@ -170,31 +185,18 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>
             <div class="govuk-summary-list__row">
               <dt class="govuk-summary-list__key govuk-summary-list__key-tech">
-                VRM
+                Trailer ID
               </dt>
             </div>
             <div class="govuk-summary-list__row--value">
               <dd class="govuk-summary-list__value govuk-summary-list__value--vrm">
-                <div class="reg-mark-div">
+                <div>
                   <span
                     class="reg-mark-sm">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 </div>
               </dd>
 
             </div>
-            <div class="govuk-summary-list__row">
-              <dt class="govuk-summary-list__key govuk-summary-list__key-tech">
-                Previous VRM
-              </dt>
-            </div>
-            <div class="govuk-summary-list__row--value">
-              <dd class="govuk-summary-list__value govuk-summary-list__value--overflow">
-          <!-- <div class="reg-mark-div">         
-                  <span class="reg-mark-sm">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                </div> -->
-                <br> 
-              </dd>  
-        </div>
             <div class="govuk-summary-list__row">
               <dt class="govuk-summary-list__key govuk-summary-list__key-tech">
                 Record type
@@ -225,52 +227,26 @@ document.addEventListener('DOMContentLoaded', function () {
               <dt class="govuk-summary-list__key govuk-summary-list__key-tech">
                 Visibility in VTA
               </dt>
-            </div> -->
-            <!-- <div class="govuk-summary-list__row--last">
+            </div>
+            <div class="govuk-summary-list__row--last">
               <dd class="govuk-summary-list__value govuk-summary-list__value--tag">
                 <strong class="govuk-tag govuk-tag--red">
                   Hidden
                 </strong>
               </dd>
-
             </div> -->
-
-            <!-- <div class="govuk-summary-list__row">
-              <dt class="govuk-summary-list__key govuk-summary-list__key-tech">
-                Filter by
-              </dt>
-            </div> -->
-            <!-- <div class="govuk-summary-list__row--last">
-              <dd class="govuk-summary-list__value govuk-summary-list__value--tag">
-                  <a class="app-c-filter-summary__remove-filter" href="#" id="plates">
-                    <span class="app-c-filter-summary__remove-filter-text">
-                      <span class="govuk-visually-hidden">Remove filter</span>
-                      Plates
-                    </span>
-                  </a>
-              </dd>
-              <dd class="govuk-summary-list__value govuk-summary-list__value--tag">
-                <a class="app-c-filter-summary__remove-filter" href="#" id="required">
-                  <span class="app-c-filter-summary__remove-filter-text">
-                    <span class="govuk-visually-hidden">Remove filter</span>
-                    Required
-                  </span>
-                </a>
-              </dd>
-
-            </div> -->
-          
-
           </dl>
         </div>
       </div>
 
       <div class="govuk-button-group govuk-button-group-record">
         {{ govukButton({
-        text: "Create new record",
-        href: "tech-record-motorcycle.html"
+        text: "Review",
+        href: "tech-record-smalltrl-review"
         }) }}
+        <a class="govuk-link" href="#">Cancel</a>      
       </div>
+
 
     </div>
 
@@ -301,7 +277,7 @@ document.addEventListener('DOMContentLoaded', function () {
           </div>
 
           <!--GENERAL-->
-          <div class="govuk-accordion__section govuk-accordion__section-vtm">
+          <div class="govuk-accordion__section govuk-accordion__section-vtm required adr plates">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
               <h2 class="govuk-accordion__section-heading">
                 <span
@@ -338,7 +314,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             <label class="govuk-label govuk-date-input__label" for="passport-issued-day">
                               Day
                             </label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric">
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric" value="01">
                           </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -346,7 +322,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             <label class="govuk-label govuk-date-input__label" for="passport-issued-month">
                               Month
                             </label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric">
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric" value="12">
                           </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -354,14 +330,28 @@ document.addEventListener('DOMContentLoaded', function () {
                             <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
                               Year
                             </label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="2023">
                           </div>
                         </div>
                       </div>
                     </fieldset>
                   </div>
   
-                  <div class="govuk-form-group">
+                  <div class="govuk-date-input__item untagged">
+                    <div class="govuk-form-group">
+                      <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                        <strong>Month of manufacture</strong>
+                      </label>
+                      <select class="govuk-select" id="sort" name="sort">
+                        <option value="published">Select month</option>
+                        <option value="published">January</option>
+                        <option value="updated" selected >February</option>
+                        <option value="updated">March</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="govuk-form-group plates">
                     <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
                       <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                         <h1 class="govuk-fieldset__heading">
@@ -371,33 +361,101 @@ document.addEventListener('DOMContentLoaded', function () {
                       <div class="govuk-date-input__item">
                         <div class="govuk-form-group">
                           <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                            id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                            id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="2022">
                         </div>
                       </div>
                     </fieldset>
                   </div>
 
-
-                    <div class="govuk-form-group">
-                      <label class="govuk-label" for="address-postcode">
-                        <strong>Vehicle configuration
-                          </strong>
-                      </label>
-                      <input class="govuk-input govuk-input--width-10" id="address-postcode" name="addressPostcode" type="text" autocomplete="postal-code" value="Other" disabled>
-                    </div>
-
                       <div class="govuk-form-group">
                         <label class="govuk-label" for="sort">
                           <strong>
-                            Vehicle class
+                            Vehicle configuration
                           </strong>
                         </label>
                         <select class="govuk-select" id="sort" name="sort">
-                          <option value="published" selected>Select vehicle class</option>
-                          <option value="views">Motorcycles up to 200cc</option>
-                          <option value="updated">Motorcycles over 200cc or with a sidecar</option>
-                          <option value="views">3 wheelers</option>
+                          <option value="published">Select configuration</option>
+                          <option value="updated" selected>Rigid</option>
+                          <option value="views">Articulated</option>
                         </select>
+                      </div>
+
+                      <div class="govuk-form-group">
+                        <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+                          <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                            <h1 class="govuk-fieldset__heading">
+                              Vehicle subclass
+                            </h1>
+                          </legend>
+                          <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                            <div class="govuk-checkboxes__item">
+                              <input class="govuk-checkboxes__input" id="waste" name="waste" type="checkbox" value="carcasses" checked>
+                              <label class="govuk-label govuk-checkboxes__label" for="waste">
+                                N
+                              </label>
+                            </div>
+                            <div class="govuk-checkboxes__item">
+                              <input class="govuk-checkboxes__input" id="waste-2" name="waste" type="checkbox" value="mines">
+                              <label class="govuk-label govuk-checkboxes__label" for="waste-2">
+                                P
+                              </label>
+                            </div>
+                            <div class="govuk-checkboxes__item">
+                              <input class="govuk-checkboxes__input" id="waste-3" name="waste" type="checkbox" value="farm">
+                              <label class="govuk-label govuk-checkboxes__label" for="waste-3">
+                                A
+                              </label>
+                            </div>
+                            <div class="govuk-checkboxes__item">
+                              <input class="govuk-checkboxes__input" id="waste-3" name="waste" type="checkbox" value="farm">
+                              <label class="govuk-label govuk-checkboxes__label" for="waste-3">
+                                S
+                              </label>
+                            </div>
+                            <div class="govuk-checkboxes__item">
+                              <input class="govuk-checkboxes__input" id="waste-3" name="waste" type="checkbox" value="farm">
+                              <label class="govuk-label govuk-checkboxes__label" for="waste-3">
+                                C
+                              </label>
+                            </div>
+                            <div class="govuk-checkboxes__item">
+                              <input class="govuk-checkboxes__input" id="waste-3" name="waste" type="checkbox" value="farm">
+                              <label class="govuk-label govuk-checkboxes__label" for="waste-3">
+                                L
+                              </label>
+                            </div>
+                            <div class="govuk-checkboxes__item">
+                              <input class="govuk-checkboxes__input" id="waste-3" name="waste" type="checkbox" value="farm">
+                              <label class="govuk-label govuk-checkboxes__label" for="waste-3">
+                                T
+                              </label>
+                            </div>
+                            <div class="govuk-checkboxes__item">
+                              <input class="govuk-checkboxes__input" id="waste-3" name="waste" type="checkbox" value="farm">
+                              <label class="govuk-label govuk-checkboxes__label" for="waste-3">
+                                E
+                              </label>
+                            </div>
+                            <div class="govuk-checkboxes__item">
+                              <input class="govuk-checkboxes__input" id="waste-3" name="waste" type="checkbox" value="farm">
+                              <label class="govuk-label govuk-checkboxes__label" for="waste-3">
+                                M
+                              </label>
+                            </div>
+                            <div class="govuk-checkboxes__item">
+                              <input class="govuk-checkboxes__input" id="waste-3" name="waste" type="checkbox" value="farm">
+                              <label class="govuk-label govuk-checkboxes__label" for="waste-3">
+                                R
+                              </label>
+                            </div>
+                            <div class="govuk-checkboxes__item">
+                              <input class="govuk-checkboxes__input" id="waste-3" name="waste" type="checkbox" value="farm">
+                              <label class="govuk-label govuk-checkboxes__label" for="waste-3">
+                                W
+                              </label>
+                            </div>
+                          </div>
+                        </fieldset>
                       </div>
         
                       <div class="govuk-form-group">
@@ -410,74 +468,18 @@ document.addEventListener('DOMContentLoaded', function () {
                           <div class="govuk-radios" data-module="govuk-radios">
                             <div class="govuk-radios__item">
                               <input class="govuk-radios__input" id="whereDoYouLive" name="whereDoYouLive" type="radio"
-                                value="england">
+                                value="england" checked>
                               <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
-                                L1e-a
-                              </label>
-                            </div>
-                            <div class="govuk-radios__item">
-                              <input class="govuk-radios__input" id="whereDoYouLive" name="whereDoYouLive" type="radio"
-                                value="england">
-                              <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
-                                L1e
+                                O1
                               </label>
                             </div>
                             <div class="govuk-radios__item">
                               <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
                                 value="scotland">
                               <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
-                                L2e
+                                O2
                               </label>
                             </div>
-                            <div class="govuk-radios__item">
-                              <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
-                                value="scotland">
-                              <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
-                                L3e
-                              </label>
-                            </div>
-                            <div class="govuk-radios__item">
-                              <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
-                                value="scotland">
-                              <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
-                                L4e
-                              </label>
-                            </div>
-                            <div class="govuk-radios__item">
-                              <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
-                                value="scotland">
-                              <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
-                                L5e
-                              </label>
-                            </div>
-                            <div class="govuk-radios__item">
-                              <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
-                                value="scotland">
-                              <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
-                                L6e
-                              </label>
-                            </div>
-                            <div class="govuk-radios__item">
-                              <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
-                                value="scotland">
-                              <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
-                                L7e
-                              </label>
-                            </div>
-                          </div>
-                        </fieldset>
-                      </div>
-
-                      <div class="govuk-form-group required">
-                        <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
-                          <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-                            <h1 class="govuk-fieldset__heading">
-                              Number of wheels
-                            </h1>
-                          </legend>
-                          <div class="govuk-input__wrapper">
-                            <input class="govuk-input govuk-input--width-2" id="number-of-wheels" name="number-of-wheels"
-                              type="text" inputmode="numeric">
                           </div>
                         </fieldset>
                       </div>
@@ -492,7 +494,7 @@ document.addEventListener('DOMContentLoaded', function () {
                       </legend>
                       <div class="govuk-input__wrapper">
                         <input class="govuk-input govuk-input--width-2" id="number-of-axles" name="number-of-axles"
-                          type="text" inputmode="numeric">                  
+                          type="text" inputmode="numeric" value="2">                  
                       </div>
                     </fieldset>
                   </div>
@@ -595,7 +597,7 @@ document.addEventListener('DOMContentLoaded', function () {
           </div>
 
           <!--NOTES-->
-          <div class="govuk-accordion__section govuk-accordion__section-vtm">
+          <div class="govuk-accordion__section govuk-accordion__section-vtm untagged">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
               <h2 class="govuk-accordion__section-heading">
                 <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
@@ -625,10 +627,7 @@ document.addEventListener('DOMContentLoaded', function () {
                       Enter any notes for this technical record
                     </label>
                     <textarea class="govuk-textarea" id="label-as-page-heading" name="labelAsPageHeading" rows="5"
-                      aria-describedby="label-as-page-heading-info"></textarea>
-                    <div id="label-as-page-heading-info" class="govuk-hint govuk-character-count__message">
-                      You have 1024 characters remaining
-                    </div>
+                      aria-describedby="label-as-page-heading-info" >Example notes.</textarea>
                   </div>
 
                 </li>
@@ -656,13 +655,18 @@ document.addEventListener('DOMContentLoaded', function () {
               <ul class="govuk-list">
                 <li>
 
-                  <div class="govuk-form-group govuk-character-count" data-module="govuk-character-count"
+                  <div class="govuk-form-group govuk-character-count required plates" data-module="govuk-character-count"
                     data-maxlength="200">
+                    <h1 class="govuk-label-wrapper">
+                      <label class="govuk-label govuk-label--s" for="event-name">
+                        Reason for creation                        
+                      </label>
+                    </h1>
                     <label class="govuk-label" for="label-as-page-heading">
                       Enter a reason for creating this technical record
                     </label>
                     <textarea class="govuk-textarea" id="label-as-page-heading" name="labelAsPageHeading" rows="3"
-                      aria-describedby="label-as-page-heading-info"></textarea>
+                      aria-describedby="label-as-page-heading-info" ></textarea>
                     <div id="label-as-page-heading-info" class="govuk-hint govuk-character-count__message">
                       You have 500 characters remaining
                     </div>
@@ -672,101 +676,6 @@ document.addEventListener('DOMContentLoaded', function () {
               </ul>
             </div>
           </div>
-
-          <!-- <div class="govuk-accordion__section govuk-accordion__section-vtm">
-
-            <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
-              <h2 class="govuk-accordion__section-heading">
-                <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm" id="accordion-with-summary-sections-heading-2">
-                  Test record history
-                </span>
-              </h2>
-              <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
-                Workspaces, tools and techniques, user stories, planning.
-              </div>
-            </div>
-            <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
-              <ul class="govuk-list">
-                <li>
-                  
-                  <table class="govuk-table">
-                    <thead class="govuk-table__head">
-                      <tr class="govuk-table__row">
-                        <th scope="col" class="govuk-table__header app-custom-class">Date</th>
-                        <th scope="col" class="govuk-table__header app-custom-class">Test type</th>
-                        <th scope="col" class="govuk-table__header app-custom-class">Result</th>
-                        <th scope="col" class="govuk-table__header app-custom-class"></th>
-                      </tr>
-                    </thead>
-                    <tbody class="govuk-table__body">
-                      <tr class="govuk-table__row">
-                        <th scope="row" class="govuk-table__header">14/01/2025 13:43</th>
-                        <td class="govuk-table__cell">Annual test</td>
-                        <td class="govuk-table__cell">Pass</td>
-                        <td class="govuk-table__cell"><a href="/">View</a></td>
-                      </tr>
-                      <tr class="govuk-table__row">
-                        <th scope="row" class="govuk-table__header">13/01/2025 15:04</th>
-                        <td class="govuk-table__cell">Annual test</td>
-                        <td class="govuk-table__cell">Fail</td>
-                        <td class="govuk-table__cell"><a href="/">View</a></td>
-                      </tr>
-                    </tbody>
-                  </table>
-
-                </li>
-              </ul>
-            </div>
-          </div> -->
-          <!-- <div class="govuk-accordion__section govuk-accordion__section-vtm">
-            
-          <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
-              <h2 class="govuk-accordion__section-heading">
-                <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm" id="accordion-with-summary-sections-heading-2">
-                  Technical records history
-                </span>
-              </h2>
-              <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
-                Workspaces, tools and techniques, user stories, planning.
-              </div>
-            </div>
-            <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
-              <ul class="govuk-list">
-                <li>
-                  
-                  <table class="govuk-table">
-                    <thead class="govuk-table__head">
-                      <tr class="govuk-table__row">
-                        <th scope="col" class="govuk-table__header app-custom-class">Status</th>
-                        <th scope="col" class="govuk-table__header app-custom-class">Reason for creation</th>
-                        <th scope="col" class="govuk-table__header app-custom-class">Created by</th>
-                        <th scope="col" class="govuk-table__header app-custom-class">Date</th>
-                        <th scope="col" class="govuk-table__header app-custom-class"></th>
-                      </tr>
-                    </thead>
-                    <tbody class="govuk-table__body">
-                      <tr class="govuk-table__row">
-                        <th scope="row" class="govuk-table__header">Current</th>
-                        <td class="govuk-table__cell">Test</td>
-                        <td class="govuk-table__cell">User</td>
-                        <td class="govuk-table__cell">16/01/2025 09:36</td>
-                      </tr>
-                      <tr class="govuk-table__row">
-                        <th scope="row" class="govuk-table__header">Archived</th>
-                        <td class="govuk-table__cell">Test</td>
-                        <td class="govuk-table__cell">User</td>
-                        <td class="govuk-table__cell">15/01/2025 10:17</td>
-                        <td class="govuk-table__cell"><a href="/">View</a></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  
-                </li>
-              </ul>
-            </div>
-          </div> -->     
-
-
         </div>
 
       </form>

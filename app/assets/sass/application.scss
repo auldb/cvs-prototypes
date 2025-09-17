@@ -428,25 +428,41 @@ padding-top: 25px !important;
 // View tech record page
 
 /* Targeting only the page with ID 'special-page' */
-#view-record select[disabled], 
-#view-record input[disabled], .govuk-textarea[disabled] {
-  opacity: 1; /* Remove the opacity */
-  background-color: white; /* Reset any background color */
-  color: black; /* Set text color to black */
-  border-color: #000000;
+// #view-record select[disabled], 
+// #view-record input[disabled], .govuk-textarea[disabled] {
+  // opacity: 1; /* Remove the opacity */
+  // background-color: white; /* Reset any background color */
+  // color: black; /* Set text color to black */
+  // border-color: #000000;
+// }
+
+// #view-record .govuk-radios__input[disabled] {
+  // color: black;
+  // background-color: white;
+  // opacity: 0;
+  // border-color: black;
+// }
+
+// #view-record .govuk-radios__input[disabled] + .govuk-radios__label {
+  // opacity: 1;
+// }
+
+
+#view-record .govuk-input__suffix, #view-record .govuk-input__prefix {
+   color: black;
+   opacity: 0.5;
+   border-color: black;
 }
 
-#view-record .govuk-radios__input[disabled] {
-  color: black;
-  background-color: white;
-  opacity: 0;
-  border-color: black;
+.govuk-pagination {
+  display: flex;
+  justify-content: center; /* centers horizontally */
+  align-items: center;     /* centers vertically if there's extra height */
 }
 
-#view-record .govuk-radios__input[disabled] + .govuk-radios__label {
-  opacity: 1;
+.psvtyres {
+  margin-top: 10px;
 }
-
 
 // Tech records list
 
@@ -784,8 +800,8 @@ padding-top: 25px !important;
 }
 
 .govuk-select--sr {
-  min-width: 2em;
-  width: 3em;
+  min-width: 3.5em !important;
+  width: 3.5em !important;
 }
 
 .govuk-input--size {
@@ -886,6 +902,10 @@ padding-top: 25px !important;
     margin-right: 20px;
     margin-top: 0px;
     margin-bottom: 0px;
+}
+
+.axles-button {
+  margin-left: 10px !important;
 }
 
 // Custom breakpoints for VTM

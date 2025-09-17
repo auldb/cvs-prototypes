@@ -23,122 +23,195 @@ href: "create-psv"
 {% block content %}
 
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-        const axleInput = document.getElementById('number-of-axles');  
-        const warningDiv = document.getElementById('tyre-warning');
-        const parkingBrake = document.getElementById('pb-warning');
-        const weightsWarning = document.getElementById('weights-warning'); 
-    
-        const axleFields = ['axle1to2', 'axle2to3', 'axle3to4', 'axle4to5', 'axle5to6'];
-        const weightFields = ['weight-axle1', 'weight-axle2', 'weight-axle3', 'weight-axle4', 'weight-axle5'];
-        const brakeFields = ['brake-axle1', 'brake-axle2', 'brake-axle3', 'brake-axle4', 'brake-axle5'];
-        const tyreFields = ['tyre-axle1', 'tyre-axle2', 'tyre-axle3', 'tyre-axle4', 'tyre-axle5'];
-    
-        function toggleFields() {
+document.addEventListener('DOMContentLoaded', function () {
+    const axleInput = document.getElementById('number-of-axles');  
+    const axlesButton = document.querySelector('.axles-button');
+    const warningDiv = document.getElementById('tyre-warning');
+    const weightsWarning = document.getElementById('weights-warning'); 
+    const brakesWarning = document.getElementById('brakes-warning'); 
+    const pbWarning = document.getElementById('pb-warning'); 
+
+    const weightFields = ['weight-axle1', 'weight-axle2', 'weight-axle3', 'weight-axle4', 'weight-axle5'];
+    const tyreFields = ['tyre-axle1', 'tyre-axle2', 'tyre-axle3', 'tyre-axle4', 'tyre-axle5'];
+    const brakeFields = ['braking-axle1', 'braking-axle2', 'braking-axle3', 'braking-axle4', 'braking-axle5'];
+    const parkingBrakeFields = ['brake-axle1', 'brake-axle2', 'brake-axle3', 'brake-axle4', 'brake-axle5'];
+
+    const conditionalUntaggedFields = document.querySelectorAll('.conditional-untagged');
+
+    function toggleFields() {
         const axlesValue = axleInput.value.trim();
         const axles = axlesValue === '' ? 0 : parseInt(axlesValue, 10);
-    
-        if (axles <= 0) { 
-            warningDiv.style.display = 'block';
-            parkingBrake.style.display = 'block';
-            weightsWarning.style.display = 'block';
-        } else {
-            warningDiv.style.display = 'none';
-            parkingBrake.style.display = 'none';
-            weightsWarning.style.display = 'none';
+
+        // Show warnings if no axles
+        if (warningDiv) warningDiv.style.display = axles <= 0 ? 'block' : 'none';
+        if (weightsWarning) weightsWarning.style.display = axles <= 0 ? 'block' : 'none';
+        if (brakesWarning) brakesWarning.style.display = axles <= 0 ? 'block' : 'none';
+        if (pbWarning) pbWarning.style.display = axles <= 0 ? 'block' : 'none';
+
+        // Weights
+        weightFields.forEach((field, index) => {
+            const weightField = document.getElementById(field);
+            if (weightField) weightField.style.display = axles > index ? 'block' : 'none';
+        });
+
+        // Tyres
+        tyreFields.forEach((field, index) => {
+            const tyreField = document.getElementById(field);
+            if (tyreField) tyreField.style.display = axles > index ? 'block' : 'none';
+        });
+
+        // Brakes
+        brakeFields.forEach((field, index) => {
+            const brakeField = document.getElementById(field);
+            if (brakeField) brakeField.style.display = axles > index ? 'block' : 'none';
+        });
+
+        // Parking brake checkboxes
+        parkingBrakeFields.forEach((field, index) => {
+            const pbField = document.getElementById(field);
+            if (pbField) pbField.style.display = axles > index ? 'block' : 'none';
+        });
+
+        // Special untagged fields
+        conditionalUntaggedFields.forEach(field => {
+            field.style.display = axles > 0 ? 'block' : 'none';
+        });
+
+        attachRemoveHandlers();
+    }
+
+    function attachRemoveHandlers() {
+        document.querySelectorAll('.remove-axle-button, .remove-tyre-button').forEach(button => {
+            button.onclick = function (event) {
+                event.preventDefault();
+                let axles = parseInt(axleInput.value.trim(), 10) || 0;
+                if (axles <= 0) return;
+                updateAxleCount(axles - 1);
+            };
+        });
+    }
+
+    function updateAxleCount(newCount, disable = true) {
+        axleInput.disabled = false;
+        axleInput.value = newCount;
+        toggleFields();
+        axleInput.disabled = disable;
+    }
+
+    // Confirm / Reset number of axles button
+    if (axlesButton) {
+        axlesButton.classList.add('govuk-button');
+
+        function confirmHandler(event) {
+            event.preventDefault();
+            updateAxleCount(parseInt(axleInput.value.trim(), 10));
+
+            axlesButton.textContent = 'Remove and clear all axles';
+            axlesButton.classList.add('govuk-button--warning');
+
+            axlesButton.removeEventListener('click', confirmHandler);
+            axlesButton.addEventListener('click', resetHandler);
         }
-    
-            // Ensure axle-related fields are shown/hidden correctly
-            axleFields.forEach((field, index) => {
-                const axleField = document.getElementById(field);
-                if (axleField) axleField.style.display = axles > index ? 'block' : 'none';
-            });
-    
-            weightFields.forEach((field, index) => {
-                const weightField = document.getElementById(field);
-                if (weightField) weightField.style.display = axles > index ? 'block' : 'none';
-            });
-    
-            brakeFields.forEach((field, index) => {
-                const brakeField = document.getElementById(field);
-                if (brakeField) brakeField.style.display = axles > index ? 'block' : 'none';
-            });
-    
-            tyreFields.forEach((field, index) => {
-                const tyreField = document.getElementById(field);
-                if (tyreField) tyreField.style.display = axles > index ? 'block' : 'none';
-            });
+
+        function resetHandler(event) {
+            event.preventDefault();
+            updateAxleCount(0, false); // Keep input enabled after reset
+
+            axlesButton.textContent = 'Confirm number of axles';
+            axlesButton.classList.remove('govuk-button--warning');
+
+            axlesButton.removeEventListener('click', resetHandler);
+            axlesButton.addEventListener('click', confirmHandler);
         }
-    
-        // Attach event listeners
-        axleInput.addEventListener('input', toggleFields);
-        axleInput.addEventListener('change', toggleFields);
-        axleInput.addEventListener('blur', toggleFields);
-    
-        // Ensure the fix runs AFTER other scripts have executed
-        setTimeout(toggleFields, 100);
-  
-      const filters = [
-          { id: 'plates', className: 'plates' },
-          { id: 'required', className: 'required' },
-          { id: 'adr', className: 'adr' },
-          { id: 'admin', className: 'admin' },
-          { id: 'records', className: 'records' },
-          { id: 'untagged', className: 'untagged'}
-      ];
-  
-      const filterStates = {
-          plates: false,
-          required: false,
-          adr: false,
-          admin: false,
-          records: false,
-          untagged: false
-      };
-  
-      function applyFilters() {
-          const anyFilterActive = Object.values(filterStates).some(state => state === true);
-  
-          document.querySelectorAll('.plates, .required, .adr, .admin, .records, .untagged').forEach(element => {
-              const classList = element.classList;
-              const shouldShow = !anyFilterActive || filters.some(f => filterStates[f.id] && classList.contains(f.className));
-              element.style.display = shouldShow ? '' : 'none';
-          });
-      }
-  
-      filters.forEach(({ id, className }) => {
-          const button = document.getElementById(id);
-          const text = button?.querySelector('.app-c-filter-summary__remove-filter-text');
-  
-          if (!button || !text) {
-              console.error(`Error: Filter button or text not found for ${id}`);
-              return;
-          }
-  
-          button.addEventListener('click', function (event) {
-              event.preventDefault();
-  
-              filterStates[id] = !filterStates[id];
-  
-              if (id === 'adr') {
-                  text.innerHTML = filterStates[id] ? '× ADR' : 'ADR';
-              } else {
-                  text.innerHTML = filterStates[id] ? `× ${id.charAt(0).toUpperCase() + id.slice(1)}` : id.charAt(0).toUpperCase() + id.slice(1);
-              }
-  
-              button.classList.toggle('active-filter', filterStates[id]);
-  
-              applyFilters();
-              button.blur();
-          });
-      });
-  
-      applyFilters();
-  });
-  </script>
+
+        axlesButton.addEventListener('click', confirmHandler);
+    }
+
+    // Add axle buttons
+    document.querySelectorAll('.add-axle-button').forEach(button => {
+        button.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            let axles = parseInt(axleInput.value.trim(), 10) || 0;
+            const maxAxles = weightFields.length;
+            if (axles >= maxAxles) return;
+
+            updateAxleCount(axles + 1);
+
+            // Update Confirm button to Reset if not already
+            if (axlesButton && axlesButton.textContent !== 'Remove and clear all axles') {
+                axlesButton.textContent = 'Remove and clear all axles';
+                axlesButton.classList.add('govuk-button--warning');
+
+                axlesButton.removeEventListener('click', confirmHandler);
+                axlesButton.addEventListener('click', resetHandler);
+            }
+        });
+    });
+
+   // Filters (unchanged)
+    const filters = [
+        { id: 'plates', className: 'plates' },
+        { id: 'required', className: 'required' },
+        { id: 'adr', className: 'adr' },
+        { id: 'admin', className: 'admin' },
+        { id: 'records', className: 'records' },
+        { id: 'untagged', className: 'untagged'}
+    ];
+
+    const filterStates = {
+        plates: false,
+        required: false,
+        adr: false,
+        admin: false,
+        records: false,
+        untagged: false
+    };
+
+    function applyFilters() {
+        const anyFilterActive = Object.values(filterStates).some(state => state === true);
+
+        document.querySelectorAll('.plates, .required, .adr, .admin, .records, .untagged').forEach(element => {
+            const classList = element.classList;
+            const shouldShow = !anyFilterActive || filters.some(f => filterStates[f.id] && classList.contains(f.className));
+            element.style.display = shouldShow ? '' : 'none';
+        });
+    }
+
+    filters.forEach(({ id, className }) => {
+        const button = document.getElementById(id);
+        const text = button?.querySelector('.app-c-filter-summary__remove-filter-text');
+
+        if (!button || !text) {
+            console.error(`Error: Filter button or text not found for ${id}`);
+            return;
+        }
+
+        button.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            filterStates[id] = !filterStates[id];
+
+            if (id === 'adr') {
+                text.innerHTML = filterStates[id] ? '× ADR' : 'ADR';
+            } else {
+                text.innerHTML = filterStates[id] ? `× ${id.charAt(0).toUpperCase() + id.slice(1)}` : id.charAt(0).toUpperCase() + id.slice(1);
+            }
+
+            button.classList.toggle('active-filter', filterStates[id]);
+
+            applyFilters();
+            button.blur();
+        });
+    });
+
+    applyFilters();
+    setTimeout(toggleFields, 100);
+});
+</script>
 
 
-<div class="govuk-width-container" id="view-record">
+<div class="govuk-width-container">
 
   <h1 class="govuk-heading-l">
     Amend technical record
@@ -303,14 +376,6 @@ href: "create-psv"
                 </span>
               </a>
           </dd>
-            <dd class="govuk-summary-list__value govuk-summary-list__value--filter">
-              <a class="app-c-filter-summary__remove-filter" href="#" id="records">
-                <span class="app-c-filter-summary__remove-filter-text">
-                  <span class="govuk-visually-hidden">Remove filter</span>
-                  Records
-                </span>
-              </a>
-            </dd>
           </div>
 
           <!--GENERAL-->
@@ -342,6 +407,9 @@ href: "create-psv"
                           Date of first registration
                         </h1>
                       </legend>
+                      <div id="passport-issued-hint" class="govuk-hint">
+                        For example, 27 3 2024
+                      </div>
                       <div class="govuk-date-input" id="passport-issued">
                         <div class="govuk-date-input__item">
                           <div class="govuk-form-group">
@@ -535,19 +603,26 @@ href: "create-psv"
                     </fieldset>
                   </div>
 
-                  <div class="govuk-form-group">
+                  <div class="govuk-form-group required plates">
                     <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
                       <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                         <h1 class="govuk-fieldset__heading">
                           Number of axles
                         </h1>
                       </legend>
+                      <div class="govuk-warning-text">
+                        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                        <strong class="govuk-warning-text__text">
+                          <span class="govuk-visually-hidden">Warning</span>
+                          You can add or remove axles in the weights and tyres sections.
+                        </strong>
+                      </div>
                       <div id="event-name-hint" class="govuk-hint">
                         This will affect how many axle-related fields appear in the record
                       </div>
                       <div class="govuk-input__wrapper">
                         <input class="govuk-input govuk-input--width-2" id="number-of-axles" name="number-of-axles"
-                          type="text" inputmode="numeric" value="2" >
+                          type="text" inputmode="numeric" value="2" disabled>
                       </div>
                     </fieldset>
                   </div>
@@ -699,7 +774,7 @@ href: "create-psv"
           </div>
 
           <!--AXLES AND DIMENSIONS-->
-          <div class="govuk-accordion__section govuk-accordion__section-vtm untagged">
+          <div class="govuk-accordion__section govuk-accordion__section-vtm plates">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
               <h2 class="govuk-accordion__section-heading">
                 <span
@@ -727,71 +802,6 @@ href: "create-psv"
                     </h1>
                     <div class="govuk-input__wrapper">
                       <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
-                        spellcheck="false" value="10000" >
-                      <div class="govuk-input__suffix" aria-hidden="true">mm</div>
-                    </div>
-                  </div>
-
-                  <div class="govuk-form-group" id="axle1to2" style="display: none;">
-                    <h1 class="govuk-label-wrapper">
-                      <label class="govuk-label govuk-label--s" for="weight">
-                        Axle 1 to 2
-                      </label>
-                    </h1>
-                    <div class="govuk-input__wrapper">
-                      <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
-                        spellcheck="false" value="5000" >
-                      <div class="govuk-input__suffix" aria-hidden="true">mm</div>
-                    </div>
-                  </div>
-
-                  <div class="govuk-form-group" id="axle2to3" style="display: none;">
-                    <h1 class="govuk-label-wrapper">
-                      <label class="govuk-label govuk-label--s" for="weight">
-                        Axle 2 to 3
-                      </label>
-                    </h1>
-                    <div class="govuk-input__wrapper">
-                      <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
-                        spellcheck="false" value="5000" >
-                      <div class="govuk-input__suffix" aria-hidden="true">mm</div>
-                    </div>
-                  </div>
-
-                  <div class="govuk-form-group" id="axle3to4" style="display: none;">
-                    <h1 class="govuk-label-wrapper">
-                      <label class="govuk-label govuk-label--s" for="weight">
-                        Axle 3 to 4
-                      </label>
-                    </h1>
-                    <div class="govuk-input__wrapper">
-                      <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
-                        spellcheck="false">
-                      <div class="govuk-input__suffix" aria-hidden="true">mm</div>
-                    </div>
-                  </div>
-
-                  <div class="govuk-form-group" id="axle4to5" style="display: none;">
-                    <h1 class="govuk-label-wrapper">
-                      <label class="govuk-label govuk-label--s" for="weight">
-                        Axle 4 to 5
-                      </label>
-                    </h1>
-                    <div class="govuk-input__wrapper">
-                      <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
-                        spellcheck="false">
-                      <div class="govuk-input__suffix" aria-hidden="true">mm</div>
-                    </div>
-                  </div>
-
-                  <div class="govuk-form-group" id="axle5to6" style="display: none;">
-                    <h1 class="govuk-label-wrapper">
-                      <label class="govuk-label govuk-label--s" for="weight">
-                        Axle 5 to 6
-                      </label>
-                    </h1>
-                    <div class="govuk-input__wrapper">
-                      <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
                         spellcheck="false">
                       <div class="govuk-input__suffix" aria-hidden="true">mm</div>
                     </div>
@@ -805,7 +815,7 @@ href: "create-psv"
                     </h1>
                     <div class="govuk-input__wrapper">
                       <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
-                        spellcheck="false" value="12000" >
+                        spellcheck="false">
                       <div class="govuk-input__suffix" aria-hidden="true">mm</div>
                     </div>
                   </div>
@@ -818,7 +828,7 @@ href: "create-psv"
                     </h1>
                     <div class="govuk-input__wrapper">
                       <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
-                        spellcheck="false" value="2000" >
+                        spellcheck="false">
                       <div class="govuk-input__suffix" aria-hidden="true">mm</div>
                     </div>
                   </div>
@@ -831,11 +841,10 @@ href: "create-psv"
                     </h1>
                     <div class="govuk-input__wrapper">
                       <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
-                        spellcheck="false" value="2500" >
+                        spellcheck="false">
                       <div class="govuk-input__suffix" aria-hidden="true">mm</div>
                     </div>
                   </div>
-
 
                 </li>
               </ul>
@@ -843,7 +852,7 @@ href: "create-psv"
           </div>
 
           <!--WEIGHTS-->
-          <div class="govuk-accordion__section govuk-accordion__section-vtm untagged">
+          <div class="govuk-accordion__section govuk-accordion__section-vtm plates">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
               <h2 class="govuk-accordion__section-heading">
                 <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
@@ -888,6 +897,17 @@ href: "create-psv"
                       </legend>
                       <div class="govuk-date-input" id="passport-issued">
 
+                      <div class="govuk-button-group">
+
+                          <button type="button" 
+                            class="govuk-button govuk-button--warning remove-axle-button" 
+                            data-axle="1">
+                            Remove axle
+                          </button>
+                      </div> 
+
+
+
                         <div class="govuk-date-input__item">
                           <div class="govuk-form-group">
                             <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
@@ -895,7 +915,7 @@ href: "create-psv"
                             </label>
                             <div class="govuk-input__wrapper">
                               <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="2000" >
+                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
                               <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                             </div>
                           </div>
@@ -908,7 +928,7 @@ href: "create-psv"
                             </label>
                             <div class="govuk-input__wrapper">
                               <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="2000" >
+                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
                               <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                             </div>
                           </div>
@@ -921,7 +941,7 @@ href: "create-psv"
                             </label>
                             <div class="govuk-input__wrapper">
                               <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="2000" >
+                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
                               <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                             </div>
                           </div>
@@ -934,11 +954,13 @@ href: "create-psv"
                             </label>
                             <div class="govuk-input__wrapper">
                               <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="2000" >
+                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
                               <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                             </div>
                           </div>
                         </div>
+
+        
 
                       </div>
                     </fieldset>
@@ -953,6 +975,15 @@ href: "create-psv"
                       </legend>
                       <div class="govuk-date-input" id="passport-issued">
 
+                              <div class="govuk-button-group">
+
+                          <button type="button" 
+                            class="govuk-button govuk-button--warning remove-axle-button" 
+                            data-axle="1">
+                            Remove axle
+                          </button>
+                      </div> 
+
                         <div class="govuk-date-input__item">
                           <div class="govuk-form-group">
                             <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
@@ -960,7 +991,7 @@ href: "create-psv"
                             </label>
                             <div class="govuk-input__wrapper">
                               <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="2000" >
+                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
                               <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                             </div>
                           </div>
@@ -973,7 +1004,7 @@ href: "create-psv"
                             </label>
                             <div class="govuk-input__wrapper">
                               <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="2000" >
+                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
                               <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                             </div>
                           </div>
@@ -986,7 +1017,7 @@ href: "create-psv"
                             </label>
                             <div class="govuk-input__wrapper">
                               <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="2000" >
+                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
                               <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                             </div>
                           </div>
@@ -999,7 +1030,7 @@ href: "create-psv"
                             </label>
                             <div class="govuk-input__wrapper">
                               <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="2000" >
+                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
                               <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                             </div>
                           </div>
@@ -1017,6 +1048,16 @@ href: "create-psv"
                         </h1>
                       </legend>
                       <div class="govuk-date-input" id="passport-issued">
+
+
+                              <div class="govuk-button-group">
+
+                          <button type="button" 
+                            class="govuk-button govuk-button--warning remove-axle-button" 
+                            data-axle="1">
+                            Remove axle
+                          </button>
+                      </div> 
 
                         <div class="govuk-date-input__item">
                           <div class="govuk-form-group">
@@ -1083,6 +1124,16 @@ href: "create-psv"
                       </legend>
                       <div class="govuk-date-input" id="passport-issued">
 
+
+                              <div class="govuk-button-group">
+
+                          <button type="button" 
+                            class="govuk-button govuk-button--warning remove-axle-button" 
+                            data-axle="1">
+                            Remove axle
+                          </button>
+                      </div> 
+
                         <div class="govuk-date-input__item">
                           <div class="govuk-form-group">
                             <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
@@ -1134,6 +1185,8 @@ href: "create-psv"
                             </div>
                           </div>
                         </div>
+
+
 
                       </div>
                     </fieldset>
@@ -1148,6 +1201,16 @@ href: "create-psv"
                       </legend>
                       <div class="govuk-date-input" id="passport-issued">
 
+
+                              <div class="govuk-button-group">
+
+                          <button type="button" 
+                            class="govuk-button govuk-button--warning remove-axle-button" 
+                            data-axle="1">
+                            Remove axle
+                          </button>
+                      </div> 
+
                         <div class="govuk-date-input__item">
                           <div class="govuk-form-group">
                             <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
@@ -1199,6 +1262,7 @@ href: "create-psv"
                             </div>
                           </div>
                         </div>
+
 
                       </div>
                     </fieldset>
@@ -1220,7 +1284,7 @@ href: "create-psv"
                             </label>
                             <div class="govuk-input__wrapper">
                               <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="2000" >
+                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
                               <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                             </div>
                           </div>
@@ -1233,7 +1297,7 @@ href: "create-psv"
                             </label>
                             <div class="govuk-input__wrapper">
                               <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="2000" >
+                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
                               <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                             </div>
                           </div>
@@ -1246,7 +1310,7 @@ href: "create-psv"
                             </label>
                             <div class="govuk-input__wrapper">
                               <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="2000" >
+                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
                               <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                             </div>
                           </div>
@@ -1259,7 +1323,7 @@ href: "create-psv"
                             </label>
                             <div class="govuk-input__wrapper">
                               <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="2000" >
+                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
                               <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                             </div>
                           </div>
@@ -1285,7 +1349,7 @@ href: "create-psv"
                             </label>
                             <div class="govuk-input__wrapper">
                               <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="2000" >
+                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
                               <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                             </div>
                           </div>
@@ -1298,7 +1362,7 @@ href: "create-psv"
                             </label>
                             <div class="govuk-input__wrapper">
                               <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="2000" >
+                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
                               <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                             </div>
                           </div>
@@ -1370,7 +1434,7 @@ href: "create-psv"
                           <div class="govuk-form-group">
                             <div class="govuk-input__wrapper">
                               <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="2000" >
+                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
                               <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                             </div>
                           </div>
@@ -1379,6 +1443,11 @@ href: "create-psv"
                       </div>
                     </fieldset>
                   </div>
+
+
+                  <button type="button" class="govuk-button govuk-button--secondary add-axle-button">
+                    Add axle
+                  </button>
 
                 </li>
               </ul>
@@ -1395,7 +1464,7 @@ href: "create-psv"
                 </span>
               </h2>
               <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
-                Tyre details, tyre use code.
+                Tyre details.
               </div>
               <div class="govuk-accordion__section-summary-padding"></div>
             </div>
@@ -1404,464 +1473,465 @@ href: "create-psv"
               </hr>
               <ul class="govuk-list">
                 <li>
-                  <div id="tyre-warning" class="plates">
-                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-                      <h1 class="govuk-fieldset__heading">
-                        Tyre details
-                      </h1>
-                    </legend>
-                    <div class="govuk-warning-text">
-                      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-                      <strong class="govuk-warning-text__text">
-                        <span class="govuk-visually-hidden">Warning</span>
-                        Enter the number of axles to be able to add tyre details.
-                      </strong>
-                    </div>
+
+                
+                <div id="tyre-warning">
+                  <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                    <h1 class="govuk-fieldset__heading">
+                      Tyre details
+                    </h1>
+                  </legend>
+                  <div class="govuk-warning-text">
+                    <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                    <strong class="govuk-warning-text__text">
+                      <span class="govuk-visually-hidden">Warning</span>
+                      Enter the number of axles to be able to add tyre details.
+                    </strong>
                   </div>
-  
-                    <div id="tyre-axle1" class="govuk-form-group plates" style="display:none;">
-                      <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
-                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-                          <h1 class="govuk-fieldset__heading">
-                            Axle 1 tyre details
-                          </h1>
-                        </legend>
-                       <!--  <div class="govuk-button-group">
-                          <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">
-                            Search for tyre details
-                          </button>
-  
-                          <button type="submit" class="govuk-button govuk-button--warning" data-module="govuk-button">
-                            Remove tyre
-                          </button>
-                        </div> -->
-  
-                        <div class="govuk-date-input" id="passport-issued">
-                          <div class="govuk-date-input__item">
-                            <div class="govuk-form-group">
-                              <label class="govuk-label govuk-date-input__label" for="passport-issued-day">
-                                Code
-                              </label>
-                              <input class="govuk-input govuk-date-input__input govuk-input--width-3"
-                                id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric" value="788" >
-                            </div>
-                          </div>
-                          <div class="govuk-date-input__item">
-                            <div class="govuk-form-group">
-                              <label class="govuk-label govuk-date-input__label" for="passport-issued-month">
-                                Size
-                              </label>
-                              <input class="govuk-input govuk-date-input__input govuk-input--size"
-                                id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric" value="185/75-16"
-                                >
-                            </div>
-                          </div>
-                          <div class="govuk-date-input__item">
-                            <div class="govuk-form-group">
-                              <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
-                                Ply
-                              </label>
-                              <input class="govuk-input govuk-date-input__input govuk-input--ply"
-                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="8"
-                                >
-                            </div>
-                          </div>
-                          <div class="govuk-date-input__item">
-                            <div class="govuk-form-group">
-                              <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
-                                Load index
-                              </label>
-                              <input class="govuk-input govuk-date-input__input govuk-input--width-3"
-                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="114"
-                                >
-                            </div>
-                          </div>
-                          <div class="govuk-date-input__item">
-                            <div class="govuk-form-group">
-                              <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
-                                SR
-                              </label>
-                              <select class="govuk-select govuk-select--sr" id="sort" name="sort" >
-                                <option value="published"></option>
-                                <option value="published" selected>A7</option>
-                                <option value="updated">A8</option>
-                                <option value="updated">B</option>
-                                <option value="updated">C</option>
-                                <option value="updated">D</option>
-                              </select>
-                            </div>
-                          </div>
-                          <div class="govuk-date-input__item">
-                            <div class="govuk-form-group">
-                              <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
-                                S/D
-                              </label>
-                              <select class="govuk-select govuk-select--tyres" id="sort" name="sort" >
-                                <option value="updated"></option>
-                                <option value="published" selected>S</option>
-                                <option value="updated">D</option>
-                              </select>
-                            </div>
+                </div>
+
+                  <div id="tyre-axle1" class="govuk-form-group" style="display:none;">
+                    <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
+                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                        <h1 class="govuk-fieldset__heading">
+                          Axle 1 tyre details
+                        </h1>
+                      </legend>
+                      <div class="govuk-button-group">
+                        <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+                          Search for tyre details
+                        </button>
+
+                        <button type="button" class="govuk-button govuk-button--warning remove-tyre-button" data-axle="1">
+                          Remove tyre
+                        </button>
+                      </div> 
+
+                      <div class="govuk-date-input" id="passport-issued">
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-day">
+                              Code
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-3"
+                              id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric">
                           </div>
                         </div>
-                      </fieldset>
-                    </div>
-  
-                    
-                    <div id="tyre-axle2" class="govuk-form-group plates" style="display:none;">
-                      <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
-                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-                          <h1 class="govuk-fieldset__heading">
-                            Axle 2 tyre details
-                          </h1>
-                        </legend>
-                        <!-- <div class="govuk-button-group">
-                          <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">
-                            Search for tyre details
-                          </button>
-  
-                          <button type="submit" class="govuk-button govuk-button--warning" data-module="govuk-button">
-                            Remove tyre
-                          </button>
-                        </div> -->
-  
-                        <div class="govuk-date-input" id="passport-issued">
-                          <div class="govuk-date-input__item">
-                            <div class="govuk-form-group">
-                              <label class="govuk-label govuk-date-input__label" for="passport-issued-day">
-                                Code
-                              </label>
-                              <input class="govuk-input govuk-date-input__input govuk-input--width-3"
-                                id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric" value="788" >
-                            </div>
-                          </div>
-                          <div class="govuk-date-input__item">
-                            <div class="govuk-form-group">
-                              <label class="govuk-label govuk-date-input__label" for="passport-issued-month">
-                                Size
-                              </label>
-                              <input class="govuk-input govuk-date-input__input govuk-input--size"
-                                id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric" value="185/75-16"
-                                >
-                            </div>
-                          </div>
-                          <div class="govuk-date-input__item">
-                            <div class="govuk-form-group">
-                              <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
-                                Ply
-                              </label>
-                              <input class="govuk-input govuk-date-input__input govuk-input--ply"
-                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="8"
-                                >
-                            </div>
-                          </div>
-                          <div class="govuk-date-input__item">
-                            <div class="govuk-form-group">
-                              <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
-                                Load index
-                              </label>
-                              <input class="govuk-input govuk-date-input__input govuk-input--width-3"
-                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="114"
-                                >
-                            </div>
-                          </div>
-                          <div class="govuk-date-input__item">
-                            <div class="govuk-form-group">
-                              <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
-                                SR
-                              </label>
-                              <select class="govuk-select govuk-select--sr" id="sort" name="sort" >
-                                <option value="published"></option>
-                                <option value="published" selected>A7</option>
-                                <option value="updated">A8</option>
-                                <option value="updated">B</option>
-                                <option value="updated">C</option>
-                                <option value="updated">D</option>
-                              </select>
-                            </div>
-                          </div>
-                          <div class="govuk-date-input__item">
-                            <div class="govuk-form-group">
-                              <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
-                                S/D
-                              </label>
-                              <select class="govuk-select govuk-select--tyres" id="sort" name="sort" >
-                                <option value="updated"></option>
-                                <option value="published" selected>S</option>
-                                <option value="updated">D</option>
-                              </select>
-                            </div>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-month">
+                              Size
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--size"
+                              id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric">
                           </div>
                         </div>
-                      </fieldset>
-                    </div>
-  
-                    
-                    <div id="tyre-axle3" class="govuk-form-group plates" style="display:none;">
-                      <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
-                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-                          <h1 class="govuk-fieldset__heading">
-                            Axle 3 tyre details
-                          </h1>
-                        </legend>
-                        <div class="govuk-button-group">
-                          <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">
-                            Search for tyre details
-                          </button>
-  
-                          <button type="submit" class="govuk-button govuk-button--warning" data-module="govuk-button">
-                            Remove tyre
-                          </button>
-                        </div>
-  
-                        <div class="govuk-date-input" id="passport-issued">
-                          <div class="govuk-date-input__item">
-                            <div class="govuk-form-group">
-                              <label class="govuk-label govuk-date-input__label" for="passport-issued-day">
-                                Code
-                              </label>
-                              <input class="govuk-input govuk-date-input__input govuk-input--width-3"
-                                id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric" value="788" >
-                            </div>
-                          </div>
-                          <div class="govuk-date-input__item">
-                            <div class="govuk-form-group">
-                              <label class="govuk-label govuk-date-input__label" for="passport-issued-month">
-                                Size
-                              </label>
-                              <input class="govuk-input govuk-date-input__input govuk-input--size"
-                                id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric" value="185/75-16"
-                                >
-                            </div>
-                          </div>
-                          <div class="govuk-date-input__item">
-                            <div class="govuk-form-group">
-                              <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
-                                Ply
-                              </label>
-                              <input class="govuk-input govuk-date-input__input govuk-input--ply"
-                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
-                                >
-                            </div>
-                          </div>
-                          <div class="govuk-date-input__item">
-                            <div class="govuk-form-group">
-                              <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
-                                Load index
-                              </label>
-                              <input class="govuk-input govuk-date-input__input govuk-input--width-3"
-                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="114"
-                                >
-                            </div>
-                          </div>
-                          <div class="govuk-date-input__item">
-                            <div class="govuk-form-group">
-                              <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
-                                SR
-                              </label>
-                              <select class="govuk-select govuk-select--sr" id="sort" name="sort" >
-                                <option value="published" selected></option>
-                                <option value="published">A7</option>
-                                <option value="updated">A8</option>
-                                <option value="updated">B</option>
-                                <option value="updated">C</option>
-                                <option value="updated">D</option>
-                              </select>
-                            </div>
-                          </div>
-                          <div class="govuk-date-input__item">
-                            <div class="govuk-form-group">
-                              <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
-                                S/D
-                              </label>
-                              <select class="govuk-select govuk-select--tyres" id="sort" name="sort" >
-                                <option value="updated" selected></option>
-                                <option value="published">S</option>
-                                <option value="updated">D</option>
-                              </select>
-                            </div>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                              Ply
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--ply"
+                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
+                              >
                           </div>
                         </div>
-                      </fieldset>
-                    </div>
-  
-                    
-                    <div id="tyre-axle4" class="govuk-form-group plates" style="display:none;">
-                      <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
-                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-                          <h1 class="govuk-fieldset__heading">
-                            Axle 4 tyre details
-                          </h1>
-                        </legend>
-                        <div class="govuk-button-group">
-                          <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">
-                            Search for tyre details
-                          </button>
-  
-                          <button type="submit" class="govuk-button govuk-button--warning" data-module="govuk-button">
-                            Remove tyre
-                          </button>
-                        </div>
-  
-                        <div class="govuk-date-input" id="passport-issued">
-                          <div class="govuk-date-input__item">
-                            <div class="govuk-form-group">
-                              <label class="govuk-label govuk-date-input__label" for="passport-issued-day">
-                                Code
-                              </label>
-                              <input class="govuk-input govuk-date-input__input govuk-input--width-3"
-                                id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric" value="788" >
-                            </div>
-                          </div>
-                          <div class="govuk-date-input__item">
-                            <div class="govuk-form-group">
-                              <label class="govuk-label govuk-date-input__label" for="passport-issued-month">
-                                Size
-                              </label>
-                              <input class="govuk-input govuk-date-input__input govuk-input--size"
-                                id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric" value="185/75-16"
-                                >
-                            </div>
-                          </div>
-                          <div class="govuk-date-input__item">
-                            <div class="govuk-form-group">
-                              <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
-                                Ply
-                              </label>
-                              <input class="govuk-input govuk-date-input__input govuk-input--ply"
-                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
-                                >
-                            </div>
-                          </div>
-                          <div class="govuk-date-input__item">
-                            <div class="govuk-form-group">
-                              <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
-                                Load index
-                              </label>
-                              <input class="govuk-input govuk-date-input__input govuk-input--width-3"
-                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="114"
-                                >
-                            </div>
-                          </div>
-                          <div class="govuk-date-input__item">
-                            <div class="govuk-form-group">
-                              <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
-                                SR
-                              </label>
-                              <select class="govuk-select govuk-select--sr" id="sort" name="sort" >
-                                <option value="published" selected></option>
-                                <option value="published">A7</option>
-                                <option value="updated">A8</option>
-                                <option value="updated">B</option>
-                                <option value="updated">C</option>
-                                <option value="updated">D</option>
-                              </select>
-                            </div>
-                          </div>
-                          <div class="govuk-date-input__item">
-                            <div class="govuk-form-group">
-                              <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
-                                S/D
-                              </label>
-                              <select class="govuk-select govuk-select--tyres" id="sort" name="sort" >
-                                <option value="updated" selected></option>
-                                <option value="published">S</option>
-                                <option value="updated">D</option>
-                              </select>
-                            </div>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                              Load index
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-3"
+                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
+                              >
                           </div>
                         </div>
-                      </fieldset>
-                    </div>
-  
-                    <div id="tyre-axle5" class="govuk-form-group plates" style="display:none;">
-                      <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
-                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-                          <h1 class="govuk-fieldset__heading">
-                            Axle 5 tyre details
-                          </h1>
-                        </legend>
-                        <div class="govuk-button-group">
-                          <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">
-                            Search for tyre details
-                          </button>
-  
-                          <button type="submit" class="govuk-button govuk-button--warning" data-module="govuk-button">
-                            Remove tyre
-                          </button>
-                        </div>
-  
-                        <div class="govuk-date-input" id="passport-issued">
-                          <div class="govuk-date-input__item">
-                            <div class="govuk-form-group">
-                              <label class="govuk-label govuk-date-input__label" for="passport-issued-day">
-                                Code
-                              </label>
-                              <input class="govuk-input govuk-date-input__input govuk-input--width-3"
-                                id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric" value="788" >
-                            </div>
-                          </div>
-                          <div class="govuk-date-input__item">
-                            <div class="govuk-form-group">
-                              <label class="govuk-label govuk-date-input__label" for="passport-issued-month">
-                                Size
-                              </label>
-                              <input class="govuk-input govuk-date-input__input govuk-input--size"
-                                id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric" value="185/75-16"
-                                >
-                            </div>
-                          </div>
-                          <div class="govuk-date-input__item">
-                            <div class="govuk-form-group">
-                              <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
-                                Ply
-                              </label>
-                              <input class="govuk-input govuk-date-input__input govuk-input--ply"
-                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
-                                >
-                            </div>
-                          </div>
-                          <div class="govuk-date-input__item">
-                            <div class="govuk-form-group">
-                              <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
-                                Load index
-                              </label>
-                              <input class="govuk-input govuk-date-input__input govuk-input--width-3"
-                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="114"
-                                >
-                            </div>
-                          </div>
-                          <div class="govuk-date-input__item">
-                            <div class="govuk-form-group">
-                              <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
-                                SR
-                              </label>
-                              <select class="govuk-select govuk-select--sr" id="sort" name="sort" >
-                                <option value="published" selected></option>
-                                <option value="published">A7</option>
-                                <option value="updated">A8</option>
-                                <option value="updated">B</option>
-                                <option value="updated">C</option>
-                                <option value="updated">D</option>
-                              </select>
-                            </div>
-                          </div>
-                          <div class="govuk-date-input__item">
-                            <div class="govuk-form-group">
-                              <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
-                                S/D
-                              </label>
-                              <select class="govuk-select govuk-select--tyres" id="sort" name="sort" >
-                                <option value="updated" selected></option>
-                                <option value="published">S</option>
-                                <option value="updated">D</option>
-                              </select>
-                            </div>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                              SR
+                            </label>
+                            <select class="govuk-select govuk-select--sr" id="sort" name="sort">
+                              <option value="published" selected></option>
+                              <option value="published">A7</option>
+                              <option value="updated">A8</option>
+                              <option value="updated">B</option>
+                              <option value="updated">C</option>
+                              <option value="updated">D</option>
+                            </select>
                           </div>
                         </div>
-                      </fieldset>
-                    </div>
-  
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                              S/D
+                            </label>
+                            <select class="govuk-select govuk-select--tyres" id="sort" name="sort">
+                              <option value="updated" selected></option>
+                              <option value="published">S</option>
+                              <option value="updated">D</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+
+                  
+                  <div id="tyre-axle2" class="govuk-form-group" style="display:none;">
+                    <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
+                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                        <h1 class="govuk-fieldset__heading">
+                          Axle 2 tyre details
+                        </h1>
+                      </legend>
+                      <div class="govuk-button-group">
+                        <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+                          Search for tyre details
+                        </button>
+
+                        <button type="button" class="govuk-button govuk-button--warning remove-tyre-button" data-axle="1">
+                          Remove tyre
+                        </button>
+                      </div> 
+
+                      <div class="govuk-date-input" id="passport-issued">
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-day">
+                              Code
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-3"
+                              id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric">
+                          </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-month">
+                              Size
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--size"
+                              id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric">
+                          </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                              Ply
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--ply"
+                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
+                              >
+                          </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                              Load index
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-3"
+                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
+                              >
+                          </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                              SR
+                            </label>
+                            <select class="govuk-select govuk-select--sr" id="sort" name="sort">
+                              <option value="published" selected></option>
+                              <option value="published">A7</option>
+                              <option value="updated">A8</option>
+                              <option value="updated">B</option>
+                              <option value="updated">C</option>
+                              <option value="updated">D</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                              S/D
+                            </label>
+                            <select class="govuk-select govuk-select--tyres" id="sort" name="sort">
+                              <option value="updated" selected></option>
+                              <option value="published">S</option>
+                              <option value="updated">D</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+
+                  
+                  <div id="tyre-axle3" class="govuk-form-group" style="display:none;">
+                    <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
+                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                        <h1 class="govuk-fieldset__heading">
+                          Axle 3 tyre details
+                        </h1>
+                      </legend>
+                      <div class="govuk-button-group">
+                        <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+                          Search for tyre details
+                        </button>
+
+                        <button type="button" class="govuk-button govuk-button--warning remove-tyre-button" data-axle="1">
+                          Remove tyre
+                        </button>
+                      </div> 
+
+                      <div class="govuk-date-input" id="passport-issued">
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-day">
+                              Code
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-3"
+                              id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric">
+                          </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-month">
+                              Size
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--size"
+                              id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric">
+                          </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                              Ply
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--ply"
+                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
+                              >
+                          </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                              Load index
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-3"
+                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
+                              >
+                          </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                              SR
+                            </label>
+                            <select class="govuk-select govuk-select--sr" id="sort" name="sort">
+                              <option value="published" selected></option>
+                              <option value="published">A7</option>
+                              <option value="updated">A8</option>
+                              <option value="updated">B</option>
+                              <option value="updated">C</option>
+                              <option value="updated">D</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                              S/D
+                            </label>
+                            <select class="govuk-select govuk-select--tyres" id="sort" name="sort">
+                              <option value="updated" selected></option>
+                              <option value="published">S</option>
+                              <option value="updated">D</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+
+                  
+                  <div id="tyre-axle4" class="govuk-form-group" style="display:none;">
+                    <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
+                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                        <h1 class="govuk-fieldset__heading">
+                          Axle 4 tyre details
+                        </h1>
+                      </legend>
+                      <div class="govuk-button-group">
+                        <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+                          Search for tyre details
+                        </button>
+
+                        <button type="button" class="govuk-button govuk-button--warning remove-tyre-button" data-axle="1">
+                          Remove tyre
+                        </button>
+                      </div> 
+
+                      <div class="govuk-date-input" id="passport-issued">
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-day">
+                              Code
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-3"
+                              id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric">
+                          </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-month">
+                              Size
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--size"
+                              id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric">
+                          </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                              Ply
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--ply"
+                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
+                              >
+                          </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                              Load index
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-3"
+                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
+                              >
+                          </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                              SR
+                            </label>
+                            <select class="govuk-select govuk-select--sr" id="sort" name="sort">
+                              <option value="published" selected></option>
+                              <option value="published">A7</option>
+                              <option value="updated">A8</option>
+                              <option value="updated">B</option>
+                              <option value="updated">C</option>
+                              <option value="updated">D</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                              S/D
+                            </label>
+                            <select class="govuk-select govuk-select--tyres" id="sort" name="sort">
+                              <option value="updated" selected></option>
+                              <option value="published">S</option>
+                              <option value="updated">D</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+
+                  <div id="tyre-axle5" class="govuk-form-group" style="display:none;">
+                    <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
+                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                        <h1 class="govuk-fieldset__heading">
+                          Axle 5 tyre details
+                        </h1>
+                      </legend>
+                      <div class="govuk-button-group">
+                        <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+                          Search for tyre details
+                        </button>
+
+                        <button type="button" class="govuk-button govuk-button--warning remove-tyre-button" data-axle="1">
+                          Remove tyre
+                        </button>
+                      </div> 
+
+                      <div class="govuk-date-input" id="passport-issued">
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-day">
+                              Code
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-3"
+                              id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric">
+                          </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-month">
+                              Size
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--size"
+                              id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric">
+                          </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                              Ply
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--ply"
+                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
+                              >
+                          </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                              Load index
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-3"
+                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
+                              >
+                          </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                              SR
+                            </label>
+                            <select class="govuk-select govuk-select--sr" id="sort" name="sort">
+                              <option value="published" selected></option>
+                              <option value="published">A7</option>
+                              <option value="updated">A8</option>
+                              <option value="updated">B</option>
+                              <option value="updated">C</option>
+                              <option value="updated">D</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                              S/D
+                            </label>
+                            <select class="govuk-select govuk-select--tyres" id="sort" name="sort">
+                              <option value="updated" selected></option>
+                              <option value="published">S</option>
+                              <option value="updated">D</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+
+
+              <button type="button" class="govuk-button govuk-button--secondary add-axle-button">
+                Add axle
+              </button>
 
                 </li>
               </ul>
@@ -2304,6 +2374,15 @@ href: "create-psv"
                   </div>
 
                   <div class="govuk-form-group">
+                    <h1 class="govuk-label-wrapper">
+                      <label class="govuk-label govuk-label--s" for="event-name">
+                        Wheelchair capacity
+                      </label>
+                    </h1>
+                    <input class="govuk-input govuk-input--width-2" id="event-name" name="eventName" type="text" value="2">
+                  </div>
+
+                  <div class="govuk-form-group">
                     <fieldset class="govuk-fieldset">
                       <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                         <h1 class="govuk-fieldset__heading">
@@ -2430,169 +2509,6 @@ href: "create-psv"
             </div>
           </div>
 
-          <!-- <div class="govuk-accordion__section govuk-accordion__section-vtm">
-            <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
-              <h2 class="govuk-accordion__section-heading">
-                <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm" id="accordion-with-summary-sections-heading-2">
-                  Test record history
-                </span>
-              </h2>
-              <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
-                Workspaces, tools and techniques, user stories, planning.
-              </div>
-            </div>
-            <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
-              <ul class="govuk-list">
-                <li>
-                  
-                  <table class="govuk-table">
-                    <thead class="govuk-table__head">
-                      <tr class="govuk-table__row">
-                        <th scope="col" class="govuk-table__header app-custom-class">Date</th>
-                        <th scope="col" class="govuk-table__header app-custom-class">Test type</th>
-                        <th scope="col" class="govuk-table__header app-custom-class">Result</th>
-                        <th scope="col" class="govuk-table__header app-custom-class"></th>
-                      </tr>
-                    </thead>
-                    <tbody class="govuk-table__body">
-                      <tr class="govuk-table__row">
-                        <th scope="row" class="govuk-table__header">14/01/2025 13:43</th>
-                        <td class="govuk-table__cell">Annual test</td>
-                        <td class="govuk-table__cell">Pass</td>
-                        <td class="govuk-table__cell"><a href="/">View</a></td>
-                      </tr>
-                      <tr class="govuk-table__row">
-                        <th scope="row" class="govuk-table__header">13/01/2025 15:04</th>
-                        <td class="govuk-table__cell">Annual test</td>
-                        <td class="govuk-table__cell">Fail</td>
-                        <td class="govuk-table__cell"><a href="/">View</a></td>
-                      </tr>
-                    </tbody>
-                  </table>
-
-                </li>
-              </ul>
-            </div>
-          </div> -->
-          <!-- <div class="govuk-accordion__section govuk-accordion__section-vtm">
-            
-          <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
-              <h2 class="govuk-accordion__section-heading">
-                <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm" id="accordion-with-summary-sections-heading-2">
-                  Technical records history
-                </span>
-              </h2>
-              <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
-                Workspaces, tools and techniques, user stories, planning.
-              </div>
-            </div>
-            <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
-              <ul class="govuk-list">
-                <li>
-                  
-                  <table class="govuk-table">
-                    <thead class="govuk-table__head">
-                      <tr class="govuk-table__row">
-                        <th scope="col" class="govuk-table__header app-custom-class">Status</th>
-                        <th scope="col" class="govuk-table__header app-custom-class">Reason for creation</th>
-                        <th scope="col" class="govuk-table__header app-custom-class">Created by</th>
-                        <th scope="col" class="govuk-table__header app-custom-class">Date</th>
-                        <th scope="col" class="govuk-table__header app-custom-class"></th>
-                      </tr>
-                    </thead>
-                    <tbody class="govuk-table__body">
-                      <tr class="govuk-table__row">
-                        <th scope="row" class="govuk-table__header">Current</th>
-                        <td class="govuk-table__cell">Test</td>
-                        <td class="govuk-table__cell">User</td>
-                        <td class="govuk-table__cell">16/01/2025 09:36</td>
-                      </tr>
-                      <tr class="govuk-table__row">
-                        <th scope="row" class="govuk-table__header">Archived</th>
-                        <td class="govuk-table__cell">Test</td>
-                        <td class="govuk-table__cell">User</td>
-                        <td class="govuk-table__cell">15/01/2025 10:17</td>
-                        <td class="govuk-table__cell"><a href="/">View</a></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  
-                </li>
-              </ul>
-            </div>
-          </div> -->
-          <!-- <div class="govuk-accordion__section govuk-accordion__section-vtm">
-          <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
-            <h2 class="govuk-accordion__section-heading">
-              <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm" id="accordion-with-summary-sections-heading-2">
-                Last applicant
-              </span>
-            </h2>
-            <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
-              Contact details for the last applicant.
-            </div>
-            <div class="govuk-accordion__section-summary-padding"></div>
-          </div>
-          <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
-            <ul class="govuk-list">
-              <li>
-                
-                <fieldset class="govuk-fieldset">
-                  <div class="govuk-form-group">
-                    <label class="govuk-label" for="address-line-1">
-                      Name or company
-                    </label>
-                    <input class="govuk-input govuk-!-width-two-thirds" id="address-line-1" name="addressLine1" type="text" autocomplete="address-line1">
-                  </div>
-                  <div class="govuk-form-group">
-                    <label class="govuk-label" for="address-line-1">
-                      Address line 1
-                    </label>
-                    <input class="govuk-input" id="address-line-1" name="addressLine1" type="text" autocomplete="address-line1">
-                  </div>
-                  <div class="govuk-form-group">
-                    <label class="govuk-label" for="address-line-2">
-                      Address line 2 (optional)
-                    </label>
-                    <input class="govuk-input" id="address-line-2" name="addressLine2" type="text" autocomplete="address-line2">
-                  </div>
-                  <div class="govuk-form-group">
-                    <label class="govuk-label" for="address-town">
-                      Town or city
-                    </label>
-                    <input class="govuk-input govuk-!-width-two-thirds" id="address-town" name="addressTown" type="text" autocomplete="address-level2">
-                  </div>
-                  <div class="govuk-form-group">
-                    <label class="govuk-label" for="address-county">
-                      County
-                    </label>
-                    <input class="govuk-input govuk-!-width-two-thirds" id="address-county" name="addressCounty" type="text">
-                  </div>
-                  <div class="govuk-form-group">
-                    <label class="govuk-label" for="address-postcode">
-                      Postcode
-                    </label>
-                    <input class="govuk-input govuk-input--width-10" id="address-postcode" name="addressPostcode" type="text" autocomplete="postal-code">
-                  </div>
-                  <div class="govuk-form-group">
-                    <label class="govuk-label" for="address-postcode">
-                      Phone number
-                    </label>
-                    <input class="govuk-input govuk-input--width-10" id="address-postcode" name="addressPostcode" type="text" autocomplete="postal-code">
-                  </div>
-                  <div class="govuk-form-group">
-                    <label class="govuk-label" for="address-postcode">
-                      Email address
-                    </label>
-                    <input class="govuk-input govuk-!-width-two-thirds" id="address-postcode" name="addressPostcode" type="text" autocomplete="postal-code">
-                  </div>
-                </fieldset>
-                
-              </li>
-            </ul>
-          </div>
-        </div> -->
-
           <!--BRAKES-->
           <div class="govuk-accordion__section govuk-accordion__section-vtm untagged">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
@@ -2624,9 +2540,9 @@ href: "create-psv"
                     </div>
                     <div class="govuk-input__wrapper">
                       <div class="govuk-input__prefix" aria-hidden="true">025</div>
-                      <select class="govuk-select" id="sort" name="sort" >
-                        <option value="published">Enter brake code</option>
-                        <option value="updated" selected>111</option>
+                      <select class="govuk-select" id="sort" name="sort">
+                        <option value="published" >Enter brake code</option>
+                        <option value="updated"selected>111</option>
                         <option value="views">121</option>
                         <option value="comments">122</option>
                         <option value="comments">12F</option>
@@ -2643,7 +2559,7 @@ href: "create-psv"
                       </label>
                     </h1>
                     <input class="govuk-input govuk-input--width-20" id="event-name" name="eventName" type="text"
-                      value="2 AXLE NO SPLIT" >
+                      value="2 AXLE NO SPLIT" disabled>
                   </div>
 
                   <div class="govuk-form-group">
@@ -2653,7 +2569,7 @@ href: "create-psv"
                       </label>
                     </h1>
                     <input class="govuk-input govuk-input--width-20" id="event-name" name="eventName" type="text"
-                      value="PARKING BRAKE ON AXLE 1" >
+                      value="PARKING BRAKE ON AXLE 1" disabled>
                   </div>
 
                   <div class="govuk-form-group">
@@ -2663,7 +2579,7 @@ href: "create-psv"
                       </label>
                     </h1>
                     <input class="govuk-input govuk-input--width-20" id="event-name" name="eventName" type="text"
-                      value="AXLE 1" >
+                      value="AXLE 1" disabled>
                   </div>
 
 
@@ -2678,44 +2594,44 @@ href: "create-psv"
                       </legend>
                       <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="brakeelectric" name="brakeelectric" type="radio"
-                            value="brakeelectric" checked >
-                          <label class="govuk-label govuk-radios__label" for="brakeelectric">
+                          <input class="govuk-radios__input" id="whereDoYouLive" name="whereDoYouLive" type="radio"
+                            value="england">
+                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
                             Electric
                           </label>
                         </div>
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="brake-2" name="brake" type="radio"
-                            value="brakeexhaust" >
-                          <label class="govuk-label govuk-radios__label" for="brake-2">
+                          <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
+                            value="scotland">
+                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
                             Exhaust
                           </label>
                         </div>
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="brake-3" name="brake" type="radio"
-                            value="brake3" >
-                          <label class="govuk-label govuk-radios__label" for="brake-3">
+                          <input class="govuk-radios__input" id="whereDoYouLive-3" name="whereDoYouLive" type="radio"
+                            value="wales">
+                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-3">
                             Friction
                           </label>
                         </div>
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="brake-4" name="brake" type="radio"
-                            value="brake4" >
-                          <label class="govuk-label govuk-radios__label" for="brake-4">
+                          <input class="govuk-radios__input" id="whereDoYouLive-4" name="whereDoYouLive" type="radio"
+                            value="northern-ireland">
+                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-4">
                             Hydraulic
                           </label>
                         </div>
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="brake-5" name="brake" type="radio"
-                            value="brake5" >
-                          <label class="govuk-label govuk-radios__label" for="brake-5">
+                          <input class="govuk-radios__input" id="whereDoYouLive-4" name="whereDoYouLive" type="radio"
+                            value="northern-ireland">
+                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-4">
                             Other
                           </label>
                         </div>
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="brake-6" name="brake" type="radio"
-                            value="brake6" >
-                          <label class="govuk-label govuk-radios__label" for="brake-6">
+                          <input class="govuk-radios__input" id="whereDoYouLive-4" name="whereDoYouLive" type="radio"
+                            value="northern-ireland">
+                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-4">
                             None
                           </label>
                         </div>
@@ -2734,44 +2650,44 @@ href: "create-psv"
                       </legend>
                       <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="brake2-1" name="brake2-1" type="radio"
-                            value="brake2-1" checked >
-                          <label class="govuk-label govuk-radios__label" for="brake2-1">
+                          <input class="govuk-radios__input" id="whereDoYouLive" name="whereDoYouLive" type="radio"
+                            value="england">
+                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
                             Electric
                           </label>
                         </div>
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="brake2-1-2" name="brake2-1" type="radio"
-                            value="brake2-1-2" >
-                          <label class="govuk-label govuk-radios__label" for="brake2-1-2">
+                          <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
+                            value="scotland">
+                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
                             Exhaust
                           </label>
                         </div>
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="brake2-1-3" name="brake2-1" type="radio"
-                            value="brake2-1-3" >
-                          <label class="govuk-label govuk-radios__label" for="brake2-1-3">
+                          <input class="govuk-radios__input" id="whereDoYouLive-3" name="whereDoYouLive" type="radio"
+                            value="wales">
+                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-3">
                             Friction
                           </label>
                         </div>
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="brake2-1-4" name="brake2-1" type="radio"
-                            value="brake2-1-4" >
-                          <label class="govuk-label govuk-radios__label" for="brake2-1-4">
+                          <input class="govuk-radios__input" id="whereDoYouLive-4" name="whereDoYouLive" type="radio"
+                            value="northern-ireland">
+                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-4">
                             Hydraulic
                           </label>
                         </div>
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="brake2-1-5" name="brake2-1" type="radio"
-                            value="brake2-1-5" >
-                          <label class="govuk-label govuk-radios__label" for="brake2-1-5">
+                          <input class="govuk-radios__input" id="whereDoYouLive-4" name="whereDoYouLive" type="radio"
+                            value="northern-ireland">
+                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-4">
                             Other
                           </label>
                         </div>
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="brake2-1-6" name="brake2-1" type="radio"
-                            value="brake2-1-6" >
-                          <label class="govuk-label govuk-radios__label" for="brake2-1-6">
+                          <input class="govuk-radios__input" id="whereDoYouLive-4" name="whereDoYouLive" type="radio"
+                            value="northern-ireland">
+                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-4">
                             None
                           </label>
                         </div>
@@ -2796,7 +2712,7 @@ href: "create-psv"
                             <div class="govuk-input__wrapper">
                               <input class="govuk-input govuk-date-input__input govuk-input--width-5"
                                 id="passport-issued-year" name="passport-issued-year" type="text" value="8811"
-                                inputmode="numeric" >
+                                inputmode="numeric" disabled>
 
                             </div>
                           </div>
@@ -2810,7 +2726,7 @@ href: "create-psv"
                             <div class="govuk-input__wrapper">
                               <input class="govuk-input govuk-date-input__input govuk-input--width-5"
                                 id="passport-issued-year" name="passport-issued-year" type="text" value="4406"
-                                inputmode="numeric" >
+                                inputmode="numeric" disabled>
 
                             </div>
                           </div>
@@ -2824,7 +2740,7 @@ href: "create-psv"
                             <div class="govuk-input__wrapper">
                               <input class="govuk-input govuk-date-input__input govuk-input--width-5"
                                 id="passport-issued-year" name="passport-issued-year" type="text" value="3313"
-                                inputmode="numeric" >
+                                inputmode="numeric" disabled>
 
                             </div>
                           </div>
@@ -2851,7 +2767,7 @@ href: "create-psv"
                             <div class="govuk-input__wrapper">
                               <input class="govuk-input govuk-date-input__input govuk-input--width-5"
                                 id="passport-issued-year" name="passport-issued-year" type="text" value="2221"
-                                inputmode="numeric" >
+                                inputmode="numeric" disabled>
 
                             </div>
                           </div>
@@ -2865,7 +2781,7 @@ href: "create-psv"
                             <div class="govuk-input__wrapper">
                               <input class="govuk-input govuk-date-input__input govuk-input--width-5"
                                 id="passport-issued-year" name="passport-issued-year" type="text" value="3470"
-                                inputmode="numeric" >
+                                inputmode="numeric" disabled>
 
                             </div>
                           </div>
@@ -2879,7 +2795,7 @@ href: "create-psv"
                             <div class="govuk-input__wrapper">
                               <input class="govuk-input govuk-date-input__input govuk-input--width-5"
                                 id="passport-issued-year" name="passport-issued-year" type="text" value="6940"
-                                inputmode="numeric" >
+                                inputmode="numeric" disabled>
 
                             </div>
                           </div>
@@ -2890,7 +2806,7 @@ href: "create-psv"
                   </div>
 
 
-                  <div class="govuk-form-group">
+ <div class="govuk-form-group">
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                       <h1 class="govuk-fieldset__heading">
                         Parking brake
@@ -2904,28 +2820,26 @@ href: "create-psv"
                       </strong>
                     </div>
                   </div>
-                      
-
 
                       <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-                        <div class="govuk-checkboxes__item -vtm" id="brake-axle1" style="display: none;">
-                          <input class="govuk-checkboxes__input -vtm" id="brake-axle1-checkbox" name="brake-axle1"
+                        <div class="govuk-checkboxes__item" id="brake-axle1" style="display: none;">
+                          <input class="govuk-checkboxes__input" id="brake-axle1-checkbox" name="brake-axle1"
                             type="checkbox" checked>
-                          <label class="govuk-label govuk-checkboxes__label -vtm" for="brake-axle1-checkbox">
+                          <label class="govuk-label govuk-checkboxes__label" for="brake-axle1-checkbox">
                             Axle 1 Brake
                           </label>
                         </div>
-                        <div class="govuk-checkboxes__item -vtm" id="brake-axle2" style="display: none;">
-                          <input class="govuk-checkboxes__input -vtm" id="brake-axle2-checkbox" name="brake-axle2"
+                        <div class="govuk-checkboxes__item" id="brake-axle2" style="display: none;">
+                          <input class="govuk-checkboxes__input" id="brake-axle2-checkbox" name="brake-axle2"
                             type="checkbox" checked>
-                          <label class="govuk-label govuk-checkboxes__label -vtm" for="brake-axle2-checkbox">
+                          <label class="govuk-label govuk-checkboxes__label" for="brake-axle2-checkbox">
                             Axle 2 Brake
                           </label>
                         </div>
-                        <div class="govuk-checkboxes__item -vtm" id="brake-axle3" style="display: none;">
-                          <input class="govuk-checkboxes__input -vtm" id="brake-axle3-checkbox" name="brake-axle3"
+                        <div class="govuk-checkboxes__item" id="brake-axle3" style="display: none;">
+                          <input class="govuk-checkboxes__input" id="brake-axle3-checkbox" name="brake-axle3"
                             type="checkbox">
-                          <label class="govuk-label govuk-checkboxes__label -vtm" for="brake-axle3-checkbox">
+                          <label class="govuk-label govuk-checkboxes__label" for="brake-axle3-checkbox">
                             Axle 3 Brake
                           </label>
                         </div>
@@ -2946,6 +2860,7 @@ href: "create-psv"
                       </div>
 
 
+
                 </li>
               </ul>
             </div>
@@ -2961,7 +2876,7 @@ href: "create-psv"
                 </span>
               </h2>
               <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
-                Wheelchair capacity, accessibility, schedules.
+                DDA certificate, accessibility, schedules.
               </div>
               <div class="govuk-accordion__section-summary-padding"></div>
             </div>
@@ -3004,14 +2919,6 @@ href: "create-psv"
                     </fieldset>
                   </div>
 
-                  <div class="govuk-form-group">
-                    <h1 class="govuk-label-wrapper">
-                      <label class="govuk-label govuk-label--s" for="event-name">
-                        Wheelchair capacity
-                      </label>
-                    </h1>
-                    <input class="govuk-input govuk-input--width-2" id="event-name" name="eventName" type="text" value="2" >
-                  </div>
 
                   <div class="govuk-form-group govuk-character-count" data-module="govuk-character-count"
                     data-maxlength="1024">
@@ -3254,111 +3161,6 @@ href: "create-psv"
                     </dd>
                   </div>
                 </dl>-->
-
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <!--TECH RECORD HISTORY-->
-          <div class="govuk-accordion__section govuk-accordion__section-vtm records">
-            <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
-              <h2 class="govuk-accordion__section-heading">
-                <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
-                  id="accordion-with-summary-sections-heading-2">
-                  Technical records history
-                </span>
-              </h2>
-              <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
-                View technical records history.
-              </div>
-              <div class="govuk-accordion__section-summary-padding"></div>
-            </div>
-            <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
-              <hr class="expanded">
-              </hr>
-              <ul class="govuk-list">
-                <li>
-
-                  <h3 class="govuk-heading-s">Technical records history</h3>
-                  <table class="govuk-table">
-                    <thead class="govuk-table__head">
-                      <tr class="govuk-table__row">
-                        <th scope="col" class="govuk-table__header">Status</th>
-                        <th scope="col" class="govuk-table__header">Reason for creation</th>
-                        <th scope="col" class="govuk-table__header">Created by</th>
-                        <th scope="col" class="govuk-table__header">Date</th>
-                      </tr>
-                    </thead>
-                    <tbody class="govuk-table__body">
-                      <tr class="govuk-table__row">
-                        <td scope="row" class="govuk-table__cell">Current</td>
-                        <td class="govuk-table__cell">User testing</td>
-                        <td class="govuk-table__cell">Ben</td>
-                        <td class="govuk-table__cell">05/02/2024 at 11:49</td>
-                      </tr>
-                      <tr class="govuk-table__row archive-row">
-                        <td scope="row" class="govuk-table__cell"><a href="#" class="archive-link">Archived</a></td>
-                        <td class="govuk-table__cell"><a href="#" class="archive-link">User testing</a></td>
-                        <td class="govuk-table__cell"><a href="#" class="archive-link">Ben</a></td>
-                        <td class="govuk-table__cell"><a href="#" class="archive-link">04/01/2024 at 09:12</a></td>
-                      </tr>
-                    </tbody>
-                  </table>
-
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <!--TEST RECORD HISTORY-->
-          <div class="govuk-accordion__section govuk-accordion__section-vtm records">
-            <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
-              <h2 class="govuk-accordion__section-heading">
-                <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
-                  id="accordion-with-summary-sections-heading-2">
-                  Test records
-                </span>
-              </h2>
-              <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
-                Create and view test records.
-              </div>
-              <div class="govuk-accordion__section-summary-padding"></div>
-            </div>
-            <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
-              <hr class="expanded">
-              </hr>
-              <ul class="govuk-list">
-                <li>
-
-                  {{ govukButton({
-                    text: "Create test",
-                    classes: "govuk-button--secondary"
-                    }) }}
-
-                  <h3 class="govuk-heading-s">Test records history</h3>
-                  <table class="govuk-table test-records-table">
-                    <thead class="govuk-table__head">
-                      <tr class="govuk-table__row">
-                        <th scope="col" class="govuk-table__header">Test type</th>
-                        <th scope="col" class="govuk-table__header">Result</th>
-                        <th scope="col" class="govuk-table__header">Date</th>
-                      </tr>
-                    </thead>
-                    <tbody class="govuk-table__body">
-                      <tr class="govuk-table__row">
-                        <td scope="row" class="govuk-table__cell">Annual test</td>
-                        <td class="govuk-table__cell">Pass</td>
-                        <td class="govuk-table__cell">05/02/2024 at 11:49</td>
-                      </tr>
-                      <tr class="govuk-table__row archive-row">
-                        <td scope="row" class="govuk-table__cell"><a href="#" class="archive-link">Annual test</a></td>
-                        <td class="govuk-table__cell"><a href="#" class="archive-link">Pass</a></td>
-                        <td class="govuk-table__cell"><a href="#" class="archive-link">04/02/2023 at 09:12</a></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  
 
                 </li>
               </ul>

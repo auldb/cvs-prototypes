@@ -25,42 +25,39 @@ href: "create-psv"
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     const axleInput = document.getElementById('number-of-axles');  
-    const warningDiv = document.getElementById('tyre-warning');
-    const weightsWarning = document.getElementById('weights-warning'); 
+    const axlesButton = document.querySelector('.axles-button');
 
-    const axleFields = ['axle1to2', 'axle2to3', 'axle3to4', 'axle4to5', 'axle5to6'];
-    const weightFields = ['weight-axle1', 'weight-axle2', 'weight-axle3', 'weight-axle4', 'weight-axle5'];
-    const tyreFields = ['tyre-axle1', 'tyre-axle2', 'tyre-axle3', 'tyre-axle4', 'tyre-axle5'];
+    // Confirm / Reset number of axles button
+    if (axlesButton && axleInput) {
+        axlesButton.classList.add('govuk-button');
 
-    function toggleFields() {
-        const axlesValue = axleInput.value.trim();
-        const axles = axlesValue === '' ? 0 : parseInt(axlesValue, 10);
+        function confirmHandler(event) {
+            event.preventDefault();
+            axleInput.disabled = true;
 
-        warningDiv.style.display = axles <= 0 ? 'block' : 'none';
-        weightsWarning.style.display = axles <= 0 ? 'block' : 'none';
+            axlesButton.textContent = 'Remove and clear all axles';
+            axlesButton.classList.add('govuk-button--warning');
 
-        axleFields.forEach((field, index) => {
-            const axleField = document.getElementById(field);
-            if (axleField) axleField.style.display = axles > index ? 'block' : 'none';
-        });
+            axlesButton.removeEventListener('click', confirmHandler);
+            axlesButton.addEventListener('click', resetHandler);
+        }
 
-        weightFields.forEach((field, index) => {
-            const weightField = document.getElementById(field);
-            if (weightField) weightField.style.display = axles > index ? 'block' : 'none';
-        });
+        function resetHandler(event) {
+            event.preventDefault();
+            axleInput.disabled = false;
+            axleInput.value = '';
 
-        tyreFields.forEach((field, index) => {
-            const tyreField = document.getElementById(field);
-            if (tyreField) tyreField.style.display = axles > index ? 'block' : 'none';
-        });
+            axlesButton.textContent = 'Confirm number of axles';
+            axlesButton.classList.remove('govuk-button--warning');
+
+            axlesButton.removeEventListener('click', resetHandler);
+            axlesButton.addEventListener('click', confirmHandler);
+        }
+
+        axlesButton.addEventListener('click', confirmHandler);
     }
 
-    axleInput.addEventListener('input', toggleFields);
-    axleInput.addEventListener('change', toggleFields);
-    axleInput.addEventListener('blur', toggleFields);
-
-    setTimeout(toggleFields, 100);
-
+    // Filters (unchanged)
     const filters = [
         { id: 'plates', className: 'plates' },
         { id: 'required', className: 'required' },
@@ -89,14 +86,11 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    filters.forEach(({ id, className }) => {
+    filters.forEach(({ id }) => {
         const button = document.getElementById(id);
         const text = button?.querySelector('.app-c-filter-summary__remove-filter-text');
 
-        if (!button || !text) {
-            console.error(`Error: Filter button or text not found for ${id}`);
-            return;
-        }
+        if (!button || !text) return;
 
         button.addEventListener('click', function (event) {
             event.preventDefault();
@@ -106,7 +100,9 @@ document.addEventListener('DOMContentLoaded', function () {
             if (id === 'adr') {
                 text.innerHTML = filterStates[id] ? '× ADR' : 'ADR';
             } else {
-                text.innerHTML = filterStates[id] ? `× ${id.charAt(0).toUpperCase() + id.slice(1)}` : id.charAt(0).toUpperCase() + id.slice(1);
+                text.innerHTML = filterStates[id] 
+                    ? `× ${id.charAt(0).toUpperCase() + id.slice(1)}` 
+                    : id.charAt(0).toUpperCase() + id.slice(1);
             }
 
             button.classList.toggle('active-filter', filterStates[id]);
@@ -381,16 +377,13 @@ document.addEventListener('DOMContentLoaded', function () {
                     </fieldset>
                   </div>
 
-                      <div class="govuk-form-group">
-                        <label class="govuk-label" for="sort">
-                          <strong>
-                            Vehicle configuration
+                    <div class="govuk-form-group">
+                      <label class="govuk-label" for="address-postcode">
+                        <strong>Vehicle configuration
                           </strong>
-                        </label>
-                        <select class="govuk-select" id="sort" name="sort">
-                          <option value="published" selected>Other</option>
-                        </select>
-                      </div>
+                      </label>
+                      <input class="govuk-input govuk-input--width-10" id="address-postcode" name="addressPostcode" type="text" autocomplete="postal-code" value="Other" disabled>
+                    </div>
 
                       <div class="govuk-form-group">
                         <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
@@ -489,22 +482,20 @@ document.addEventListener('DOMContentLoaded', function () {
                         </fieldset>
                       </div>
 
-                      <div class="govuk-form-group">
-                        <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
-                          <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-                            <h1 class="govuk-fieldset__heading">
-                              Number of axles
-                            </h1>
-                          </legend>
-                          <div id="event-name-hint" class="govuk-hint">
-                            This will affect how many axle-related fields appear in the record
-                          </div>
-                          <div class="govuk-input__wrapper">
-                            <input class="govuk-input govuk-input--width-2" id="number-of-axles" name="number-of-axles"
-                              type="text" inputmode="numeric">
-                          </div>
-                        </fieldset>
+
+                  <div class="govuk-form-group required plates">
+                    <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
+                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                        <h1 class="govuk-fieldset__heading">
+                          Number of axles
+                        </h1>
+                      </legend>
+                      <div class="govuk-input__wrapper">
+                        <input class="govuk-input govuk-input--width-2" id="number-of-axles" name="number-of-axles"
+                          type="text" inputmode="numeric">                  
                       </div>
+                    </fieldset>
+                  </div>
 
 
                 </li>
@@ -513,7 +504,7 @@ document.addEventListener('DOMContentLoaded', function () {
           </div>
 
           <!--LAST APPLICANT-->
-          <div class="govuk-accordion__section govuk-accordion__section-vtm">
+          <div class="govuk-accordion__section govuk-accordion__section-vtm plates">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
               <h2 class="govuk-accordion__section-heading">
                 <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
@@ -534,49 +525,65 @@ document.addEventListener('DOMContentLoaded', function () {
                   <fieldset class="govuk-fieldset">
                     <div class="govuk-form-group">
                       <label class="govuk-label" for="address-line-1">
+                        <strong>
                         Name or company
+                      </strong>
                       </label>
                       <input class="govuk-input govuk-!-width-two-thirds" id="address-line-1" name="addressLine1" type="text" autocomplete="address-line1">
                     </div>
                     <div class="govuk-form-group">
                       <label class="govuk-label" for="address-line-1">
+                        <strong>
                         Address line 1
+                        </strong>
                       </label>
                       <input class="govuk-input" id="address-line-1" name="addressLine1" type="text" autocomplete="address-line1">
                     </div>
                     <div class="govuk-form-group">
                       <label class="govuk-label" for="address-line-2">
+                        <strong>
                         Address line 2 (optional)
+                        </strong>
                       </label>
                       <input class="govuk-input" id="address-line-2" name="addressLine2" type="text" autocomplete="address-line2">
                     </div>
                     <div class="govuk-form-group">
                       <label class="govuk-label" for="address-town">
+                        <strong>
                         Town or city
+                        </strong>
                       </label>
                       <input class="govuk-input govuk-!-width-two-thirds" id="address-town" name="addressTown" type="text" autocomplete="address-level2">
                     </div>
                     <div class="govuk-form-group">
                       <label class="govuk-label" for="address-county">
+                        <strong>
                         County
+                        </strong>
                       </label>
                       <input class="govuk-input govuk-!-width-two-thirds" id="address-county" name="addressCounty" type="text">
                     </div>
                     <div class="govuk-form-group">
                       <label class="govuk-label" for="address-postcode">
+                        <strong>
                         Postcode
+                        </strong>
                       </label>
                       <input class="govuk-input govuk-input--width-10" id="address-postcode" name="addressPostcode" type="text" autocomplete="postal-code">
                     </div>
                     <div class="govuk-form-group">
                       <label class="govuk-label" for="address-postcode">
-                        Phone number
+                        <strong>
+                        Telephone number
+                        </strong>
                       </label>
                       <input class="govuk-input govuk-input--width-10" id="address-postcode" name="addressPostcode" type="text" autocomplete="postal-code">
                     </div>
                     <div class="govuk-form-group">
                       <label class="govuk-label" for="address-postcode">
+                        <strong>
                         Email address
+                        </strong>
                       </label>
                       <input class="govuk-input govuk-!-width-two-thirds" id="address-postcode" name="addressPostcode" type="text" autocomplete="postal-code">
                     </div>

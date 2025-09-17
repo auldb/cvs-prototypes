@@ -362,6 +362,9 @@ document.addEventListener('DOMContentLoaded', function () {
                           Date of first registration
                         </h1>
                       </legend>
+                      <div id="passport-issued-hint" class="govuk-hint">
+                        For example, 27 3 2024
+                      </div>
                       <div class="govuk-date-input" id="passport-issued">
                         <div class="govuk-date-input__item">
                           <div class="govuk-form-group">
@@ -748,71 +751,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     <div class="govuk-input__wrapper">
                       <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
                         spellcheck="false" value="10000" disabled>
-                      <div class="govuk-input__suffix" aria-hidden="true">mm</div>
-                    </div>
-                  </div>
-
-                  <div class="govuk-form-group" id="axle1to2" style="display: none;">
-                    <h1 class="govuk-label-wrapper">
-                      <label class="govuk-label govuk-label--s" for="weight">
-                        Axle 1 to 2
-                      </label>
-                    </h1>
-                    <div class="govuk-input__wrapper">
-                      <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
-                        spellcheck="false" value="5000" disabled>
-                      <div class="govuk-input__suffix" aria-hidden="true">mm</div>
-                    </div>
-                  </div>
-
-                  <div class="govuk-form-group" id="axle2to3" style="display: none;">
-                    <h1 class="govuk-label-wrapper">
-                      <label class="govuk-label govuk-label--s" for="weight">
-                        Axle 2 to 3
-                      </label>
-                    </h1>
-                    <div class="govuk-input__wrapper">
-                      <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
-                        spellcheck="false" value="5000" disabled>
-                      <div class="govuk-input__suffix" aria-hidden="true">mm</div>
-                    </div>
-                  </div>
-
-                  <div class="govuk-form-group" id="axle3to4" style="display: none;">
-                    <h1 class="govuk-label-wrapper">
-                      <label class="govuk-label govuk-label--s" for="weight">
-                        Axle 3 to 4
-                      </label>
-                    </h1>
-                    <div class="govuk-input__wrapper">
-                      <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
-                        spellcheck="false">
-                      <div class="govuk-input__suffix" aria-hidden="true">mm</div>
-                    </div>
-                  </div>
-
-                  <div class="govuk-form-group" id="axle4to5" style="display: none;">
-                    <h1 class="govuk-label-wrapper">
-                      <label class="govuk-label govuk-label--s" for="weight">
-                        Axle 4 to 5
-                      </label>
-                    </h1>
-                    <div class="govuk-input__wrapper">
-                      <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
-                        spellcheck="false">
-                      <div class="govuk-input__suffix" aria-hidden="true">mm</div>
-                    </div>
-                  </div>
-
-                  <div class="govuk-form-group" id="axle5to6" style="display: none;">
-                    <h1 class="govuk-label-wrapper">
-                      <label class="govuk-label govuk-label--s" for="weight">
-                        Axle 5 to 6
-                      </label>
-                    </h1>
-                    <div class="govuk-input__wrapper">
-                      <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
-                        spellcheck="false">
                       <div class="govuk-input__suffix" aria-hidden="true">mm</div>
                     </div>
                   </div>
@@ -1415,7 +1353,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 </span>
               </h2>
               <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
-                Tyre details, tyre use code.
+                Tyre details.
               </div>
               <div class="govuk-accordion__section-summary-padding"></div>
             </div>
@@ -2323,6 +2261,16 @@ document.addEventListener('DOMContentLoaded', function () {
                     </fieldset>
                   </div>
 
+
+                  <div class="govuk-form-group">
+                    <h1 class="govuk-label-wrapper">
+                      <label class="govuk-label govuk-label--s" for="event-name">
+                        Wheelchair capacity
+                      </label>
+                    </h1>
+                    <input class="govuk-input govuk-input--width-2" id="event-name" name="eventName" type="text" value="2" disabled>
+                  </div>
+
                   <div class="govuk-form-group">
                     <fieldset class="govuk-fieldset">
                       <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
@@ -2450,169 +2398,6 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>
           </div>
 
-          <!-- <div class="govuk-accordion__section govuk-accordion__section-vtm">
-            <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
-              <h2 class="govuk-accordion__section-heading">
-                <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm" id="accordion-with-summary-sections-heading-2">
-                  Test record history
-                </span>
-              </h2>
-              <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
-                Workspaces, tools and techniques, user stories, planning.
-              </div>
-            </div>
-            <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
-              <ul class="govuk-list">
-                <li>
-                  
-                  <table class="govuk-table">
-                    <thead class="govuk-table__head">
-                      <tr class="govuk-table__row">
-                        <th scope="col" class="govuk-table__header app-custom-class">Date</th>
-                        <th scope="col" class="govuk-table__header app-custom-class">Test type</th>
-                        <th scope="col" class="govuk-table__header app-custom-class">Result</th>
-                        <th scope="col" class="govuk-table__header app-custom-class"></th>
-                      </tr>
-                    </thead>
-                    <tbody class="govuk-table__body">
-                      <tr class="govuk-table__row">
-                        <th scope="row" class="govuk-table__header">14/01/2025 13:43</th>
-                        <td class="govuk-table__cell">Annual test</td>
-                        <td class="govuk-table__cell">Pass</td>
-                        <td class="govuk-table__cell"><a href="/">View</a></td>
-                      </tr>
-                      <tr class="govuk-table__row">
-                        <th scope="row" class="govuk-table__header">13/01/2025 15:04</th>
-                        <td class="govuk-table__cell">Annual test</td>
-                        <td class="govuk-table__cell">Fail</td>
-                        <td class="govuk-table__cell"><a href="/">View</a></td>
-                      </tr>
-                    </tbody>
-                  </table>
-
-                </li>
-              </ul>
-            </div>
-          </div> -->
-          <!-- <div class="govuk-accordion__section govuk-accordion__section-vtm">
-            
-          <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
-              <h2 class="govuk-accordion__section-heading">
-                <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm" id="accordion-with-summary-sections-heading-2">
-                  Technical records history
-                </span>
-              </h2>
-              <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
-                Workspaces, tools and techniques, user stories, planning.
-              </div>
-            </div>
-            <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
-              <ul class="govuk-list">
-                <li>
-                  
-                  <table class="govuk-table">
-                    <thead class="govuk-table__head">
-                      <tr class="govuk-table__row">
-                        <th scope="col" class="govuk-table__header app-custom-class">Status</th>
-                        <th scope="col" class="govuk-table__header app-custom-class">Reason for creation</th>
-                        <th scope="col" class="govuk-table__header app-custom-class">Created by</th>
-                        <th scope="col" class="govuk-table__header app-custom-class">Date</th>
-                        <th scope="col" class="govuk-table__header app-custom-class"></th>
-                      </tr>
-                    </thead>
-                    <tbody class="govuk-table__body">
-                      <tr class="govuk-table__row">
-                        <th scope="row" class="govuk-table__header">Current</th>
-                        <td class="govuk-table__cell">Test</td>
-                        <td class="govuk-table__cell">User</td>
-                        <td class="govuk-table__cell">16/01/2025 09:36</td>
-                      </tr>
-                      <tr class="govuk-table__row">
-                        <th scope="row" class="govuk-table__header">Archived</th>
-                        <td class="govuk-table__cell">Test</td>
-                        <td class="govuk-table__cell">User</td>
-                        <td class="govuk-table__cell">15/01/2025 10:17</td>
-                        <td class="govuk-table__cell"><a href="/">View</a></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  
-                </li>
-              </ul>
-            </div>
-          </div> -->
-          <!-- <div class="govuk-accordion__section govuk-accordion__section-vtm">
-          <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
-            <h2 class="govuk-accordion__section-heading">
-              <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm" id="accordion-with-summary-sections-heading-2">
-                Last applicant
-              </span>
-            </h2>
-            <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
-              Contact details for the last applicant.
-            </div>
-            <div class="govuk-accordion__section-summary-padding"></div>
-          </div>
-          <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
-            <ul class="govuk-list">
-              <li>
-                
-                <fieldset class="govuk-fieldset">
-                  <div class="govuk-form-group">
-                    <label class="govuk-label" for="address-line-1">
-                      Name or company
-                    </label>
-                    <input class="govuk-input govuk-!-width-two-thirds" id="address-line-1" name="addressLine1" type="text" autocomplete="address-line1">
-                  </div>
-                  <div class="govuk-form-group">
-                    <label class="govuk-label" for="address-line-1">
-                      Address line 1
-                    </label>
-                    <input class="govuk-input" id="address-line-1" name="addressLine1" type="text" autocomplete="address-line1">
-                  </div>
-                  <div class="govuk-form-group">
-                    <label class="govuk-label" for="address-line-2">
-                      Address line 2 (optional)
-                    </label>
-                    <input class="govuk-input" id="address-line-2" name="addressLine2" type="text" autocomplete="address-line2">
-                  </div>
-                  <div class="govuk-form-group">
-                    <label class="govuk-label" for="address-town">
-                      Town or city
-                    </label>
-                    <input class="govuk-input govuk-!-width-two-thirds" id="address-town" name="addressTown" type="text" autocomplete="address-level2">
-                  </div>
-                  <div class="govuk-form-group">
-                    <label class="govuk-label" for="address-county">
-                      County
-                    </label>
-                    <input class="govuk-input govuk-!-width-two-thirds" id="address-county" name="addressCounty" type="text">
-                  </div>
-                  <div class="govuk-form-group">
-                    <label class="govuk-label" for="address-postcode">
-                      Postcode
-                    </label>
-                    <input class="govuk-input govuk-input--width-10" id="address-postcode" name="addressPostcode" type="text" autocomplete="postal-code">
-                  </div>
-                  <div class="govuk-form-group">
-                    <label class="govuk-label" for="address-postcode">
-                      Phone number
-                    </label>
-                    <input class="govuk-input govuk-input--width-10" id="address-postcode" name="addressPostcode" type="text" autocomplete="postal-code">
-                  </div>
-                  <div class="govuk-form-group">
-                    <label class="govuk-label" for="address-postcode">
-                      Email address
-                    </label>
-                    <input class="govuk-input govuk-!-width-two-thirds" id="address-postcode" name="addressPostcode" type="text" autocomplete="postal-code">
-                  </div>
-                </fieldset>
-                
-              </li>
-            </ul>
-          </div>
-        </div> -->
-
           <!--BRAKES-->
           <div class="govuk-accordion__section govuk-accordion__section-vtm untagged">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
@@ -2646,7 +2431,7 @@ document.addEventListener('DOMContentLoaded', function () {
                       <div class="govuk-input__prefix" aria-hidden="true">025</div>
                       <select class="govuk-select" id="sort" name="sort" disabled>
                         <option value="published">Enter brake code</option>
-                        <option value="updated" selected>111</option>
+                        <option value="updated"selected >111</option>
                         <option value="views">121</option>
                         <option value="comments">122</option>
                         <option value="comments">12F</option>
@@ -2930,14 +2715,14 @@ document.addEventListener('DOMContentLoaded', function () {
                       <div class="govuk-checkboxes" data-module="govuk-checkboxes">
                         <div class="govuk-checkboxes__item disabled-vtm" id="brake-axle1" style="display: none;">
                           <input class="govuk-checkboxes__input disabled-vtm" id="brake-axle1-checkbox" name="brake-axle1"
-                            type="checkbox" checked>
+                            type="checkbox" disabled checked>
                           <label class="govuk-label govuk-checkboxes__label disabled-vtm" for="brake-axle1-checkbox">
                             Axle 1 Brake
                           </label>
                         </div>
                         <div class="govuk-checkboxes__item disabled-vtm" id="brake-axle2" style="display: none;">
                           <input class="govuk-checkboxes__input disabled-vtm" id="brake-axle2-checkbox" name="brake-axle2"
-                            type="checkbox" checked>
+                            type="checkbox" disabled checked>
                           <label class="govuk-label govuk-checkboxes__label disabled-vtm" for="brake-axle2-checkbox">
                             Axle 2 Brake
                           </label>
@@ -2981,7 +2766,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 </span>
               </h2>
               <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
-                Wheelchair capacity, accessibility, schedules.
+                DDA certificate, accessibility, schedules.
               </div>
               <div class="govuk-accordion__section-summary-padding"></div>
             </div>
@@ -3022,15 +2807,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         </div>
                       </div>
                     </fieldset>
-                  </div>
-
-                  <div class="govuk-form-group">
-                    <h1 class="govuk-label-wrapper">
-                      <label class="govuk-label govuk-label--s" for="event-name">
-                        Wheelchair capacity
-                      </label>
-                    </h1>
-                    <input class="govuk-input govuk-input--width-2" id="event-name" name="eventName" type="text" value="2" disabled>
                   </div>
 
                   <div class="govuk-form-group govuk-character-count" data-module="govuk-character-count"

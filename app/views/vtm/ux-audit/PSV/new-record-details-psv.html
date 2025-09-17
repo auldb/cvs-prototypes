@@ -24,99 +24,191 @@ href: "create-psv"
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-      const axleInput = document.getElementById('number-of-axles');  
-      const warningDiv = document.getElementById('tyre-warning');
-      const parkingBrake = document.getElementById('pb-warning');
-      const weightsWarning = document.getElementById('weights-warning'); 
-  
-      const axleFields = ['axle1to2', 'axle2to3', 'axle3to4', 'axle4to5', 'axle5to6'];
-      const weightFields = ['weight-axle1', 'weight-axle2', 'weight-axle3', 'weight-axle4', 'weight-axle5'];
-      const brakeFields = ['brake-axle1', 'brake-axle2', 'brake-axle3', 'brake-axle4', 'brake-axle5'];
-      const tyreFields = ['tyre-axle1', 'tyre-axle2', 'tyre-axle3', 'tyre-axle4', 'tyre-axle5'];
-  
-      function toggleFields() {
-      const axlesValue = axleInput.value.trim();
-      const axles = axlesValue === '' ? 0 : parseInt(axlesValue, 10);
-  
-      if (axles <= 0) { 
-          warningDiv.style.display = 'block';
-          parkingBrake.style.display = 'block';
-          weightsWarning.style.display = 'block';
-      } else {
-          warningDiv.style.display = 'none';
-          parkingBrake.style.display = 'none';
-          weightsWarning.style.display = 'none';
-      }
-  
-          // Ensure axle-related fields are shown/hidden correctly
-          axleFields.forEach((field, index) => {
-              const axleField = document.getElementById(field);
-              if (axleField) axleField.style.display = axles > index ? 'block' : 'none';
-          });
-  
-          weightFields.forEach((field, index) => {
-              const weightField = document.getElementById(field);
-              if (weightField) weightField.style.display = axles > index ? 'block' : 'none';
-          });
-  
-          brakeFields.forEach((field, index) => {
-              const brakeField = document.getElementById(field);
-              if (brakeField) brakeField.style.display = axles > index ? 'block' : 'none';
-          });
-  
-          tyreFields.forEach((field, index) => {
-              const tyreField = document.getElementById(field);
-              if (tyreField) tyreField.style.display = axles > index ? 'block' : 'none';
-          });
-      }
-  
-      // Attach event listeners
-      axleInput.addEventListener('input', toggleFields);
-      axleInput.addEventListener('change', toggleFields);
-      axleInput.addEventListener('blur', toggleFields);
-  
-      // Ensure the fix runs AFTER other scripts have executed
-      setTimeout(toggleFields, 100);
+    const axleInput = document.getElementById('number-of-axles');  
+    const axlesButton = document.querySelector('.axles-button');
+    const warningDiv = document.getElementById('tyre-warning');
+    const weightsWarning = document.getElementById('weights-warning'); 
+    const brakesWarning = document.getElementById('brakes-warning'); 
+    const pbWarning = document.getElementById('pb-warning'); 
 
-    const requiredFilter = document.getElementById('required');
+    const weightFields = ['weight-axle1', 'weight-axle2', 'weight-axle3', 'weight-axle4', 'weight-axle5'];
+    const tyreFields = ['tyre-axle1', 'tyre-axle2', 'tyre-axle3', 'tyre-axle4', 'tyre-axle5'];
+    const brakeFields = ['braking-axle1', 'braking-axle2', 'braking-axle3', 'braking-axle4', 'braking-axle5'];
+    const parkingBrakeFields = ['brake-axle1', 'brake-axle2', 'brake-axle3', 'brake-axle4', 'brake-axle5'];
 
-    if (!requiredFilter) {
-        console.error("Error: The required filter button was not found in the DOM!");
-        return;
+    const conditionalUntaggedFields = document.querySelectorAll('.conditional-untagged');
+
+    function toggleFields() {
+        const axlesValue = axleInput.value.trim();
+        const axles = axlesValue === '' ? 0 : parseInt(axlesValue, 10);
+
+        // Show warnings if no axles
+        if (warningDiv) warningDiv.style.display = axles <= 0 ? 'block' : 'none';
+        if (weightsWarning) weightsWarning.style.display = axles <= 0 ? 'block' : 'none';
+        if (brakesWarning) brakesWarning.style.display = axles <= 0 ? 'block' : 'none';
+        if (pbWarning) pbWarning.style.display = axles <= 0 ? 'block' : 'none';
+
+        // Weights
+        weightFields.forEach((field, index) => {
+            const weightField = document.getElementById(field);
+            if (weightField) weightField.style.display = axles > index ? 'block' : 'none';
+        });
+
+        // Tyres
+        tyreFields.forEach((field, index) => {
+            const tyreField = document.getElementById(field);
+            if (tyreField) tyreField.style.display = axles > index ? 'block' : 'none';
+        });
+
+        // Brakes
+        brakeFields.forEach((field, index) => {
+            const brakeField = document.getElementById(field);
+            if (brakeField) brakeField.style.display = axles > index ? 'block' : 'none';
+        });
+
+        // Parking brake checkboxes
+        parkingBrakeFields.forEach((field, index) => {
+            const pbField = document.getElementById(field);
+            if (pbField) pbField.style.display = axles > index ? 'block' : 'none';
+        });
+
+        // Special untagged fields
+        conditionalUntaggedFields.forEach(field => {
+            field.style.display = axles > 0 ? 'block' : 'none';
+        });
+
+        attachRemoveHandlers();
     }
 
-    const requiredText = requiredFilter.querySelector('.app-c-filter-summary__remove-filter-text');
+    function attachRemoveHandlers() {
+        document.querySelectorAll('.remove-axle-button, .remove-tyre-button').forEach(button => {
+            button.onclick = function (event) {
+                event.preventDefault();
+                let axles = parseInt(axleInput.value.trim(), 10) || 0;
+                if (axles <= 0) return;
+                updateAxleCount(axles - 1);
+            };
+        });
+    }
 
-    const untaggedElements = document.querySelectorAll('.untagged');
-    const requiredElements = document.querySelectorAll('.required');
-    const optionalElements = document.querySelectorAll('.optional');
+    function updateAxleCount(newCount, disable = true) {
+        axleInput.disabled = false;
+        axleInput.value = newCount;
+        toggleFields();
+        axleInput.disabled = disable;
+    }
 
-    let isRequiredFiltered = false;
+    // Confirm / Reset number of axles button
+    if (axlesButton) {
+        axlesButton.classList.add('govuk-button');
+
+        function confirmHandler(event) {
+            event.preventDefault();
+            updateAxleCount(parseInt(axleInput.value.trim(), 10));
+
+            axlesButton.textContent = 'Remove and clear all axles';
+            axlesButton.classList.add('govuk-button--warning');
+
+            axlesButton.removeEventListener('click', confirmHandler);
+            axlesButton.addEventListener('click', resetHandler);
+        }
+
+        function resetHandler(event) {
+            event.preventDefault();
+            updateAxleCount(0, false); // Keep input enabled after reset
+
+            axlesButton.textContent = 'Confirm number of axles';
+            axlesButton.classList.remove('govuk-button--warning');
+
+            axlesButton.removeEventListener('click', resetHandler);
+            axlesButton.addEventListener('click', confirmHandler);
+        }
+
+        axlesButton.addEventListener('click', confirmHandler);
+    }
+
+    // Add axle buttons
+    document.querySelectorAll('.add-axle-button').forEach(button => {
+        button.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            let axles = parseInt(axleInput.value.trim(), 10) || 0;
+            const maxAxles = weightFields.length;
+            if (axles >= maxAxles) return;
+
+            updateAxleCount(axles + 1);
+
+            // Update Confirm button to Reset if not already
+            if (axlesButton && axlesButton.textContent !== 'Remove and clear all axles') {
+                axlesButton.textContent = 'Remove and clear all axles';
+                axlesButton.classList.add('govuk-button--warning');
+
+                axlesButton.removeEventListener('click', confirmHandler);
+                axlesButton.addEventListener('click', resetHandler);
+            }
+        });
+    });
+
+   // Filters (unchanged)
+    const filters = [
+        { id: 'plates', className: 'plates' },
+        { id: 'required', className: 'required' },
+        { id: 'adr', className: 'adr' },
+        { id: 'admin', className: 'admin' },
+        { id: 'records', className: 'records' },
+        { id: 'untagged', className: 'untagged'}
+    ];
+
+    const filterStates = {
+        plates: false,
+        required: false,
+        adr: false,
+        admin: false,
+        records: false,
+        untagged: false
+    };
 
     function applyFilters() {
-        document.querySelectorAll('.untagged, .required, .optional').forEach(element => {
-            let shouldShow = true;
+        const anyFilterActive = Object.values(filterStates).some(state => state === true);
 
-            if (isRequiredFiltered) {
-                shouldShow = element.classList.contains('required');
-            }
-
+        document.querySelectorAll('.plates, .required, .adr, .admin, .records, .untagged').forEach(element => {
+            const classList = element.classList;
+            const shouldShow = !anyFilterActive || filters.some(f => filterStates[f.id] && classList.contains(f.className));
             element.style.display = shouldShow ? '' : 'none';
         });
     }
 
-    requiredFilter.addEventListener('click', function (event) {
-        event.preventDefault();
-        isRequiredFiltered = !isRequiredFiltered;
-        requiredText.innerHTML = isRequiredFiltered ? '× Required' : 'Required';
-        requiredFilter.classList.toggle('active-filter', isRequiredFiltered);
-        applyFilters();
-        requiredFilter.blur();
+    filters.forEach(({ id, className }) => {
+        const button = document.getElementById(id);
+        const text = button?.querySelector('.app-c-filter-summary__remove-filter-text');
+
+        if (!button || !text) {
+            console.error(`Error: Filter button or text not found for ${id}`);
+            return;
+        }
+
+        button.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            filterStates[id] = !filterStates[id];
+
+            if (id === 'adr') {
+                text.innerHTML = filterStates[id] ? '× ADR' : 'ADR';
+            } else {
+                text.innerHTML = filterStates[id] ? `× ${id.charAt(0).toUpperCase() + id.slice(1)}` : id.charAt(0).toUpperCase() + id.slice(1);
+            }
+
+            button.classList.toggle('active-filter', filterStates[id]);
+
+            applyFilters();
+            button.blur();
+        });
     });
 
-    applyFilters(); // Apply filters on page load to ensure state is correct
+    applyFilters();
+    setTimeout(toggleFields, 100);
 });
-  </script>
+</script>
 
 
 <div class="govuk-width-container">
@@ -124,10 +216,6 @@ document.addEventListener('DOMContentLoaded', function () {
   <h1 class="govuk-heading-l">
     Create a new technical record
   </h1>
-
-  <!-- <div class="govuk-inset-text">
-    Complete all required fields to create a testable record.
-  </div> -->
 
   <div class="govuk-grid-row">
 
@@ -184,7 +272,7 @@ document.addEventListener('DOMContentLoaded', function () {
               </dd>
 
             </div>
-            <div class="govuk-summary-list__row">
+                        <div class="govuk-summary-list__row">
               <dt class="govuk-summary-list__key govuk-summary-list__key-tech">
                 Previous VRM
               </dt>
@@ -234,10 +322,7 @@ document.addEventListener('DOMContentLoaded', function () {
                   Hidden
                 </strong>
               </dd>
-
             </div> -->
-          
-
           </dl>
         </div>
       </div>
@@ -278,7 +363,7 @@ document.addEventListener('DOMContentLoaded', function () {
           </div>
 
           <!--GENERAL-->
-          <div class="govuk-accordion__section govuk-accordion__section-vtm">
+          <div class="govuk-accordion__section govuk-accordion__section-vtm required adr plates">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
               <h2 class="govuk-accordion__section-heading">
                 <span
@@ -498,7 +583,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     </fieldset>
                   </div>
 
-                  <div class="govuk-form-group required">
+                  <div class="govuk-form-group required plates">
                     <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
                       <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                         <h1 class="govuk-fieldset__heading">
@@ -510,7 +595,10 @@ document.addEventListener('DOMContentLoaded', function () {
                       </div>
                       <div class="govuk-input__wrapper">
                         <input class="govuk-input govuk-input--width-2" id="number-of-axles" name="number-of-axles"
-                          type="text" inputmode="numeric">
+                          type="text" inputmode="numeric">                  
+                        <p class="govuk-button axles-button">
+                          Confirm number of axles
+                        </p>
                       </div>
                     </fieldset>
                   </div>
@@ -662,7 +750,7 @@ document.addEventListener('DOMContentLoaded', function () {
           </div>
 
           <!--AXLES AND DIMENSIONS-->
-          <div class="govuk-accordion__section govuk-accordion__section-vtm untagged">
+          <div class="govuk-accordion__section govuk-accordion__section-vtm plates">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
               <h2 class="govuk-accordion__section-heading">
                 <span
@@ -686,71 +774,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     <h1 class="govuk-label-wrapper">
                       <label class="govuk-label govuk-label--s" for="weight">
                         Front axle to rear axle
-                      </label>
-                    </h1>
-                    <div class="govuk-input__wrapper">
-                      <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
-                        spellcheck="false">
-                      <div class="govuk-input__suffix" aria-hidden="true">mm</div>
-                    </div>
-                  </div>
-
-                  <div class="govuk-form-group" id="axle1to2" style="display: none;">
-                    <h1 class="govuk-label-wrapper">
-                      <label class="govuk-label govuk-label--s" for="weight">
-                        Axle 1 to 2
-                      </label>
-                    </h1>
-                    <div class="govuk-input__wrapper">
-                      <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
-                        spellcheck="false">
-                      <div class="govuk-input__suffix" aria-hidden="true">mm</div>
-                    </div>
-                  </div>
-
-                  <div class="govuk-form-group" id="axle2to3" style="display: none;">
-                    <h1 class="govuk-label-wrapper">
-                      <label class="govuk-label govuk-label--s" for="weight">
-                        Axle 2 to 3
-                      </label>
-                    </h1>
-                    <div class="govuk-input__wrapper">
-                      <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
-                        spellcheck="false">
-                      <div class="govuk-input__suffix" aria-hidden="true">mm</div>
-                    </div>
-                  </div>
-
-                  <div class="govuk-form-group" id="axle3to4" style="display: none;">
-                    <h1 class="govuk-label-wrapper">
-                      <label class="govuk-label govuk-label--s" for="weight">
-                        Axle 3 to 4
-                      </label>
-                    </h1>
-                    <div class="govuk-input__wrapper">
-                      <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
-                        spellcheck="false">
-                      <div class="govuk-input__suffix" aria-hidden="true">mm</div>
-                    </div>
-                  </div>
-
-                  <div class="govuk-form-group" id="axle4to5" style="display: none;">
-                    <h1 class="govuk-label-wrapper">
-                      <label class="govuk-label govuk-label--s" for="weight">
-                        Axle 4 to 5
-                      </label>
-                    </h1>
-                    <div class="govuk-input__wrapper">
-                      <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
-                        spellcheck="false">
-                      <div class="govuk-input__suffix" aria-hidden="true">mm</div>
-                    </div>
-                  </div>
-
-                  <div class="govuk-form-group" id="axle5to6" style="display: none;">
-                    <h1 class="govuk-label-wrapper">
-                      <label class="govuk-label govuk-label--s" for="weight">
-                        Axle 5 to 6
                       </label>
                     </h1>
                     <div class="govuk-input__wrapper">
@@ -799,14 +822,13 @@ document.addEventListener('DOMContentLoaded', function () {
                     </div>
                   </div>
 
-
                 </li>
               </ul>
             </div>
           </div>
 
           <!--WEIGHTS-->
-          <div class="govuk-accordion__section govuk-accordion__section-vtm untagged">
+          <div class="govuk-accordion__section govuk-accordion__section-vtm plates">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
               <h2 class="govuk-accordion__section-heading">
                 <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
@@ -850,6 +872,17 @@ document.addEventListener('DOMContentLoaded', function () {
                         </h1>
                       </legend>
                       <div class="govuk-date-input" id="passport-issued">
+
+                      <div class="govuk-button-group">
+
+                          <button type="button" 
+                            class="govuk-button govuk-button--warning remove-axle-button" 
+                            data-axle="1">
+                            Remove axle
+                          </button>
+                      </div> 
+
+
 
                         <div class="govuk-date-input__item">
                           <div class="govuk-form-group">
@@ -903,6 +936,8 @@ document.addEventListener('DOMContentLoaded', function () {
                           </div>
                         </div>
 
+        
+
                       </div>
                     </fieldset>
                   </div>
@@ -915,6 +950,15 @@ document.addEventListener('DOMContentLoaded', function () {
                         </h1>
                       </legend>
                       <div class="govuk-date-input" id="passport-issued">
+
+                              <div class="govuk-button-group">
+
+                          <button type="button" 
+                            class="govuk-button govuk-button--warning remove-axle-button" 
+                            data-axle="1">
+                            Remove axle
+                          </button>
+                      </div> 
 
                         <div class="govuk-date-input__item">
                           <div class="govuk-form-group">
@@ -981,6 +1025,16 @@ document.addEventListener('DOMContentLoaded', function () {
                       </legend>
                       <div class="govuk-date-input" id="passport-issued">
 
+
+                              <div class="govuk-button-group">
+
+                          <button type="button" 
+                            class="govuk-button govuk-button--warning remove-axle-button" 
+                            data-axle="1">
+                            Remove axle
+                          </button>
+                      </div> 
+
                         <div class="govuk-date-input__item">
                           <div class="govuk-form-group">
                             <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
@@ -1046,6 +1100,16 @@ document.addEventListener('DOMContentLoaded', function () {
                       </legend>
                       <div class="govuk-date-input" id="passport-issued">
 
+
+                              <div class="govuk-button-group">
+
+                          <button type="button" 
+                            class="govuk-button govuk-button--warning remove-axle-button" 
+                            data-axle="1">
+                            Remove axle
+                          </button>
+                      </div> 
+
                         <div class="govuk-date-input__item">
                           <div class="govuk-form-group">
                             <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
@@ -1097,6 +1161,8 @@ document.addEventListener('DOMContentLoaded', function () {
                             </div>
                           </div>
                         </div>
+
+
 
                       </div>
                     </fieldset>
@@ -1111,6 +1177,16 @@ document.addEventListener('DOMContentLoaded', function () {
                       </legend>
                       <div class="govuk-date-input" id="passport-issued">
 
+
+                              <div class="govuk-button-group">
+
+                          <button type="button" 
+                            class="govuk-button govuk-button--warning remove-axle-button" 
+                            data-axle="1">
+                            Remove axle
+                          </button>
+                      </div> 
+
                         <div class="govuk-date-input__item">
                           <div class="govuk-form-group">
                             <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
@@ -1162,6 +1238,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             </div>
                           </div>
                         </div>
+
 
                       </div>
                     </fieldset>
@@ -1343,6 +1420,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     </fieldset>
                   </div>
 
+
+                  <button type="button" class="govuk-button govuk-button--secondary add-axle-button">
+                    Add axle
+                  </button>
+
                 </li>
               </ul>
             </div>
@@ -1358,7 +1440,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 </span>
               </h2>
               <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
-                Tyre details, tyre use code.
+                Tyre details.
               </div>
               <div class="govuk-accordion__section-summary-padding"></div>
             </div>
@@ -1396,10 +1478,10 @@ document.addEventListener('DOMContentLoaded', function () {
                           Search for tyre details
                         </button>
 
-                        <!-- <button type="submit" class="govuk-button govuk-button--warning" data-module="govuk-button">
+                        <button type="button" class="govuk-button govuk-button--warning remove-tyre-button" data-axle="1">
                           Remove tyre
-                        </button> -->
-                      </div>
+                        </button>
+                      </div> 
 
                       <div class="govuk-date-input" id="passport-issued">
                         <div class="govuk-date-input__item">
@@ -1484,10 +1566,10 @@ document.addEventListener('DOMContentLoaded', function () {
                           Search for tyre details
                         </button>
 
-                       <!--<button type="submit" class="govuk-button govuk-button--warning" data-module="govuk-button">
+                        <button type="button" class="govuk-button govuk-button--warning remove-tyre-button" data-axle="1">
                           Remove tyre
-                        </button>--> 
-                      </div>
+                        </button>
+                      </div> 
 
                       <div class="govuk-date-input" id="passport-issued">
                         <div class="govuk-date-input__item">
@@ -1572,10 +1654,10 @@ document.addEventListener('DOMContentLoaded', function () {
                           Search for tyre details
                         </button>
 
-                        <!-- <button type="submit" class="govuk-button govuk-button--warning" data-module="govuk-button">
+                        <button type="button" class="govuk-button govuk-button--warning remove-tyre-button" data-axle="1">
                           Remove tyre
-                        </button> -->
-                      </div>
+                        </button>
+                      </div> 
 
                       <div class="govuk-date-input" id="passport-issued">
                         <div class="govuk-date-input__item">
@@ -1660,10 +1742,10 @@ document.addEventListener('DOMContentLoaded', function () {
                           Search for tyre details
                         </button>
 
-                        <!-- <button type="submit" class="govuk-button govuk-button--warning" data-module="govuk-button">
+                        <button type="button" class="govuk-button govuk-button--warning remove-tyre-button" data-axle="1">
                           Remove tyre
-                        </button>-->
-                      </div>
+                        </button>
+                      </div> 
 
                       <div class="govuk-date-input" id="passport-issued">
                         <div class="govuk-date-input__item">
@@ -1747,10 +1829,10 @@ document.addEventListener('DOMContentLoaded', function () {
                           Search for tyre details
                         </button>
 
-                        <!--<button type="submit" class="govuk-button govuk-button--warning" data-module="govuk-button">
+                        <button type="button" class="govuk-button govuk-button--warning remove-tyre-button" data-axle="1">
                           Remove tyre
-                        </button>-->
-                      </div>
+                        </button>
+                      </div> 
 
                       <div class="govuk-date-input" id="passport-issued">
                         <div class="govuk-date-input__item">
@@ -1822,6 +1904,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     </fieldset>
                   </div>
 
+
+              <button type="button" class="govuk-button govuk-button--secondary add-axle-button">
+                Add axle
+              </button>
 
                 </li>
               </ul>
@@ -2399,169 +2485,6 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>
           </div>
 
-          <!-- <div class="govuk-accordion__section govuk-accordion__section-vtm">
-            <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
-              <h2 class="govuk-accordion__section-heading">
-                <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm" id="accordion-with-summary-sections-heading-2">
-                  Test record history
-                </span>
-              </h2>
-              <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
-                Workspaces, tools and techniques, user stories, planning.
-              </div>
-            </div>
-            <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
-              <ul class="govuk-list">
-                <li>
-                  
-                  <table class="govuk-table">
-                    <thead class="govuk-table__head">
-                      <tr class="govuk-table__row">
-                        <th scope="col" class="govuk-table__header app-custom-class">Date</th>
-                        <th scope="col" class="govuk-table__header app-custom-class">Test type</th>
-                        <th scope="col" class="govuk-table__header app-custom-class">Result</th>
-                        <th scope="col" class="govuk-table__header app-custom-class"></th>
-                      </tr>
-                    </thead>
-                    <tbody class="govuk-table__body">
-                      <tr class="govuk-table__row">
-                        <th scope="row" class="govuk-table__header">14/01/2025 13:43</th>
-                        <td class="govuk-table__cell">Annual test</td>
-                        <td class="govuk-table__cell">Pass</td>
-                        <td class="govuk-table__cell"><a href="/">View</a></td>
-                      </tr>
-                      <tr class="govuk-table__row">
-                        <th scope="row" class="govuk-table__header">13/01/2025 15:04</th>
-                        <td class="govuk-table__cell">Annual test</td>
-                        <td class="govuk-table__cell">Fail</td>
-                        <td class="govuk-table__cell"><a href="/">View</a></td>
-                      </tr>
-                    </tbody>
-                  </table>
-
-                </li>
-              </ul>
-            </div>
-          </div> -->
-          <!-- <div class="govuk-accordion__section govuk-accordion__section-vtm">
-            
-          <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
-              <h2 class="govuk-accordion__section-heading">
-                <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm" id="accordion-with-summary-sections-heading-2">
-                  Technical records history
-                </span>
-              </h2>
-              <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
-                Workspaces, tools and techniques, user stories, planning.
-              </div>
-            </div>
-            <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
-              <ul class="govuk-list">
-                <li>
-                  
-                  <table class="govuk-table">
-                    <thead class="govuk-table__head">
-                      <tr class="govuk-table__row">
-                        <th scope="col" class="govuk-table__header app-custom-class">Status</th>
-                        <th scope="col" class="govuk-table__header app-custom-class">Reason for creation</th>
-                        <th scope="col" class="govuk-table__header app-custom-class">Created by</th>
-                        <th scope="col" class="govuk-table__header app-custom-class">Date</th>
-                        <th scope="col" class="govuk-table__header app-custom-class"></th>
-                      </tr>
-                    </thead>
-                    <tbody class="govuk-table__body">
-                      <tr class="govuk-table__row">
-                        <th scope="row" class="govuk-table__header">Current</th>
-                        <td class="govuk-table__cell">Test</td>
-                        <td class="govuk-table__cell">User</td>
-                        <td class="govuk-table__cell">16/01/2025 09:36</td>
-                      </tr>
-                      <tr class="govuk-table__row">
-                        <th scope="row" class="govuk-table__header">Archived</th>
-                        <td class="govuk-table__cell">Test</td>
-                        <td class="govuk-table__cell">User</td>
-                        <td class="govuk-table__cell">15/01/2025 10:17</td>
-                        <td class="govuk-table__cell"><a href="/">View</a></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  
-                </li>
-              </ul>
-            </div>
-          </div> -->
-          <!-- <div class="govuk-accordion__section govuk-accordion__section-vtm">
-          <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
-            <h2 class="govuk-accordion__section-heading">
-              <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm" id="accordion-with-summary-sections-heading-2">
-                Last applicant
-              </span>
-            </h2>
-            <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
-              Contact details for the last applicant.
-            </div>
-            <div class="govuk-accordion__section-summary-padding"></div>
-          </div>
-          <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
-            <ul class="govuk-list">
-              <li>
-                
-                <fieldset class="govuk-fieldset">
-                  <div class="govuk-form-group">
-                    <label class="govuk-label" for="address-line-1">
-                      Name or company
-                    </label>
-                    <input class="govuk-input govuk-!-width-two-thirds" id="address-line-1" name="addressLine1" type="text" autocomplete="address-line1">
-                  </div>
-                  <div class="govuk-form-group">
-                    <label class="govuk-label" for="address-line-1">
-                      Address line 1
-                    </label>
-                    <input class="govuk-input" id="address-line-1" name="addressLine1" type="text" autocomplete="address-line1">
-                  </div>
-                  <div class="govuk-form-group">
-                    <label class="govuk-label" for="address-line-2">
-                      Address line 2 (optional)
-                    </label>
-                    <input class="govuk-input" id="address-line-2" name="addressLine2" type="text" autocomplete="address-line2">
-                  </div>
-                  <div class="govuk-form-group">
-                    <label class="govuk-label" for="address-town">
-                      Town or city
-                    </label>
-                    <input class="govuk-input govuk-!-width-two-thirds" id="address-town" name="addressTown" type="text" autocomplete="address-level2">
-                  </div>
-                  <div class="govuk-form-group">
-                    <label class="govuk-label" for="address-county">
-                      County
-                    </label>
-                    <input class="govuk-input govuk-!-width-two-thirds" id="address-county" name="addressCounty" type="text">
-                  </div>
-                  <div class="govuk-form-group">
-                    <label class="govuk-label" for="address-postcode">
-                      Postcode
-                    </label>
-                    <input class="govuk-input govuk-input--width-10" id="address-postcode" name="addressPostcode" type="text" autocomplete="postal-code">
-                  </div>
-                  <div class="govuk-form-group">
-                    <label class="govuk-label" for="address-postcode">
-                      Phone number
-                    </label>
-                    <input class="govuk-input govuk-input--width-10" id="address-postcode" name="addressPostcode" type="text" autocomplete="postal-code">
-                  </div>
-                  <div class="govuk-form-group">
-                    <label class="govuk-label" for="address-postcode">
-                      Email address
-                    </label>
-                    <input class="govuk-input govuk-!-width-two-thirds" id="address-postcode" name="addressPostcode" type="text" autocomplete="postal-code">
-                  </div>
-                </fieldset>
-                
-              </li>
-            </ul>
-          </div>
-        </div> -->
-
           <!--BRAKES-->
           <div class="govuk-accordion__section govuk-accordion__section-vtm untagged">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
@@ -2859,7 +2782,7 @@ document.addEventListener('DOMContentLoaded', function () {
                   </div>
 
 
-                  <div class="govuk-form-group">
+ <div class="govuk-form-group">
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                       <h1 class="govuk-fieldset__heading">
                         Parking brake
@@ -2873,8 +2796,6 @@ document.addEventListener('DOMContentLoaded', function () {
                       </strong>
                     </div>
                   </div>
-                      
-
 
                       <div class="govuk-checkboxes" data-module="govuk-checkboxes">
                         <div class="govuk-checkboxes__item" id="brake-axle1" style="display: none;">
@@ -2913,6 +2834,7 @@ document.addEventListener('DOMContentLoaded', function () {
                           </label>
                         </div>
                       </div>
+
 
 
                 </li>
@@ -2999,9 +2921,9 @@ document.addEventListener('DOMContentLoaded', function () {
                       </legend>
                       <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="contact" name="contact" type="radio" value="email"
-                            data-aria-controls="conditional-contact">
-                          <label class="govuk-label govuk-radios__label" for="contact">
+                          <input class="govuk-radios__input" id="wheelchairlift" name="wheelchairlift" type="radio" value="wheelchairliftyes"
+                            data-aria-controls="conditional-contact" checked>
+                          <label class="govuk-label govuk-radios__label" for="wheelchairlift">
                             Yes
                           </label>
                         </div>
@@ -3020,14 +2942,14 @@ document.addEventListener('DOMContentLoaded', function () {
                           </div>
                         </div>
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="contact" name="contact" type="radio" value="phone">
-                          <label class="govuk-label govuk-radios__label" for="contact">
+                          <input class="govuk-radios__input" id="wheelchairlift-2" name="wheelchairlift-2" type="radio" value="wheelchairliftno">
+                          <label class="govuk-label govuk-radios__label" for="wheelchairlift-2">
                             No
                           </label>
                         </div>
                         <div class="govuk-radios__item">
-                          <input class="govuk-radios__input" id="contact" name="contact" type="radio" value="phone">
-                          <label class="govuk-label govuk-radios__label" for="contact">
+                          <input class="govuk-radios__input" id="wheelchairlift-3" name="wheelchairlift-3" type="radio" value="wheelchairliftdonotknow">
+                          <label class="govuk-label govuk-radios__label" for="wheelchairlift-3">
                             I do not know
                           </label>
                         </div>
@@ -3045,7 +2967,7 @@ document.addEventListener('DOMContentLoaded', function () {
                       <div class="govuk-radios" data-module="govuk-radios">
                         <div class="govuk-radios__item">
                           <input class="govuk-radios__input" id="contact-2" name="contact-2" type="radio" value="email"
-                            data-aria-controls="conditional-ramp">
+                            data-aria-controls="conditional-ramp" checked>
                           <label class="govuk-label govuk-radios__label" for="contact-2">
                             Yes
                           </label>
@@ -3333,6 +3255,8 @@ document.addEventListener('DOMContentLoaded', function () {
               </ul>
             </div>
           </div>
+
+
         </div>
 
       </form>
