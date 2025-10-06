@@ -26,10 +26,14 @@ href: "javascript:window.history.back()"
 document.addEventListener('DOMContentLoaded', function () {
     const axleInput = document.getElementById('number-of-axles');  
     const axlesButton = document.querySelector('.axles-button');
+
     const warningDiv = document.getElementById('tyre-warning');
     const weightsWarning = document.getElementById('weights-warning'); 
     const brakesWarning = document.getElementById('brakes-warning'); 
-    const pbWarning = document.getElementById('pb-warning'); 
+    const pbWarning = document.getElementById('pb-warning');
+
+    // 👇 Grab all axle warning message containers (tyres + weights)
+    const axleDistanceWarnings = document.querySelectorAll('#axle-warning-message-2');
 
     const weightFields = ['weight-axle1', 'weight-axle2', 'weight-axle3', 'weight-axle4', 'weight-axle5'];
     const tyreFields = ['tyre-axle1', 'tyre-axle2', 'tyre-axle3', 'tyre-axle4', 'tyre-axle5'];
@@ -42,37 +46,31 @@ document.addEventListener('DOMContentLoaded', function () {
         const axlesValue = axleInput.value.trim();
         const axles = axlesValue === '' ? 0 : parseInt(axlesValue, 10);
 
-        // Show warnings if no axles
         if (warningDiv) warningDiv.style.display = axles <= 0 ? 'block' : 'none';
         if (weightsWarning) weightsWarning.style.display = axles <= 0 ? 'block' : 'none';
         if (brakesWarning) brakesWarning.style.display = axles <= 0 ? 'block' : 'none';
         if (pbWarning) pbWarning.style.display = axles <= 0 ? 'block' : 'none';
 
-        // Weights
         weightFields.forEach((field, index) => {
             const weightField = document.getElementById(field);
             if (weightField) weightField.style.display = axles > index ? 'block' : 'none';
         });
 
-        // Tyres
         tyreFields.forEach((field, index) => {
             const tyreField = document.getElementById(field);
             if (tyreField) tyreField.style.display = axles > index ? 'block' : 'none';
         });
 
-        // Brakes
         brakeFields.forEach((field, index) => {
             const brakeField = document.getElementById(field);
             if (brakeField) brakeField.style.display = axles > index ? 'block' : 'none';
         });
 
-        // Parking brake checkboxes
         parkingBrakeFields.forEach((field, index) => {
             const pbField = document.getElementById(field);
             if (pbField) pbField.style.display = axles > index ? 'block' : 'none';
         });
 
-        // Special untagged fields
         conditionalUntaggedFields.forEach(field => {
             field.style.display = axles > 0 ? 'block' : 'none';
         });
@@ -86,7 +84,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 event.preventDefault();
                 let axles = parseInt(axleInput.value.trim(), 10) || 0;
                 if (axles <= 0) return;
+
                 updateAxleCount(axles - 1);
+
+                // 👇 Show warnings in ALL places (tyres + weights)
+                axleDistanceWarnings.forEach(w => w.style.display = 'block');
             };
         });
     }
@@ -98,7 +100,6 @@ document.addEventListener('DOMContentLoaded', function () {
         axleInput.disabled = disable;
     }
 
-    // Confirm / Reset number of axles button
     if (axlesButton) {
         axlesButton.classList.add('govuk-button');
 
@@ -115,19 +116,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
         function resetHandler(event) {
             event.preventDefault();
-            updateAxleCount(0, false); // Keep input enabled after reset
+            updateAxleCount(0, false);
 
             axlesButton.textContent = 'Confirm number of axles';
             axlesButton.classList.remove('govuk-button--warning');
 
             axlesButton.removeEventListener('click', resetHandler);
             axlesButton.addEventListener('click', confirmHandler);
+
+            // 👇 Hide warnings when clearing all
+            axleDistanceWarnings.forEach(w => w.style.display = 'none');
         }
 
         axlesButton.addEventListener('click', confirmHandler);
     }
 
-    // Add axle buttons
     document.querySelectorAll('.add-axle-button').forEach(button => {
         button.addEventListener('click', function (event) {
             event.preventDefault();
@@ -138,7 +141,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
             updateAxleCount(axles + 1);
 
-            // Update Confirm button to Reset if not already
+            // 👇 Hide warnings when adding new axles
+            axleDistanceWarnings.forEach(w => w.style.display = 'none');
+
             if (axlesButton && axlesButton.textContent !== 'Remove and clear all axles') {
                 axlesButton.textContent = 'Remove and clear all axles';
                 axlesButton.classList.add('govuk-button--warning');
@@ -149,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-   // Filters (unchanged)
+    // Filters unchanged...
     const filters = [
         { id: 'plates', className: 'plates' },
         { id: 'required', className: 'required' },
@@ -170,7 +175,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function applyFilters() {
         const anyFilterActive = Object.values(filterStates).some(state => state === true);
-
         document.querySelectorAll('.plates, .required, .adr, .admin, .records, .untagged').forEach(element => {
             const classList = element.classList;
             const shouldShow = !anyFilterActive || filters.some(f => filterStates[f.id] && classList.contains(f.className));
@@ -181,25 +185,19 @@ document.addEventListener('DOMContentLoaded', function () {
     filters.forEach(({ id, className }) => {
         const button = document.getElementById(id);
         const text = button?.querySelector('.app-c-filter-summary__remove-filter-text');
-
         if (!button || !text) {
             console.error(`Error: Filter button or text not found for ${id}`);
             return;
         }
-
         button.addEventListener('click', function (event) {
             event.preventDefault();
-
             filterStates[id] = !filterStates[id];
-
             if (id === 'adr') {
                 text.innerHTML = filterStates[id] ? '× ADR' : 'ADR';
             } else {
                 text.innerHTML = filterStates[id] ? `× ${id.charAt(0).toUpperCase() + id.slice(1)}` : id.charAt(0).toUpperCase() + id.slice(1);
             }
-
             button.classList.toggle('active-filter', filterStates[id]);
-
             applyFilters();
             button.blur();
         });
@@ -209,6 +207,7 @@ document.addEventListener('DOMContentLoaded', function () {
     setTimeout(toggleFields, 100);
 });
 </script>
+
 
 
 <div class="govuk-width-container">
@@ -871,6 +870,16 @@ document.addEventListener('DOMContentLoaded', function () {
               <ul class="govuk-list">
                 <li>
 
+                                  <div id="axle-warning-message-2" style="display: none;">
+                <div class="govuk-warning-text">
+                  <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                  <strong class="govuk-warning-text__text">
+                    <span class="govuk-visually-hidden">Warning</span>
+                    Axle distances have been cleared because you removed an axle. Re-enter any axle distances in the dimensions section.
+                  </strong>
+                </div>
+                </div>
+
                   <div class="govuk-form-group" id="weights-warning" style="display:none;">
                     <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
                       <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
@@ -1474,6 +1483,16 @@ document.addEventListener('DOMContentLoaded', function () {
               <ul class="govuk-list">
                 <li>
 
+                                <div id="axle-warning-message-2" style="display: none;">
+                <div class="govuk-warning-text">
+                  <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                  <strong class="govuk-warning-text__text">
+                    <span class="govuk-visually-hidden">Warning</span>
+                    Axle distances have been cleared because you removed an axle. Re-enter any axle distances in the dimensions section.
+                  </strong>
+                </div>
+                </div>
+
                 
                 <div id="tyre-warning">
                   <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
@@ -1503,7 +1522,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         </button>
 
                         <button type="button" class="govuk-button govuk-button--warning remove-tyre-button" data-axle="1">
-                          Remove tyre
+                          Remove axle
                         </button>
                       </div> 
 
@@ -1523,7 +1542,7 @@ document.addEventListener('DOMContentLoaded', function () {
                               Size
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--size"
-                              id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric">
+                              id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric"disabled>
                           </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -1533,7 +1552,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--ply"
                               id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
-                              >
+                              disabled>
                           </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -1541,7 +1560,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
                               Load index
                             </label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-3"
+                            <input class="load-index govuk-input govuk-date-input__input govuk-input--width-3"
                               id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
                               >
                           </div>
@@ -1558,6 +1577,16 @@ document.addEventListener('DOMContentLoaded', function () {
                               <option value="updated">B</option>
                               <option value="updated">C</option>
                               <option value="updated">D</option>
+                              <option value="updated">E</option>
+                              <option value="updated">F</option>
+                              <option value="updated">G</option>
+                              <option value="updated">J</option>
+                              <option value="updated">K</option>
+                              <option value="updated">L</option>
+                              <option value="updated">M</option>
+                              <option value="updated">N</option>
+                              <option value="updated">P</option>
+                              <option value="updated">Q</option>
                             </select>
                           </div>
                         </div>
@@ -1567,8 +1596,8 @@ document.addEventListener('DOMContentLoaded', function () {
                               S/D
                             </label>
                             <select class="govuk-select govuk-select--tyres" id="sort" name="sort">
-                              <option value="updated" selected></option>
-                              <option value="published">S</option>
+                              <option value="updated" ></option>
+                              <option value="published"selected>S</option>
                               <option value="updated">D</option>
                             </select>
                           </div>
@@ -1591,7 +1620,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         </button>
 
                         <button type="button" class="govuk-button govuk-button--warning remove-tyre-button" data-axle="1">
-                          Remove tyre
+                          Remove axle
                         </button>
                       </div> 
 
@@ -1611,7 +1640,7 @@ document.addEventListener('DOMContentLoaded', function () {
                               Size
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--size"
-                              id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric">
+                              id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric"disabled>
                           </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -1621,7 +1650,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--ply"
                               id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
-                              >
+                              disabled>
                           </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -1629,7 +1658,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
                               Load index
                             </label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-3"
+                            <input class="load-index govuk-input govuk-date-input__input govuk-input--width-3"
                               id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
                               >
                           </div>
@@ -1646,6 +1675,16 @@ document.addEventListener('DOMContentLoaded', function () {
                               <option value="updated">B</option>
                               <option value="updated">C</option>
                               <option value="updated">D</option>
+                              <option value="updated">E</option>
+                              <option value="updated">F</option>
+                              <option value="updated">G</option>
+                              <option value="updated">J</option>
+                              <option value="updated">K</option>
+                              <option value="updated">L</option>
+                              <option value="updated">M</option>
+                              <option value="updated">N</option>
+                              <option value="updated">P</option>
+                              <option value="updated">Q</option>
                             </select>
                           </div>
                         </div>
@@ -1655,8 +1694,8 @@ document.addEventListener('DOMContentLoaded', function () {
                               S/D
                             </label>
                             <select class="govuk-select govuk-select--tyres" id="sort" name="sort">
-                              <option value="updated" selected></option>
-                              <option value="published">S</option>
+                              <option value="updated" ></option>
+                              <option value="published"selected>S</option>
                               <option value="updated">D</option>
                             </select>
                           </div>
@@ -1679,7 +1718,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         </button>
 
                         <button type="button" class="govuk-button govuk-button--warning remove-tyre-button" data-axle="1">
-                          Remove tyre
+                          Remove axle
                         </button>
                       </div> 
 
@@ -1699,7 +1738,7 @@ document.addEventListener('DOMContentLoaded', function () {
                               Size
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--size"
-                              id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric">
+                              id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric"disabled>
                           </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -1709,7 +1748,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--ply"
                               id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
-                              >
+                              disabled>
                           </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -1717,7 +1756,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
                               Load index
                             </label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-3"
+                            <input class="load-index govuk-input govuk-date-input__input govuk-input--width-3"
                               id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
                               >
                           </div>
@@ -1734,6 +1773,17 @@ document.addEventListener('DOMContentLoaded', function () {
                               <option value="updated">B</option>
                               <option value="updated">C</option>
                               <option value="updated">D</option>
+                              <option value="updated">E</option>
+                              <option value="updated">F</option>
+                              <option value="updated">G</option>
+                              <option value="updated">J</option>
+                              <option value="updated">K</option>
+                              <option value="updated">L</option>
+                              <option value="updated">M</option>
+                              <option value="updated">N</option>
+                              <option value="updated">P</option>
+                              <option value="updated">Q</option>
+
                             </select>
                           </div>
                         </div>
@@ -1743,8 +1793,8 @@ document.addEventListener('DOMContentLoaded', function () {
                               S/D
                             </label>
                             <select class="govuk-select govuk-select--tyres" id="sort" name="sort">
-                              <option value="updated" selected></option>
-                              <option value="published">S</option>
+                              <option value="updated" ></option>
+                              <option value="published"selected>S</option>
                               <option value="updated">D</option>
                             </select>
                           </div>
@@ -1767,7 +1817,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         </button>
 
                         <button type="button" class="govuk-button govuk-button--warning remove-tyre-button" data-axle="1">
-                          Remove tyre
+                          Remove axle
                         </button>
                       </div> 
 
@@ -1787,7 +1837,7 @@ document.addEventListener('DOMContentLoaded', function () {
                               Size
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--size"
-                              id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric">
+                              id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric"disabled>
                           </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -1797,7 +1847,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--ply"
                               id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
-                              >
+                              disabled>
                           </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -1805,7 +1855,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
                               Load index
                             </label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-3"
+                            <input class="load-index govuk-input govuk-date-input__input govuk-input--width-3"
                               id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
                               >
                           </div>
@@ -1822,6 +1872,16 @@ document.addEventListener('DOMContentLoaded', function () {
                               <option value="updated">B</option>
                               <option value="updated">C</option>
                               <option value="updated">D</option>
+                              <option value="updated">E</option>
+                              <option value="updated">F</option>
+                              <option value="updated">G</option>
+                              <option value="updated">J</option>
+                              <option value="updated">K</option>
+                              <option value="updated">L</option>
+                              <option value="updated">M</option>
+                              <option value="updated">N</option>
+                              <option value="updated">P</option>
+                              <option value="updated">Q</option>
                             </select>
                           </div>
                         </div>
@@ -1831,8 +1891,8 @@ document.addEventListener('DOMContentLoaded', function () {
                               S/D
                             </label>
                             <select class="govuk-select govuk-select--tyres" id="sort" name="sort">
-                              <option value="updated" selected></option>
-                              <option value="published">S</option>
+                              <option value="updated" ></option>
+                              <option value="published"selected>S</option>
                               <option value="updated">D</option>
                             </select>
                           </div>
@@ -1854,7 +1914,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         </button>
 
                         <button type="button" class="govuk-button govuk-button--warning remove-tyre-button" data-axle="1">
-                          Remove tyre
+                          Remove axle
                         </button>
                       </div> 
 
@@ -1874,7 +1934,7 @@ document.addEventListener('DOMContentLoaded', function () {
                               Size
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--size"
-                              id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric">
+                              id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric" disabled>
                           </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -1884,7 +1944,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--ply"
                               id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
-                              >
+                              disabled>
                           </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -1892,7 +1952,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
                               Load index
                             </label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-3"
+                            <input class="load-index govuk-input govuk-date-input__input govuk-input--width-3"
                               id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
                               >
                           </div>
@@ -1909,6 +1969,16 @@ document.addEventListener('DOMContentLoaded', function () {
                               <option value="updated">B</option>
                               <option value="updated">C</option>
                               <option value="updated">D</option>
+                              <option value="updated">E</option>
+                              <option value="updated">F</option>
+                              <option value="updated">G</option>
+                              <option value="updated">J</option>
+                              <option value="updated">K</option>
+                              <option value="updated">L</option>
+                              <option value="updated">M</option>
+                              <option value="updated">N</option>
+                              <option value="updated">P</option>
+                              <option value="updated">Q</option>
                             </select>
                           </div>
                         </div>
@@ -1918,8 +1988,8 @@ document.addEventListener('DOMContentLoaded', function () {
                               S/D
                             </label>
                             <select class="govuk-select govuk-select--tyres" id="sort" name="sort">
-                              <option value="updated" selected></option>
-                              <option value="published">S</option>
+                              <option value="updated" ></option>
+                              <option value="published"selected>S</option>
                               <option value="updated">D</option>
                             </select>
                           </div>

@@ -726,6 +726,7 @@ padding-top: 25px !important;
 .govuk-summary-card__title-vtm {
   line-height: 1.3157894737 !important;
 }
+
 .vehicle-summary {
   position: sticky !important;
   top: 40px;
@@ -739,6 +740,11 @@ padding-top: 25px !important;
   overflow-wrap: normal;
   padding-top: 0px;
   padding-bottom: 0px !important;
+}
+
+.load-index {
+  width: 4.75em !important;
+  max-width: 4.75em !important;
 }
 
 .govuk-summary-list__value--overflow {
@@ -800,8 +806,8 @@ padding-top: 25px !important;
 }
 
 .govuk-select--sr {
-  min-width: 3.5em !important;
-  width: 3.5em !important;
+  min-width: 3.2em !important;
+  width: 3.2em !important;
 }
 
 .govuk-input--size {
