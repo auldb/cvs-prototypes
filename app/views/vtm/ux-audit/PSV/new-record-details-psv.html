@@ -32,7 +32,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const brakesWarning = document.getElementById('brakes-warning'); 
     const pbWarning = document.getElementById('pb-warning');
 
-    // 👇 Grab all axle warning message containers (tyres + weights)
     const axleDistanceWarnings = document.querySelectorAll('#axle-warning-message-2');
 
     const weightFields = ['weight-axle1', 'weight-axle2', 'weight-axle3', 'weight-axle4', 'weight-axle5'];
@@ -42,6 +41,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const conditionalUntaggedFields = document.querySelectorAll('.conditional-untagged');
 
+    // ----------------------
+    // Toggle fields display
+    // ----------------------
     function toggleFields() {
         const axlesValue = axleInput.value.trim();
         const axles = axlesValue === '' ? 0 : parseInt(axlesValue, 10);
@@ -78,6 +80,9 @@ document.addEventListener('DOMContentLoaded', function () {
         attachRemoveHandlers();
     }
 
+    // ----------------------
+    // Remove individual axle
+    // ----------------------
     function attachRemoveHandlers() {
         document.querySelectorAll('.remove-axle-button, .remove-tyre-button').forEach(button => {
             button.onclick = function (event) {
@@ -87,19 +92,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 updateAxleCount(axles - 1);
 
-                // 👇 Show warnings in ALL places (tyres + weights)
                 axleDistanceWarnings.forEach(w => w.style.display = 'block');
             };
         });
     }
 
+    // ----------------------
+    // Update axle input
+    // ----------------------
     function updateAxleCount(newCount, disable = true) {
         axleInput.disabled = false;
-        axleInput.value = newCount;
+        axleInput.value = newCount === 0 ? '' : newCount;
         toggleFields();
         axleInput.disabled = disable;
     }
 
+    // ----------------------
+    // Confirm / Remove & Clear button
+    // ----------------------
     if (axlesButton) {
         axlesButton.classList.add('govuk-button');
 
@@ -116,21 +126,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
         function resetHandler(event) {
             event.preventDefault();
-            updateAxleCount(0, false);
+            updateAxleCount(0, false); // 👈 now clears the input
 
             axlesButton.textContent = 'Confirm number of axles';
             axlesButton.classList.remove('govuk-button--warning');
 
+            axleDistanceWarnings.forEach(w => w.style.display = 'none');
+
             axlesButton.removeEventListener('click', resetHandler);
             axlesButton.addEventListener('click', confirmHandler);
-
-            // 👇 Hide warnings when clearing all
-            axleDistanceWarnings.forEach(w => w.style.display = 'none');
         }
 
         axlesButton.addEventListener('click', confirmHandler);
     }
 
+    // ----------------------
+    // Add new axle
+    // ----------------------
     document.querySelectorAll('.add-axle-button').forEach(button => {
         button.addEventListener('click', function (event) {
             event.preventDefault();
@@ -141,7 +153,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
             updateAxleCount(axles + 1);
 
-            // 👇 Hide warnings when adding new axles
             axleDistanceWarnings.forEach(w => w.style.display = 'none');
 
             if (axlesButton && axlesButton.textContent !== 'Remove and clear all axles') {
@@ -154,7 +165,9 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Filters unchanged...
+    // ----------------------
+    // Filters
+    // ----------------------
     const filters = [
         { id: 'plates', className: 'plates' },
         { id: 'required', className: 'required' },
@@ -185,10 +198,8 @@ document.addEventListener('DOMContentLoaded', function () {
     filters.forEach(({ id, className }) => {
         const button = document.getElementById(id);
         const text = button?.querySelector('.app-c-filter-summary__remove-filter-text');
-        if (!button || !text) {
-            console.error(`Error: Filter button or text not found for ${id}`);
-            return;
-        }
+        if (!button || !text) return;
+
         button.addEventListener('click', function (event) {
             event.preventDefault();
             filterStates[id] = !filterStates[id];
@@ -207,6 +218,7 @@ document.addEventListener('DOMContentLoaded', function () {
     setTimeout(toggleFields, 100);
 });
 </script>
+
 
 
 <div class="govuk-width-container">
