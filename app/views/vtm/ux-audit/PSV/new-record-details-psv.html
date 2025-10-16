@@ -2074,27 +2074,41 @@ document.addEventListener('DOMContentLoaded', function () {
                     </select>
                   </div>
 
-                  <div class="govuk-form-group">
-                    <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
-                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-                        <h1 class="govuk-fieldset__heading">
-                          Speed restriction
-                        </h1>
-                      </legend>
-                      <div class="govuk-date-input" id="passport-issued">
+            <div class="govuk-form-group">
+              <fieldset class="govuk-fieldset" role="group" aria-describedby="speed-restriction-hint">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                  <h1 class="govuk-fieldset__heading">
+                    Speed restriction
+                  </h1>
+                </legend>
 
-                        <div class="govuk-date-input__item">
-                          <div class="govuk-form-group">
-                            <div class="govuk-input__wrapper">
-                              <input class="govuk-input govuk-date-input__input govuk-input--width-3"
-                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
-                              <div class="govuk-input__suffix" aria-hidden="true">mph</div>
-                            </div>
-                          </div>
-                        </div>
+                <div class="govuk-date-input" id="speed-restriction">
+                  <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                      <div class="govuk-input__wrapper">
+                        <input
+                          class="govuk-input govuk-date-input__input govuk-input--width-3"
+                          id="speed-value"
+                          name="speed-value"
+                          type="text"
+                          inputmode="numeric"
+                        >
+
+                        <select
+                          class="govuk-input__suffix govuk-select govuk-input__suffix--select"
+                          id="speed-unit"
+                          name="speed-unit"
+                        >
+                          <!--<option value="Select unit" selected>Select unit</option>-->
+                          <option value="mph" selected>mph</option>
+                          <option value="kmh">km/h</option>
+                        </select>
                       </div>
-                    </fieldset>
+                    </div>
                   </div>
+                </div>
+              </fieldset>
+            </div>
 
                 </li>
               </ul>
