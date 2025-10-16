@@ -1507,6 +1507,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 </div>
                 </div>
 
+                
+                <!-- <div class="govuk-warning-text">
+                  <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                  <strong class="govuk-warning-text__text">
+                    <span class="govuk-visually-hidden">Warning</span>
+                    The GB axle weight is greater than the selected tyre weight for axles 1, 2 and 3.
+                  </strong>
+                </div> -->
+                
+
                 <div id="tyre-warning" class="plates">
                   <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                     <h1 class="govuk-fieldset__heading">
@@ -1564,7 +1574,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
                               Ply
                             </label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-3"
+                            <input class="ply govuk-input govuk-date-input__input govuk-input--width-3"
                               id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
                               disabled>
                           </div>
@@ -1637,7 +1647,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
                               Ply
                             </label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-3"
+                            <input class="ply govuk-input govuk-date-input__input govuk-input--width-3"
                               id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
                               disabled>
                           </div>
@@ -1667,6 +1677,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     </fieldset>
                   </div>
                   
+                  <div class="govuk-form-group govuk-form-group--error">
                   <div id="tyre-axle3" class="govuk-form-group plates" style="display:none;">
                     <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
                       <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
@@ -1684,6 +1695,10 @@ document.addEventListener('DOMContentLoaded', function () {
                         </button>
                       </div>
 
+                      
+                          <p id="national-insurance-number-error" class="govuk-error-message">
+                            <span class="govuk-visually-hidden">Error:</span>Axle 3 tyre code not in database
+                          </p>
                       <div class="govuk-date-input" id="passport-issued">
                         <div class="govuk-date-input__item">
                           <div class="govuk-form-group">
@@ -1691,7 +1706,7 @@ document.addEventListener('DOMContentLoaded', function () {
                               Code
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-3"
-                              id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric">
+                              id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric" value="001">
                           </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -1709,7 +1724,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
                               Ply
                             </label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-3"
+                            <input class="ply govuk-input govuk-date-input__input govuk-input--width-3"
                               id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
                               disabled>
                           </div>
@@ -1735,6 +1750,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             </select>
                           </div>
                         </div>
+                      </div>
                       </div>
                     </fieldset>
                   </div>
@@ -1782,7 +1798,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
                               Ply
                             </label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-3"
+                            <input class="ply govuk-input govuk-date-input__input govuk-input--width-3"
                               id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
                               disabled>
                           </div>
@@ -1854,7 +1870,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
                               Ply
                             </label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-3"
+                            <input class="ply govuk-input govuk-date-input__input govuk-input--width-3"
                               id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
                               disabled>
                           </div>
