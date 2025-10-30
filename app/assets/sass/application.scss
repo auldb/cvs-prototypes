@@ -454,6 +454,12 @@ padding-top: 25px !important;
    border-color: black;
 }
 
+.suffix-brakes{
+   color: black;
+   opacity: 0.5;
+   border-color: black;
+}
+
   .govuk-input__suffix--select {
     appearance: none;
     -webkit-appearance: none;
@@ -767,10 +773,10 @@ padding-top: 25px !important;
   line-height: 1.3157894737 !important;
 }
 
-//.vehicle-summary {
-  //position: sticky !important;
-  //top: 40px;
-//}
+.vehicle-summary {
+  position: sticky !important;
+  top: 40px;
+}
 
 @media (max-width: 1000px) {
   .vehicle-summary { position:relative !important; top: auto; }

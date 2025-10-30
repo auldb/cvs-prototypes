@@ -557,7 +557,10 @@ document.addEventListener('DOMContentLoaded', function () {
                         Conversion reference number
                       </strong>
                     </label>
-                    <input class="govuk-input govuk-input--width-10" id="phone-number" name="phoneNumber" type="tel">
+                      <p id="national-insurance-number-error" class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span> Conversion reference number must be less than or equal to 10 characters
+                      </p>
+                    <input class="govuk-input govuk-input--error govuk-input--width-10" id="phone-number" name="phoneNumber" type="tel">
                   </div>
 
                   <div class="govuk-form-group">
@@ -856,6 +859,10 @@ document.addEventListener('DOMContentLoaded', function () {
               </hr>
               <ul class="govuk-list">
                 <li>
+
+                  <div class="govuk-inset-text">
+                    A different calculation must be used for the laden weight of vehicles manufactured before 1 April 1988.
+                  </div>
 
                 <div id="axle-warning-message-2" style="display: none;">
                 <div class="govuk-warning-text">
@@ -1549,7 +1556,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             </label>
                             <input class="load-index govuk-input govuk-date-input__input govuk-input--width-3"
                               id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
-                              >
+                              disabled>
                           </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -1647,7 +1654,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             </label>
                             <input class="load-index govuk-input govuk-date-input__input govuk-input--width-3"
                               id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
-                              >
+                              disabled>
                           </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -1745,7 +1752,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             </label>
                             <input class="load-index govuk-input govuk-date-input__input govuk-input--width-3"
                               id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
-                              >
+                              disabled>
                           </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -1844,7 +1851,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             </label>
                             <input class="load-index govuk-input govuk-date-input__input govuk-input--width-3"
                               id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
-                              >
+                              disabled>
                           </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -1941,7 +1948,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             </label>
                             <input class="load-index govuk-input govuk-date-input__input govuk-input--width-3"
                               id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
-                              >
+                              disabled>
                           </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -2732,7 +2739,7 @@ document.addEventListener('DOMContentLoaded', function () {
                               <input class="govuk-input govuk-date-input__input govuk-input--width-5"
                                 id="passport-issued-year" name="passport-issued-year" type="text" value="8811"
                                 inputmode="numeric" disabled>
-
+                              <div class="govuk-input__suffix suffix-brakes" aria-hidden="true">kg</div>
                             </div>
                           </div>
                         </div>
@@ -2746,7 +2753,7 @@ document.addEventListener('DOMContentLoaded', function () {
                               <input class="govuk-input govuk-date-input__input govuk-input--width-5"
                                 id="passport-issued-year" name="passport-issued-year" type="text" value="4406"
                                 inputmode="numeric" disabled>
-
+                              <div class="govuk-input__suffix suffix-brakes" aria-hidden="true">kg</div>
                             </div>
                           </div>
                         </div>
@@ -2760,7 +2767,7 @@ document.addEventListener('DOMContentLoaded', function () {
                               <input class="govuk-input govuk-date-input__input govuk-input--width-5"
                                 id="passport-issued-year" name="passport-issued-year" type="text" value="3313"
                                 inputmode="numeric" disabled>
-
+                              <div class="govuk-input__suffix suffix-brakes" aria-hidden="true">kg</div>
                             </div>
                           </div>
                         </div>
@@ -2787,10 +2794,12 @@ document.addEventListener('DOMContentLoaded', function () {
                               <input class="govuk-input govuk-date-input__input govuk-input--width-5"
                                 id="passport-issued-year" name="passport-issued-year" type="text" value="2221"
                                 inputmode="numeric" disabled>
-
+                              <div class="govuk-input__suffix suffix-brakes" aria-hidden="true">kg</div>
                             </div>
                           </div>
                         </div>
+
+
 
                         <div class="govuk-date-input__item">
                           <div class="govuk-form-group">
@@ -2801,7 +2810,7 @@ document.addEventListener('DOMContentLoaded', function () {
                               <input class="govuk-input govuk-date-input__input govuk-input--width-5"
                                 id="passport-issued-year" name="passport-issued-year" type="text" value="3470"
                                 inputmode="numeric" disabled>
-
+                              <div class="govuk-input__suffix suffix-brakes" aria-hidden="true">kg</div>
                             </div>
                           </div>
                         </div>
@@ -2815,7 +2824,7 @@ document.addEventListener('DOMContentLoaded', function () {
                               <input class="govuk-input govuk-date-input__input govuk-input--width-5"
                                 id="passport-issued-year" name="passport-issued-year" type="text" value="6940"
                                 inputmode="numeric" disabled>
-
+                              <div class="govuk-input__suffix suffix-brakes" aria-hidden="true">kg</div>
                             </div>
                           </div>
                         </div>
@@ -2845,35 +2854,35 @@ document.addEventListener('DOMContentLoaded', function () {
                           <input class="govuk-checkboxes__input" id="brake-axle1-checkbox" name="brake-axle1"
                             type="checkbox">
                           <label class="govuk-label govuk-checkboxes__label" for="brake-axle1-checkbox">
-                            Axle 1 Brake
+                            Axle 1 brake
                           </label>
                         </div>
                         <div class="govuk-checkboxes__item" id="brake-axle2" style="display: none;">
                           <input class="govuk-checkboxes__input" id="brake-axle2-checkbox" name="brake-axle2"
                             type="checkbox">
                           <label class="govuk-label govuk-checkboxes__label" for="brake-axle2-checkbox">
-                            Axle 2 Brake
+                            Axle 2 brake
                           </label>
                         </div>
                         <div class="govuk-checkboxes__item" id="brake-axle3" style="display: none;">
                           <input class="govuk-checkboxes__input" id="brake-axle3-checkbox" name="brake-axle3"
                             type="checkbox">
                           <label class="govuk-label govuk-checkboxes__label" for="brake-axle3-checkbox">
-                            Axle 3 Brake
+                            Axle 3 brake
                           </label>
                         </div>
                         <div class="govuk-checkboxes__item" id="brake-axle4" style="display: none;">
                           <input class="govuk-checkboxes__input" id="brake-axle4-checkbox" name="brake-axle4"
                             type="checkbox">
                           <label class="govuk-label govuk-checkboxes__label" for="brake-axle4-checkbox">
-                            Axle 4 Brake
+                            Axle 4 brake
                           </label>
                         </div>
                         <div class="govuk-checkboxes__item" id="brake-axle5" style="display: none;">
                           <input class="govuk-checkboxes__input" id="brake-axle5-checkbox" name="brake-axle5"
                             type="checkbox">
                           <label class="govuk-label govuk-checkboxes__label" for="brake-axle5-checkbox">
-                            Axle 5 Brake
+                            Axle 5 brake
                           </label>
                         </div>
                       </div>
