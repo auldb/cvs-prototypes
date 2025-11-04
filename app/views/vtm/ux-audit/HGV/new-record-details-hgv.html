@@ -317,7 +317,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 Record type
               </dt>
             </div>
-            <div class="govuk-summary-list__row--value">
+            <div class="govuk-summary-list__row--last">
               <dd class="govuk-summary-list__value govuk-summary-list__value--tag">
                 <strong class="govuk-tag govuk-tag--red">
                   Provisional
@@ -325,7 +325,7 @@ document.addEventListener('DOMContentLoaded', function () {
               </dd>
 
             </div>
-            <div class="govuk-summary-list__row">
+            <!-- <div class="govuk-summary-list__row">
               <dt class="govuk-summary-list__key govuk-summary-list__key-tech">
                 Record status
               </dt>
@@ -337,7 +337,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 </strong>
               </dd>
 
-            </div>
+            </div> -->
             <!-- <div class="govuk-summary-list__row">
               <dt class="govuk-summary-list__key govuk-summary-list__key-tech">
                 Visibility in VTA
@@ -509,13 +509,17 @@ document.addEventListener('DOMContentLoaded', function () {
                   </div>
 
                   <div class="govuk-form-group plates adr">
-                    <label class="govuk-label" for="phone-number">
+                    <label class="govuk-label" for="sort">
                       <strong>
                         Body make
                       </strong>
                     </label>
-                    <input class="govuk-input govuk-input--width-10" id="phone-number" name="phoneNumber" type="tel"
-                      autocomplete="tel">
+                    <select class="govuk-select" id="sort" name="sort">
+                      <option value="published" selected>Select body make</option>
+                      <option value="updated">AEC</option>
+                      <option value="views">Citroen</option>
+                      <option value="views">Renault</option>
+                    </select>
                   </div>
 
                   <div class="govuk-form-group plates">

@@ -471,14 +471,18 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                     </select>
                   </div>
 
-                  <div class="govuk-form-group optional plates">
-                    <label class="govuk-label" for="phone-number">
+                  <div class="govuk-form-group plates adr">
+                    <label class="govuk-label" for="sort">
                       <strong>
                         Body make
                       </strong>
                     </label>
-                    <input class="govuk-input govuk-input--width-10" id="phone-number" name="phoneNumber" type="tel"
-                      autocomplete="tel" value="Scania" disabled>
+                    <select class="govuk-select" id="sort" name="sort" disabled>
+                      <option value="published">Select body make</option>
+                      <option value="updated">AEC</option>
+                      <option value="views">Citroen</option>
+                      <option value="views" selected>Scania</option>
+                    </select>
                   </div>
 
                   <div class="govuk-form-group optional plates">

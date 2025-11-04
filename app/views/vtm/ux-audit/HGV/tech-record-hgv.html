@@ -470,14 +470,18 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                     </select>
                   </div>
 
-                  <div class="govuk-form-group optional plates">
-                    <label class="govuk-label" for="phone-number">
+                  <div class="govuk-form-group plates adr">
+                    <label class="govuk-label" for="sort">
                       <strong>
                         Body make
                       </strong>
                     </label>
-                    <input class="govuk-input govuk-input--width-10" id="phone-number" name="phoneNumber" type="tel"
-                      autocomplete="tel" value="Scania" disabled>
+                    <select class="govuk-select" id="sort" name="sort" disabled>
+                      <option value="published">Select body make</option>
+                      <option value="updated">AEC</option>
+                      <option value="views">Citroen</option>
+                      <option value="views"selected>Scania</option>
+                    </select>
                   </div>
 
                   <div class="govuk-form-group optional plates">
@@ -902,22 +906,22 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
               <ul class="govuk-list">
                 <li>
 
-                  <div class="govuk-form-group plates" id="weights-warning" style="display:none;">
+                 <!-- <div class="govuk-form-group plates" id="weights-warning" style="display:none;">
                     <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
                       <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                         <h1 class="govuk-fieldset__heading">
                           Axle weight details
                         </h1>
                       </legend>
-                      <div class="govuk-warning-text">
+                     <div class="govuk-warning-text">
                         <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
                         <strong class="govuk-warning-text__text">
                           <span class="govuk-visually-hidden">Warning</span>
                           Enter the number of axles to be able to add axle weights.
                         </strong>
-                      </div>
+                      </div> 
                       </fieldset>
-                      </div>
+                      </div> -->
     
                       <div class="govuk-form-group plates" id="weight-axle1" style="display: none;">
                         <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
@@ -1075,7 +1079,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                         </fieldset>
                       </div>
     
-                      <div class="govuk-form-group plates" id="weight-axle4" style="display: none;">
+                      <div class="govuk-form-group" id="weight-axle4" style="display: none;">
                         <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
                           <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                             <h1 class="govuk-fieldset__heading" for="weight-axle4">
@@ -1127,7 +1131,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                         </fieldset>
                       </div>
     
-                      <div class="govuk-form-group plates" id="weight-axle5" style="display: none;">
+                      <div class="govuk-form-group" id="weight-axle5" style="display: none;">
                         <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
                           <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                             <h1 class="govuk-fieldset__heading" for="weight-axle5">
@@ -1531,7 +1535,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                           Axle 3 tyre details
                         </h1>
                       </legend>
-                      <div class="govuk-button-group">
+                      <!-- <div class="govuk-button-group">
                         <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">
                           Search for tyre details
                         </button>
@@ -1539,7 +1543,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                         <button type="submit" class="govuk-button govuk-button--warning" data-module="govuk-button">
                           Remove tyre
                         </button>
-                      </div>
+                      </div> -->
 
                       <div class="govuk-date-input" id="passport-issued">
                         <div class="govuk-date-input__item">
@@ -1548,7 +1552,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                               Code
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-3"
-                              id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric">
+                              id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric" value="788" disabled>
                           </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -1557,7 +1561,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                               Size
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-5.5"
-                              id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric"
+                              id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric" value="185/75-16"
                               disabled>
                           </div>
                         </div>
@@ -1577,7 +1581,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                               Load index
                             </label>
                             <input class="load-index govuk-input govuk-date-input__input govuk-input--width-3"
-                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
+                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="114"
                               disabled>
                           </div>
                         </div>
@@ -1596,9 +1600,8 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                       </div>
                     </fieldset>
                   </div>
-
                   
-                  <div id="tyre-axle4" class="govuk-form-group plates" style="display:none;">
+                  <div id="tyre-axle4" class="govuk-form-group" style="display:none;">
                     <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
                       <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                         <h1 class="govuk-fieldset__heading">
@@ -1671,7 +1674,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
                     </fieldset>
                   </div>
 
-                  <div id="tyre-axle5" class="govuk-form-group plates" style="display:none;">
+                  <div id="tyre-axle5" class="govuk-form-group" style="display:none;">
                     <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
                       <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                         <h1 class="govuk-fieldset__heading">
