@@ -554,10 +554,34 @@ padding-top: 25px !important;
   background-color: #f3f2f1;
 }
 
-.govuk-table th:first-child {
+.govuk-table-tech th:first-child,
+.govuk-table-tech td:first-child {
   white-space: nowrap !important; /* Prevent wrapping */
-  width: 1% !important; /* Shrink to fit content */
+  width: 17% !important; /* Shrink to fit content */
+  padding-left: 10px;
 }
+
+.test-records-table th:first-child,
+.test-records-table td:first-child {
+  white-space: nowrap !important; /* Prevent wrapping */
+  width: 50% !important; /* Shrink to fit content */
+  padding-left: 10px;
+}
+
+.adr-cert-table th:first-child,
+.adr-cert-table td:first-child {
+  white-space: nowrap !important; /* Prevent wrapping */
+  width: 30% !important; /* Shrink to fit content */
+  padding-left: 10px;
+}
+
+.plates-table th:first-child,
+.plates-table td:first-child {
+  white-space: nowrap !important; /* Prevent wrapping */
+  width: 10% !important; /* Shrink to fit content */
+  padding-left: 10px;
+}
+
 
 .govuk-table td, .govuk-table th {
   white-space: nowrap !important; /* Prevent wrapping */
@@ -586,16 +610,58 @@ padding-top: 25px !important;
 /* Align Date column to the right in Technical Records table */
 .govuk-table td:nth-child(4),
 .govuk-table th:nth-child(4) {
+  padding: 5px;
+  padding-right: 10px;  
+}
+
+.govuk-table td:nth-child(5),
+.govuk-table th:nth-child(5) {
   text-align: right;
-  padding: 5px; 
+  padding: 5px;
+  padding-right: 10px;  
+}
+
+.test-records-table td:nth-child(4),
+.test-records-table th:nth-child(4) {
+  text-align: right;
+  padding: 5px;
+  padding-right: 10px;  
+}
+
+.adr-cert-table td:nth-child(4),
+.adr-cert-table th:nth-child(4) {
+  text-align: right;
+  padding: 5px;
+  padding-right: 10px;  
 }
 
 /* Align Date column to the right in Test Records table */
 .test-records-table td:nth-child(3),
 .test-records-table th:nth-child(3) {
-  text-align: right;
   padding: 5px; 
 }
+
+.plates-table td:nth-child(3),
+.plates-table th:nth-child(3) {
+  padding-right: 90px; 
+}
+
+.adr-cert-table td:nth-child(3),
+.adr-cert-table th:nth-child(3) {
+  padding: 5px; 
+}
+
+.test-records-table td:nth-child(2),
+.test-records-table th:nth-child(2) {
+  padding-right: 20px; 
+}
+
+.adr-cert-table td:nth-child(2),
+.adr-cert-table th:nth-child(2) {
+  padding-right: 60px;
+  padding-left: 40px;
+}
+
 
 // Buttons and search filter
 
@@ -773,10 +839,10 @@ padding-top: 25px !important;
   line-height: 1.3157894737 !important;
 }
 
-.vehicle-summary {
-  position: sticky !important;
-  top: 40px;
-}
+//.vehicle-summary {
+  //position: sticky !important;
+  //top: 40px;
+//}
 
 @media (max-width: 1000px) {
   .vehicle-summary { position:relative !important; top: auto; }
