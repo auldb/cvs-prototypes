@@ -74,6 +74,12 @@
                   Load simulated
                 </label>
               </div>
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="contact-3" name="contact" type="radio" value="text" data-aria-controls="conditional-contact-3">
+                <label class="govuk-label govuk-radios__label" for="contact-3">
+                  Other
+                </label>
+              </div>
               <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-contact-3">
                 <div class="govuk-form-group">
                   <label class="govuk-label" for="contact-by-text">
@@ -85,21 +91,15 @@
               <div class="govuk-radios__item">
                 <input class="govuk-radios__input" id="noidea" name="noidea-2" type="radio" value="text" data-aria-controls="noidea-2">
                 <label class="govuk-label govuk-radios__label" for="noidea">
-                  I do not know
+                  I do not know the load status
                 </label>
               </div>
               <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="noidea-2">
                 <div class="govuk-form-group">
-                  {% from "govuk/components/character-count/macro.njk" import govukCharacterCount %}
-
-                  {{ govukCharacterCount({
-                    id: "label-as-page-heading",
-                    name: "labelAsPageHeading",
-                    maxlength: 200,
-                    label: {
-                      text: "Enter a reason why you do not know the load status"
-                    }
-                  }) }}
+                  <label class="govuk-label" for="noidea">
+                    Enter a reason why you do not know the load status
+                  </label>
+                  <input class="govuk-input govuk-!-full-width" id="noidea-2" name="noidea-2" type="tel" autocomplete="tel">
                 </div>
               </div>
             </div>

@@ -255,6 +255,11 @@
     padding-bottom: 0px !important;
 }
 
+.govuk-list-standard {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
 .govuk-accordion--vtm {
     padding: 0px;
     border: 1px solid #b1b4b6;
@@ -518,12 +523,25 @@ padding-top: 25px !important;
   box-shadow: none !important; 
 }
 
-.archive-row {
-  cursor: pointer;
+.static-row {
   border: 1px solid #b1b4b6;
   padding: 5px 10px;
   text-decoration: none;
   color: #0b0c0c;
+  font-family: "GDS Transport",arial,sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 400;
+  font-size: 1.1875rem;
+  line-height: 1.3157894737;
+}
+
+.archive-row {
+  cursor: pointer;
+  border: 1px solid #b1b4b6;
+  padding: 5px 10px;
+  text-decoration: underline;
+  color: #1d70b8;
   font-family: "GDS Transport",arial,sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -839,10 +857,10 @@ padding-top: 25px !important;
   line-height: 1.3157894737 !important;
 }
 
-//.vehicle-summary {
-  //position: sticky !important;
-  //top: 40px;
-//}
+.vehicle-summary {
+  position: sticky !important;
+  top: 40px;
+}
 
 @media (max-width: 1000px) {
   .vehicle-summary { position:relative !important; top: auto; }

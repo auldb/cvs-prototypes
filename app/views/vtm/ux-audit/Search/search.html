@@ -93,48 +93,53 @@
 
 
         <div id="filterPanel" class="govuk-form-group app-c-filter-panel__content" hidden>
-          <fieldset class="govuk-fieldset">
-            <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="fullvin" name="fullvin" type="checkbox" value="fullvin" checked>
-                <label class="govuk-label govuk-checkboxes__label" for="fullvin">
-                  VIN
-                </label>
+          
+          <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset">
+              <div class="govuk-radios govuk-radios--small" data-module="govuk-radios">
+                <div class="govuk-radios__item">
+                  <input class="govuk-radios__input" id="changedName" name="changedName" type="radio" value="month" checked>
+                  <label class="govuk-label govuk-radios__label" for="changedName">
+                    Search by all criteria
+                  </label>
+                </div>
+                <div class="govuk-radios__item">
+                  <input class="govuk-radios__input" id="changedName-2" name="changedName" type="radio" value="year">
+                  <label class="govuk-label govuk-radios__label" for="changedName-2">
+                    VIN
+                  </label>
+                </div>
+                <div class="govuk-radios__item">
+                  <input class="govuk-radios__input" id="changedName-2" name="changedName" type="radio" value="year">
+                  <label class="govuk-label govuk-radios__label" for="changedName-2">
+                    VRM
+                  </label>
+                </div>
+                <div class="govuk-radios__item">
+                  <input class="govuk-radios__input" id="changedName-2" name="changedName" type="radio" value="year">
+                  <label class="govuk-label govuk-radios__label" for="changedName-2">
+                    Trailer ID
+                  </label>
+                </div>
+                <div class="govuk-radios__item">
+                  <input class="govuk-radios__input" id="changedName-2" name="changedName" type="radio" value="year">
+                  <label class="govuk-label govuk-radios__label" for="changedName-2">
+                    Partial VIN
+                  </label>
+                </div>
+                <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+                <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
+                  <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="organisation" name="organisation" type="checkbox" value="hmrc">
+                    <label class="govuk-label govuk-checkboxes__label" for="organisation">
+                      Include archived records
+                    </label>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="vrm" name="organisation" type="checkbox" value="vrm" checked>
-                <label class="govuk-label govuk-checkboxes__label" for="vrm">
-                  VRM
-                </label>
-              </div>
-            </div>
-            <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="trailerid" name="trailerid" type="checkbox" value="trailerid" checked>
-                <label class="govuk-label govuk-checkboxes__label" for="trailerid">
-                  Trailer ID
-                </label>
-              </div>
-            </div>
-            <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="organisation" name="organisation" type="checkbox" value="hmrc">
-                <label class="govuk-label govuk-checkboxes__label" for="organisation">
-                  Exact matches only
-                </label>
-              </div>
-            </div>
-            <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="organisation" name="organisation" type="checkbox" value="hmrc">
-                <label class="govuk-label govuk-checkboxes__label" for="organisation">
-                  Show archived records
-                </label>
-              </div>
-            </div>
-          </fieldset>
+            </fieldset>
+          </div>
+
 
           <div class="app-c-filter-panel__actions">
       <input type="submit" value="Apply" class="govuk-button app-c-filter-panel__action app-c-filter-panel__action--submit" data-ga4-event="{&quot;event_name&quot;:&quot;select_content&quot;,&quot;type&quot;:&quot;finder&quot;,&quot;text&quot;:&quot;Apply&quot;,&quot;section&quot;:&quot;Filter and sort&quot;,&quot;action&quot;:&quot;apply&quot;,&quot;index_section&quot;:0,&quot;index_section_count&quot;:4}" data-disable-with="Apply">

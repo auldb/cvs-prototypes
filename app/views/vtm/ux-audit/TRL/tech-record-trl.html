@@ -2557,29 +2557,29 @@ document.addEventListener('DOMContentLoaded', function () {
                         <td class="govuk-table__cell"><a href="#" class="archive-link">Ben</a></td>
                         <td class="govuk-table__cell"><a href="#" class="archive-link">05/02/2024 at 11:49</a></td>
                       </tr>
-                      <tr class="govuk-table__row archive-row">
-                        <td scope="row" class="govuk-table__cell"><a href="#" class="archive-link">4</a></td>
-                        <td class="govuk-table__cell"><a href="#" class="archive-link">Free replacement</a></td>
-                        <td class="govuk-table__cell"><a href="#" class="archive-link">Ben</a></td>
-                        <td class="govuk-table__cell"><a href="#" class="archive-link">04/01/2024 at 09:12</a></td>
+                      <tr class="govuk-table__row static-row">
+                        <td scope="row" class="govuk-table__cell">4</td>
+                        <td class="govuk-table__cell">Free replacement</td>
+                        <td class="govuk-table__cell">Ben</td>
+                        <td class="govuk-table__cell">04/01/2024 at 09:12</td>
                       </tr>
-                      <tr class="govuk-table__row archive-row">
-                        <td scope="row" class="govuk-table__cell"><a href="#" class="archive-link">3</a></td>
-                        <td class="govuk-table__cell"><a href="#" class="archive-link">Destroyed</a></td>
-                        <td class="govuk-table__cell"><a href="#" class="archive-link">Ben</a></td>
-                        <td class="govuk-table__cell"><a href="#" class="archive-link">12/08/2023 at 14:16</a></td>
+                      <tr class="govuk-table__row static-row">
+                        <td scope="row" class="govuk-table__cell">3</a></td>
+                        <td class="govuk-table__cell">Destroyed</td>
+                        <td class="govuk-table__cell">Ben</td>
+                        <td class="govuk-table__cell">12/08/2023 at 14:16</td>
                       </tr>
-                      <tr class="govuk-table__row archive-row">
-                        <td scope="row" class="govuk-table__cell"><a href="#" class="archive-link">2</a></td>
-                        <td class="govuk-table__cell"><a href="#" class="archive-link">Provisional</a></td>
-                        <td class="govuk-table__cell"><a href="#" class="archive-link">Ben</a></td>
-                        <td class="govuk-table__cell"><a href="#" class="archive-link">23/06/2023 at 15:08</a></td>
+                      <tr class="govuk-table__row static-row">
+                        <td scope="row" class="govuk-table__cell">2</td>
+                        <td class="govuk-table__cell">Provisional</td>
+                        <td class="govuk-table__cell">Ben</td>
+                        <td class="govuk-table__cell">23/06/2023 at 15:08</td>
                       </tr>
-                      <tr class="govuk-table__row archive-row">
-                        <td scope="row" class="govuk-table__cell"><a href="#" class="archive-link">1</a></td>
-                        <td class="govuk-table__cell"><a href="#" class="archive-link">Replacement</a></td>
-                        <td class="govuk-table__cell"><a href="#" class="archive-link">Ben</a></td>
-                        <td class="govuk-table__cell"><a href="#" class="archive-link">17/03/2023 at 11:54</a></td>
+                      <tr class="govuk-table__row static-row">
+                        <td scope="row" class="govuk-table__cell">1</td>
+                        <td class="govuk-table__cell">Replacement</td>
+                        <td class="govuk-table__cell">Ben</td>
+                        <td class="govuk-table__cell">17/03/2023 at 11:54</td>
                       </tr>
                     </tbody>
                   </table>
@@ -3521,6 +3521,95 @@ document.addEventListener('DOMContentLoaded', function () {
                     </div>
                   </div>
                   </fieldset>
+                  
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!--LETTERS-->
+          <div class="govuk-accordion__section govuk-accordion__section-vtm untagged">
+            <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
+              <h2 class="govuk-accordion__section-heading">
+                <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
+                  id="accordion-with-summary-sections-heading-2">
+                  Letters
+                </span>
+              </h2>
+              <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
+                Generate and send a letter of acceptance or rejection.
+              </div>
+            </div>
+            <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
+              <hr class="expanded">
+            </hr>
+              <ul class="govuk-list">
+                <li>
+                  
+                  <div class="govuk-button-group">
+                    {{ govukButton({
+                    text: "Generate and send letter",
+                    classes: "govuk-button--secondary"
+                    }) }}
+                  </div>
+
+                  <!--<h3 class="govuk-heading-s">Letters</h3>-->
+
+                  <!--<p class="govuk-body">This trailer does not have a letter of authorisation.</p>-->
+
+                 <!--<div class="govuk-warning-text">
+                  <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                  <strong class="govuk-warning-text__text">
+                    <span class="govuk-visually-hidden">Warning</span>
+                   This trailer does not have the right approval type to be eligible for a letter of authorisation.
+                  </strong>
+                </div>-->
+
+                <dl class="govuk-summary-list">
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                      Letter issuer
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                      Sarah Philips
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                     
+                    </dd>
+                  </div>
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                      Letter type
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                      Trailer acceptance
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                      <a class="govuk-link" href="#">View letter</a>
+                    </dd>
+                  </div>
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                      Paragraph ID
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                      3
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                    </dd>
+                  </div>
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                      Date requested
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                      <p class="govuk-body">12/11/2025 at 12:33</p>
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                    </dd>
+                  </div>
+                </dl>
+
                   
                 </li>
               </ul>
