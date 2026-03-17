@@ -1,0 +1,113 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  GOV.UK page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">  
+          
+
+<h1 class="govuk-heading-l">Accessibility statement for the Vehicle Testing App</h1>
+
+          <p>This accessibility statement applies to the iOS Vehicle Testing App version 5.8.0. This app is run by the <a
+              href="https://www.gov.uk/government/organisations/driver-and-vehicle-standards-agency">Driver and Vehicle
+              Standards Agency</a>. </p>
+
+          <h2 class="govuk-heading-m" id="overview">How you should be able to use this app</h2>
+          <p class="govuk-body">We want as many people as possible to be able to use this app. For example, this
+            means you should be able to:</p>
+          <ul class="govuk-list govuk-list-standard govuk-list--bullet">
+
+          <li>toggle between light mode and dark mode using device settings</li>
+          <li>increase font size by at least 200%, or use the magnification or zoom features on your device</li>
+          <li>listen to most of the app using a screen reader (including the most recent version of VoiceOver or TalkBack)</li>
+          <li>navigate most of the app using a keyboard or switch control</li>
+            </ul>
+          <p>We also make the website text as simple as possible to understand.</p>
+          <p>AbilityNet has advice on <a href="https://mcmw.abilitynet.org.uk">making your device easier to use</a> if
+            you have a disability.</p>
+
+          <h2 class="govuk-heading-m" id="how-accessible">How accessible this app is</h2>
+          <p>We know that some parts of the mobile application are not fully accessible. For example:</p>
+          <ul class="govuk-list govuk-list-standard govuk-list--bullet">
+            <li>some elements do not have a high enough colour contrast ratio</li>
+            <li>some elements do not have an assigned role which may be confusing for screen reader users</li>
+            <li>some non-text content is not accurately labelled</li>
+            <li>the focus order on some pages is set to an incorrect part of the page</li>
+          </ul>
+
+          <h2 class="govuk-heading-m" id="feedback">Feedback and contact information</h2>
+
+          <p><a href="https://www.gov.uk/contact-dvsa">Contact the DVSA</a> if:</p>
+          <ul class="govuk-list govuk-list-standard govuk-list--bullet">
+            <li>you find any problems not listed on this page</li>
+            <li>you think we’re not meeting accessibility requirements</li>
+            <li>you need information in a different format</li>
+          </ul>
+          <p>If you need information in a different format, include in your message:</p>
+          <ul class="govuk-list govuk-list-standard govuk-list--bullet">
+            <li>the title of the page in the app</li>
+            <li>your email address and name</li>
+            <li>the format you need - for example, plain text, braille, BSL, large print or audio CD</li>
+          </ul>
+
+          <h2 class="govuk-heading-m" id="enforcement">Enforcement procedure</h2>
+          <p>The Equality and Human Rights Commission (EHRC) is responsible for enforcing the Public Sector Bodies
+            (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 (the ‘accessibility regulations’).
+          </p>
+          <p>If you’re not happy with how we respond to your complaint, contact:
+            <ul class="govuk-list govuk-list-standard govuk-list--bullet">
+              <li><a href="https://www.equalityadvisoryservice.com/">the Equality Advisory and Support Service (EASS)</a> if you live in England, Scotland or Wales</li>
+              <li><a href="https://www.equalityni.org/Home">the Equality Commission for Northern Ireland (ECNI)</a> if you live in Northern Ireland</li>
+            </ul>
+          </p>
+
+          <h2 class="govuk-heading-m" id="technical-info">Technical information about the accessibility of the Vehicle Testing App</h2>
+          <p>The Driver and Vehicle Standards Agency is committed to making its website accessible, in accordance with
+            the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018.</p>
+
+          <h2 class="govuk-heading-m" id="compliance">Compliance status</h2>
+          <p>This app is partially compliant with the <a href="https://www.w3.org/TR/WCAG22/">Web Content
+              Accessibility Guidelines version 2.2</a> AA standard, due to the non-compliances and exemptions listed
+            below.</p>
+
+          <h2 class="govuk-heading-m" id="non-accesible">Non-accessible content</h2>
+          <p>The content listed below is non-accessible for the following reasons.</p>
+
+
+          <h2 class="govuk-heading-s" id="non-compliance">Non-compliance with the accessibility regulations</h2>
+
+          <ol class="govuk-list govuk-list-standard govuk-list--number">
+            <li>Some form elements do not have correct roles associated with them. The fails WCAG 2.2 success criterion 1.3.1 (Info and Relationships).</li>
+            <li>Some non-text content is not marked up appropriately. The fails WCAG 2.2 success criterion 1.1.1 (Non-text Content).</li>
+            <li>On some pages, the focus order is not set to the correct area of the page. The fails WCAG 2.2 success criterion 2.4.3 (Focus Order).</li>
+            <li>Some pages do not have headings. The fails WCAG 2.2 success criterion 1.3.1 (Info and Relationships).</li>
+            <li>On some pages, the autocomplete feature does not work correctly with screen readers. The fails WCAG 2.2 success criterion 4.1.3 (Status Messages).</li>
+            <li>Some pages do not have descriptive headings or labels. The fails WCAG 2.2 success criterion 2.4.6 (Headings and Labels).</li>
+            <li>On some pages, the colour contrast does not meet the required ratio. The fails WCAG 2.2 success criterion 1.4.3 (Contrast (Minimum)).</li>
+            <li>Some elements do not meet the required ratio for colour contrast. The fails WCAG 2.2 success criterion 1.4.11 (Non-text Contrast).</li>
+            <li>Page content is restricted to being viewed in portrait. The fails WCAG 2.2 success criterion 1.3.4 (Orientation).</li>
+          </ol>
+
+
+          <h2 class="govuk-heading-m" id="notinscope">Content that’s not within the scope of the accessibility
+            regulations</h2>
+          <p>The accessibility regulations do not require us to fix PDFs or other documents published before 23
+            September 2018 if they’re not essential to providing our services.</p>
+
+          <h2 class="govuk-heading-m" id="improving">What we are doing to improve accessibility</h2>
+          <p>We are working with the Digital Accessibility Centre to fix content which fails to meet the Web Content Accessibility Guidelines version 2.2 AA standard.</p>
+
+          <h2 class="govuk-heading-m" id="preparation">Preparation of this accessibility statement</h2>
+          <p>This statement was prepared on 5 January 2026. It was last reviewed on 16 March 2026.</p>
+          
+          <p>The Vehicle Testing App was last tested in September 2025 against the WCAG 2.2 AA standard.</p> 
+          <p>The test was carried out by the Digital Accessibility Centre. It was tested on iOS, using a range of assistive technology combinations.</p>
+
+    </div>
+  </div>
+
+{% endblock %}
