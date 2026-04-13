@@ -2316,7 +2316,54 @@ document.addEventListener('DOMContentLoaded', function () {
                           <div class="govuk-form-group">
   
                             <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
-  
+
+                            <div class="govuk-form-group">
+                              <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
+                                <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                                <h1 class="govuk-fieldset__heading">
+                                  Date application received
+                                </h1>
+                                </legend>
+                                <div class="govuk-date-input" id="passport-issued">
+                                  <div class="govuk-date-input__item">
+                                    <div class="govuk-form-group">
+                                      <label class="govuk-label govuk-date-input__label" for="passport-issued-day">
+                                        Day
+                                      </label>
+                                      <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric">
+                                    </div>
+                                  </div>
+                                  <div class="govuk-date-input__item">
+                                    <div class="govuk-form-group">
+                                      <label class="govuk-label govuk-date-input__label" for="passport-issued-month">
+                                        Month
+                                      </label>
+                                      <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric">
+                                    </div>
+                                  </div>
+                                  <div class="govuk-date-input__item">
+                                    <div class="govuk-form-group">
+                                      <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                                        Year
+                                      </label>
+                                      <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                                    </div>
+                                  </div>
+                                </div>
+                              </fieldset>
+                            </div>
+
+                            <div class="govuk-form-group">
+                            <h1 class="govuk-label-wrapper">
+                              <label class="govuk-label govuk-label--s" for="event-name">
+                                ADR application number
+                              </label>
+                            </h1>
+                            <input class="govuk-input govuk-input--width-10" id="event-name" name="eventName" type="text" >
+                          </div>
+
+                            
+                            <div class="govuk-form-group">
                             <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                               <h1 class="govuk-fieldset__heading">
                                 Applicant details
@@ -2354,8 +2401,9 @@ document.addEventListener('DOMContentLoaded', function () {
                                 </label>
                                 <input class="govuk-input govuk-input--width-10" id="address-postcode" name="addressPostcode" type="text" autocomplete="postal-code" >
                               </div>
-                            </fieldset>      
-                          </div>
+                            </fieldset>   
+                            </div>   
+                          
   
                           <div class="govuk-form-group">
                             <label class="govuk-label" for="sort">
@@ -2402,7 +2450,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             </fieldset>
                           </div>
   
-                          <div class="govuk-form-group">
+                          <!-- <div class="govuk-form-group">
                             <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
                               <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                                 <h1 class="govuk-fieldset__heading">
@@ -2436,7 +2484,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 </div>
                               </div>
                             </fieldset>
-                          </div>
+                          </div> -->
   
                           <div class="govuk-form-group">
                             <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
@@ -3073,9 +3121,28 @@ document.addEventListener('DOMContentLoaded', function () {
                               You have 1500 characters remaining
                             </div>
                           </div>
+
+                          <div class="govuk-form-group">
+                            <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+                              <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                                <h1 class="govuk-fieldset__heading">
+                                  Ready for inspection
+                                </h1>
+                              </legend>
+                              <div class="govuk-checkboxes--small" data-module="govuk-checkboxes">
+                                <div class="govuk-checkboxes__item">
+                                  <input class="govuk-checkboxes__input" id="readyinspect" name="readyinspect" type="checkbox" value="readyinspect" >
+                                  <label class="govuk-label govuk-checkboxes__label" for="readyinspect">
+                                    Yes
+                                  </label>
+                                </div>
+                              </div>
+                            </fieldset>
+                          </div>
                           
                           <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
   
+                        </div>
                         </div>
   
                         <div class="govuk-radios__item">

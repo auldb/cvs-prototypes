@@ -1,12 +1,10 @@
 {% extends "layouts/main.html" %}
 
 {% block pageTitle %}
-GOV.UK page template – {{ serviceName }} – GOV.UK Prototype Kit
+  GOV.UK page template – {{ serviceName }} – GOV.UK Prototype Kit
 {% endblock %}
 
 {% block content %}
-
-
 
 <div class="govuk-error-summary" data-module="govuk-error-summary">
   <div role="alert">
@@ -16,14 +14,15 @@ GOV.UK page template – {{ serviceName }} – GOV.UK Prototype Kit
     <div class="govuk-error-summary__body">
       <ul class="govuk-list govuk-error-summary__list">
         <li>
-          <a href="#">Enter your full name</a>
+          <a href="#">Plate could not be found.</a>
         </li>
         <li>
-          <a href="#">The date your passport was issued must be in the past</a>
+          <a href="#">Try again later or contact the service desk if this issue keeps happening.</a>
         </li>
       </ul>
     </div>
   </div>
 </div>
+
 
 {% endblock %}
