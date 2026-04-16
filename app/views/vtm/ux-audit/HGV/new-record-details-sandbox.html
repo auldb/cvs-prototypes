@@ -232,10 +232,244 @@ document.addEventListener('DOMContentLoaded', function () {
 
     applyFilters();
     setTimeout(toggleFields, 100);
+    initializeCompareState(); // Initialize compare button state and reset checkboxes
 });
 </script>
 
 <script>
+// Track selected sections for comparison
+const compareState = {
+  tyres: false,
+  weights: false,
+  dimensions: false
+};
+
+function updateCompareButton() {
+  const compareBtn = document.getElementById('compare-sections-btn');
+  const selectedCount = Object.values(compareState).filter(v => v).length;
+  
+  if (compareBtn) {
+    compareBtn.disabled = selectedCount < 2;
+    compareBtn.style.opacity = selectedCount < 2 ? '0.5' : '1';
+    compareBtn.style.cursor = selectedCount < 2 ? 'not-allowed' : 'pointer';
+  }
+}
+
+function toggleSectionForComparison(sectionName) {
+  const checkbox = document.getElementById(sectionName + '-compare-checkbox');
+  if (checkbox) {
+    compareState[sectionName] = checkbox.checked;
+  } else {
+    compareState[sectionName] = !compareState[sectionName];
+  }
+  updateCompareButton();
+}
+
+function initializeCompareState() {
+  const tyresCheckbox = document.getElementById('tyres-compare-checkbox');
+  const weightsCheckbox = document.getElementById('weights-compare-checkbox');
+  const dimensionsCheckbox = document.getElementById('dimensions-compare-checkbox');
+  
+  if (tyresCheckbox) {
+    compareState.tyres = tyresCheckbox.checked;
+    tyresCheckbox.checked = false;
+  }
+  if (weightsCheckbox) {
+    compareState.weights = weightsCheckbox.checked;
+    weightsCheckbox.checked = false;
+  }
+  if (dimensionsCheckbox) {
+    compareState.dimensions = dimensionsCheckbox.checked;
+    dimensionsCheckbox.checked = false;
+  }
+  
+  updateCompareButton();
+}
+
+function compare() {
+  const selectedSections = Object.keys(compareState).filter(key => compareState[key]);
+  
+  if (selectedSections.length < 2) {
+    alert('Please select at least 2 sections to compare.');
+    return;
+  }
+  
+  const popup = window.open('', 'Compare Sections', 'width=1400,height=800,resizable=yes,scrollbars=yes');
+  
+  if (!popup) {
+    alert('Unable to open popup. Please disable pop-up blockers.');
+    return;
+  }
+  
+  // Build the HTML structure for the popup
+  popup.document.write('<!DOCTYPE html>');
+  popup.document.write('<html>');
+  popup.document.write('<head>');
+  popup.document.write('<meta charset="UTF-8">');
+  popup.document.write('<meta name="viewport" content="width=device-width, initial-scale=1.0">');
+  popup.document.write('<title>Compare Sections</title>');
+  
+  // Copy all stylesheets from the parent document
+  Array.from(document.querySelectorAll('link[rel="stylesheet"]')).forEach(link => {
+    popup.document.write(`<link rel="stylesheet" href="${link.href}">`);
+  });
+  
+  // Calculate grid columns based on number of selected sections
+  const numSections = selectedSections.length;
+  const gridColumns = Array(numSections).fill('1fr').join(' ');
+  
+  // Add styles for side-by-side comparison
+  popup.document.write(`<style>
+    body {
+      margin: 0;
+      padding: 20px;
+      background-color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+    .compare-container {
+      display: grid;
+      grid-template-columns: ${gridColumns};
+      gap: 30px;
+      max-width: 100%;
+    }
+    .compare-section {
+      border: 1px solid #b1b4b6;
+      padding: 20px;
+      background-color: #fff;
+      cursor: move;
+      transition: opacity 0.2s;
+    }
+    .compare-section.dragging {
+      opacity: 0.5;
+      background-color: #f3f2f1;
+    }
+    .compare-section.drag-over {
+      background-color: #e8f0f8;
+      border: 2px solid #005ea5;
+      padding: 19px;
+    }
+    .compare-section h2 {
+      margin-top: 0;
+      padding-bottom: 15px;
+      border-bottom: 1px dashed #b1b4b6;
+      user-select: none;
+    }
+    .govuk-select--tyres {
+      min-width: 2em;
+      width: 2.5em;
+    }
+    @media (max-width: 1200px) {
+      .compare-container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>`);
+  
+  popup.document.write('</head>');
+  popup.document.write('<body>');
+  popup.document.write('<div class="compare-container">');
+  popup.document.write('</div>');
+  popup.document.write('</body>');
+  popup.document.write('</html>');
+  popup.document.close();
+  
+  // Add drag-and-drop functionality after popup is loaded
+  popup.addEventListener('load', function() {
+    let draggedElement = null;
+    const container = popup.document.querySelector('.compare-container');
+    
+    function setupDragForSection(section) {
+      section.draggable = true;
+      
+      section.addEventListener('dragstart', (e) => {
+        draggedElement = section;
+        section.classList.add('dragging');
+        e.dataTransfer.effectAllowed = 'move';
+      });
+      
+      section.addEventListener('dragend', (e) => {
+        section.classList.remove('dragging');
+        container.querySelectorAll('.compare-section').forEach(s => {
+          s.classList.remove('drag-over');
+        });
+        draggedElement = null;
+      });
+      
+      section.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+        if (section !== draggedElement) {
+          section.classList.add('drag-over');
+        }
+      });
+      
+      section.addEventListener('dragleave', (e) => {
+        section.classList.remove('drag-over');
+      });
+      
+      section.addEventListener('drop', (e) => {
+        e.preventDefault();
+        if (section !== draggedElement) {
+          const allSections = Array.from(container.children);
+          const draggedIndex = allSections.indexOf(draggedElement);
+          const targetIndex = allSections.indexOf(section);
+          
+          if (draggedIndex < targetIndex) {
+            section.parentNode.insertBefore(draggedElement, section.nextSibling);
+          } else {
+            section.parentNode.insertBefore(draggedElement, section);
+          }
+        }
+        section.classList.remove('drag-over');
+      });
+    }
+    
+    // Setup drag for all existing sections
+    container.querySelectorAll('.compare-section').forEach(section => {
+      setupDragForSection(section);
+    });
+    
+    // Store setupDragForSection in popup window for later use
+    popup.setupDragForSection = setupDragForSection;
+  });
+  
+  // Add each selected section
+  selectedSections.forEach(sectionName => {
+    let contentElement = null;
+    let sectionTitle = '';
+    
+    if (sectionName === 'tyres') {
+      contentElement = document.getElementById('mySection');
+      sectionTitle = 'Tyres';
+    } else if (sectionName === 'weights') {
+      contentElement = document.getElementById('weightsSection');
+      sectionTitle = 'Weights';
+    } else if (sectionName === 'dimensions') {
+      contentElement = document.getElementById('dimensionsSection');
+      sectionTitle = 'Dimensions';
+    }
+    
+    if (contentElement) {
+      const clonedContent = contentElement.cloneNode(true);
+      const sectionDiv = popup.document.createElement('div');
+      sectionDiv.className = 'compare-section';
+      
+      const titleElement = popup.document.createElement('h2');
+      titleElement.textContent = sectionTitle;
+      
+      sectionDiv.appendChild(titleElement);
+      sectionDiv.appendChild(clonedContent);
+      
+      popup.document.querySelector('.compare-container').appendChild(sectionDiv);
+      
+      // Setup drag functionality if available
+      if (popup.setupDragForSection) {
+        popup.setupDragForSection(sectionDiv);
+      }
+    }
+  });
+}
+
 function popOut() {
   const popup = window.open('', 'Tyres Details', 'width=660,height=750,resizable=yes,scrollbars=yes');
   
@@ -402,6 +636,10 @@ function popOut() {
           </dl>
         </div>
       </div>
+
+      <button type="button" class="govuk-button govuk-button--primary" id="compare-sections-btn" onclick="compare()" disabled style="opacity: 0.5; cursor: not-allowed; margin-bottom: 20px; background-color:#1d70b8">
+        Compare sections
+      </button>
 
       <div class="govuk-button-group govuk-button-group-record">
         {{ govukButton({
@@ -791,6 +1029,19 @@ function popOut() {
               </hr>
               <ul class="govuk-list">
                 <li>
+                  <div style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #b1b4b6;">
+                    <div class="govuk-checkboxes--small">
+                      <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="dimensions-compare-checkbox" name="compare-dimensions" type="checkbox" 
+                               onchange="toggleSectionForComparison('dimensions')">
+                        <label class="govuk-label govuk-checkboxes__label" for="dimensions-compare-checkbox">
+                          Compare this section
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div id="dimensionsSection">
 
                   <div class="govuk-form-group plates" id="dimensions-warning" style="display:none;">
                     <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
@@ -987,6 +1238,7 @@ function popOut() {
                     </fieldset>
                   </div>
 
+                  </div>
 
                 </li>
               </ul>
@@ -1012,6 +1264,19 @@ function popOut() {
               </hr>
               <ul class="govuk-list">
                 <li>
+                  <div style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #b1b4b6;">
+                    <div class="govuk-checkboxes--small">
+                      <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="weights-compare-checkbox" name="compare-weights" type="checkbox" 
+                               onchange="toggleSectionForComparison('weights')">
+                        <label class="govuk-label govuk-checkboxes__label" for="weights-compare-checkbox">
+                          Compare this section
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div id="weightsSection">
 
                   <div class="govuk-warning-text">
                   <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
@@ -1526,6 +1791,8 @@ function popOut() {
                     </fieldset>
                   </div>
 
+                  </div>
+
                   <button type="button" class="govuk-button govuk-button--secondary add-axle-button">
                     Add axle
                   </button>
@@ -1554,19 +1821,21 @@ function popOut() {
               <hr class="expanded">
               </hr>
 
-              <ul class="govuk-list popout">
-                <li class="popout">
-                  <!-- <button type="button" class="govuk-button govuk-button--secondary" onclick="popOut()">
-                    Pop out
-                  </button> -->
-                  <a class="govuk-link popout-link" onclick="popOut()">View this section in a separate window.</a>
-                </li>
-              </ul>
+              <ul class="govuk-list">
+                <li>
+                  <div style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #b1b4b6;">
+                    <div class="govuk-checkboxes--small">
+                      <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="tyres-compare-checkbox" name="compare-tyres" type="checkbox" 
+                               onchange="toggleSectionForComparison('tyres')">
+                        <label class="govuk-label govuk-checkboxes__label" for="tyres-compare-checkbox">
+                          Compare this section
+                        </label>
+                      </div>
+                    </div>
+                  </div>
 
-              <div id="mySection">
-                <ul class="govuk-list">
-                
-                  <li>
+                  <div id="mySection">
 
                   <div id="axle-warning-message-2" style="display: none;">
                   <div class="govuk-warning-text">
@@ -1995,11 +2264,10 @@ function popOut() {
                   Add axle
                 </button>
 
-                </li>
-                </ul>
               </div>
 
-            </div>
+            </li>
+            </ul>
           </div>       
 
           <!--CONFIGURATION-->
@@ -3484,13 +3752,6 @@ function popOut() {
             </div>
           </div>
         </div>
-
-                  <div class="govuk-button-group govuk-button-group-record">
-        {{ govukButton({
-        text: "Create new record",
-        href: "tech-record-hgv.html"
-        }) }}
-      </div>
 
 
       </form>

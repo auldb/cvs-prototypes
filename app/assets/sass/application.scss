@@ -11,6 +11,25 @@
 
 // Add extra styles here
 
+.popout {
+  margin-bottom: 0px !important;
+  padding-bottom: 0px !important;
+}
+
+.popout-link:hover {
+  cursor: pointer;
+  color: #1d70b8;
+}
+
+.popout-link {
+  color: #1d70b8;
+}
+
+.govuk-date-input__item {
+  padding-right: 4px !important;
+  margin-right: 4px !important;
+}
+
 .list-border {
     border: 1px solid #b1b4b6;
     padding-left:12px;
@@ -18,8 +37,12 @@
 }
 
 .list-padding {
-    padding-top:0px;
+    padding-top:0px !important;
     padding-left:0px;
+}
+
+.list-border {
+  padding-top: 0px !important;
 }
 
 .side-list {
@@ -428,6 +451,15 @@ padding-top: 25px !important;
 
 .filter-box {
   padding: 5px 20px 5px 20px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.filter-box dd {
+  display: inline-block;
+  margin: 0;
 }
 
 // View tech record page
