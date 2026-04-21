@@ -1,0 +1,736 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+Vehicle Testing Management – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+
+{% block beforeContent %}
+{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+
+{{ govukPhaseBanner({
+tag: {
+text: "Beta"
+},
+html: 'This is a new service. Help us improve it and <a class="govuk-link" href="#">give your feedback (opens in new
+    tab)</a>.'
+}) }}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+
+<div class="govuk-grid-row">
+    <div class="govuk-width-container govuk-width-container--wide">
+
+        <h1 class="govuk-heading-l">
+            Add batch of HGVs
+        </h1>
+
+        <form class="form" action="add-hgvs" method="post">
+
+            <div class="govuk-form-group">
+                <label class="govuk-label govuk-label--s" for="application-id">
+                    Application ID
+                </label>
+                <input class="govuk-input govuk-input--width-20" id="application-id" name="eapplication-id" type="text">
+            </div>
+
+            <div class="govuk-inset-text">
+                For new HGV records, enter the VIN only. <br>
+                For existing HGV records, enter the VIN and VRM.
+            </div>
+
+
+            <div class="govuk-grid-row">
+
+                <div class="govuk-grid-column-one-quarter">
+                    <h3 class="govuk-heading-s">Vehicle 1</h3>
+
+                    <div class="govuk-form-group">
+                        <label class="govuk-label" for="v1-vin">VIN</label>
+                        <input class="govuk-input" id="v1-vin" name="v1-vin" type="text">
+                    </div>
+
+                    <div class="govuk-form-group">
+                        <label class="govuk-label" for="v1-vrm">VRM</label>
+                        <input class="govuk-input" id="v1-vrm" name="v1-vrm" type="text">
+                    </div>
+                </div>
+
+                <div class="govuk-grid-column-one-quarter">
+                    <h3 class="govuk-heading-s">Vehicle 2</h3>
+
+                    <div class="govuk-form-group">
+                        <label class="govuk-label" for="v2-vin">VIN</label>
+                        <input class="govuk-input" id="v2-vin" name="v2-vin" type="text">
+                    </div>
+
+                    <div class="govuk-form-group">
+                        <label class="govuk-label" for="v2-vrm">VRM</label>
+                        <input class="govuk-input" id="v2-vrm" name="v2-vrm" type="text">
+                    </div>
+                </div>
+
+                <div class="govuk-grid-column-one-quarter">
+                    <h3 class="govuk-heading-s">Vehicle 3</h3>
+
+                    <div class="govuk-form-group">
+                        <label class="govuk-label" for="v3-vin">VIN</label>
+                        <input class="govuk-input" id="v3-vin" name="v3-vin" type="text">
+                    </div>
+
+                    <div class="govuk-form-group">
+                        <label class="govuk-label" for="v3-vrm">VRM</label>
+                        <input class="govuk-input" id="v3-vrm" name="v3-vrm" type="text">
+                    </div>
+                </div>
+
+                <div class="govuk-grid-column-one-quarter">
+                    <h3 class="govuk-heading-s">Vehicle 4</h3>
+
+                    <div class="govuk-form-group">
+                        <label class="govuk-label" for="v4-vin">VIN</label>
+                        <input class="govuk-input" id="v4-vin" name="v4-vin" type="text">
+                    </div>
+
+                    <div class="govuk-form-group">
+                        <label class="govuk-label" for="v4-vrm">VRM</label>
+                        <input class="govuk-input" id="v4-vrm" name="v4-vrm" type="text">
+                    </div>
+                </div>
+
+            </div>
+            <div class="govuk-grid-row">
+
+                <div class="govuk-grid-column-one-quarter">
+                    <h3 class="govuk-heading-s">Vehicle 5</h3>
+
+                    <div class="govuk-form-group">
+                        <label class="govuk-label" for="v5-vin">VIN</label>
+                        <input class="govuk-input" id="v5-vin" name="v5-vin" type="text">
+                    </div>
+
+                    <div class="govuk-form-group">
+                        <label class="govuk-label" for="v5-vrm">VRM</label>
+                        <input class="govuk-input" id="v5-vrm" name="v5-vrm" type="text">
+                    </div>
+                </div>
+
+                <div class="govuk-grid-column-one-quarter">
+                    <h3 class="govuk-heading-s">Vehicle 6</h3>
+
+                    <div class="govuk-form-group">
+                        <label class="govuk-label" for="v6-vin">VIN</label>
+                        <input class="govuk-input" id="v6-vin" name="v6-vin" type="text">
+                    </div>
+
+                    <div class="govuk-form-group">
+                        <label class="govuk-label" for="v6-vrm">VRM</label>
+                        <input class="govuk-input" id="v6-vrm" name="v6-vrm" type="text">
+                    </div>
+                </div>
+
+                <div class="govuk-grid-column-one-quarter">
+                    <h3 class="govuk-heading-s">Vehicle 7</h3>
+
+                    <div class="govuk-form-group">
+                        <label class="govuk-label" for="v7-vin">VIN</label>
+                        <input class="govuk-input" id="v7-vin" name="v7-vin" type="text">
+                    </div>
+
+                    <div class="govuk-form-group">
+                        <label class="govuk-label" for="v7-vrm">VRM</label>
+                        <input class="govuk-input" id="v7-vrm" name="v7-vrm" type="text">
+                    </div>
+                </div>
+
+                <div class="govuk-grid-column-one-quarter">
+                    <h3 class="govuk-heading-s">Vehicle 8</h3>
+
+                    <div class="govuk-form-group">
+                        <label class="govuk-label" for="v8-vin">VIN</label>
+                        <input class="govuk-input" id="v8-vin" name="v8-vin" type="text">
+                    </div>
+
+                    <div class="govuk-form-group">
+                        <label class="govuk-label" for="v8-vrm">VRM</label>
+                        <input class="govuk-input" id="v8-vrm" name="v8-vrm" type="text">
+                    </div>
+                </div>
+
+            </div>
+
+            <div id="vehicles-container">
+                <div id="vehicles-9-16" style="display: none;">
+                    <div class="govuk-grid-row">
+
+                        <div class="govuk-grid-column-one-quarter">
+                            <h3 class="govuk-heading-s">Vehicle 9</h3>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v9-vin">VIN</label>
+                                <input class="govuk-input" id="v9-vin" name="v9-vin" type="text">
+                            </div>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v9-vrm">VRM</label>
+                                <input class="govuk-input" id="v9-vrm" name="v9-vrm" type="text">
+                            </div>
+                        </div>
+
+                        <div class="govuk-grid-column-one-quarter">
+                            <h3 class="govuk-heading-s">Vehicle 10</h3>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v10-vin">VIN</label>
+                                <input class="govuk-input" id="v10-vin" name="v10-vin" type="text">
+                            </div>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v10-vrm">VRM</label>
+                                <input class="govuk-input" id="v10-vrm" name="v10-vrm" type="text">
+                            </div>
+                        </div>
+
+                        <div class="govuk-grid-column-one-quarter">
+                            <h3 class="govuk-heading-s">Vehicle 11</h3>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v11-vin">VIN</label>
+                                <input class="govuk-input" id="v11-vin" name="v11-vin" type="text">
+                            </div>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v11-vrm">VRM</label>
+                                <input class="govuk-input" id="v11-vrm" name="v11-vrm" type="text">
+                            </div>
+                        </div>
+
+                        <div class="govuk-grid-column-one-quarter">
+                            <h3 class="govuk-heading-s">Vehicle 12</h3>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v12-vin">VIN</label>
+                                <input class="govuk-input" id="v12-vin" name="v12-vin" type="text">
+                            </div>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v12-vrm">VRM</label>
+                                <input class="govuk-input" id="v12-vrm" name="v12-vrm" type="text">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="govuk-grid-row">
+
+                        <div class="govuk-grid-column-one-quarter">
+                            <h3 class="govuk-heading-s">Vehicle 13</h3>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v13-vin">VIN</label>
+                                <input class="govuk-input" id="v13-vin" name="v13-vin" type="text">
+                            </div>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v13-vrm">VRM</label>
+                                <input class="govuk-input" id="v13-vrm" name="v13-vrm" type="text">
+                            </div>
+                        </div>
+
+                        <div class="govuk-grid-column-one-quarter">
+                            <h3 class="govuk-heading-s">Vehicle 14</h3>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v14-vin">VIN</label>
+                                <input class="govuk-input" id="v14-vin" name="v14-vin" type="text">
+                            </div>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v14-vrm">VRM</label>
+                                <input class="govuk-input" id="v14-vrm" name="v14-vrm" type="text">
+                            </div>
+                        </div>
+
+                        <div class="govuk-grid-column-one-quarter">
+                            <h3 class="govuk-heading-s">Vehicle 15</h3>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v15-vin">VIN</label>
+                                <input class="govuk-input" id="v15-vin" name="v15-vin" type="text">
+                            </div>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v15-vrm">VRM</label>
+                                <input class="govuk-input" id="v15-vrm" name="v15-vrm" type="text">
+                            </div>
+                        </div>
+
+                        <div class="govuk-grid-column-one-quarter">
+                            <h3 class="govuk-heading-s">Vehicle 16</h3>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v16-vin">VIN</label>
+                                <input class="govuk-input" id="v16-vin" name="v16-vin" type="text">
+                            </div>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v16-vrm">VRM</label>
+                                <input class="govuk-input" id="v16-vrm" name="v16-vrm" type="text">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div id="vehicles-17-24" style="display: none;">
+                    <div class="govuk-grid-row">
+
+                        <div class="govuk-grid-column-one-quarter">
+                            <h3 class="govuk-heading-s">Vehicle 17</h3>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v17-vin">VIN</label>
+                                <input class="govuk-input" id="v17-vin" name="v17-vin" type="text">
+                            </div>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v17-vrm">VRM</label>
+                                <input class="govuk-input" id="v17-vrm" name="v17-vrm" type="text">
+                            </div>
+                        </div>
+
+                        <div class="govuk-grid-column-one-quarter">
+                            <h3 class="govuk-heading-s">Vehicle 18</h3>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v18-vin">VIN</label>
+                                <input class="govuk-input" id="v18-vin" name="v18-vin" type="text">
+                            </div>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v18-vrm">VRM</label>
+                                <input class="govuk-input" id="v18-vrm" name="v18-vrm" type="text">
+                            </div>
+                        </div>
+
+                        <div class="govuk-grid-column-one-quarter">
+                            <h3 class="govuk-heading-s">Vehicle 19</h3>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v19-vin">VIN</label>
+                                <input class="govuk-input" id="v19-vin" name="v19-vin" type="text">
+                            </div>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v19-vrm">VRM</label>
+                                <input class="govuk-input" id="v19-vrm" name="v19-vrm" type="text">
+                            </div>
+                        </div>
+
+                        <div class="govuk-grid-column-one-quarter">
+                            <h3 class="govuk-heading-s">Vehicle 20</h3>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v20-vin">VIN</label>
+                                <input class="govuk-input" id="v20-vin" name="v20-vin" type="text">
+                            </div>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v20-vrm">VRM</label>
+                                <input class="govuk-input" id="v20-vrm" name="v20-vrm" type="text">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="govuk-grid-row">
+
+                        <div class="govuk-grid-column-one-quarter">
+                            <h3 class="govuk-heading-s">Vehicle 21</h3>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v21-vin">VIN</label>
+                                <input class="govuk-input" id="v21-vin" name="v21-vin" type="text">
+                            </div>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v21-vrm">VRM</label>
+                                <input class="govuk-input" id="v21-vrm" name="v21-vrm" type="text">
+                            </div>
+                        </div>
+
+                        <div class="govuk-grid-column-one-quarter">
+                            <h3 class="govuk-heading-s">Vehicle 22</h3>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v22-vin">VIN</label>
+                                <input class="govuk-input" id="v22-vin" name="v22-vin" type="text">
+                            </div>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v22-vrm">VRM</label>
+                                <input class="govuk-input" id="v22-vrm" name="v22-vrm" type="text">
+                            </div>
+                        </div>
+
+                        <div class="govuk-grid-column-one-quarter">
+                            <h3 class="govuk-heading-s">Vehicle 23</h3>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v23-vin">VIN</label>
+                                <input class="govuk-input" id="v23-vin" name="v23-vin" type="text">
+                            </div>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v23-vrm">VRM</label>
+                                <input class="govuk-input" id="v23-vrm" name="v23-vrm" type="text">
+                            </div>
+                        </div>
+
+                        <div class="govuk-grid-column-one-quarter">
+                            <h3 class="govuk-heading-s">Vehicle 24</h3>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v24-vin">VIN</label>
+                                <input class="govuk-input" id="v24-vin" name="v24-vin" type="text">
+                            </div>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v24-vrm">VRM</label>
+                                <input class="govuk-input" id="v24-vrm" name="v24-vrm" type="text">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div id="vehicles-25-32" style="display: none;">
+                    <div class="govuk-grid-row">
+
+                        <div class="govuk-grid-column-one-quarter">
+                            <h3 class="govuk-heading-s">Vehicle 25</h3>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v25-vin">VIN</label>
+                                <input class="govuk-input" id="v25-vin" name="v25-vin" type="text">
+                            </div>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v25-vrm">VRM</label>
+                                <input class="govuk-input" id="v25-vrm" name="v25-vrm" type="text">
+                            </div>
+                        </div>
+
+                        <div class="govuk-grid-column-one-quarter">
+                            <h3 class="govuk-heading-s">Vehicle 26</h3>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v26-vin">VIN</label>
+                                <input class="govuk-input" id="v26-vin" name="v26-vin" type="text">
+                            </div>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v26-vrm">VRM</label>
+                                <input class="govuk-input" id="v26-vrm" name="v26-vrm" type="text">
+                            </div>
+                        </div>
+
+                        <div class="govuk-grid-column-one-quarter">
+                            <h3 class="govuk-heading-s">Vehicle 27</h3>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v27-vin">VIN</label>
+                                <input class="govuk-input" id="v27-vin" name="v27-vin" type="text">
+                            </div>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v27-vrm">VRM</label>
+                                <input class="govuk-input" id="v27-vrm" name="v27-vrm" type="text">
+                            </div>
+                        </div>
+
+                        <div class="govuk-grid-column-one-quarter">
+                            <h3 class="govuk-heading-s">Vehicle 28</h3>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v28-vin">VIN</label>
+                                <input class="govuk-input" id="v28-vin" name="v28-vin" type="text">
+                            </div>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v28-vrm">VRM</label>
+                                <input class="govuk-input" id="v28-vrm" name="v28-vrm" type="text">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="govuk-grid-row">
+
+                        <div class="govuk-grid-column-one-quarter">
+                            <h3 class="govuk-heading-s">Vehicle 29</h3>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v29-vin">VIN</label>
+                                <input class="govuk-input" id="v29-vin" name="v29-vin" type="text">
+                            </div>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v29-vrm">VRM</label>
+                                <input class="govuk-input" id="v29-vrm" name="v29-vrm" type="text">
+                            </div>
+                        </div>
+
+                        <div class="govuk-grid-column-one-quarter">
+                            <h3 class="govuk-heading-s">Vehicle 30</h3>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v30-vin">VIN</label>
+                                <input class="govuk-input" id="v30-vin" name="v30-vin" type="text">
+                            </div>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v30-vrm">VRM</label>
+                                <input class="govuk-input" id="v30-vrm" name="v30-vrm" type="text">
+                            </div>
+                        </div>
+
+                        <div class="govuk-grid-column-one-quarter">
+                            <h3 class="govuk-heading-s">Vehicle 31</h3>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v31-vin">VIN</label>
+                                <input class="govuk-input" id="v31-vin" name="v31-vin" type="text">
+                            </div>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v31-vrm">VRM</label>
+                                <input class="govuk-input" id="v31-vrm" name="v31-vrm" type="text">
+                            </div>
+                        </div>
+
+                        <div class="govuk-grid-column-one-quarter">
+                            <h3 class="govuk-heading-s">Vehicle 32</h3>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v32-vin">VIN</label>
+                                <input class="govuk-input" id="v32-vin" name="v32-vin" type="text">
+                            </div>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v32-vrm">VRM</label>
+                                <input class="govuk-input" id="v32-vrm" name="v32-vrm" type="text">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div id="vehicles-33-40" style="display: none;">
+                    <div class="govuk-grid-row">
+
+                        <div class="govuk-grid-column-one-quarter">
+                            <h3 class="govuk-heading-s">Vehicle 33</h3>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v33-vin">VIN</label>
+                                <input class="govuk-input" id="v33-vin" name="v33-vin" type="text">
+                            </div>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v33-vrm">VRM</label>
+                                <input class="govuk-input" id="v33-vrm" name="v33-vrm" type="text">
+                            </div>
+                        </div>
+
+                        <div class="govuk-grid-column-one-quarter">
+                            <h3 class="govuk-heading-s">Vehicle 34</h3>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v34-vin">VIN</label>
+                                <input class="govuk-input" id="v34-vin" name="v34-vin" type="text">
+                            </div>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v34-vrm">VRM</label>
+                                <input class="govuk-input" id="v34-vrm" name="v34-vrm" type="text">
+                            </div>
+                        </div>
+
+                        <div class="govuk-grid-column-one-quarter">
+                            <h3 class="govuk-heading-s">Vehicle 35</h3>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v35-vin">VIN</label>
+                                <input class="govuk-input" id="v35-vin" name="v35-vin" type="text">
+                            </div>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v35-vrm">VRM</label>
+                                <input class="govuk-input" id="v35-vrm" name="v35-vrm" type="text">
+                            </div>
+                        </div>
+
+                        <div class="govuk-grid-column-one-quarter">
+                            <h3 class="govuk-heading-s">Vehicle 36</h3>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v36-vin">VIN</label>
+                                <input class="govuk-input" id="v36-vin" name="v36-vin" type="text">
+                            </div>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v36-vrm">VRM</label>
+                                <input class="govuk-input" id="v36-vrm" name="v36-vrm" type="text">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="govuk-grid-row">
+
+                        <div class="govuk-grid-column-one-quarter">
+                            <h3 class="govuk-heading-s">Vehicle 37</h3>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v37-vin">VIN</label>
+                                <input class="govuk-input" id="v37-vin" name="v37-vin" type="text">
+                            </div>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v37-vrm">VRM</label>
+                                <input class="govuk-input" id="v37-vrm" name="v37-vrm" type="text">
+                            </div>
+                        </div>
+
+                        <div class="govuk-grid-column-one-quarter">
+                            <h3 class="govuk-heading-s">Vehicle 38</h3>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v38-vin">VIN</label>
+                                <input class="govuk-input" id="v38-vin" name="v38-vin" type="text">
+                            </div>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v38-vrm">VRM</label>
+                                <input class="govuk-input" id="v38-vrm" name="v38-vrm" type="text">
+                            </div>
+                        </div>
+
+                        <div class="govuk-grid-column-one-quarter">
+                            <h3 class="govuk-heading-s">Vehicle 39</h3>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v39-vin">VIN</label>
+                                <input class="govuk-input" id="v39-vin" name="v39-vin" type="text">
+                            </div>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v39-vrm">VRM</label>
+                                <input class="govuk-input" id="v39-vrm" name="v39-vrm" type="text">
+                            </div>
+                        </div>
+
+                        <div class="govuk-grid-column-one-quarter">
+                            <h3 class="govuk-heading-s">Vehicle 40</h3>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v40-vin">VIN</label>
+                                <input class="govuk-input" id="v40-vin" name="v40-vin" type="text">
+                            </div>
+
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="v40-vrm">VRM</label>
+                                <input class="govuk-input" id="v40-vrm" name="v40-vrm" type="text">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="govuk-button-group" style="margin-top: 20px;">
+                <button type="button" id="add-more-vehicles-btn" class="govuk-button govuk-button--secondary">
+                    Add another 8 vehicles
+                </button>
+                <button type="button" id="remove-vehicles-btn" class="govuk-button govuk-button--secondary" disabled>
+                    Remove vehicles
+                </button>
+            </div>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const addBtn = document.getElementById('add-more-vehicles-btn');
+                    const removeBtn = document.getElementById('remove-vehicles-btn');
+                    const sections = [
+                        'vehicles-9-16',
+                        'vehicles-17-24',
+                        'vehicles-25-32',
+                        'vehicles-33-40'
+                    ];
+                    let currentSectionIndex = 0;
+
+                    function updateButtonStates() {
+                        // Enable/disable add button
+                        if (currentSectionIndex >= sections.length) {
+                            addBtn.disabled = true;
+                            addBtn.classList.add('govuk-button--disabled');
+                        } else {
+                            addBtn.disabled = false;
+                            addBtn.classList.remove('govuk-button--disabled');
+                        }
+
+                        // Enable/disable remove button (can only remove if more than 8 vehicles showing)
+                        if (currentSectionIndex <= 0) {
+                            removeBtn.disabled = true;
+                            removeBtn.classList.add('govuk-button--disabled');
+                        } else {
+                            removeBtn.disabled = false;
+                            removeBtn.classList.remove('govuk-button--disabled');
+                        }
+                    }
+
+                    addBtn.addEventListener('click', function() {
+                        if (currentSectionIndex < sections.length) {
+                            document.getElementById(sections[currentSectionIndex]).style.display = 'block';
+                            currentSectionIndex++;
+                        }
+                        updateButtonStates();
+                    });
+
+                    removeBtn.addEventListener('click', function() {
+                        if (currentSectionIndex > 0) {
+                            currentSectionIndex--;
+                            document.getElementById(sections[currentSectionIndex]).style.display = 'none';
+                        }
+                        updateButtonStates();
+                    });
+
+                    // Initialize button states
+                    updateButtonStates();
+                });
+            </script>
+
+            <hr class="govuk-section-break govuk-section-break--m">
+
+            {% from "govuk/components/button/macro.njk" import govukButton %}
+
+            <div class="govuk-button-group">
+                {{ govukButton({
+                text: "Add vehicles to batch",
+                href: "create-batch-hgv-2.html"
+                }) }}
+
+                <a class="govuk-link" href="#">Cancel</a>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+
+
+{% endblock %}
