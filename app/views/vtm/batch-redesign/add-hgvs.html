@@ -655,15 +655,11 @@ href: "javascript:window.history.back()"
                 <button type="button" id="add-more-vehicles-btn" class="govuk-button govuk-button--secondary">
                     Add another 8 vehicles
                 </button>
-                <button type="button" id="remove-vehicles-btn" class="govuk-button govuk-button--secondary" disabled>
-                    Remove vehicles
-                </button>
             </div>
 
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
                     const addBtn = document.getElementById('add-more-vehicles-btn');
-                    const removeBtn = document.getElementById('remove-vehicles-btn');
                     const sections = [
                         'vehicles-9-16',
                         'vehicles-17-24',
@@ -672,44 +668,18 @@ href: "javascript:window.history.back()"
                     ];
                     let currentSectionIndex = 0;
 
-                    function updateButtonStates() {
-                        // Enable/disable add button
-                        if (currentSectionIndex >= sections.length) {
-                            addBtn.disabled = true;
-                            addBtn.classList.add('govuk-button--disabled');
-                        } else {
-                            addBtn.disabled = false;
-                            addBtn.classList.remove('govuk-button--disabled');
-                        }
-
-                        // Enable/disable remove button (can only remove if more than 8 vehicles showing)
-                        if (currentSectionIndex <= 0) {
-                            removeBtn.disabled = true;
-                            removeBtn.classList.add('govuk-button--disabled');
-                        } else {
-                            removeBtn.disabled = false;
-                            removeBtn.classList.remove('govuk-button--disabled');
-                        }
-                    }
-
                     addBtn.addEventListener('click', function() {
                         if (currentSectionIndex < sections.length) {
                             document.getElementById(sections[currentSectionIndex]).style.display = 'block';
                             currentSectionIndex++;
                         }
-                        updateButtonStates();
-                    });
 
-                    removeBtn.addEventListener('click', function() {
-                        if (currentSectionIndex > 0) {
-                            currentSectionIndex--;
-                            document.getElementById(sections[currentSectionIndex]).style.display = 'none';
+                        // Disable button when all sections are shown
+                        if (currentSectionIndex >= sections.length) {
+                            addBtn.disabled = true;
+                            addBtn.classList.add('govuk-button--disabled');
                         }
-                        updateButtonStates();
                     });
-
-                    // Initialize button states
-                    updateButtonStates();
                 });
             </script>
 
