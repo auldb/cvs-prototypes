@@ -9,23 +9,21 @@
 // https://prototype-kit.service.gov.uk/docs/adding-css-javascript-and-images
 // 
 
-// Add extra styles here
-*/
+*/ Add extra styles here
 
-.time-hour {
-  margin-left: 15px;
+.description {
+  width: 50% !important;
 }
 
-.time-at {
-  display: inline-block !important;
-  position: relative !important;
-  margin: 0px 0px 0px 4px !important;
+.search-defect-padding {
+    padding: 15px 20px 0 20px !important;
 }
 
-.time-colon {
-  display: inline-block !important;
-  position: relative !important;
-  margin: 0px 8px 8px 1px !important;
+.defect {
+    margin-right: 0px !important;
+}
+.defect-tag {
+    margin-left: 10px !important;
 }
 
 .popout {
@@ -54,6 +52,7 @@
 }
 
 .list-padding {
+    padding-top:0px;
     padding-top:0px !important;
     padding-left:0px;
 }
@@ -115,6 +114,8 @@
     padding-bottom:15px;
 }
 
+
+
 @font-face {
     font-family: "UKNumberPlate";
     src: url("/public/fonts/UKNumberPlate.ttf");
@@ -128,7 +129,7 @@
 .reg-mark-sm {
     width: 110px;
     max-width: 110px;
-    font: 1.1875em 'UKNumberPlate',sans-serif;
+    font: 1.1875em 'UKNumberPlate',Verdana,sans-serif;
     padding: 0.25em 0.15em;
 }
 .reg-mark, .reg-mark-sm {
@@ -146,7 +147,7 @@
 }
 
 
-/* Status tags */
+
 
 .govuk-tag-tech-record {
   font-size: 1rem;
@@ -244,7 +245,6 @@
 }
 
 
-
 .app-c-filter-summary__remove-filter:visited {
   color: #1d70b8
 }
@@ -279,7 +279,6 @@
   background-color: #1d70b8 !important; /* Change to whatever color you want */
   color: white !important;
 }
-
 
 
 
@@ -388,11 +387,6 @@ padding-top: 25px !important;
 
 .govuk-accordion__section-toggle {
     float: right;
-    margin-top: -50px;
-}
-
-.govuk-accordion__section-toggle {
-    float: right;
     margin-top: -30px;
 }
   
@@ -462,8 +456,6 @@ padding-top: 25px !important;
     padding-top: 0px;
 }
 
-
-
 .filter-box {
   padding: 5px 20px 5px 20px;
   display: flex;
@@ -476,6 +468,7 @@ padding-top: 25px !important;
   display: inline-block;
   margin: 0;
 }
+
 
 
 
@@ -542,6 +535,7 @@ padding-top: 25px !important;
 }
 
 
+
 .archive-link:focus {
   outline: none !important;
   text-decoration: none !important;
@@ -597,6 +591,12 @@ padding-top: 25px !important;
   background-color: #f3f2f1;
 }
 
+.govuk-table-tech th:first-child,
+.govuk-table-tech td:first-child {
+  white-space: nowrap !important; /* Prevent wrapping */
+  width: 17% !important; /* Shrink to fit content */
+  padding-left: 10px;
+}
 
 .test-records-table th:first-child,
 .test-records-table td:first-child {
@@ -617,6 +617,45 @@ padding-top: 25px !important;
   white-space: nowrap !important; /* Prevent wrapping */
   width: 10% !important; /* Shrink to fit content */
   padding-left: 10px;
+}
+
+
+.govuk-table td, .govuk-table th {
+  white-space: nowrap !important; /* Prevent wrapping */
+}
+
+.govuk-table th:not(:first-child),
+.govuk-table td {
+  width: auto !important; /* Allow these columns to expand */
+}
+
+.govuk-table {
+  border: 1px solid #b1b4b6; /* GOV.UK grey */
+  border-collapse: collapse; /* Ensures a clean, single border */
+}
+
+.govuk-table th,
+.govuk-table td {
+  border: none; /* Keep internal styling clean */
+  padding: 5px; /* Adds space between text and cell borders */
+}
+
+.govuk-table thead {
+  border-bottom: 1px solid #b1b4b6; /* Adds a strong separation between header and body */
+}
+
+/* Align Date column to the right in Technical Records table */
+.govuk-table td:nth-child(4),
+.govuk-table th:nth-child(4) {
+  padding: 5px;
+  padding-right: 10px;  
+}
+
+.govuk-table td:nth-child(5),
+.govuk-table th:nth-child(5) {
+  text-align: right;
+  padding: 5px;
+  padding-right: 10px;  
 }
 
 .test-records-table td:nth-child(4),
@@ -672,7 +711,8 @@ padding-top: 25px !important;
   position: relative;
   margin-bottom: 0px !important;
   float: right;
-  background-color: #1d70b8 !important
+  background-color: #1d70b8 !important;
+  left: -1px;
 }
 
 .govuk-\!-width-search {
@@ -781,7 +821,6 @@ padding-top: 25px !important;
 }
 
 
-
 /* Fixes for the Test Records Table */
 .test-records-table {
   width: 100%; /* Ensure full width usage */
@@ -810,6 +849,7 @@ padding-top: 25px !important;
 .test-records-table td:nth-child(3) {
   width: 60%; /* Third column (Date) takes more space */
 }
+
 
 
 
@@ -1222,7 +1262,6 @@ padding-top: 25px !important;
       float: left;
     }
   }
-
 
 
 
@@ -1676,4 +1715,3 @@ margin-top: -10px;
 .govuk-label-vtm {
   margin-bottom: 15px !important;
 }
-

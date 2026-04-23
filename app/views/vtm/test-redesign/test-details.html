@@ -361,7 +361,7 @@ function popOut() {
       <div class="govuk-button-group govuk-button-group-record">
         {{ govukButton({
         text: "Review",
-        href: "tech-record-hgv.html"
+        href: "review.html"
         }) }}
         {{ govukButton({
         text: "Mark as abandoned",
@@ -803,9 +803,13 @@ function popOut() {
 
                   <p class="govuk-body">No defects added.</p>
 
-                  <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">
-                    Add defect
-                  </button>
+                        <div class="govuk-button-group">
+                          {{ govukButton({
+                          text: "Add defect",
+                          classes: "govuk-button--secondary",
+                          href: "defect-details"
+                          }) }}
+                        </div>  
 
                 </li>
               </ul>
