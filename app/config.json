@@ -1,3 +1,8 @@
 {
-  "serviceName": "CVS CI Prototype Kit"
+  "serviceName": "CVS CI Prototype Kit",
+  "plugins": {
+    "govuk-frontend": {
+      "rebrand": true
+    }
+  }
 }
