@@ -1,0 +1,104 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+Vehicle Testing Management – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+
+{% block beforeContent %}
+{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+
+{{ govukPhaseBanner({
+tag: {
+text: "Beta"
+},
+html: 'This is a new service. Help us improve it and <a class="govuk-link" href="#">give your feedback (opens in new
+    tab)</a>.'
+}) }}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+
+<div class="govuk-grid-row">
+    <div class="govuk-width-container">
+
+        <div class="govuk-notification-banner govuk-notification-banner--success" role="alert"
+            aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+            <div class="govuk-notification-banner__header">
+                <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+                    Success
+                </h2>
+            </div>
+            <div class="govuk-notification-banner__content">
+                <h3 class="govuk-notification-banner__heading">
+                    Technical records created
+                </h3>
+                <p class="govuk-body">You have successfully processed 3 out of 3 HGV technical records using application
+                    ID 000000.</p>
+            </div>
+        </div>
+
+        <table class="govuk-table">
+            <caption class="govuk-table__caption govuk-table__caption--m">Technical record batch</caption>
+            <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                    <th scope="col" class="govuk-table__header">VIN</th>
+                    <th scope="col" class="govuk-table__header">VRM</th>
+                    <th scope="col" class="govuk-table__header">Vehicle type</th>
+                    <th scope="col" class="govuk-table__header">Record type</th>
+                    <th scope="col" class="govuk-table__header">View</th>
+                </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+                <tr class="govuk-table__row">
+                    <th scope="row" class="govuk-table__header">00000</th>
+                    <td class="govuk-table__cell">4000001z</td>
+                    <td class="govuk-table__cell">HGV</td>
+                    <td class="govuk-table__cell">
+                        <dd class="govuk-summary-list__value govuk-summary-list__value--tag">
+                            <strong class="govuk-tag govuk-tag--blue">
+                                Provisional
+                            </strong>
+                        </dd>
+                    </td>
+                    <td class="govuk-table__cell"><a class="govuk-link" href="#">View (opens in new tab)</a></td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <th scope="row" class="govuk-table__header">00000</th>
+                    <td class="govuk-table__cell">4000001z</td>
+                    <td class="govuk-table__cell">HGV</td>
+                    <td class="govuk-table__cell">
+                        <dd class="govuk-summary-list__value govuk-summary-list__value--tag">
+                            <strong class="govuk-tag govuk-tag--blue">
+                                Provisional
+                            </strong>
+                        </dd>
+                    </td>
+                    <td class="govuk-table__cell"><a class="govuk-link" href="#">View (opens in new tab)</a></td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <th scope="row" class="govuk-table__header">00000</th>
+                    <td class="govuk-table__cell">4000001z</td>
+                    <td class="govuk-table__cell">HGV</td>
+                    <td class="govuk-table__cell">
+                        <dd class="govuk-summary-list__value govuk-summary-list__value--tag">
+                            <strong class="govuk-tag govuk-tag--blue">
+                                Provisional
+                            </strong>
+                        </dd>
+                    </td>
+                    <td class="govuk-table__cell"><a class="govuk-link" href="#">View (opens in new tab)</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+{% endblock %}
