@@ -522,11 +522,11 @@ function popOut() {
                   <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                       <h1 class="govuk-fieldset__heading">
-                        Test start date
+                        Test start date and time
                       </h1>
                     </legend>
                     <div id="passport-issued-hint" class="govuk-hint">
-                      For example, 27 3 2024 at 2pm
+                      For example, 27 3 2024 at 10 45
                     </div>
                     <div class="govuk-date-input" id="passport-issued">
                       <div class="govuk-date-input__item">
@@ -554,12 +554,25 @@ function popOut() {
                         </div>
                       </div>
 
-                        <div class="govuk-date-input__item">
+                      <p class="govuk-body time-at">at</p>
+
+                        <div class="govuk-date-input__item time-hour">
                           <div class="govuk-form-group">
                             <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
-                              Time
+                              Hour
                             </label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                          </div>
+                        </div>
+
+                        <p class="govuk-body time-colon">:</p>
+
+                        <div class="govuk-date-input__item time-minute">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                              Minute
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
                           </div>
                         </div>
 
@@ -567,7 +580,7 @@ function popOut() {
                   </fieldset>
                 </div>
 
-                <div class="govuk-form-group">
+                <!-- <div class="govuk-form-group">
                   <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                       <h1 class="govuk-fieldset__heading">
@@ -588,18 +601,15 @@ function popOut() {
                       </div>
                     </div>
                   </fieldset>
-                </div>
+                </div> -->
 
-                                <div class="govuk-form-group">
+                <div class="govuk-form-group">
                   <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                       <h1 class="govuk-fieldset__heading">
-                        Test end date
+                        Test end date and time
                       </h1>
                     </legend>
-                    <div id="passport-issued-hint" class="govuk-hint">
-                      For example, 27 3 2024
-                    </div>
                     <div class="govuk-date-input" id="passport-issued">
                       <div class="govuk-date-input__item">
                         <div class="govuk-form-group">
@@ -625,29 +635,29 @@ function popOut() {
                           <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
                         </div>
                       </div>
-                    </div>
-                  </fieldset>
-                </div>
 
-                <div class="govuk-form-group">
-                  <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
-                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-                      <h1 class="govuk-fieldset__heading">
-                        Test end time
-                      </h1>
-                    </legend>
-                    <div id="passport-issued-hint" class="govuk-hint">
-                      For example, 2pm or 14:30
-                    </div>
-                    <div class="govuk-date-input" id="passport-issued">
-                      <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                          <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
-                            Time
-                          </label>
-                          <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                      <p class="govuk-body time-at">at</p>
+
+                        <div class="govuk-date-input__item time-hour">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                              Hour
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                          </div>
                         </div>
-                      </div>
+
+                        <p class="govuk-body time-colon">:</p>
+
+                        <div class="govuk-date-input__item time-minute">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                              Minute
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                          </div>
+                        </div>
+
                     </div>
                   </fieldset>
                 </div>
@@ -668,9 +678,6 @@ function popOut() {
                   Visit
                 </span>
               </h2>
-              <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
-                Axle distance, vehicle dimensions.
-              </div>
               <div class="govuk-accordion__section-summary-padding"></div>
             </div>
             <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
@@ -679,201 +686,59 @@ function popOut() {
               <ul class="govuk-list">
                 <li>
 
-                  <div class="govuk-form-group plates" id="dimensions-warning" style="display:none;">
-                    <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
-                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-                        <h1 class="govuk-fieldset__heading">
-                          Axle distance
-                        </h1>
-                      </legend>
-                      <div class="govuk-warning-text">
-                        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-                        <strong class="govuk-warning-text__text">
-                          <span class="govuk-visually-hidden">Warning</span>
-                          Enter the number of axles to be able to add axle distances.
-                        </strong>
-                      </div>
+                  <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset" role="group">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                      <h1 class="govuk-fieldset__heading">
+                        Test facility location
+                      </h1>
+                    </legend>
+                    <select class="govuk-select" id="location" name="location" aria-describedby="location-hint">
+                      <option value="choose" selected>Choose test station</option>
+                      <option value="eastmidlands">East Midlands</option>
+                      <option value="eastofengland">East of England</option>
+                      <option value="london">London</option>
+                      <option value="northeast">North East</option>
+                      <option value="northwest">North West</option>
+                      <option value="southeast">South East</option>
+                      <option value="southwest">South West</option>
+                      <option value="westmidlands">West Midlands</option>
+                      <option value="yorkshire">Yorkshire and the Humber</option>
+                    </select>
                     </fieldset>
                   </div>
 
-                  <div class="govuk-form-group untagged">
+                  <div class="govuk-form-group">
                     <h1 class="govuk-label-wrapper">
-                      <label class="govuk-label govuk-label--s" for="weight">
-                        Front axle to rear axle
+                      <label class="govuk-label govuk-label--s" for="event-name">
+                        Type of test facility
                       </label>
                     </h1>
-                    <div class="govuk-input__wrapper">
-                      <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
-                        spellcheck="false">
-                      <div class="govuk-input__suffix" aria-hidden="true">mm</div>
-                    </div>
+                    <input class="govuk-input govuk-input--width-5" id="event-name" name="eventName" type="text" value="ATF" disabled>
                   </div>
 
-                  <div class="govuk-form-group untagged" id="axle1to2" style="display: none;">
-                    <h1 class="govuk-label-wrapper">
-                      <label class="govuk-label govuk-label--s" for="weight">
-                        Axle 1 to 2
-                      </label>
-                    </h1>
-                    <div class="govuk-input__wrapper">
-                      <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
-                        spellcheck="false">
-                      <div class="govuk-input__suffix" aria-hidden="true">mm</div>
-                    </div>
-                  </div>
 
-                  <div class="govuk-form-group untagged" id="axle2to3" style="display: none;">
-                    <h1 class="govuk-label-wrapper">
-                      <label class="govuk-label govuk-label--s" for="weight">
-                        Axle 2 to 3
-                      </label>
-                    </h1>
-                    <div class="govuk-input__wrapper">
-                      <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
-                        spellcheck="false">
-                      <div class="govuk-input__suffix" aria-hidden="true">mm</div>
-                    </div>
-                  </div>
-
-                  <div class="govuk-form-group untagged" id="axle3to4" style="display: none;">
-                    <h1 class="govuk-label-wrapper">
-                      <label class="govuk-label govuk-label--s" for="weight">
-                        Axle 3 to 4
-                      </label>
-                    </h1>
-                    <div class="govuk-input__wrapper">
-                      <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
-                        spellcheck="false">
-                      <div class="govuk-input__suffix" aria-hidden="true">mm</div>
-                    </div>
-                  </div>
-
-                  <div class="govuk-form-group untagged" id="axle4to5" style="display: none;">
-                    <h1 class="govuk-label-wrapper">
-                      <label class="govuk-label govuk-label--s" for="weight">
-                        Axle 4 to 5
-                      </label>
-                    </h1>
-                    <div class="govuk-input__wrapper">
-                      <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
-                        spellcheck="false">
-                      <div class="govuk-input__suffix" aria-hidden="true">mm</div>
-                    </div>
-                  </div>
-
-                  <div class="govuk-form-group untagged" id="axle5to6" style="display: none;">
-                    <h1 class="govuk-label-wrapper">
-                      <label class="govuk-label govuk-label--s" for="weight">
-                        Axle 5 to 6
-                      </label>
-                    </h1>
-                    <div class="govuk-input__wrapper">
-                      <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
-                        spellcheck="false">
-                      <div class="govuk-input__suffix" aria-hidden="true">mm</div>
-                    </div>
-                  </div>
-
-                  <div class="govuk-form-group plates">
-                    <h1 class="govuk-label-wrapper">
-                      <label class="govuk-label govuk-label--s" for="weight">
-                        Length
-                      </label>
-                    </h1>
-                    <div class="govuk-input__wrapper">
-                      <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
-                        spellcheck="false">
-                      <div class="govuk-input__suffix" aria-hidden="true">mm</div>
-                    </div>
-                  </div>
-
-                  <div class="govuk-form-group plates">
-                    <h1 class="govuk-label-wrapper">
-                      <label class="govuk-label govuk-label--s" for="weight">
-                        Width
-                      </label>
-                    </h1>
-                    <div class="govuk-input__wrapper">
-                      <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
-                        spellcheck="false">
-                      <div class="govuk-input__suffix" aria-hidden="true">mm</div>
-                    </div>
-                  </div>
-
-                  <div class="govuk-form-group untagged">
-                    <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
-                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-                        <h1 class="govuk-fieldset__heading">
-                          Front of vehicle to fifth wheel
-                        </h1>
-                      </legend>
-                      <div class="govuk-date-input" id="passport-issued">
-                        
-                        <div class="govuk-date-input__item">
-                          <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
-                              Minimum
-                            </label>
-                            <div class="govuk-input__wrapper">
-                              <input class="govuk-input govuk-date-input__input govuk-input--width-5" id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
-                              <div class="govuk-input__suffix" aria-hidden="true">mm</div>
-                            </div>
-                          </div>
-                        </div>
-  
-                        <div class="govuk-date-input__item">
-                          <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
-                              Maximum
-                            </label>
-                            <div class="govuk-input__wrapper">
-                              <input class="govuk-input govuk-date-input__input govuk-input--width-5" id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
-                              <div class="govuk-input__suffix" aria-hidden="true">mm</div>
-                            </div>
-                          </div>
-                        </div>
-  
-                      </div>
+                  <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset" role="group">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                      <h1 class="govuk-fieldset__heading">
+                        Tester
+                      </h1>
+                    </legend>
+                    <select class="govuk-select" id="location" name="location" aria-describedby="location-hint">
+                      <option value="choose" selected>Choose tester</option>
+                      <option value="eastmidlands">East Midlands</option>
+                      <option value="eastofengland">East of England</option>
+                      <option value="london">London</option>
+                      <option value="northeast">North East</option>
+                      <option value="northwest">North West</option>
+                      <option value="southeast">South East</option>
+                      <option value="southwest">South West</option>
+                      <option value="westmidlands">West Midlands</option>
+                      <option value="yorkshire">Yorkshire and the Humber</option>
+                    </select>
                     </fieldset>
                   </div>
-  
-                  <div class="govuk-form-group untagged">
-                    <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
-                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-                        <h1 class="govuk-fieldset__heading">
-                          Front of vehicle to coupling device
-                        </h1>
-                      </legend>
-                      <div class="govuk-date-input" id="passport-issued">
-                        
-                        <div class="govuk-date-input__item">
-                          <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
-                              Minimum
-                            </label>
-                            <div class="govuk-input__wrapper">
-                              <input class="govuk-input govuk-date-input__input govuk-input--width-5" id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
-                              <div class="govuk-input__suffix" aria-hidden="true">mm</div>
-                            </div>
-                          </div>
-                        </div>
-  
-                        <div class="govuk-date-input__item">
-                          <div class="govuk-form-group">
-                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
-                              Maximum
-                            </label>
-                            <div class="govuk-input__wrapper">
-                              <input class="govuk-input govuk-date-input__input govuk-input--width-5" id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
-                              <div class="govuk-input__suffix" aria-hidden="true">mm</div>
-                            </div>
-                          </div>
-                        </div>
-  
-                      </div>
-                    </fieldset>
-                  </div>
-
 
                 </li>
               </ul>
@@ -889,9 +754,6 @@ function popOut() {
                   Notes
                 </span>
               </h2>
-              <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
-                Notes attached to this record.
-              </div>
               <div class="govuk-accordion__section-summary-padding"></div>
             </div>
             <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
@@ -904,16 +766,16 @@ function popOut() {
                     data-maxlength="1024">
                     <h1 class="govuk-label-wrapper">
                       <label class="govuk-label govuk-label--s" for="event-name">
-                        Notes
+                        Notes (optional)
                       </label>
                     </h1>
                     <label class="govuk-label" for="label-as-page-heading">
-                      Enter any notes for this technical record
+                      Enter any notes for this contingency test
                     </label>
                     <textarea class="govuk-textarea" id="label-as-page-heading" name="labelAsPageHeading" rows="5"
                       aria-describedby="label-as-page-heading-info"></textarea>
                     <div id="label-as-page-heading-info" class="govuk-hint govuk-character-count__message">
-                      You have 1024 characters remaining
+                      You have 500 characters remaining
                     </div>
                   </div>
 
@@ -931,9 +793,6 @@ function popOut() {
                   Defects
                 </span>
               </h2>
-              <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
-                Notes attached to this record.
-              </div>
               <div class="govuk-accordion__section-summary-padding"></div>
             </div>
             <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
@@ -942,22 +801,11 @@ function popOut() {
               <ul class="govuk-list">
                 <li>
 
-                  <div class="govuk-form-group govuk-character-count" data-module="govuk-character-count"
-                    data-maxlength="1024">
-                    <h1 class="govuk-label-wrapper">
-                      <label class="govuk-label govuk-label--s" for="event-name">
-                        Notes
-                      </label>
-                    </h1>
-                    <label class="govuk-label" for="label-as-page-heading">
-                      Enter any notes for this technical record
-                    </label>
-                    <textarea class="govuk-textarea" id="label-as-page-heading" name="labelAsPageHeading" rows="5"
-                      aria-describedby="label-as-page-heading-info"></textarea>
-                    <div id="label-as-page-heading-info" class="govuk-hint govuk-character-count__message">
-                      You have 1024 characters remaining
-                    </div>
-                  </div>
+                  <p class="govuk-body">No defects added.</p>
+
+                  <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+                    Add defect
+                  </button>
 
                 </li>
               </ul>
@@ -973,9 +821,6 @@ function popOut() {
                   Reason for creation
                 </span>
               </h2>
-              <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
-                Tell us why you're creating this record.
-              </div>
               <div class="govuk-accordion__section-summary-padding"></div>
             </div>
             <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
@@ -992,7 +837,7 @@ function popOut() {
                       </label>
                     </h1>
                     <label class="govuk-label" for="label-as-page-heading">
-                      Enter a reason for creating this technical record
+                      Enter a reason for creating this contingency test
                     </label>
                     <textarea class="govuk-textarea" id="label-as-page-heading" name="labelAsPageHeading" rows="3"
                       aria-describedby="label-as-page-heading-info"></textarea>

@@ -12,6 +12,22 @@
 // Add extra styles here
 */
 
+.time-hour {
+  margin-left: 15px;
+}
+
+.time-at {
+  display: inline-block !important;
+  position: relative !important;
+  margin: 0px 0px 0px 4px !important;
+}
+
+.time-colon {
+  display: inline-block !important;
+  position: relative !important;
+  margin: 0px 8px 8px 1px !important;
+}
+
 .popout {
   margin-bottom: 0px !important;
   padding-bottom: 0px !important;
