@@ -1,0 +1,349 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+Vehicle Testing Management – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+
+{{ govukPhaseBanner({
+  tag: { text: "Beta" },
+  html: 'This is a new service. Help us improve it and <a class="govuk-link" href="#">give your feedback</a>.'
+}) }}
+
+{{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-l">Choose a test type</h1>
+
+    <ul class="govuk-task-list">
+
+      <li class="govuk-task-list__item">
+        <a class="tree-link" href="#"><strong>Annual test</strong></a>
+      </li>
+
+      <li class="govuk-task-list__item is-parent">
+        <button class="tree-link hierarchy-button"
+                type="button"
+                aria-expanded="false"
+                aria-controls="retest-content">
+          <span><strong>Retest</strong></span>
+            <img class="chevron-icon"
+                    src="/public/images/chevron.png"
+                    alt=""
+                    aria-hidden="true">
+        </button>
+
+        <div class="hierarchy-content" id="retest-content" hidden>
+          <ul class="govuk-task-list govuk-task-list__nested">
+
+            <li class="govuk-task-list__item is-parent">
+              <button class="tree-link hierarchy-button"
+                      type="button"
+                      aria-expanded="false"
+                      aria-controls="annual-retest">
+                <span>Annual test retest</span>
+                  <img class="chevron-icon"
+       src="/public/images/chevron.png"
+       alt=""
+       aria-hidden="true">
+              </button>
+
+              <div class="hierarchy-content" id="annual-retest" hidden>
+                <ul class="govuk-task-list govuk-task-list__nested">
+
+                  <li class="govuk-task-list__item">
+                    <a class="tree-link" href="#">Paid retest</a>
+                  </li>
+
+                  <li class="govuk-task-list__item">
+                    <a class="tree-link" href="#">Part paid retest</a>
+                  </li>
+
+                </ul>
+              </div>
+            </li>
+
+          </ul>
+        </div>
+      </li>
+
+      <li class="govuk-task-list__item is-parent">
+        <button class="tree-link hierarchy-button"
+                type="button"
+                aria-expanded="false"
+                aria-controls="prohibition">
+          <span><strong>Prohibition clearance</strong></span>
+                           <img class="chevron-icon"
+       src="/public/images/chevron.png"
+       alt=""
+       aria-hidden="true">
+        </button>
+
+        <div class="hierarchy-content" id="prohibition" hidden>
+          <ul class="govuk-task-list govuk-task-list__nested">
+
+            <li class="govuk-task-list__item">
+              <a class="tree-link" href="#">Full inspection/fee</a>
+            </li>
+
+            <li class="govuk-task-list__item">
+              <a class="tree-link" href="#">Part inspection/part-fee</a>
+            </li>
+
+            <li class="govuk-task-list__item is-parent">
+              <button class="tree-link hierarchy-button"
+                      type="button"
+                      aria-expanded="false"
+                      aria-controls="prohibition-retest">
+                <span>Retest</span>
+                                 <img class="chevron-icon"
+       src="/public/images/chevron.png"
+       alt=""
+       aria-hidden="true">
+              </button>
+
+              <div class="hierarchy-content" id="prohibition-retest" hidden>
+                <ul class="govuk-task-list govuk-task-list__nested">
+
+                  <li class="govuk-task-list__item is-parent">
+                    <button class="tree-link hierarchy-button"
+                            type="button"
+                            aria-expanded="false"
+                            aria-controls="prohibition-paid">
+                      <span>Paid</span>
+                                       <img class="chevron-icon"
+       src="/public/images/chevron.png"
+       alt=""
+       aria-hidden="true">
+                    </button>
+
+                    <div class="hierarchy-content" id="prohibition-paid" hidden>
+                      <ul class="govuk-task-list govuk-task-list__nested">
+
+                        <li class="govuk-task-list__item">
+                          <a class="tree-link" href="#">With certificate</a>
+                        </li>
+
+                        <li class="govuk-task-list__item">
+                          <a class="tree-link" href="#">Without certificate</a>
+                        </li>
+
+                      </ul>
+                    </div>
+                  </li>
+
+                  <li class="govuk-task-list__item">
+                    <a class="tree-link" href="#">Part paid</a>
+                  </li>
+
+                </ul>
+              </div>
+            </li>
+
+          </ul>
+        </div>
+      </li>
+
+    </ul>
+
+  </div>
+</div>
+
+<style>
+/* BASE */
+.tree-link {
+  position: relative;
+  display: inline-block;
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  text-align: left;
+  color: #1d70b8;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.15em;
+}
+
+.tree-link:visited {
+  color: #4c2c92;
+}
+
+.tree-link:hover {
+  text-decoration-thickness: 2px;
+}
+
+/* FOCUS */
+.tree-link:focus {
+  outline: 3px solid #ffdd00;
+  background-color: #ffdd00;
+  color: #0b0c0c;
+  text-decoration: none;
+}
+
+.tree-link:focus::after {
+  display: none;
+}
+
+/* BUTTON */
+.hierarchy-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  color: #1d70b8;
+}
+
+/* TEXT */
+.hierarchy-button span {
+  position: relative;
+  text-align: left;
+}
+
+.hierarchy-button:focus span::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.05em;
+  border-bottom: 3px solid currentColor;
+}
+
+.chevron-icon {
+  width: 24px;
+  height: 24px;
+  order: -1; /* this forces it to the left of the text */
+}
+
+/* rotate when open */
+.hierarchy-button[aria-expanded="true"] .chevron-icon {
+  transform: rotate(180deg);
+}
+
+
+
+.hierarchy-button {
+  position: relative;
+}
+
+.hierarchy-button {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* important: stop pushing icon to far right */
+  gap: 8px;
+  width: 100%;
+  color: #1d70b8;
+}
+
+/* LAYOUT */
+.hierarchy-content {
+  margin-top: 8px;
+}
+
+.govuk-task-list__nested {
+  margin: 0;
+  padding-left: 27px;
+  margin-left: 10px;
+  position: relative;
+}
+
+.govuk-task-list__nested > .govuk-task-list__item {
+  position: relative;
+  padding-left: 6px;
+  margin-bottom: 6px;
+  border: none;
+}
+
+/* HORIZONTAL CONNECTORS */
+.is-parent[data-expanded="true"]
+.govuk-task-list__nested > .govuk-task-list__item::before {
+  content: "";
+  position: absolute;
+  left: -27px;
+  top: 21px;
+  width: 27px;
+  height: 2px;
+  background: #d8dde0;
+}
+
+/* VERTICAL CONNECTORS */
+.govuk-task-list__nested > .govuk-task-list__item:first-child::after {
+  content: "";
+  position: absolute;
+  left: -27px;
+  top: -5px;
+  width: 2px;
+  height: 27px;
+  background: #d8dde0;
+}
+
+.govuk-task-list__nested > .govuk-task-list__item:not(:first-child)::after {
+  content: "";
+  position: absolute;
+  left: -27px;
+  top: -32px;
+  width: 2px;
+  height: 54px;
+  background: #d8dde0;
+}
+
+/* PARENT STYLE */
+.is-parent > .tree-link,
+.is-parent > .hierarchy-button {
+  color: #0b0c0c;
+  text-decoration: none;
+}
+
+.is-parent > .tree-link:visited {
+  color: #0b0c0c;
+}
+
+.is-parent > .tree-link:hover,
+.is-parent > .hierarchy-button:hover {
+  text-decoration: none;
+}
+
+/* SPECIAL OPEN STATE ADJUSTMENTS */
+.is-parent[data-expanded="true"] + .govuk-task-list__item::after {
+  height: 162px;
+  top: -140px;
+}
+
+.is-parent[data-expanded="false"] + .govuk-task-list__item::after {
+  height: 54px;
+  top: -32px;
+}
+</style>
+
+<script>
+document.querySelectorAll('.hierarchy-button').forEach(button => {
+  button.addEventListener('click', function () {
+
+    const id = this.getAttribute('aria-controls');
+    const content = document.getElementById(id);
+
+    const expanded = this.getAttribute('aria-expanded') === 'true';
+
+    this.setAttribute('aria-expanded', !expanded);
+    content.hidden = expanded;
+
+    const parent = this.closest('.is-parent');
+    if (parent) {
+      parent.setAttribute('data-expanded', !expanded);
+    }
+
+  });
+});
+</script>
+
+{% endblock %}
