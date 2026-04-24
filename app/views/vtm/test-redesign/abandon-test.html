@@ -1,0 +1,190 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+Vehicle Testing Management – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+
+{{ govukPhaseBanner({
+tag: { text: "Beta" },
+html: 'This is a new service. Help us improve it and <a class="govuk-link" href="#">give your feedback</a>.'
+}) }}
+
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <div class="govuk-form-group">
+      <fieldset class="govuk-fieldset" aria-describedby="abandon-hint">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+          <h1 class="govuk-fieldset__heading">
+            Why was this test abandoned?
+          </h1>
+        </legend>
+        <div id="abandon-hint" class="govuk-hint">
+          Select all that apply
+        </div>
+        <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+          <div class="govuk-checkboxes__item">
+            <input class="govuk-checkboxes__input" id="abandon" name="abandon" type="checkbox" value="ministry-plate">
+            <label class="govuk-label govuk-checkboxes__label" for="abandon">
+              A Ministry Plate has been issued and is not fitted to the vehicle or trailer
+            </label>
+          </div>
+          <div class="govuk-checkboxes__item">
+            <input class="govuk-checkboxes__input" id="abandon-2" name="abandon" type="checkbox"
+              value="health-and-safety">
+            <label class="govuk-label govuk-checkboxes__label" for="abandon-2">
+              Current Health and Safety legislation cannot be met in testing the vehicle
+            </label>
+          </div>
+          <div class="govuk-checkboxes__item">
+            <input class="govuk-checkboxes__input" id="abandon-3" name="abandon" type="checkbox"
+              value="dangerous-goods">
+            <label class="govuk-label govuk-checkboxes__label" for="abandon-3">
+              No proof was given that the vehicle used for carrying dangerous/toxic/corrosive or inflammable goods had
+              been cleaned or otherwise rendered safe for test
+            </label>
+          </div>
+          <div class="govuk-checkboxes__item">
+            <input class="govuk-checkboxes__input" id="abandon-4" name="abandon" type="checkbox"
+              value="impractical-or-unsafe">
+            <label class="govuk-label govuk-checkboxes__label" for="abandon-4">
+              The driver and/or presenter of the vehicle refused to or was unable to comply with the instructions of
+              DVSA staff making it impractical or unsafe to continue the test
+            </label>
+          </div>
+          <div class="govuk-checkboxes__item">
+            <input class="govuk-checkboxes__input" id="abandon-5" name="abandon" type="checkbox" value="tachograph">
+            <label class="govuk-label govuk-checkboxes__label" for="abandon-5">
+              The examiner could not open the tachograph
+            </label>
+          </div>
+          <div class="govuk-checkboxes__item">
+            <input class="govuk-checkboxes__input" id="abandon-6" name="abandon" type="checkbox"
+              value="particulars-do-not-match">
+            <label class="govuk-label govuk-checkboxes__label" for="abandon-6">
+              The particulars of the motor vehicle or trailer (e.g. number of axles / axle weights) do not match the
+              VTG6 Ministry Plate fitted to the vehicle
+            </label>
+          </div>
+          <div class="govuk-checkboxes__item">
+            <input class="govuk-checkboxes__input" id="abandon-7" name="abandon" type="checkbox" value="fee-not-paid">
+            <label class="govuk-label govuk-checkboxes__label" for="abandon-7">
+              The relevant test fee has not been paid
+            </label>
+          </div>
+          <div class="govuk-checkboxes__item">
+            <input class="govuk-checkboxes__input" id="abandon-8" name="abandon" type="checkbox"
+              value="failure-of-part">
+            <label class="govuk-label govuk-checkboxes__label" for="abandon-8">
+              The test could not be completed due to a failure of a part of the vehicle, or trailer and accompanying
+              motor vehicle which made movement impossible
+            </label>
+          </div>
+          <div class="govuk-checkboxes__item">
+            <input class="govuk-checkboxes__input" id="abandon-9" name="abandon" type="checkbox"
+              value="trailer-not-accompanied">
+            <label class="govuk-label govuk-checkboxes__label" for="abandon-9">
+              The trailer was not accompanied by a suitable motor vehicle
+            </label>
+          </div>
+          <div class="govuk-checkboxes__item">
+            <input class="govuk-checkboxes__input" id="abandon-10" name="abandon" type="checkbox"
+              value="insufficient-fuel-and-oil">
+            <label class="govuk-label govuk-checkboxes__label" for="abandon-10">
+              The vehicle did not have sufficient fuel and oil to allow the test to be carried out
+            </label>
+          </div>
+          <div class="govuk-checkboxes__item">
+            <input class="govuk-checkboxes__input" id="abandon-11" name="abandon" type="checkbox"
+              value="exhaust-modified">
+            <label class="govuk-label govuk-checkboxes__label" for="abandon-11">
+              The vehicle exhaust outlet has been modified preventing a metered smoke check
+            </label>
+          </div>
+          <div class="govuk-checkboxes__item">
+            <input class="govuk-checkboxes__input" id="abandon-12" name="abandon" type="checkbox"
+              value="excessive-smoke">
+            <label class="govuk-label govuk-checkboxes__label" for="abandon-12">
+              The vehicle or motor vehicle by which it is accompanied emits substantial amounts of smoke so as to make
+              it unreasonable for the test to be carried out
+            </label>
+          </div>
+          <div class="govuk-checkboxes__item">
+            <input class="govuk-checkboxes__input" id="abandon-13" name="abandon" type="checkbox"
+              value="dirty-or-dangerous-condition">
+            <label class="govuk-label govuk-checkboxes__label" for="abandon-13">
+              The vehicle or trailer (or any part of) was in such a dirty or dangerous condiction so as to make it
+              unreasonable for the test to be carried out
+            </label>
+          </div>
+          <div class="govuk-checkboxes__item">
+            <input class="govuk-checkboxes__input" id="abandon-14" name="abandon" type="checkbox"
+              value="not-loaded-as-required">
+            <label class="govuk-label govuk-checkboxes__label" for="abandon-14">
+              The vehicle was not loaded as required
+            </label>
+          </div>
+          <div class="govuk-checkboxes__item">
+            <input class="govuk-checkboxes__input" id="abandon-15" name="abandon" type="checkbox" value="time">
+            <label class="govuk-label govuk-checkboxes__label" for="abandon-15">
+              The vehicle was not submitted for test at the appointed time
+            </label>
+          </div>
+          <div class="govuk-checkboxes__item">
+            <input class="govuk-checkboxes__input" id="abandon-16" name="abandon" type="checkbox"
+              value="livestock-or-unsuitable-material">
+            <label class="govuk-label govuk-checkboxes__label" for="abandon-16">
+              The vehicle was presented for test carrying livestock or other unsuitable material
+            </label>
+          </div>
+          <div class="govuk-checkboxes__item">
+            <input class="govuk-checkboxes__input" id="abandon-17" name="abandon" type="checkbox"
+              value="chassis-number-not-fixed">
+            <label class="govuk-label govuk-checkboxes__label" for="abandon-17">
+              There is not permanently fixed to the chassis serial number as shown on the registration document (motor
+              vehicle) or the identification mark issued by the Secretary of State (trailer)
+            </label>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="govuk-form-group govuk-character-count" data-module="govuk-character-count" data-maxlength="500">
+      <h2 class="govuk-label-wrapper">
+        <label class="govuk-label govuk-label--m" for="label-as-page-heading">
+          Additional notes as to why this test was abandoned (optional)
+        </label>
+      </h2>
+      <textarea class="govuk-textarea govuk-js-character-count" id="label-as-page-heading" name="labelAsPageHeading"
+        rows="5" aria-describedby="label-as-page-heading-info"></textarea>
+      <div id="label-as-page-heading-info" class="govuk-hint govuk-character-count__message">
+        You can enter up to 500 characters
+      </div>
+    </div>
+
+
+    <div class="govuk-button-group govuk-button-group-record">
+      {{ govukButton({
+      text: "Confirm and save",
+      href: "/"
+      }) }}
+
+      <a href="/" class="govuk-link">Cancel</a>
+    </div>
+
+  </div>
+</div>
+
+
+{% endblock %}
