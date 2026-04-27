@@ -1,0 +1,761 @@
+{% extends "layouts/redesign.html" %}
+
+{% block pageTitle %}
+Create a technical record – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+
+{{ govukPhaseBanner({
+tag: {
+text: "Beta"
+},
+html: 'This is a new service. Help us improve it and <a class="govuk-link" href="#">give your feedback (opens in new
+  tab)</a>.'
+}) }}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const axleInput = document.getElementById('number-of-axles');
+    const warningDiv = document.getElementById('tyre-warning');
+    const weightsWarning = document.getElementById('weights-warning');
+
+    const axleFields = ['axle1to2', 'axle2to3', 'axle3to4', 'axle4to5', 'axle5to6'];
+    const weightFields = ['weight-axle1', 'weight-axle2', 'weight-axle3', 'weight-axle4', 'weight-axle5'];
+    const tyreFields = ['tyre-axle1', 'tyre-axle2', 'tyre-axle3', 'tyre-axle4', 'tyre-axle5'];
+
+    function toggleFields() {
+      const axlesValue = axleInput.value.trim();
+      const axles = axlesValue === '' ? 0 : parseInt(axlesValue, 10);
+
+      if (axles <= 0) {
+        warningDiv.style.display = 'block';
+        weightsWarning.style.display = 'block';
+      } else {
+        warningDiv.style.display = 'none';
+        weightsWarning.style.display = 'none';
+      }
+
+      // Ensure axle-related fields are shown/hidden correctly
+      axleFields.forEach((field, index) => {
+        const axleField = document.getElementById(field);
+        if (axleField) axleField.style.display = axles > index ? 'block' : 'none';
+      });
+
+      weightFields.forEach((field, index) => {
+        const weightField = document.getElementById(field);
+        if (weightField) weightField.style.display = axles > index ? 'block' : 'none';
+      });
+
+      tyreFields.forEach((field, index) => {
+        const tyreField = document.getElementById(field);
+        if (tyreField) tyreField.style.display = axles > index ? 'block' : 'none';
+      });
+
+    }
+
+    // Attach event listeners
+    axleInput.addEventListener('input', toggleFields);
+    axleInput.addEventListener('change', toggleFields);
+    axleInput.addEventListener('blur', toggleFields);
+
+    // Ensure the fix runs AFTER other scripts have executed
+    setTimeout(toggleFields, 100);
+
+    const platesFilter = document.getElementById('plates');
+    const requiredFilter = document.getElementById('required');
+
+    if (!platesFilter || !requiredFilter) {
+      console.error("Error: One or both filter buttons were not found in the DOM!");
+      return;
+    }
+
+    const platesText = platesFilter.querySelector('.app-c-filter-summary__remove-filter-text');
+    const requiredText = requiredFilter.querySelector('.app-c-filter-summary__remove-filter-text');
+
+    const untaggedElements = document.querySelectorAll('.untagged');
+    const platesElements = document.querySelectorAll('.plates');
+    const requiredElements = document.querySelectorAll('.required');
+    const optionalElements = document.querySelectorAll('.optional');
+
+    let isPlatesFiltered = false;
+    let isRequiredFiltered = false;
+
+    function applyFilters() {
+      document.querySelectorAll('.untagged, .plates, .required, .optional').forEach(element => {
+        let shouldShow = true;
+
+        if (isPlatesFiltered) {
+          shouldShow = element.classList.contains('plates');
+        }
+
+        if (isRequiredFiltered) {
+          shouldShow = element.classList.contains('required') || (isPlatesFiltered && element.classList.contains('plates'));
+        }
+
+        element.style.display = shouldShow ? '' : 'none';
+      });
+    }
+
+    platesFilter.addEventListener('click', function (event) {
+      event.preventDefault();
+      isPlatesFiltered = !isPlatesFiltered;
+      platesText.innerHTML = isPlatesFiltered ? '× Plates' : 'Plates';
+      platesFilter.classList.toggle('active-filter', isPlatesFiltered);
+      applyFilters();
+      platesFilter.blur();
+    });
+
+    requiredFilter.addEventListener('click', function (event) {
+      event.preventDefault();
+      isRequiredFiltered = !isRequiredFiltered;
+      requiredText.innerHTML = isRequiredFiltered ? '× Required' : 'Required';
+      requiredFilter.classList.toggle('active-filter', isRequiredFiltered);
+      applyFilters();
+      requiredFilter.blur();
+    });
+
+    applyFilters(); // Apply filters on page load to ensure state is correct
+  });
+</script>
+
+
+<div class="govuk-width-container" id="view-record">
+  <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
+    data-module="govuk-notification-banner">
+    <div class="govuk-notification-banner__header">
+      <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+        Important
+      </h2>
+    </div>
+    <div class="govuk-notification-banner__content">
+      <p class="govuk-notification-banner__heading">
+        Check your answers before you submitting the test
+      </p>
+    </div>
+  </div>
+
+  <h1 class="govuk-heading-l">
+    Review test details
+  </h1>
+
+  <!-- <div class="govuk-inset-text">
+    Complete all required fields to create a testable record.
+  </div> -->
+
+  <div class="govuk-grid-row">
+
+    <!-- Summary card -->
+    <div class="govuk-grid-column-one-third-from-desktop vehicle-summary">
+
+      <div class="govuk-summary-card">
+        <div class="govuk-summary-card__title-wrapper">
+          <h2 class="govuk-summary-card__title govuk-summary-card__title-vtm govuk-heading-l">
+            Summary
+          </h2>
+          <ul class="govuk-summary-card__actions">
+          </ul>
+        </div>
+        <div class="govuk-summary-card__content">
+          <dl class="govuk-summary-list govuk-summary-list--no-border">
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key govuk-summary-list__key-tech">
+                Test type
+              </dt>
+            </div>
+            <div class="govuk-summary-list__row--value">
+              <dd class="govuk-summary-list__value govuk-summary-list__value--overflow">
+                Annual test (AAV4)
+              </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key govuk-summary-list__key-tech">
+                Vehicle type
+              </dt>
+            </div>
+            <div class="govuk-summary-list__row--value">
+              <dd class="govuk-summary-list__value govuk-summary-list__value--overflow">
+                HGV
+              </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key govuk-summary-list__key-tech">
+                VIN
+              </dt>
+            </div>
+            <div class="govuk-summary-list__row--value">
+              <dd class="govuk-summary-list__value govuk-summary-list__value--vin">
+                WBABW33426PX70804
+              </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key govuk-summary-list__key-tech">
+                VRM
+              </dt>
+            </div>
+            <div class="govuk-summary-list__row--last">
+              <dd class="govuk-summary-list__value govuk-summary-list__value--vrm">
+                <div class="reg-mark-div">
+                  <span class="reg-mark-sm">HGV TST7</span>
+                </div>
+              </dd>
+
+            </div>
+
+
+          </dl>
+        </div>
+      </div>
+
+      <div class="govuk-button-group govuk-button-group-record">
+        {{ govukButton({
+        text: "Submit",
+        href: "tech-record-hgv-success"
+        }) }}
+        <a class="govuk-link" href="#">Cancel</a>
+      </div>
+
+
+    </div>
+
+    <!-- Accordion -->
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+
+      <form class="form" action="tech-record" method="post">
+        <div class="govuk-accordion govuk-accordion--vtm" data-module="govuk-accordion"
+          id="accordion-with-summary-sections">
+          <h2 class="govuk-accordion__section-heading-top-review">
+            <span class="govuk-accordion-heading-vtm">
+              Test details
+            </span>
+          </h2>
+
+          <!--GENERAL-->
+          <div class="govuk-accordion__section govuk-accordion__section-vtm required adr plates">
+            <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
+              <h2 class="govuk-accordion__section-heading">
+                <span
+                  class="govuk-accordion__section-button govuk-accordion__section-button-vtm govuk-accordion__section-heading-vtm"
+                  id="accordion-with-summary-sections-heading-2">
+                 Vehicle details
+                </span>
+              </h2>
+            </div>
+            <div class="govuk-accordion__section-summary-padding"></div>
+
+            <div id="accordion-with-summary-sections-content-1" class="govuk-accordion__section-content">
+              <hr class="expanded">
+              </hr>
+              <ul class="govuk-list">
+                <li>
+
+
+                  <div class="govuk-form-group required plates">
+                    <label class="govuk-label" for="sort">
+                      <strong>
+                        Country of registration
+                      </strong>
+                    </label>
+                    <select class="govuk-select" id="sort" name="sort" disabled>
+                      <option value="published" selected>Select country of registration</option>
+                      <option value="updated" selected>Austria - A</option>
+                      <option value="views">Belgium - B</option>
+                      <option value="views">Bulgaria - BG</option>
+                    </select>
+                  </div>
+
+                  <div class="govuk-form-group untagged">
+                    <fieldset class="govuk-fieldset">
+                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                        <h1 class="govuk-fieldset__heading">
+                          EU vehicle category
+                        </h1>
+                      </legend>
+                      <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                          <input class="govuk-radios__input" id="whereDoYouLive" name="whereDoYouLive" type="radio"
+                            value="england" disabled>
+                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
+                            N1
+                          </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                          <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
+                            value="scotland" checked disabled>
+                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
+                            N2
+                          </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                          <input class="govuk-radios__input" id="whereDoYouLive-3" name="whereDoYouLive" type="radio"
+                            value="wales" disabled>
+                          <label class="govuk-label govuk-radios__label" for="whereDoYouLive-3">
+                            N3
+                          </label>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+
+
+            <div class="govuk-form-group">
+              <fieldset class="govuk-fieldset" role="group" aria-describedby="speed-restriction-hint">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                  <h1 class="govuk-fieldset__heading">
+                    Odometer reading
+                  </h1>
+                </legend>
+
+                <div class="govuk-date-input" id="speed-restriction">
+                  <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                      <div class="govuk-input__wrapper">
+                      <input class="govuk-input govuk-!-width-one-third govuk-input--extra-letter-spacing" id="authentication-code" name="authenticationCode" type="text" spellcheck="false" value="12345678" aria-describedby="authentication-code-hint" disabled>
+
+
+                        <select
+                          class="govuk-input__suffix govuk-select govuk-input__suffix--select"
+                          id="speed-unit"
+                          name="speed-unit"
+                        >
+                          <!--<option value="Select unit" selected>Select unit</option>-->
+                          <option value="miles" selected>miles</option>
+                          <option value="km">km</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+
+                </li>
+              </ul>
+            </div>
+          </div>
+
+         <!--TEST-->
+          <div class="govuk-accordion__section govuk-accordion__section-vtm plates">
+            <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
+              <h2 class="govuk-accordion__section-heading">
+                <span
+                  class="govuk-accordion__section-button govuk-accordion__section-button-vtm govuk-accordion__section-heading-vtm"
+                  id="accordion-with-summary-sections-heading-2">
+                  Test
+                </span>
+              </h2>
+              <div class="govuk-accordion__section-summary-padding"></div>
+            </div>
+            <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
+              <hr class="expanded">
+              </hr>
+              <ul class="govuk-list">
+                <li>
+
+                <div class="govuk-form-group">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                  <h1 class="govuk-fieldset__heading">
+                    Contingency test number
+                  </h1>
+                </legend>
+                  <div id="account-number-hint" class="govuk-hint">
+                    Must be between 6 and 8 digits long
+                  </div>
+                  <input class="govuk-input govuk-!-width-one-quarter govuk-input--extra-letter-spacing" id="authentication-code" name="authenticationCode" type="text" spellcheck="false" value="1234567890" aria-describedby="authentication-code-hint" disabled>
+                </div>
+
+                <div class="govuk-form-group">
+                  <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                      <h1 class="govuk-fieldset__heading">
+                        Test start date and time
+                      </h1>
+                    </legend>
+                    <div id="passport-issued-hint" class="govuk-hint">
+                      For example, 27 3 2024 at 10 45
+                    </div>
+                    <div class="govuk-date-input" id="passport-issued">
+                      <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                          <label class="govuk-label govuk-date-input__label" for="passport-issued-day">
+                            Day
+                          </label>
+                          <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric" disabled>
+                        </div>
+                      </div>
+                      <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                          <label class="govuk-label govuk-date-input__label" for="passport-issued-month">
+                            Month
+                          </label>
+                          <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric" disabled>
+                        </div>
+                      </div>
+                      <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                          <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                            Year
+                          </label>
+                          <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" disabled>
+                        </div>
+                      </div>
+
+                      <p class="govuk-body time-at">at</p>
+
+                        <div class="govuk-date-input__item time-hour">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                              Hour
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" disabled>
+                          </div>
+                        </div>
+
+                        <p class="govuk-body time-colon">:</p>
+
+                        <div class="govuk-date-input__item time-minute">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                              Minute
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" disabled>
+                          </div>
+                        </div>
+
+                    </div>
+                  </fieldset>
+                </div>
+
+                <!-- <div class="govuk-form-group">
+                  <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                      <h1 class="govuk-fieldset__heading">
+                        Test start time
+                      </h1>
+                    </legend>
+                    <div id="passport-issued-hint" class="govuk-hint">
+                      For example, 2pm or 14:30
+                    </div>
+                    <div class="govuk-date-input" id="passport-issued">
+                      <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                          <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                            Time
+                          </label>
+                          <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                        </div>
+                      </div>
+                    </div>
+                  </fieldset>
+                </div> -->
+
+                <div class="govuk-form-group">
+                  <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                      <h1 class="govuk-fieldset__heading">
+                        Test end date and time
+                      </h1>
+                    </legend>
+                    <div class="govuk-date-input" id="passport-issued">
+                      <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                          <label class="govuk-label govuk-date-input__label" for="passport-issued-day">
+                            Day
+                          </label>
+                          <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric" disabled>
+                        </div>
+                      </div>
+                      <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                          <label class="govuk-label govuk-date-input__label" for="passport-issued-month">
+                            Month
+                          </label>
+                          <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric" disabled>
+                        </div>
+                      </div>
+                      <div class="govuk-date-input__item">
+                        <div class="govuk-form-group">
+                          <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                            Year
+                          </label>
+                          <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" disabled>
+                        </div>
+                      </div>
+
+                      <p class="govuk-body time-at">at</p>
+
+                        <div class="govuk-date-input__item time-hour">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                              Hour
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" disabled>
+                          </div>
+                        </div>
+
+                        <p class="govuk-body time-colon">:</p>
+
+                        <div class="govuk-date-input__item time-minute">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                              Minute
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" disabled>
+                          </div>
+                        </div>
+
+                    </div>
+                  </fieldset>
+                </div>
+
+
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!--VISIT-->
+          <div class="govuk-accordion__section govuk-accordion__section-vtm plates">
+            <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
+              <h2 class="govuk-accordion__section-heading">
+                <span
+                  class="govuk-accordion__section-button govuk-accordion__section-button-vtm govuk-accordion__section-heading-vtm"
+                  id="accordion-with-summary-sections-heading-2">
+                  Visit
+                </span>
+              </h2>
+              <div class="govuk-accordion__section-summary-padding"></div>
+            </div>
+            <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
+              <hr class="expanded">
+              </hr>
+              <ul class="govuk-list">
+                <li>
+
+                  <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset" role="group">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                      <h1 class="govuk-fieldset__heading">
+                        Test facility location
+                      </h1>
+                    </legend>
+                    <select class="govuk-select" id="location" name="location" aria-describedby="location-hint" disabled>
+                      <option value="choose" selected>Choose test station</option>
+                      <option value="eastmidlands">East Midlands</option>
+                      <option value="eastofengland">East of England</option>
+                      <option value="london">London</option>
+                      <option value="northeast" selected>North East</option>
+                      <option value="northwest">North West</option>
+                      <option value="southeast">South East</option>
+                      <option value="southwest">South West</option>
+                      <option value="westmidlands">West Midlands</option>
+                      <option value="yorkshire">Yorkshire and the Humber</option>
+                    </select>
+                    </fieldset>
+                  </div>
+
+                  <div class="govuk-form-group">
+                    <h1 class="govuk-label-wrapper">
+                      <label class="govuk-label govuk-label--s" for="event-name">
+                        Type of test facility
+                      </label>
+                    </h1>
+                    <input class="govuk-input govuk-input--width-5" id="event-name" name="eventName" type="text" value="ATF" disabled>
+                  </div>
+
+
+                  <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset" role="group">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                      <h1 class="govuk-fieldset__heading">
+                        Tester
+                      </h1>
+                    </legend>
+                    <select class="govuk-select" id="location" name="location" aria-describedby="location-hint" disabled>
+                      <option value="choose" selected>Choose tester</option>
+                      <option value="eastmidlands">East Midlands</option>
+                      <option value="eastofengland">East of England</option>
+                      <option value="london">London</option>
+                      <option value="northeast" selected>North East</option>
+                      <option value="northwest">North West</option>
+                      <option value="southeast">South East</option>
+                      <option value="southwest">South West</option>
+                      <option value="westmidlands">West Midlands</option>
+                      <option value="yorkshire">Yorkshire and the Humber</option>
+                    </select>
+                    </fieldset>
+                  </div>
+
+                </li>
+              </ul>
+            </div>
+          </div>
+
+ <!--NOTES-->
+          <div class="govuk-accordion__section govuk-accordion__section-vtm admin">
+            <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
+              <h2 class="govuk-accordion__section-heading">
+                <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
+                  id="accordion-with-summary-sections-heading-2">
+                  Notes
+                </span>
+              </h2>
+              <div class="govuk-accordion__section-summary-padding"></div>
+            </div>
+            <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
+              <hr class="expanded">
+              </hr>
+              <ul class="govuk-list">
+                <li>
+
+                  <div class="govuk-form-group govuk-character-count" data-module="govuk-character-count"
+                    data-maxlength="1024">
+                    <h1 class="govuk-label-wrapper">
+                      <label class="govuk-label govuk-label--s" for="event-name">
+                        Notes (optional)
+                      </label>
+                    </h1>
+                    <label class="govuk-label" for="label-as-page-heading">
+                      Enter any notes for this contingency test
+                    </label>
+                    <textarea class="govuk-textarea" id="label-as-page-heading" name="labelAsPageHeading" rows="5"
+                      aria-describedby="label-as-page-heading-info" disabled>Example notes</textarea>
+                    <div id="label-as-page-heading-info" class="govuk-hint govuk-character-count__message">
+                      You have 500 characters remaining
+                    </div>
+                  </div>
+
+                </li>
+              </ul>
+            </div>
+          </div>
+
+         <!--DEFECTS-->
+          <div class="govuk-accordion__section govuk-accordion__section-vtm admin">
+            <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
+              <h2 class="govuk-accordion__section-heading">
+                <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
+                  id="accordion-with-summary-sections-heading-2">
+                  Defects
+                </span>
+              </h2>
+              <div class="govuk-accordion__section-summary-padding"></div>
+            </div>
+            <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
+              <hr class="expanded">
+              </hr>
+              <ul class="govuk-list">
+                <li>
+
+                  <div class="govuk-inset-text">
+                    Any unresolved major or dangerous defects will result in failed test.
+                  </div>
+
+                  <dl class="govuk-summary-list">
+                    <div class="govuk-summary-list__row">
+                      <dt class="govuk-summary-list__key" style="width: 20% !important;">
+                        Reference
+                      </dt>
+                      <dt class="govuk-summary-list__key" style="width: 40% !important;">
+                        Description
+                      </dt>
+                      <dt class="govuk-summary-list__key" style="width: 18% !important;">
+                        Category
+                      </dt>
+                      <dt class="govuk-summary-list__key" style="width: 10% !important;">
+                        PRS
+                      </dt>
+                      <dt class="govuk-summary-list__key" style="width: 12% !important;">
+                        Media
+                      </dt>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                      <dd class="govuk-summary-list__value">
+                        1.1(a)
+                      </dd>
+                      <dd class="govuk-summary-list__value">
+                        A registration plate: missing.
+                      </dd>
+                      <dd class="govuk-summary-list__value">
+                        <strong class="govuk-tag govuk-tag--red">
+                          Major
+                        </strong>
+                      </dd>
+                      <dd class="govuk-summary-list__value">
+                        No
+                      </dd>
+                      <dd class="govuk-summary-list__value">
+                        None
+                      </dd>
+                    </div>
+                  </dl>
+
+                  <p class="govuk-body"></p>
+
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!--REASON FOR CREATION-->
+          <div class="govuk-accordion__section govuk-accordion__section-vtm required adr plates">
+            <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
+              <h2 class="govuk-accordion__section-heading">
+                <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
+                  id="accordion-with-summary-sections-heading-2">
+                  Reason for creation
+                </span>
+              </h2>
+              <div class="govuk-accordion__section-summary-padding"></div>
+            </div>
+            <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
+              <hr class="expanded">
+              </hr>
+              <ul class="govuk-list">
+                <li>
+
+                  <div class="govuk-form-group govuk-character-count" data-module="govuk-character-count"
+                    data-maxlength="200">
+                    <h1 class="govuk-label-wrapper">
+                      <label class="govuk-label govuk-label--s" for="event-name">
+                        Reason for creation                        
+                      </label>
+                    </h1>
+                    <label class="govuk-label" for="label-as-page-heading">
+                      Enter a reason for creating this contingency test
+                    </label>
+                    <textarea class="govuk-textarea" id="label-as-page-heading" name="labelAsPageHeading" rows="3"
+                      aria-describedby="label-as-page-heading-info" disabled>Example reason for creation</textarea>
+                    <div id="label-as-page-heading-info" class="govuk-hint govuk-character-count__message">
+                      You have 500 characters remaining
+                    </div>
+                  </div>
+
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+
+      </form>
+    </div>
+
+
+  </div>
+
+</div>
+
+
+
+
+
+{% endblock %}
