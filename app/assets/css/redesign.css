@@ -11,8 +11,9 @@
 
 */ Add extra styles here
 
-.description {
-  width: 50% !important;
+.time-colon {
+    display: inline-block !important;
+    position: relative !important;
 }
 
 .search-defect-padding {
