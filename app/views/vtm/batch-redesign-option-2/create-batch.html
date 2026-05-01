@@ -31,7 +31,7 @@ href: "javascript:window.history.back()"
             Choose the vehicle status and type
         </h1>
 
-        <form class="form" action="create-batch-hgv" method="post">
+        <form class="form" action="add-hgvs" method="post">
 
             <div class="govuk-form-group">
                 <fieldset class="govuk-fieldset">
@@ -83,7 +83,7 @@ href: "javascript:window.history.back()"
                                 Trailer (TRL)
                             </label>
                         </div>
-                        
+
                         <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
                             id="conditional-trltype">
                             <div class="govuk-form-group">
@@ -95,15 +95,15 @@ href: "javascript:window.history.back()"
                                     </legend>
                                     <div class="govuk-radios govuk-radios--small" data-module="govuk-radios">
                                         <div class="govuk-radios__item">
-                                            <input class="govuk-radios__input" id="tes1" name="trailerType"
-                                                type="radio" value="month">
+                                            <input class="govuk-radios__input" id="tes1" name="trailerType" type="radio"
+                                                value="month">
                                             <label class="govuk-label govuk-radios__label" for="tes1">
                                                 TES 1
                                             </label>
                                         </div>
                                         <div class="govuk-radios__item">
-                                            <input class="govuk-radios__input" id="tes2" name="trailerType"
-                                                type="radio" value="year">
+                                            <input class="govuk-radios__input" id="tes2" name="trailerType" type="radio"
+                                                value="year">
                                             <label class="govuk-label govuk-radios__label" for="tes2">
                                                 TES 2
                                             </label>
@@ -124,8 +124,7 @@ href: "javascript:window.history.back()"
                     </div>
                 </fieldset>
             </div>
-
-            <hr class="govuk-section-break govuk-section-break--m">
+  
 
             {% from "govuk/components/button/macro.njk" import govukButton %}
 
