@@ -1,0 +1,159 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+Vehicle Testing Management – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+
+{% block beforeContent %}
+{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+
+{{ govukPhaseBanner({
+tag: {
+text: "Beta"
+},
+html: 'This is a new service. Help us improve it and <a class="govuk-link" href="#">give your feedback (opens in new
+    tab)</a>.'
+}) }}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <h1 class="govuk-heading-l">
+            Enter details on the vehicles you are adding to the batch
+        </h1>
+
+        <form class="form" action="add-hgvs" method="post">
+
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                        <h2 class="govuk-fieldset__heading">
+                            Vehicle status
+                        </h2>
+                    </legend>
+                    <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="vehstatus" name="vehicleStatus" type="radio"
+                                value="yes">
+                            <label class="govuk-label govuk-radios__label" for="vehstatus">
+                                Current
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="vehstatus-2" name="vehicleStatus" type="radio"
+                                value="no">
+                            <label class="govuk-label govuk-radios__label" for="vehstatus-2">
+                                Provisional
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                        <h2 class="govuk-fieldset__heading">
+                            Vehicle type
+                        </h2>
+                    </legend>
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="hgvtype" name="vehicleType" type="radio"
+                                value="england">
+                            <label class="govuk-label govuk-radios__label" for="hgvtype">
+                                Heavy Goods Vehicle (HGV)
+                            </label>
+                        </div>
+
+
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="trltype" name="vehicleType" type="radio" value="text"
+                                data-aria-controls="conditional-trltype">
+                            <label class="govuk-label govuk-radios__label" for="trltype">
+                                Trailer (TRL)
+                            </label>
+                        </div>
+
+                        <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
+                            id="conditional-trltype">
+                            <div class="govuk-form-group">
+                                <fieldset class="govuk-fieldset">
+                                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                                        <h1 class="govuk-fieldset__heading">
+                                            Trailer form type
+                                        </h1>
+                                    </legend>
+                                    <div class="govuk-radios govuk-radios--small" data-module="govuk-radios">
+                                        <div class="govuk-radios__item">
+                                            <input class="govuk-radios__input" id="tes1" name="trailerType" type="radio"
+                                                value="month">
+                                            <label class="govuk-label govuk-radios__label" for="tes1">
+                                                TES 1
+                                            </label>
+                                        </div>
+                                        <div class="govuk-radios__item">
+                                            <input class="govuk-radios__input" id="tes2" name="trailerType" type="radio"
+                                                value="year">
+                                            <label class="govuk-label govuk-radios__label" for="tes2">
+                                                TES 2
+                                            </label>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+
+                        </div>
+
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="psvtype" name="vehicleType" type="radio"
+                                value="wales">
+                            <label class="govuk-label govuk-radios__label" for="psvtype">
+                                Public Service Vehicle (PSV)
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="govuk-form-group">
+                <label class="govuk-label govuk-label--m" for="hgv-count">
+                    How many vehicles are you adding?
+                </label>
+                <div class="govuk-hint">
+                    Must be between 1 and 40
+                </div>
+
+                <input class="govuk-input govuk-input--width-2" id="hgv-count" name="hgvCount" type="text"
+                    inputmode="numeric">
+            </div>
+
+            <hr class="govuk-section-break govuk-section-break--m">
+
+            {% from "govuk/components/button/macro.njk" import govukButton %}
+
+            <div class="govuk-button-group">
+                {{ govukButton({
+                text: "Continue"
+                }) }}
+
+                <a class="govuk-link" href="#">Cancel</a>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+
+
+{% endblock %}
