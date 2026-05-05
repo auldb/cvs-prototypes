@@ -28,17 +28,12 @@ href: "javascript:window.history.back()"
     <div class="govuk-grid-column-two-thirds">
 
         <h1 class="govuk-heading-l">
-            What type of vehicles are you adding?
+            Enter details for this batch
         </h1>
 
-        <form class="form" action="add-hgvs" method="post">
+        <form class="form" action="number-of-vehicles" method="post">
 
-            <div class="govuk-form-group">
-                <label class="govuk-label govuk-label--m" for="application-id">
-                    Application ID
-                </label>
-                <input class="govuk-input govuk-input--width-20" id="application-id" name="eapplication-id" type="text">
-            </div>
+
 
             <div class="govuk-form-group">
                 <fieldset class="govuk-fieldset">
@@ -131,19 +126,14 @@ href: "javascript:window.history.back()"
                     </div>
                 </fieldset>
             </div>
-            
+
             <div class="govuk-form-group">
-                <label class="govuk-label govuk-label--m" for="hgv-count">
-                    Number of vehicles
+                <label class="govuk-label govuk-label--m" for="application-id">
+                    Application ID
                 </label>
-                <div class="govuk-hint">
-                    Must be between 1 and 40
-                </div>
-
-                <input class="govuk-input govuk-input--width-2" id="hgv-count" name="hgvCount" type="text"
-                    inputmode="numeric">
+                <input class="govuk-input govuk-input--width-20" id="application-id" name="eapplication-id" type="text">
             </div>
-
+            
 
             <hr class="govuk-section-break govuk-section-break--m">
 
