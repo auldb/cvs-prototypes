@@ -295,7 +295,7 @@ href: "javascript:window.history.back()"
 
   <div class="govuk-grid-row">
 
-    <!-- Summary card -->
+        <!-- Summary card -->
     <div class="govuk-grid-column-one-third-from-desktop vehicle-summary">
 
       <div class="govuk-summary-card">
@@ -304,9 +304,6 @@ href: "javascript:window.history.back()"
             Summary
           </h2>
           <ul class="govuk-summary-card__actions">
-            <li class="govuk-summary-card__action">
-              <a class="govuk-link" href="create-batch">Change<span class="govuk-visually-hidden"></span></a>
-            </li>
             <li class="govuk-summary-card__action">
               <a class="govuk-link" href="cancel">Cancel<span class="govuk-visually-hidden"></span></a>
             </li>
@@ -317,19 +314,22 @@ href: "javascript:window.history.back()"
             <div class="govuk-summary-list__row">
               <dt class="govuk-summary-list__key govuk-summary-list__key-tech">
                 Vehicle type
+                <div class="summary-link-wrapper">
+                  <a class="govuk-link summary-link" href="create-batch">Change</a> 
+                </div>
               </dt>
             </div>
             <div class="govuk-summary-list__row--value">
               <dd class="govuk-summary-list__value govuk-summary-list__value--overflow">
-                HGV
-              </dd>
+                HGV 
+              </dd>     
             </div>
-
-
-
-            <div class="govuk-summary-list__row">
+                       <div class="govuk-summary-list__row">
               <dt class="govuk-summary-list__key govuk-summary-list__key-tech">
                 Record type
+                <div class="summary-link-wrapper">
+                  <a class="govuk-link summary-link" href="create-batch">Change</a>
+                </div>
               </dt>
             </div>
             <div class="govuk-summary-list__row--value">
@@ -343,25 +343,27 @@ href: "javascript:window.history.back()"
             <div class="govuk-summary-list__row">
               <dt class="govuk-summary-list__key govuk-summary-list__key-tech">
                 Application ID
+                <div class="summary-link-wrapper">
+                  <a class="govuk-link summary-link" href="add-hgvs">Change</a> 
+                </div>
               </dt>
             </div>
             <div class="govuk-summary-list__row--value">
-              <dd class="govuk-summary-list__value govuk-summary-list__value--tag">
-                0000000000
+              <dd class="govuk-summary-list__value">
+                0123456789
               </dd>
-
             </div>
-            <div class="govuk-summary-list__row">
+                        <div class="govuk-summary-list__row">
               <dt class="govuk-summary-list__key govuk-summary-list__key-tech">
                 Vehicles in batch
+                                <div class="summary-link-wrapper">
+                  <a class="govuk-link summary-link" href="add-hgvs">Change</a> 
+                </div>
               </dt>
             </div>
             <div class="govuk-summary-list__row--last">
               <dd class="govuk-summary-list__value govuk-summary-list__value--tag" style="display: inline-block;">
                 10
-              </dd>
-              <dd class="govuk-summary-list__actions"style="position: relative; width: 60%; float: right;">
-                <a class="govuk-link" href="add-hgvs">Manage batch<span class="govuk-visually-hidden"></span></a>
               </dd>
             </div>
           </dl>
