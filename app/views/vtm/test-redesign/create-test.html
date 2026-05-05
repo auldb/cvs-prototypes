@@ -95,18 +95,26 @@ href: "javascript:window.history.back()"
                                 <ul class="govuk-task-list govuk-task-list__nested">
 
                                     <li class="govuk-task-list__item">
+                                        <span class="govuk-warning-text__icon test-disabled-icon" style="margin-left: 8px;" aria-hidden="true"><strong>!</strong></span>
                                         <p style="position: relative;
                                           display: inline-block;
                                           background: none;
                                           border: none;
-                                          padding: 0;
+                                          padding: 0px 0px 0px 35px;
                                           font: inherit;
                                           text-align: left; margin-bottom:0px;">Paid retest</p>
-                                          <p class="test-disabled">This test cannot be selected because this vehicle has not been approved for test.</p>
+                                          <div class="govuk-warning-text" style="margin-bottom: 0px; padding-bottom:0px;">
+
+                                            <p class="govuk-body test-disabled" style="margin-bottom: 0px; padding-bottom:0px;">
+                                                <span class="govuk-visually-hidden">Warning</span>
+                                                This test cannot be selected because this vehicle has not been approved for test.
+                                            </p>
+                                            </div>
+                                          <!-- <p class="test-disabled">This test cannot be selected because this vehicle has not been approved for test.</p> -->
                                     </li>
 
                                     <li class="govuk-task-list__item">
-                                        <a class="tree-link" href="#">Free retest</a>
+                                        <a class="tree-link tree-link-longer" href="#">Free retest</a>
                                     </li>
 
                                 </ul>
@@ -682,6 +690,17 @@ href: "javascript:window.history.back()"
 </div>
 
 <style>
+
+
+.govuk-task-list__item::before {
+  content: "•";
+  position: absolute;
+  left: 6px;
+  top: 0.05em;
+  font-size: 1.8em;
+}
+
+
     /* BASE */
     .tree-link {
         position: relative;
@@ -807,7 +826,7 @@ href: "javascript:window.history.back()"
         left: -27px;
         top: -5px;
         width: 2px;
-        height: 27px;
+        height: 67px;
         background: #d8dde0;
     }
 
@@ -815,9 +834,9 @@ href: "javascript:window.history.back()"
         content: "";
         position: absolute;
         left: -27px;
-        top: -32px;
+        top: -50px;
         width: 2px;
-        height: 54px;
+        height: 72px;
         background: #d8dde0;
     }
 
@@ -839,8 +858,8 @@ href: "javascript:window.history.back()"
 
     /* SPECIAL OPEN STATE ADJUSTMENTS */
     .is-parent[data-expanded="true"]+.govuk-task-list__item::after {
-        height: 185px;
-        top: -165px;
+        height: 213px;
+        top: -190px;
     }
 
     .is-parent[data-expanded="false"]+.govuk-task-list__item::after {

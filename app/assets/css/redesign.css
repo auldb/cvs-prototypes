@@ -14,6 +14,18 @@
 .test-disabled {
   color:#484949 !important;
   margin-bottom: 0px !important;
+  margin-left: 35px !important;
+}
+
+.test-disabled-icon {
+  min-height: 24px;
+  min-width: 24px;
+  max-height: 24px;
+  max-width: 24px;
+  line-height: 19px;
+  font-size: 19px;
+  padding-left: 0px !important;
+  top: 14px;
 }
 
 .search-defect-padding {
