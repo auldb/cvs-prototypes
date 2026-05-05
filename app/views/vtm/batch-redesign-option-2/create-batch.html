@@ -34,6 +34,13 @@ href: "javascript:window.history.back()"
         <form class="form" action="add-hgvs" method="post">
 
             <div class="govuk-form-group">
+                <label class="govuk-label govuk-label--m" for="application-id">
+                    Application ID
+                </label>
+                <input class="govuk-input govuk-input--width-20" id="application-id" name="eapplication-id" type="text">
+            </div>
+
+            <div class="govuk-form-group">
                 <fieldset class="govuk-fieldset">
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
                         <h2 class="govuk-fieldset__heading">
@@ -124,7 +131,7 @@ href: "javascript:window.history.back()"
                     </div>
                 </fieldset>
             </div>
-
+            
             <div class="govuk-form-group">
                 <label class="govuk-label govuk-label--m" for="hgv-count">
                     Number of vehicles
@@ -136,6 +143,7 @@ href: "javascript:window.history.back()"
                 <input class="govuk-input govuk-input--width-2" id="hgv-count" name="hgvCount" type="text"
                     inputmode="numeric">
             </div>
+
 
             <hr class="govuk-section-break govuk-section-break--m">
 

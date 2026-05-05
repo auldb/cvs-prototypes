@@ -33,16 +33,11 @@ href: "javascript:window.history.back()"
 
         <form class="form" action="add-hgvs" method="post">
 
-            <div class="govuk-form-group">
-                <label class="govuk-label govuk-label--m" for="application-id">
-                    Application ID
-                </label>
-                <input class="govuk-input govuk-input--width-20" id="application-id" name="eapplication-id" type="text">
-            </div>
 
             <div class="govuk-inset-text">
-                For new HGV records, enter the VIN only. <br>
-                For existing HGV records, enter the VIN and VRM.
+                <p>For new HGV records, enter the VIN only. <br>
+                For existing HGV records, enter the VIN and VRM.</p>
+                <p>Add up to 40 vehicles. Leave any unused fields blank.</p>
             </div>
 
 
@@ -657,6 +652,7 @@ href: "javascript:window.history.back()"
                 </button>
             </div>
 
+
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
                     const addBtn = document.getElementById('add-more-vehicles-btn');
@@ -678,6 +674,7 @@ href: "javascript:window.history.back()"
             </script>
 
             <hr class="govuk-section-break govuk-section-break--m">
+
 
             {% from "govuk/components/button/macro.njk" import govukButton %}
 
