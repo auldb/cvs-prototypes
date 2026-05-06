@@ -26,24 +26,27 @@ href: "javascript:window.history.back()"
 <div class="govuk-grid-row">
     <div class="govuk-width-container">
 
-        <div class="govuk-notification-banner govuk-notification-banner--success" role="alert"
-            aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
-            <div class="govuk-notification-banner__header">
-                <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
-                    Success
-                </h2>
-            </div>
-            <div class="govuk-notification-banner__content">
-                <h3 class="govuk-notification-banner__heading">
-                    Technical records processed
-                </h3>
-                <p class="govuk-body">You have created 5 HGV technical records using application
-                    ID 000000.</p>
-            </div>
-        </div>
+<div class="govuk-error-summary" data-module="govuk-error-summary">
+  <div role="alert">
+    <h2 class="govuk-error-summary__title">
+      There is a problem
+    </h2>
+    <div class="govuk-error-summary__body">
+      <ul class="govuk-list govuk-error-summary__list" style="padding: 0px; padding-top: 0px !important;">
+        <li>
+          <a href="#">Failed to create record for VIN 00005</a>
+        </li>
+        <li>
+          <a href="#">Failed to update record for VIN 00006</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
 
-                <h1 class="govuk-heading-l">Batch summary</h1>
+        <h1 class="govuk-heading-l">Batch summary</h1>
                 <h2 class="govuk-heading-m">Successfully processed records</h2>
+
         <dl class="govuk-summary-list">
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key" style="width: 20% !important;">
@@ -146,12 +149,12 @@ href: "javascript:window.history.back()"
                             0123456789 VRM HGVTST1</span></a>
                 </dd>
             </div>
-                        <div class="govuk-summary-list__row">
+                                    <div class="govuk-summary-list__row">
                 <dd class="govuk-summary-list__value">
-                    00005
+                    00007
                 </dd>
                 <dd class="govuk-summary-list__value">
-                    HGVTST5
+                    Z00007
                 </dd>
                 <dd class="govuk-summary-list__value">
 
@@ -169,8 +172,77 @@ href: "javascript:window.history.back()"
             </div>
         </dl>
 
+        <h2 class="govuk-heading-m">Failed records</h2>
 
+        <dl class="govuk-summary-list">
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key" style="width: 20% !important;">
+                    VIN
+                </dt>
+                <dt class="govuk-summary-list__key" style="width: 15% !important;">
+                    VRM
+                </dt>
+                <dt class="govuk-summary-list__key" style="width: 15% !important;">
+                    Vehicle type
+                </dt>
+                <dt class="govuk-summary-list__key" style="width: 20% !important;">
+                    Record type
+                </dt>
+                <dt class="govuk-summary-list__key" style="width: 30% !important;">
 
+                </dt>
+            </div>
+                                    <div class="govuk-summary-list__row">
+                <dd class="govuk-summary-list__value">
+                    00005
+                </dd>
+                <dd class="govuk-summary-list__value">
+                    HGVTST5
+                </dd>
+                <dd class="govuk-summary-list__value">
+
+                    HGV
+
+                </dd>
+                <dd class="govuk-summary-list__value">
+                    <strong class="govuk-tag govuk-tag--red">Provisional</strong>
+
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <p class="govuk-error-message" style="padding-bottom:0 !important; margin-bottom:0 !important;" href="#">Failed to create<span class="govuk-visually-hidden">VIN
+                            0123456789 VRM HGVTST1</span></p>
+                </dd>
+            
+            </div>
+                                    <div class="govuk-summary-list__row">
+                <dd class="govuk-summary-list__value">
+                    00006
+                </dd>
+                <dd class="govuk-summary-list__value">
+                    Z00006
+                </dd>
+                <dd class="govuk-summary-list__value">
+
+                    HGV
+
+                </dd>
+                <dd class="govuk-summary-list__value">
+                    <strong class="govuk-tag govuk-tag--red">Provisional</strong>
+
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <p class="govuk-error-message" style="padding-bottom:0 !important; margin-bottom:0 !important;" href="#">Failed to update<span class="govuk-visually-hidden">VIN
+                            0123456789 VRM HGVTST1</span></p>
+                </dd>
+            </div>
+                    </dl>
+
+                         <div class="govuk-button-group govuk-button-group-record">
+        {{ govukButton({
+        text: "Retry failed records",
+        href: "success.html"
+        }) }}
+      </div>
 
     </div>
 </div>
