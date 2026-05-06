@@ -1,0 +1,57 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+Vehicle Testing Management – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+
+{% block beforeContent %}
+{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+
+{{ govukPhaseBanner({
+tag: {
+text: "Beta"
+},
+html: 'This is a new service. Help us improve it and <a class="govuk-link" href="#">give your feedback (opens in new
+    tab)</a>.'
+}) }}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+
+<div class="govuk-grid-row">
+    <div class="govuk-width-container govuk-width-container--wide">
+
+        <h1 class="govuk-heading-l">
+            Are you sure you want to cancel creating this batch of technical records?
+        </h1>
+        <p>This will delete any data in the batch record and return you to the homepage.</p>
+
+
+
+        {% from "govuk/components/button/macro.njk" import govukButton %}
+
+        <div class="govuk-button-group govuk-button-group-record">
+            {{ govukButton({
+            text: "Cancel batch",
+            href: "index.html",
+            classes: "govuk-button--warning"
+            }) }}
+
+            <a href="/" class="govuk-link">Back</a>
+        </div>
+
+        </form>
+
+    </div>
+</div>
+
+
+
+
+{% endblock %}

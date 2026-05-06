@@ -1,0 +1,252 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+Vehicle Testing Management – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+
+{{ govukPhaseBanner({
+tag: {
+text: "Beta"
+},
+html: 'This is a new service. Help us improve it and <a class="govuk-link" href="#">give your feedback (opens in new
+    tab)</a>.'
+}) }}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+
+<div class="govuk-grid-row">
+    <div class="govuk-width-container">
+
+<div class="govuk-error-summary" data-module="govuk-error-summary">
+  <div role="alert">
+    <h2 class="govuk-error-summary__title">
+      There is a problem
+    </h2>
+    <div class="govuk-error-summary__body">
+      <ul class="govuk-list govuk-error-summary__list" style="padding: 0px; padding-top: 0px !important;">
+        <li>
+          <a href="#">Failed to create record for VIN 00005</a>
+        </li>
+        <li>
+          <a href="#">Failed to update record for VIN 00006</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+        <h1 class="govuk-heading-l">Batch summary</h1>
+                <h2 class="govuk-heading-m">Successfully processed records</h2>
+
+        <dl class="govuk-summary-list">
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key" style="width: 20% !important;">
+                    VIN
+                </dt>
+                <dt class="govuk-summary-list__key" style="width: 15% !important;">
+                    VRM
+                </dt>
+                <dt class="govuk-summary-list__key" style="width: 15% !important;">
+                    Vehicle type
+                </dt>
+                <dt class="govuk-summary-list__key" style="width: 20% !important;">
+                    Record type
+                </dt>
+                <dt class="govuk-summary-list__key" style="width: 30% !important;">
+
+                </dt>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dd class="govuk-summary-list__value">
+                    00001
+                </dd>
+                <dd class="govuk-summary-list__value">
+                    HGVTST1
+                </dd>
+                <dd class="govuk-summary-list__value">
+
+                    HGV
+
+                </dd>
+                <dd class="govuk-summary-list__value">
+                    <strong class="govuk-tag govuk-tag--red">Provisional</strong>
+
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="#">View (opens in new tab)<span class="govuk-visually-hidden">VIN
+                            0123456789 VRM HGVTST1</span></a>
+                </dd>
+            </div>
+                        <div class="govuk-summary-list__row">
+                <dd class="govuk-summary-list__value">
+                    00002
+                </dd>
+                <dd class="govuk-summary-list__value">
+                    HGVTST2
+                </dd>
+                <dd class="govuk-summary-list__value">
+
+                    HGV
+
+                </dd>
+                <dd class="govuk-summary-list__value">
+                    <strong class="govuk-tag govuk-tag--red">Provisional</strong>
+
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="#">View (opens in new tab)<span class="govuk-visually-hidden">VIN
+                            0123456789 VRM HGVTST1</span></a>
+                </dd>
+            </div>
+                        <div class="govuk-summary-list__row">
+                <dd class="govuk-summary-list__value">
+                    00003
+                </dd>
+                <dd class="govuk-summary-list__value">
+                    HGVTST3
+                </dd>
+                <dd class="govuk-summary-list__value">
+
+                    HGV
+
+                </dd>
+                <dd class="govuk-summary-list__value">
+                    <strong class="govuk-tag govuk-tag--red">Provisional</strong>
+
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="#">View (opens in new tab)<span class="govuk-visually-hidden">VIN
+                            0123456789 VRM HGVTST1</span></a>
+                </dd>
+            </div>
+                        <div class="govuk-summary-list__row">
+                <dd class="govuk-summary-list__value">
+                    00004
+                </dd>
+                <dd class="govuk-summary-list__value">
+                    HGVTST4
+                </dd>
+                <dd class="govuk-summary-list__value">
+
+                    HGV
+
+                </dd>
+                <dd class="govuk-summary-list__value">
+                    <strong class="govuk-tag govuk-tag--red">Provisional</strong>
+
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="#">View (opens in new tab)<span class="govuk-visually-hidden">VIN
+                            0123456789 VRM HGVTST1</span></a>
+                </dd>
+            </div>
+                                    <div class="govuk-summary-list__row">
+                <dd class="govuk-summary-list__value">
+                    00007
+                </dd>
+                <dd class="govuk-summary-list__value">
+                    Z00007
+                </dd>
+                <dd class="govuk-summary-list__value">
+
+                    HGV
+
+                </dd>
+                <dd class="govuk-summary-list__value">
+                    <strong class="govuk-tag govuk-tag--red">Provisional</strong>
+
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="#">View (opens in new tab)<span class="govuk-visually-hidden">VIN
+                            0123456789 VRM HGVTST1</span></a>
+                </dd>
+            </div>
+        </dl>
+
+        <h2 class="govuk-heading-m">Failed records</h2>
+
+        <dl class="govuk-summary-list">
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key" style="width: 20% !important;">
+                    VIN
+                </dt>
+                <dt class="govuk-summary-list__key" style="width: 15% !important;">
+                    VRM
+                </dt>
+                <dt class="govuk-summary-list__key" style="width: 15% !important;">
+                    Vehicle type
+                </dt>
+                <dt class="govuk-summary-list__key" style="width: 20% !important;">
+                    Record type
+                </dt>
+                <dt class="govuk-summary-list__key" style="width: 30% !important;">
+
+                </dt>
+            </div>
+                                    <div class="govuk-summary-list__row">
+                <dd class="govuk-summary-list__value">
+                    00005
+                </dd>
+                <dd class="govuk-summary-list__value">
+                    HGVTST5
+                </dd>
+                <dd class="govuk-summary-list__value">
+
+                    HGV
+
+                </dd>
+                <dd class="govuk-summary-list__value">
+                    <strong class="govuk-tag govuk-tag--red">Provisional</strong>
+
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <p class="govuk-error-message" style="padding-bottom:0 !important; margin-bottom:0 !important;" href="#">Failed to create<span class="govuk-visually-hidden">VIN
+                            0123456789 VRM HGVTST1</span></p>
+                </dd>
+            
+            </div>
+                                    <div class="govuk-summary-list__row">
+                <dd class="govuk-summary-list__value">
+                    00006
+                </dd>
+                <dd class="govuk-summary-list__value">
+                    Z00006
+                </dd>
+                <dd class="govuk-summary-list__value">
+
+                    HGV
+
+                </dd>
+                <dd class="govuk-summary-list__value">
+                    <strong class="govuk-tag govuk-tag--red">Provisional</strong>
+
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <p class="govuk-error-message" style="padding-bottom:0 !important; margin-bottom:0 !important;" href="#">Failed to update<span class="govuk-visually-hidden">VIN
+                            0123456789 VRM HGVTST1</span></p>
+                </dd>
+            </div>
+                    </dl>
+
+                         <div class="govuk-button-group govuk-button-group-record">
+        {{ govukButton({
+        text: "Retry failed records",
+        href: "success.html"
+        }) }}
+      </div>
+
+    </div>
+</div>
+
+
+
+{% endblock %}
