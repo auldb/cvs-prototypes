@@ -27,23 +27,23 @@ href: "javascript:window.history.back()"
 <div class="govuk-grid-row">
     <div class="govuk-width-container govuk-width-container--wide">
 
-        <div class="govuk-error-summary" data-module="govuk-error-summary">
-  <div role="alert">
-    <h2 class="govuk-error-summary__title">
-      There is a problem
-    </h2>
-    <div class="govuk-error-summary__body">
-      <ul class="govuk-list govuk-error-summary__list" style="padding:0px;">
-        <li>
-          <a href="#">Enter design gross vehicle weight</a>
-        </li>
-        <li>
-          <a href="#">Enter design gross train weight</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</div>
+       <div class="govuk-error-summary" data-module="govuk-error-summary">
+            <div role="alert">
+                <h2 class="govuk-error-summary__title">
+                    There is a problem
+                </h2>
+                <div class="govuk-error-summary__body">
+                    <ul class="govuk-list govuk-error-summary__list" style="padding:0px;">
+                        <li>
+                            <a href="#">Design gross vehicle weight must be more than or equal to 1kg</a>
+                        </li>
+                        <li>
+                            <a href="#">Design gross train weight must be more than or equal to 1kg</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
 
         <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
             <div class="govuk-accordion__section">
@@ -115,9 +115,9 @@ href: "javascript:window.history.back()"
                     </h2>
                 </div>
 
-                
+
                 <div id="accordion-default-content-4" class="govuk-accordion__section-content">
-      
+
                     <div class="govuk-form-group">
                         <h2 class="govuk-label-wrapper">
                             <label class="govuk-label govuk-label--m" for="cost-per-item">
@@ -125,13 +125,13 @@ href: "javascript:window.history.back()"
                             </label>
                         </h2>
                         <p id="national-insurance-number-error" class="govuk-error-message">
-    <span class="govuk-visually-hidden">Error:</span> Enter design gross vehicle weight
-  </p>
+                            <span class="govuk-visually-hidden">Error:</span> Design gross vehicle weight must be more than or equal to 1kg
+                        </p>
                         <div class="govuk-input__wrapper">
-                            
-                            <input class="govuk-input govuk-input--width-5" id="weight2" name="weight2" type="text"
-                                spellcheck="false" value="100" disabled>
-                            <div class="govuk-input__suffix" style="opacity:0.5;" aria-hidden="true">kg</div>
+
+                            <input class="govuk-input govuk-input--width-5 id="weight2" name="weight2" type="text"
+                                spellcheck="false" value="0">
+                            <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                         </div>
                     </div>
                     <div class="govuk-form-group">
@@ -140,18 +140,18 @@ href: "javascript:window.history.back()"
                                 Design gross train weight
                             </label>
                         </h2>
-                                                <p id="weights-error" class="govuk-error-message">
-    <span class="govuk-visually-hidden">Error:</span> Enter design gross train weight
-  </p>
+                        <p id="weights-error" class="govuk-error-message">
+                            <span class="govuk-visually-hidden">Error:</span> Design gross train weight must be more than or equal to 1kg
+                        </p>
                         <div class="govuk-input__wrapper">
-                            <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
-                                spellcheck="false" value="100" disabled>
-                            <div class="govuk-input__suffix" style="opacity:0.5;" aria-hidden="true">kg</div>
+                            <input class="govuk-input govuk-input--width-5 id="weight" name="weight" type="text"
+                                spellcheck="false" value="0">
+                            <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                         </div>
                     </div>
                 </div>
-              
-                
+
+
             </div>
             <div class="govuk-accordion__section">
                 <div class="govuk-accordion__section-header">

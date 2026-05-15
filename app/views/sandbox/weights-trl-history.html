@@ -1,0 +1,152 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+Vehicle Testing Management – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+
+{% block beforeContent %}
+{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+
+{{ govukPhaseBanner({
+tag: {
+text: "Beta"
+},
+html: 'This is a new service. Help us improve it and <a class="govuk-link" href="#">give your feedback (opens in new
+    tab)</a>.'
+}) }}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+
+<div class="govuk-grid-row">
+    <div class="govuk-width-container govuk-width-container--wide">
+
+  
+
+        <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
+            <div class="govuk-accordion__section">
+                <div class="govuk-accordion__section-header">
+                    <h2 class="govuk-accordion__section-heading">
+                        <span class="govuk-accordion__section-button" id="accordion-default-heading-1">
+                            Vehicle Details
+                        </span>
+                    </h2>
+                </div>
+                <div id="accordion-default-content-1" class="govuk-accordion__section-content">
+
+                </div>
+            </div>
+            <div class="govuk-accordion__section">
+                <div class="govuk-accordion__section-header">
+                    <h2 class="govuk-accordion__section-heading">
+                        <span class="govuk-accordion__section-button" id="accordion-default-heading-2">
+                            Test
+                        </span>
+                    </h2>
+                </div>
+                <div id="accordion-default-content-2" class="govuk-accordion__section-content">
+
+                </div>
+            </div>
+            <div class="govuk-accordion__section">
+                <div class="govuk-accordion__section-header">
+                    <h2 class="govuk-accordion__section-heading">
+                        <span class="govuk-accordion__section-button" id="accordion-default-heading-3">
+                            Visit
+                        </span>
+                    </h2>
+                </div>
+                <div id="accordion-default-content-3" class="govuk-accordion__section-content">
+
+                </div>
+            </div>
+            <div class="govuk-accordion__section">
+                <div class="govuk-accordion__section-header">
+                    <h2 class="govuk-accordion__section-heading">
+                        <span class="govuk-accordion__section-button" id="accordion-default-heading-4">
+                            Notes
+                        </span>
+                    </h2>
+                </div>
+                <div id="accordion-default-content-4" class="govuk-accordion__section-content">
+
+                </div>
+            </div>
+            <div class="govuk-accordion__section">
+                <div class="govuk-accordion__section-header">
+                    <h2 class="govuk-accordion__section-heading">
+                        <span class="govuk-accordion__section-button" id="accordion-default-heading-4">
+                            Defects
+                        </span>
+                    </h2>
+                </div>
+                <div id="accordion-default-content-4" class="govuk-accordion__section-content">
+
+                </div>
+            </div>
+            <div class="govuk-accordion__section">
+                <div class="govuk-accordion__section-header">
+                    <h2 class="govuk-accordion__section-heading">
+                        <span class="govuk-accordion__section-button" id="accordion-default-heading-4">
+                            Weights
+                        </span>
+                    </h2>
+                </div>
+
+                
+                <div id="accordion-default-content-4" class="govuk-accordion__section-content">
+
+                    <table class="govuk-table">
+                        <tbody class="govuk-table__body">
+                            <tr class="govuk-table__row">
+                            <th scope="row" class="govuk-table__header" style="width:40%;">Design gross vehicle weight</th>
+                            <td class="govuk-table__cell">100 kg</td>
+                            </tr>
+                            <tr class="govuk-table__row govuk-table__row--last">
+                            <th scope="row" class="govuk-table__header">Design total axle weight</th>
+                            <td class="govuk-table__cell">100 kg</td>
+                            </tr>
+                        </tbody>
+                        </table>
+      
+
+                </div>
+              
+                
+            </div>
+
+     
+        </div>
+
+        <table class="govuk-table">
+  <caption class="govuk-table__caption govuk-table__caption--m">Test record amendment history</caption>
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">Reason for creation</th>
+      <th scope="col" class="govuk-table__header">Created by</th>
+       <th scope="col" class="govuk-table__header">Created at</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">/</td>
+            <td class="govuk-table__cell">Test</td>
+                  <td class="govuk-table__cell">May 6, 2026</td>
+    </tr>
+  </tbody>
+</table>
+
+
+    </div>
+</div>
+
+
+
+
+{% endblock %}
