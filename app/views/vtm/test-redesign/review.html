@@ -178,6 +178,18 @@ href: "javascript:window.history.back()"
             </div>
             <div class="govuk-summary-list__row">
               <dt class="govuk-summary-list__key govuk-summary-list__key-tech">
+                Test result
+              </dt>
+            </div>
+            <div class="govuk-summary-list__row--value">
+              <dd class="govuk-summary-list__value govuk-summary-list__value--overflow">
+                <strong class="govuk-tag govuk-tag--red">
+                  Fail
+                </strong>
+              </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key govuk-summary-list__key-tech">
                 Vehicle type
               </dt>
             </div>
@@ -245,7 +257,7 @@ href: "javascript:window.history.back()"
                 <span
                   class="govuk-accordion__section-button govuk-accordion__section-button-vtm govuk-accordion__section-heading-vtm"
                   id="accordion-with-summary-sections-heading-2">
-                 Vehicle details
+                  Vehicle details
                 </span>
               </h2>
             </div>
@@ -306,43 +318,42 @@ href: "javascript:window.history.back()"
                   </div>
 
 
-            <div class="govuk-form-group">
-              <fieldset class="govuk-fieldset" role="group" aria-describedby="speed-restriction-hint">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-                  <h1 class="govuk-fieldset__heading">
-                    Odometer reading
-                  </h1>
-                </legend>
+                  <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset" role="group" aria-describedby="speed-restriction-hint">
+                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                        <h1 class="govuk-fieldset__heading">
+                          Odometer reading
+                        </h1>
+                      </legend>
 
-                <div class="govuk-date-input" id="speed-restriction">
-                  <div class="govuk-date-input__item">
-                    <div class="govuk-form-group">
-                      <div class="govuk-input__wrapper">
-                      <input class="govuk-input govuk-!-width-one-third govuk-input--extra-letter-spacing" id="authentication-code" name="authenticationCode" type="text" spellcheck="false" value="12345678" aria-describedby="authentication-code-hint" disabled>
+                      <div class="govuk-date-input" id="speed-restriction">
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <div class="govuk-input__wrapper">
+                              <input class="govuk-input govuk-!-width-one-third govuk-input--extra-letter-spacing"
+                                id="authentication-code" name="authenticationCode" type="text" spellcheck="false"
+                                value="12345678" aria-describedby="authentication-code-hint" disabled>
 
 
-                        <select
-                          class="govuk-input__suffix govuk-select govuk-input__suffix--select"
-                          id="speed-unit"
-                          name="speed-unit"
-                        >
-                          <!--<option value="Select unit" selected>Select unit</option>-->
-                          <option value="miles" selected>miles</option>
-                          <option value="km">km</option>
-                        </select>
+                              <select class="govuk-input__suffix govuk-select govuk-input__suffix--select"
+                                id="speed-unit" name="speed-unit">
+                                <!--<option value="Select unit" selected>Select unit</option>-->
+                                <option value="miles" selected>miles</option>
+                                <option value="km">km</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                    </div>
+                    </fieldset>
                   </div>
-                </div>
-              </fieldset>
-            </div>
 
                 </li>
               </ul>
             </div>
           </div>
 
-         <!--TEST-->
+          <!--TEST-->
           <div class="govuk-accordion__section govuk-accordion__section-vtm plates">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
               <h2 class="govuk-accordion__section-heading">
@@ -360,81 +371,97 @@ href: "javascript:window.history.back()"
               <ul class="govuk-list">
                 <li>
 
-                <div class="govuk-form-group">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-                  <h1 class="govuk-fieldset__heading">
-                    Contingency test number
-                  </h1>
-                </legend>
-                  <div id="account-number-hint" class="govuk-hint">
-                    Must be between 6 and 8 digits long
-                  </div>
-                  <input class="govuk-input govuk-!-width-one-quarter govuk-input--extra-letter-spacing" id="authentication-code" name="authenticationCode" type="text" spellcheck="false" value="12345678" aria-describedby="authentication-code-hint" disabled>
-                </div>
-
-                <div class="govuk-form-group">
-                  <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
+                  <div class="govuk-form-group">
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                       <h1 class="govuk-fieldset__heading">
-                        Test start date and time
+                        Contingency test number
                       </h1>
                     </legend>
-                    <div id="passport-issued-hint" class="govuk-hint">
-                      For example, 27 3 2024 at 10 45
+                    <div id="account-number-hint" class="govuk-hint">
+                      Must be between 6 and 8 digits long
                     </div>
-                    <div class="govuk-date-input" id="passport-issued">
-                      <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                          <label class="govuk-label govuk-date-input__label" for="passport-issued-day">
-                            Day
-                          </label>
-                          <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric" value="20"disabled>
-                        </div>
-                      </div>
-                      <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                          <label class="govuk-label govuk-date-input__label" for="passport-issued-month">
-                            Month
-                          </label>
-                          <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric" value="5" disabled>
-                        </div>
-                      </div>
-                      <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                          <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
-                            Year
-                          </label>
-                          <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="2026" disabled>
-                        </div>
-                      </div>
+                    <input class="govuk-input govuk-!-width-one-quarter govuk-input--extra-letter-spacing"
+                      id="authentication-code" name="authenticationCode" type="text" spellcheck="false" value="12345678"
+                      aria-describedby="authentication-code-hint" disabled>
+                  </div>
 
-                      <p class="govuk-body time-at" style="display: inline-block; position: relative; padding-right: 8px; margin-bottom: 10px;">at</p>
+                  <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
+                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                        <h1 class="govuk-fieldset__heading">
+                          Test start date and time
+                        </h1>
+                      </legend>
+                      <div id="passport-issued-hint" class="govuk-hint">
+                        For example, 27 3 2024 at 10 45
+                      </div>
+                      <div class="govuk-date-input" id="passport-issued">
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-day">
+                              Day
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                              id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric"
+                              value="20" disabled>
+                          </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-month">
+                              Month
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                              id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric"
+                              value="5" disabled>
+                          </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                              Year
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-4"
+                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
+                              value="2026" disabled>
+                          </div>
+                        </div>
+
+                        <p class="govuk-body time-at"
+                          style="display: inline-block; position: relative; padding-right: 8px; margin-bottom: 10px;">at
+                        </p>
 
                         <div class="govuk-date-input__item time-hour">
                           <div class="govuk-form-group">
                             <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
                               Hour
                             </label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="10" disabled>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
+                              value="10" disabled>
                           </div>
                         </div>
 
-                        <p class="govuk-body time-colon" style="display: inline-block; position: relative; padding-right: 8px; margin-bottom: 10px;">:</p>
+                        <p class="govuk-body time-colon"
+                          style="display: inline-block; position: relative; padding-right: 8px; margin-bottom: 10px;">:
+                        </p>
 
                         <div class="govuk-date-input__item time-minute">
                           <div class="govuk-form-group">
                             <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
                               Minute
                             </label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="30" disabled>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
+                              value="30" disabled>
                           </div>
                         </div>
 
-                    </div>
-                  </fieldset>
-                </div>
+                      </div>
+                    </fieldset>
+                  </div>
 
-                <!-- <div class="govuk-form-group">
+                  <!-- <div class="govuk-form-group">
                   <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                       <h1 class="govuk-fieldset__heading">
@@ -457,64 +484,78 @@ href: "javascript:window.history.back()"
                   </fieldset>
                 </div> -->
 
-                <div class="govuk-form-group">
-                  <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
-                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-                      <h1 class="govuk-fieldset__heading">
-                        Test end date and time
-                      </h1>
-                    </legend>
-                    <div class="govuk-date-input" id="passport-issued">
-                      <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                          <label class="govuk-label govuk-date-input__label" for="passport-issued-day">
-                            Day
-                          </label>
-                          <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric" value="20" disabled>
+                  <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
+                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                        <h1 class="govuk-fieldset__heading">
+                          Test end date and time
+                        </h1>
+                      </legend>
+                      <div class="govuk-date-input" id="passport-issued">
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-day">
+                              Day
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                              id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric"
+                              value="20" disabled>
+                          </div>
                         </div>
-                      </div>
-                      <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                          <label class="govuk-label govuk-date-input__label" for="passport-issued-month">
-                            Month
-                          </label>
-                          <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric" value="5"disabled>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-month">
+                              Month
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                              id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric"
+                              value="5" disabled>
+                          </div>
                         </div>
-                      </div>
-                      <div class="govuk-date-input__item">
-                        <div class="govuk-form-group">
-                          <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
-                            Year
-                          </label>
-                          <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="2026"disabled>
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                              Year
+                            </label>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-4"
+                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
+                              value="2026" disabled>
+                          </div>
                         </div>
-                      </div>
 
-                      <p class="govuk-body time-at" style="display: inline-block; position: relative; padding-right: 8px; margin-bottom: 10px;">at</p>
+                        <p class="govuk-body time-at"
+                          style="display: inline-block; position: relative; padding-right: 8px; margin-bottom: 10px;">at
+                        </p>
 
                         <div class="govuk-date-input__item time-hour">
                           <div class="govuk-form-group">
                             <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
                               Hour
                             </label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="11" disabled>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
+                              value="11" disabled>
                           </div>
-                        </div> 
+                        </div>
 
-                        <p class="govuk-body time-colon" style="display: inline-block; position: relative; padding-right: 8px; margin-bottom: 10px;">:</p>
+                        <p class="govuk-body time-colon"
+                          style="display: inline-block; position: relative; padding-right: 8px; margin-bottom: 10px;">:
+                        </p>
 
                         <div class="govuk-date-input__item time-minute">
                           <div class="govuk-form-group">
                             <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
                               Minute
                             </label>
-                            <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="30"disabled>
+                            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric"
+                              value="30" disabled>
                           </div>
                         </div>
 
-                    </div>
-                  </fieldset>
-                </div>
+                      </div>
+                    </fieldset>
+                  </div>
 
 
                 </li>
@@ -542,23 +583,24 @@ href: "javascript:window.history.back()"
 
                   <div class="govuk-form-group">
                     <fieldset class="govuk-fieldset" role="group">
-                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-                      <h1 class="govuk-fieldset__heading">
-                        Test facility location
-                      </h1>
-                    </legend>
-                    <select class="govuk-select" id="location" name="location" aria-describedby="location-hint" disabled>
-                      <option value="choose" selected>Choose test station</option>
-                      <option value="eastmidlands">East Midlands</option>
-                      <option value="eastofengland">East of England</option>
-                      <option value="london">London</option>
-                      <option value="northeast" selected>North East</option>
-                      <option value="northwest">North West</option>
-                      <option value="southeast">South East</option>
-                      <option value="southwest">South West</option>
-                      <option value="westmidlands">West Midlands</option>
-                      <option value="yorkshire">Yorkshire and the Humber</option>
-                    </select>
+                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                        <h1 class="govuk-fieldset__heading">
+                          Test facility location
+                        </h1>
+                      </legend>
+                      <select class="govuk-select" id="location" name="location" aria-describedby="location-hint"
+                        disabled>
+                        <option value="choose" selected>Choose test station</option>
+                        <option value="eastmidlands">East Midlands</option>
+                        <option value="eastofengland">East of England</option>
+                        <option value="london">London</option>
+                        <option value="northeast" selected>North East</option>
+                        <option value="northwest">North West</option>
+                        <option value="southeast">South East</option>
+                        <option value="southwest">South West</option>
+                        <option value="westmidlands">West Midlands</option>
+                        <option value="yorkshire">Yorkshire and the Humber</option>
+                      </select>
                     </fieldset>
                   </div>
 
@@ -568,29 +610,31 @@ href: "javascript:window.history.back()"
                         Type of test facility
                       </label>
                     </h1>
-                    <input class="govuk-input govuk-input--width-5" id="event-name" name="eventName" type="text" value="ATF" disabled>
+                    <input class="govuk-input govuk-input--width-5" id="event-name" name="eventName" type="text"
+                      value="ATF" disabled>
                   </div>
 
 
                   <div class="govuk-form-group">
                     <fieldset class="govuk-fieldset" role="group">
-                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-                      <h1 class="govuk-fieldset__heading">
-                        Tester
-                      </h1>
-                    </legend>
-                    <select class="govuk-select" id="location" name="location" aria-describedby="location-hint" disabled>
-                      <option value="choose" selected>Choose tester</option>
-                      <option value="eastmidlands">East Midlands</option>
-                      <option value="eastofengland">East of England</option>
-                      <option value="london">London</option>
-                      <option value="northeast" selected>North East</option>
-                      <option value="northwest">North West</option>
-                      <option value="southeast">South East</option>
-                      <option value="southwest">South West</option>
-                      <option value="westmidlands">West Midlands</option>
-                      <option value="yorkshire">Yorkshire and the Humber</option>
-                    </select>
+                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                        <h1 class="govuk-fieldset__heading">
+                          Tester
+                        </h1>
+                      </legend>
+                      <select class="govuk-select" id="location" name="location" aria-describedby="location-hint"
+                        disabled>
+                        <option value="choose" selected>Choose tester</option>
+                        <option value="eastmidlands">East Midlands</option>
+                        <option value="eastofengland">East of England</option>
+                        <option value="london">London</option>
+                        <option value="northeast" selected>North East</option>
+                        <option value="northwest">North West</option>
+                        <option value="southeast">South East</option>
+                        <option value="southwest">South West</option>
+                        <option value="westmidlands">West Midlands</option>
+                        <option value="yorkshire">Yorkshire and the Humber</option>
+                      </select>
                     </fieldset>
                   </div>
 
@@ -599,7 +643,7 @@ href: "javascript:window.history.back()"
             </div>
           </div>
 
- <!--NOTES-->
+          <!--NOTES-->
           <div class="govuk-accordion__section govuk-accordion__section-vtm admin">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
               <h2 class="govuk-accordion__section-heading">
@@ -638,7 +682,7 @@ href: "javascript:window.history.back()"
             </div>
           </div>
 
-         <!--DEFECTS-->
+          <!--DEFECTS-->
           <div class="govuk-accordion__section govuk-accordion__section-vtm admin">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
               <h2 class="govuk-accordion__section-heading">
@@ -726,7 +770,7 @@ href: "javascript:window.history.back()"
                     data-maxlength="200">
                     <h1 class="govuk-label-wrapper">
                       <label class="govuk-label govuk-label--s" for="event-name">
-                        Reason for creation                        
+                        Reason for creation
                       </label>
                     </h1>
                     <label class="govuk-label" for="label-as-page-heading">
