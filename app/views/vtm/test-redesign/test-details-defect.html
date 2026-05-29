@@ -526,7 +526,7 @@ href: "javascript:window.history.back()"
                         </h1>
                       </legend>
                       <div id="passport-issued-hint" class="govuk-hint">
-                        For example, 27 3 2024 at 10 45
+                        For example, 27 3 2024 at 14:30
                       </div>
                       <div class="govuk-date-input" id="passport-issued">
                         <div class="govuk-date-input__item">
@@ -557,7 +557,9 @@ href: "javascript:window.history.back()"
                           </div>
                         </div>
 
-                        <p class="govuk-body time-at">at</p>
+                        <p class="govuk-body time-at"
+                          style="display: inline-block; position: relative; padding-right: 8px; margin-bottom: 10px;">at
+                        </p>
 
                         <div class="govuk-date-input__item time-hour">
                           <div class="govuk-form-group">
@@ -569,7 +571,9 @@ href: "javascript:window.history.back()"
                           </div>
                         </div>
 
-                        <p class="govuk-body time-colon">:</p>
+                        <p class="govuk-body time-colon"
+                          style="display: inline-block; position: relative; padding-right: 8px; margin-bottom: 10px;">:
+                        </p>
 
                         <div class="govuk-date-input__item time-minute">
                           <div class="govuk-form-group">
@@ -644,7 +648,9 @@ href: "javascript:window.history.back()"
                           </div>
                         </div>
 
-                        <p class="govuk-body time-at">at</p>
+                        <p class="govuk-body time-at"
+                          style="display: inline-block; position: relative; padding-right: 8px; margin-bottom: 10px;">at
+                        </p>
 
                         <div class="govuk-date-input__item time-hour">
                           <div class="govuk-form-group">
@@ -656,7 +662,9 @@ href: "javascript:window.history.back()"
                           </div>
                         </div>
 
-                        <p class="govuk-body time-colon">:</p>
+                        <p class="govuk-body time-colon"
+                          style="display: inline-block; position: relative; padding-right: 8px; margin-bottom: 10px;">:
+                        </p>
 
                         <div class="govuk-date-input__item time-minute">
                           <div class="govuk-form-group">
@@ -816,7 +824,7 @@ href: "javascript:window.history.back()"
                     Any unresolved major or dangerous defects will result in failed test.
                   </div>
 
-                  <dl class="govuk-summary-list">
+                  <!--<dl class="govuk-summary-list">
                     <div class="govuk-summary-list__row">
                       <dt class="govuk-summary-list__key" style="width: 20% !important;">
                         Reference
@@ -832,6 +840,48 @@ href: "javascript:window.history.back()"
                       </dt>
                       <dt class="govuk-summary-list__key" style="width: 12% !important;">
                         Media
+                      </dt>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                      <dd class="govuk-summary-list__value">
+                        <a href="amend-defect-details" class="archive-link">1.1(a)</a>
+                      </dd>
+                      <dd class="govuk-summary-list__value">
+                        A registration plate: missing.
+                      </dd>
+                      <dd class="govuk-summary-list__value">
+                        <strong class="govuk-tag govuk-tag--red">
+                          Major
+                        </strong>
+                      </dd>
+                      <dd class="govuk-summary-list__value">
+                        No
+                      </dd>
+                      <dd class="govuk-summary-list__value">
+                        None
+                      </dd>
+                    </div>
+                  </dl>-->
+
+                  -<dl class="govuk-summary-list">
+                    <div class="govuk-summary-list__row">
+                      <dt class="govuk-summary-list__key" style="width: 19% !important;">
+                        Reference
+                      </dt>
+                      <dt class="govuk-summary-list__key" style="width: 28% !important;">
+                        Description
+                      </dt>
+                      <dt class="govuk-summary-list__key" style="width: 18% !important;">
+                        Category
+                      </dt>
+                      <dt class="govuk-summary-list__key" style="width: 8% !important;">
+                        PRS
+                      </dt>
+                      <dt class="govuk-summary-list__key" style="width: 11% !important;">
+                        Media
+                      </dt>
+                      <dt class="govuk-summary-list__key" style="width: 17% !important; text-align: right;">
+                        Actions
                       </dt>
                     </div>
                     <div class="govuk-summary-list__row">
@@ -852,6 +902,18 @@ href: "javascript:window.history.back()"
                       <dd class="govuk-summary-list__value">
                         None
                       </dd>
+                      <dd class="govuk-summary-list__actions">
+                        <ul class="govuk-summary-list__actions-list">
+                          <li class="govuk-summary-list__actions-list-item" style="margin-bottom: 12px;">
+                            <a class="govuk-link" href="amend-defect-details">Amend<span class="govuk-visually-hidden"> contact
+                                details</span></a>
+                          </li>
+                          <li class="govuk-summary-list__actions-list-item">
+                            <a class="govuk-link" href="#">Remove<span class="govuk-visually-hidden"> contact
+                                details</span></a>
+                          </li>
+                        </ul>
+                      </dd>
                     </div>
                   </dl>
 
@@ -861,7 +923,7 @@ href: "javascript:window.history.back()"
                     {{ govukButton({
                     text: "Add defect",
                     classes: "govuk-button--secondary",
-                    href: "defect-details"
+                    href: "select-defect"
                     }) }}
                   </div>
 
