@@ -290,7 +290,7 @@ href: "javascript:window.history.back()"
 <div class="govuk-width-container">
 
   <h1 class="govuk-heading-l">
-    Create a contingency test
+    Amend test record
   </h1>
 
   <div class="govuk-grid-row">
@@ -362,11 +362,6 @@ href: "javascript:window.history.back()"
         text: "Review",
         href: "review.html"
         }) }}
-        {{ govukButton({
-        text: "Mark as abandoned",
-        classes: "govuk-button--secondary",
-        href: "abandon-test"
-        }) }}
       </div>
 
     </div>
@@ -410,8 +405,8 @@ href: "javascript:window.history.back()"
                       </strong>
                     </label>
                     <select class="govuk-select" id="sort" name="sort">
-                      <option value="published" selected>Select country of registration</option>
-                      <option value="updated">Austria - A</option>
+                      <option value="published">Select country of registration</option>
+                      <option value="updated" selected>Austria - A</option>
                       <option value="views">Belgium - B</option>
                       <option value="views">Bulgaria - BG</option>
                     </select>
@@ -434,7 +429,7 @@ href: "javascript:window.history.back()"
                         </div>
                         <div class="govuk-radios__item">
                           <input class="govuk-radios__input" id="whereDoYouLive-2" name="whereDoYouLive" type="radio"
-                            value="scotland">
+                            value="scotland" checked>
                           <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
                             N2
                           </label>
@@ -515,7 +510,7 @@ href: "javascript:window.history.back()"
                     </div>
                     <input class="govuk-input govuk-!-width-one-quarter govuk-input--extra-letter-spacing"
                       id="authentication-code" name="authenticationCode" type="text" spellcheck="false"
-                      value="1234567890" aria-describedby="authentication-code-hint">
+                      value="12345678" aria-describedby="authentication-code-hint">
                   </div>
 
                   <div class="govuk-form-group">
@@ -535,7 +530,7 @@ href: "javascript:window.history.back()"
                               Day
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                              id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric">
+                              id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric" value="20">
                           </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -544,7 +539,7 @@ href: "javascript:window.history.back()"
                               Month
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                              id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric">
+                              id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric" value="5">
                           </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -553,7 +548,7 @@ href: "javascript:window.history.back()"
                               Year
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="2026">
                           </div>
                         </div>
 
@@ -567,7 +562,7 @@ href: "javascript:window.history.back()"
                               Hour
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="10">
                           </div>
                         </div>
 
@@ -581,7 +576,7 @@ href: "javascript:window.history.back()"
                               Minute
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="30">
                           </div>
                         </div>
 
@@ -626,7 +621,7 @@ href: "javascript:window.history.back()"
                               Day
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                              id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric">
+                              id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric" value="20">
                           </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -635,7 +630,7 @@ href: "javascript:window.history.back()"
                               Month
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                              id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric">
+                              id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric" value="5">
                           </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -644,7 +639,7 @@ href: "javascript:window.history.back()"
                               Year
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="2026">
                           </div>
                         </div>
 
@@ -658,7 +653,7 @@ href: "javascript:window.history.back()"
                               Hour
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="11">
                           </div>
                         </div>
 
@@ -672,7 +667,7 @@ href: "javascript:window.history.back()"
                               Minute
                             </label>
                             <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                              id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="30">
                           </div>
                         </div>
 
@@ -712,11 +707,11 @@ href: "javascript:window.history.back()"
                         </h1>
                       </legend>
                       <select class="govuk-select" id="location" name="location" aria-describedby="location-hint">
-                        <option value="choose" selected>Choose test station</option>
+                        <option value="choose">Choose test station</option>
                         <option value="eastmidlands">East Midlands</option>
                         <option value="eastofengland">East of England</option>
                         <option value="london">London</option>
-                        <option value="northeast">North East</option>
+                        <option value="northeast" selected>North East</option>
                         <option value="northwest">North West</option>
                         <option value="southeast">South East</option>
                         <option value="southwest">South West</option>
@@ -745,11 +740,11 @@ href: "javascript:window.history.back()"
                         </h1>
                       </legend>
                       <select class="govuk-select" id="location" name="location" aria-describedby="location-hint">
-                        <option value="choose" selected>Choose tester</option>
+                        <option value="choose">Choose tester</option>
                         <option value="eastmidlands">East Midlands</option>
                         <option value="eastofengland">East of England</option>
                         <option value="london">London</option>
-                        <option value="northeast">North East</option>
+                        <option value="northeast" selected>North East</option>
                         <option value="northwest">North West</option>
                         <option value="southeast">South East</option>
                         <option value="southwest">South West</option>
@@ -792,7 +787,7 @@ href: "javascript:window.history.back()"
                       Enter any notes for this contingency test
                     </label>
                     <textarea class="govuk-textarea" id="label-as-page-heading" name="labelAsPageHeading" rows="5"
-                      aria-describedby="label-as-page-heading-info"></textarea>
+                      aria-describedby="label-as-page-heading-info">Example notes</textarea>
                     <div id="label-as-page-heading-info" class="govuk-hint govuk-character-count__message">
                       You have 500 characters remaining
                     </div>
@@ -960,7 +955,7 @@ href: "javascript:window.history.back()"
                       Enter a reason for creating this contingency test
                     </label>
                     <textarea class="govuk-textarea" id="label-as-page-heading" name="labelAsPageHeading" rows="3"
-                      aria-describedby="label-as-page-heading-info"></textarea>
+                      aria-describedby="label-as-page-heading-info">Example reason</textarea>
                     <div id="label-as-page-heading-info" class="govuk-hint govuk-character-count__message">
                       You have 500 characters remaining
                     </div>
