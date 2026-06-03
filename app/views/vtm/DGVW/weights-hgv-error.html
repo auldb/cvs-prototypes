@@ -35,15 +35,15 @@ href: "javascript:window.history.back()"
                 <div class="govuk-error-summary__body">
                     <ul class="govuk-list govuk-error-summary__list" style="padding:0px;">
                         <li>
-                            <a href="#">Design gross vehicle weight must be more than or equal to 1kg</a>
+                            <a href="#">Enter design gross vehicle weight</a>
                         </li>
                         <li>
-                            <a href="#">Design gross train weight must be more than or equal to 1kg</a>
+                            <a href="#">Enter design gross train weight</a>
                         </li>
                     </ul>
                 </div>
             </div>
-        </div>
+        </div> 
 
         <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
             <div class="govuk-accordion__section">
@@ -124,13 +124,13 @@ href: "javascript:window.history.back()"
                                 Design gross vehicle weight
                             </label>
                         </h2>
-                        <p id="national-insurance-number-error" class="govuk-error-message">
-                            <span class="govuk-visually-hidden">Error:</span> Design gross vehicle weight must be more than or equal to 1kg
+                      <p id="national-insurance-number-error" class="govuk-error-message">
+                            <span class="govuk-visually-hidden">Error:</span> Enter design gross vehicle weight
                         </p>
                         <div class="govuk-input__wrapper">
 
-                            <input class="govuk-input govuk-input--width-5 id="weight2" name="weight2" type="text"
-                                spellcheck="false" value="0">
+                            <input class="govuk-input govuk-input--width-5" id="weight2" name="weight2" type="text"
+                                spellcheck="false">
                             <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                         </div>
                     </div>
@@ -140,12 +140,28 @@ href: "javascript:window.history.back()"
                                 Design gross train weight
                             </label>
                         </h2>
-                        <p id="weights-error" class="govuk-error-message">
-                            <span class="govuk-visually-hidden">Error:</span> Design gross train weight must be more than or equal to 1kg
+
+
+
+                        <div class="govuk-form-group">
+                            <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                                <div class="govuk-checkboxes__item">
+                                    <input class="govuk-checkboxes__input" id="waste" name="waste" type="checkbox"
+                                        value="carcasses">
+                                    <label class="govuk-label govuk-checkboxes__label" for="waste">
+                                        Train weight not applicable
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                                              <p id="national-insurance-number-error" class="govuk-error-message">
+                            <span class="govuk-visually-hidden">Error:</span> Enter design gross train weight
                         </p>
+
                         <div class="govuk-input__wrapper">
-                            <input class="govuk-input govuk-input--width-5 id="weight" name="weight" type="text"
-                                spellcheck="false" value="0">
+                            <input class="govuk-input govuk-input--width-5" id="weight" name="weight" type="text"
+                                spellcheck="false">
                             <div class="govuk-input__suffix" aria-hidden="true">kg</div>
                         </div>
                     </div>
