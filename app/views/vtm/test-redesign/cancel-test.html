@@ -1,0 +1,53 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+Vehicle Testing Management – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+
+{{ govukPhaseBanner({
+tag: { text: "Beta" },
+html: 'This is a new service. Help us improve it and <a class="govuk-link" href="#">give your feedback</a>.'
+}) }}
+
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <div class="govuk-form-group">
+      <h1 class="govuk-label-wrapper">
+        <label class="govuk-label govuk-label--l" for="more-detail">
+          Why do you want to cancel this test?
+        </label>
+      </h1>
+      <textarea class="govuk-textarea" id="more-detail" name="moreDetail" rows="5"
+        aria-describedby="more-detail-hint"></textarea>
+    </div>
+
+
+    {% from "govuk/components/button/macro.njk" import govukButton %}
+
+        <div class="govuk-button-group govuk-button-group-record">
+            {{ govukButton({
+            text: "Cancel test",
+            href: "../../index.html",
+            classes: "govuk-button--warning"
+            }) }}
+
+            <a href="javascript:window.history.back()" class="govuk-link">Back</a>
+        </div>
+
+</div>
+</div>
+
+
+{% endblock %}

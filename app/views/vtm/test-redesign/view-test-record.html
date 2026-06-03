@@ -233,9 +233,12 @@ href: "javascript:window.history.back()"
       href: "amend-test-record"
       }) }}
 
-      <button type="submit" class="govuk-button govuk-button--warning" data-module="govuk-button">
-        Cancel test
-      </button>
+      {{ govukButton({
+      text: "Cancel test",
+      href: "cancel-test",
+      classes: "govuk-button--warning"
+      }) }}
+
     </div>
 
 
