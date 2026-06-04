@@ -138,7 +138,7 @@ href: "javascript:window.history.back()"
     </div>
     <div class="govuk-notification-banner__content">
       <p class="govuk-notification-banner__heading">
-        Check your answers before you submitting the test
+        Check your test details before submitting.
       </p>
     </div>
   </div>
@@ -338,8 +338,8 @@ href: "javascript:window.history.back()"
                               <select class="govuk-input__suffix govuk-select govuk-input__suffix--select"
                                 id="speed-unit" name="speed-unit">
                                 <!--<option value="Select unit" selected>Select unit</option>-->
-                                <option value="miles" selected>miles</option>
-                                <option value="km">km</option>
+                                <option value="km" selected>km</option>
+                                <option value="miles">miles</option>
                               </select>
                             </div>
                           </div>
@@ -585,21 +585,21 @@ href: "javascript:window.history.back()"
                     <fieldset class="govuk-fieldset" role="group">
                       <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                         <h1 class="govuk-fieldset__heading">
-                          Test facility location
+                          Test facility
                         </h1>
                       </legend>
-                      <select class="govuk-select" id="location" name="location" aria-describedby="location-hint"
-                        disabled>
-                        <option value="choose" selected>Choose test station</option>
-                        <option value="eastmidlands">East Midlands</option>
-                        <option value="eastofengland">East of England</option>
-                        <option value="london">London</option>
-                        <option value="northeast" selected>North East</option>
-                        <option value="northwest">North West</option>
-                        <option value="southeast">South East</option>
-                        <option value="southwest">South West</option>
-                        <option value="westmidlands">West Midlands</option>
-                        <option value="yorkshire">Yorkshire and the Humber</option>
+                      <select class="govuk-select govuk-!-width-one-half" id="location" name="location"
+                        aria-describedby="location-hint" disabled>
+                        <option value="choose">Choose tester</option>
+                        <option value="eastmidlands">Tester name</option>
+                        <option value="eastofengland">Tester name</option>
+                        <option value="london">Tester name</option>
+                        <option value="northeast" selected>Tester name</option>
+                        <option value="northwest">Tester name</option>
+                        <option value="southeast">Tester name</option>
+                        <option value="southwest">Tester name</option>
+                        <option value="westmidlands">Tester name</option>
+                        <option value="yorkshire">Tester name</option>
                       </select>
                     </fieldset>
                   </div>
@@ -622,18 +622,18 @@ href: "javascript:window.history.back()"
                           Tester
                         </h1>
                       </legend>
-                      <select class="govuk-select" id="location" name="location" aria-describedby="location-hint"
-                        disabled>
-                        <option value="choose" selected>Choose tester</option>
-                        <option value="eastmidlands">East Midlands</option>
-                        <option value="eastofengland">East of England</option>
-                        <option value="london">London</option>
-                        <option value="northeast" selected>North East</option>
-                        <option value="northwest">North West</option>
-                        <option value="southeast">South East</option>
-                        <option value="southwest">South West</option>
-                        <option value="westmidlands">West Midlands</option>
-                        <option value="yorkshire">Yorkshire and the Humber</option>
+                      <select class="govuk-select govuk-!-width-one-half" id="location" name="location"
+                        aria-describedby="location-hint" disabled>
+                        <option value="choose">Choose test facility</option>
+                        <option value="eastmidlands" selected>Abshire Kub - 09-1234567</option>
+                        <option value="eastofengland">Bergnaum Group - 09-1234568</option>
+                        <option value="london">Abshire Kub - 09-1234567</option>
+                        <option value="northeast" selected>Bergnaum Group - 09-1234568</option>
+                        <option value="northwest">Abshire Kub - 09-1234567</option>
+                        <option value="southeast">Bergnaum Group - 09-1234568</option>
+                        <option value="southwest">Abshire Kub - 09-1234567</option>
+                        <option value="westmidlands">Bergnaum Group - 09-1234568</option>
+                        <option value="yorkshire">Abshire Kub - 09-1234567</option>
                       </select>
                     </fieldset>
                   </div>
@@ -703,7 +703,7 @@ href: "javascript:window.history.back()"
                     Any unresolved major or dangerous defects will result in failed test.
                   </div>
 
-                  <dl class="govuk-summary-list">
+                 <dl class="govuk-summary-list">
                     <div class="govuk-summary-list__row">
                       <dt class="govuk-summary-list__key" style="width: 20% !important;">
                         Reference
@@ -726,20 +726,18 @@ href: "javascript:window.history.back()"
                         <a href="amend-defect-details" class="archive-link">1.1(a)</a>
                       </dd>
                       <dd class="govuk-summary-list__value">
-                        <a href="amend-defect-details" class="archive-link">A registration plate: missing.</a>
+                        A registration plate: missing.
                       </dd>
                       <dd class="govuk-summary-list__value">
-                        <a href="amend-defect-details" class="archive-link">
                           <strong class="govuk-tag govuk-tag--red">
                             Major
                           </strong>
-                        </a>
                       </dd>
                       <dd class="govuk-summary-list__value">
-                        <a href="amend-defect-details" class="archive-link">No</a>
+                        No
                       </dd>
                       <dd class="govuk-summary-list__value">
-                        <a href="amend-defect-details" class="archive-link">None</a>
+                        None
                       </dd>
                     </div>
                   </dl>
