@@ -674,8 +674,8 @@ href: "javascript:window.history.back()"
                         Test facility
                       </h1>
                     </legend>
-                    <select class="govuk-select govuk-!-width-one-half" id="location" name="location" aria-describedby="location-hint"
-                      disabled>
+                    <select class="govuk-select govuk-!-width-one-half" id="location" name="location"
+                      aria-describedby="location-hint" disabled>
                       <option value="choose" selected>Choose test facility</option>
                       <option value="eastmidlands">Abshire Kub - 09-1234567</option>
                       <option value="eastofengland">Bergnaum Group - 09-1234568</option>
@@ -726,11 +726,12 @@ href: "javascript:window.history.back()"
 
                 <div class="govuk-form-group">
                   <h1 class="govuk-label-wrapper">
-                  <label class="govuk-label govuk-label--s" for="event-name">
-                    Tester email
-                  </label>
+                    <label class="govuk-label govuk-label--s" for="event-name">
+                      Tester email
+                    </label>
                   </h1>
-                  <input class="govuk-input govuk-!-width-one-half" id="event-name" name="eventName" type="text" value="tester.name@dvsa.gov.uk" disabled>
+                  <input class="govuk-input govuk-!-width-one-half" id="event-name" name="eventName" type="text"
+                    value="tester.name@dvsa.gov.uk" disabled>
                 </div>
 
               </li>
@@ -798,44 +799,67 @@ href: "javascript:window.history.back()"
                   Any unresolved major or dangerous defects will result in failed test.
                 </div>
 
+                <button type="submit" class="govuk-button" data-module="govuk-button">
+                  Download all available media
+                </button>
+
                 <dl class="govuk-summary-list">
-                    <div class="govuk-summary-list__row">
-                      <dt class="govuk-summary-list__key" style="width: 20% !important;">
-                        Reference
-                      </dt>
-                      <dt class="govuk-summary-list__key" style="width: 40% !important;">
-                        Description
-                      </dt>
-                      <dt class="govuk-summary-list__key" style="width: 18% !important;">
-                        Category
-                      </dt>
-                      <dt class="govuk-summary-list__key" style="width: 10% !important;">
-                        PRS
-                      </dt>
-                      <dt class="govuk-summary-list__key" style="width: 12% !important;">
-                        Media
-                      </dt>
-                    </div>
-                    <div class="govuk-summary-list__row">
-                      <dd class="govuk-summary-list__value">
-                        <a href="view-defect-details" class="archive-link">1.1(a)</a>
-                      </dd>
-                      <dd class="govuk-summary-list__value">
-                        A registration plate: missing.
-                      </dd>
-                      <dd class="govuk-summary-list__value">
-                          <strong class="govuk-tag govuk-tag--red">
-                            Major
-                          </strong>
-                      </dd>
-                      <dd class="govuk-summary-list__value">
-                        No
-                      </dd>
-                      <dd class="govuk-summary-list__value">
-                        None
-                      </dd>
-                    </div>
-                  </dl>
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key" style="width: 20% !important;">
+                      Reference
+                    </dt>
+                    <dt class="govuk-summary-list__key" style="width: 30% !important;">
+                      Description
+                    </dt>
+                    <dt class="govuk-summary-list__key" style="width: 23% !important;">
+                      Category
+                    </dt>
+                    <dt class="govuk-summary-list__key" style="width: 10% !important;">
+                      PRS
+                    </dt>
+                    <dt class="govuk-summary-list__key" style="width: 20% !important;">
+                      Media
+                    </dt>
+                  </div>
+                  <div class="govuk-summary-list__row">
+                    <dd class="govuk-summary-list__value">
+                      <a href="view-defect-details" class="archive-link">1.1(a)</a>
+                    </dd>
+                    <dd class="govuk-summary-list__value">
+                      A registration plate: missing.
+                    </dd>
+                    <dd class="govuk-summary-list__value">
+                      <strong class="govuk-tag govuk-tag--orange">
+                        Major
+                      </strong>
+                    </dd>
+                    <dd class="govuk-summary-list__value">
+                      No
+                    </dd>
+                    <dd class="govuk-summary-list__value">
+                      None
+                    </dd>
+                  </div>
+                  <div class="govuk-summary-list__row">
+                    <dd class="govuk-summary-list__value">
+                      <a href="view-defect-details-media" class="archive-link">6.2(a)(ii)</a>
+                    </dd>
+                    <dd class="govuk-summary-list__value">
+                      A wheel: Road Wheels and Hubs with any visible ...
+                    </dd>
+                    <dd class="govuk-summary-list__value">
+                      <strong class="govuk-tag govuk-tag--red">
+                        Dangerous
+                      </strong>
+                    </dd>
+                    <dd class="govuk-summary-list__value">
+                      No
+                    </dd>
+                    <dd class="govuk-summary-list__value">
+                      <a href="#" class="archive-link">Download</a>
+                    </dd>
+                  </div>
+                </dl>
 
                 <p class="govuk-body"></p>
 
@@ -862,29 +886,29 @@ href: "javascript:window.history.back()"
               <li>
 
                 <dl class="govuk-summary-list">
-                    <div class="govuk-summary-list__row">
-                      <dt class="govuk-summary-list__key" style="width: 50% !important;">
-                        Reason for creation
-                      </dt>
-                      <dt class="govuk-summary-list__key" style="width: 30% !important;">
-                        Created by
-                      </dt>
-                      <dt class="govuk-summary-list__key" style="width: 20% !important;">
-                        Created at
-                      </dt>
-                    </div>
-                    <div class="govuk-summary-list__row">
-                      <dd class="govuk-summary-list__value">
-                        Example reason here
-                      </dd>
-                      <dd class="govuk-summary-list__value">
-                        Name here
-                      </dd>
-                      <dd class="govuk-summary-list__value">
-                        01/06/2026
-                      </dd>
-                    </div>
-                  </dl>
+                  <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key" style="width: 50% !important;">
+                      Reason for creation
+                    </dt>
+                    <dt class="govuk-summary-list__key" style="width: 30% !important;">
+                      Created by
+                    </dt>
+                    <dt class="govuk-summary-list__key" style="width: 20% !important;">
+                      Created at
+                    </dt>
+                  </div>
+                  <div class="govuk-summary-list__row">
+                    <dd class="govuk-summary-list__value">
+                      Example reason here
+                    </dd>
+                    <dd class="govuk-summary-list__value">
+                      Name here
+                    </dd>
+                    <dd class="govuk-summary-list__value">
+                      01/06/2026
+                    </dd>
+                  </div>
+                </dl>
 
               </li>
             </ul>
