@@ -1,0 +1,107 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+Vehicle Testing Management – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+
+{{ govukPhaseBanner({
+tag: { text: "Beta" },
+html: 'This is a new service. Help us improve it and <a class="govuk-link" href="#">give your feedback</a>.'
+}) }}
+
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-l">Defect details</h1>
+
+    <span class="govuk-caption-m">Road Wheels and Hubs</span>
+    <h1 class="govuk-heading-m">6.2 (a)(ii) - A wheel: with any visible elongation of a stud hole where secure fixing of
+      a wheel is affected.</h1>
+    <p><strong class="govuk-tag govuk-tag--red">
+        Dangerous
+      </strong></p>
+    <h2 class="govuk-heading-m">Defect location</h2>
+
+    <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Axle number
+        </dt>
+        <dd class="govuk-summary-list__value">
+          1
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Horizontal
+        </dt>
+        <dd class="govuk-summary-list__value">
+          Inner
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Lateral
+        </dt>
+        <dd class="govuk-summary-list__value">
+          Nearside
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Notes
+        </dt>
+        <dd class="govuk-summary-list__value">
+          Notes here
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          PRS?
+        </dt>
+        <dd class="govuk-summary-list__value">
+          No
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Prohibition issued?
+        </dt>
+        <dd class="govuk-summary-list__value">
+          No
+        </dd>
+      </div>
+    </dl>
+
+  </div>
+</div>
+
+<h2 class="govuk-heading-m">Defect media</h2>
+<button type="submit" class="govuk-button" data-module="govuk-button">
+  Download all media for this defect
+</button>
+
+<dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Photos
+        </dt>
+      </div>
+  </div>
+  </dl>
+
+</div>
+
+
+{% endblock %}

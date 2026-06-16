@@ -95,22 +95,7 @@ href: "javascript:window.history.back()"
                                 <ul class="govuk-task-list govuk-task-list__nested">
 
                                     <li class="govuk-task-list__item">
-                                        <span class="govuk-warning-text__icon test-disabled-icon" style="margin-left: 8px;" aria-hidden="true"><strong>!</strong></span>
-                                        <p style="position: relative;
-                                          display: inline-block;
-                                          background: none;
-                                          border: none;
-                                          padding: 0px 0px 0px 35px;
-                                          font: inherit;
-                                          text-align: left; margin-bottom:0px;">Paid retest</p>
-                                          <div class="govuk-warning-text" style="margin-bottom: 0px; padding-bottom:0px;">
-
-                                            <p class="govuk-body test-disabled" style="margin-bottom: 0px; padding-bottom:0px;">
-                                                <span class="govuk-visually-hidden">Warning</span>
-                                                This test cannot be selected because this vehicle has not been approved for test.
-                                            </p>
-                                            </div>
-                                          <!-- <p class="test-disabled">This test cannot be selected because this vehicle has not been approved for test.</p> -->
+                                        <a class="tree-link" href="#">Paid retest</a>
                                     </li>
 
                                     <li class="govuk-task-list__item">
@@ -288,7 +273,7 @@ href: "javascript:window.history.back()"
                         </li>
 
                         <li class="govuk-task-list__item">
-                            <a class="tree-link" href="#">Shaker plate</a>
+                            <a class="tree-link" href="#">Shaker plate check</a>
                         </li>
 
                         <li class="govuk-task-list__item">
@@ -371,7 +356,21 @@ href: "javascript:window.history.back()"
                         </li>
 
                         <li class="govuk-task-list__item">
-                            <a class="tree-link" href="#">ADR</a>
+                            <span class="govuk-warning-text__icon test-disabled-icon" style="margin-left: 8px;" aria-hidden="true"><strong>!</strong></span>
+                            <p style="position: relative;
+                              display: inline-block;
+                              background: none;
+                              border: none;
+                              padding: 0px 0px 0px 35px;
+                              font: inherit;
+                              text-align: left; margin-bottom:0px;">ADR</p>
+                              <div class="govuk-warning-text" style="margin-bottom: 0px; padding-bottom:0px;">
+
+                                <p class="govuk-body test-disabled" style="margin-bottom: 0px; padding-bottom:0px;">
+                                    <span class="govuk-visually-hidden">Warning</span>
+                                    This test cannot be selected because this vehicle has not been approved for test.
+                                </p>
+                                </div>
                         </li>
 
                     </ul>
@@ -404,15 +403,30 @@ href: "javascript:window.history.back()"
                                         <button class="tree-link hierarchy-button" type="button" aria-expanded="false"
                                             aria-controls="appeal">
                                             <span>Appeal</span>
-                                            <img class="chevron-icon" src="/public/images/chevron.png" alt=""
-                                                aria-hidden="true">
+                                            <img class="chevron-icon" src="/public/images/chevron.png" alt="" aria-hidden="true">
                                         </button>
+
+                                        <div class="hierarchy-content" id="appeal" hidden>
+                                            <ul class="govuk-task-list govuk-task-list__nested">
+
+                                                <li class="govuk-task-list__item">
+                                                    <a class="tree-link" href="#">Normal inspection</a>
+                                                </li>
+
+                                            </ul>
+                                        </div>
 
                                     </li>
 
 
+
                                     <li class="govuk-task-list__item">
                                         <a class="tree-link" href="#">Mutual recognition/end of series and
+                                            inspection</a>
+                                    </li>
+
+                                    <li class="govuk-task-list__item">
+                                        <a class="tree-link" href="#">Normal
                                             inspection</a>
                                     </li>
 
@@ -426,6 +440,14 @@ href: "javascript:window.history.back()"
                                 <span>Voluntary IVA</span>
                                 <img class="chevron-icon" src="/public/images/chevron.png" alt="" aria-hidden="true">
                             </button>
+
+                            <div class="hierarchy-content" id="voluntary-iva" hidden>
+                                <ul class="govuk-task-list govuk-task-list__nested">
+                                    <li class="govuk-task-list__item">
+                                        <a class="tree-link" href="#">Normal inspection</a>
+                                    </li>
+                                </ul>
+                            </div>
 
                         </li>
 
@@ -460,6 +482,17 @@ href: "javascript:window.history.back()"
                                                             alt="" aria-hidden="true">
                                                     </button>
 
+                                                    <div class="hierarchy-content" id="normal-inspection" hidden>
+                                                        <ul class="govuk-task-list govuk-task-list__nested">
+                                                            <li class="govuk-task-list__item">
+                                                                <a class="tree-link" href="#">Paid</a>
+                                                            </li>
+                                                            <li class="govuk-task-list__item">
+                                                                <a class="tree-link" href="#">Free</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+
                                                 </li>
 
 
@@ -480,6 +513,14 @@ href: "javascript:window.history.back()"
                                             <img class="chevron-icon" src="/public/images/chevron.png" alt=""
                                                 aria-hidden="true">
                                         </button>
+
+                                        <div class="hierarchy-content" id="voluntary-iva-retest" hidden>
+                                            <ul class="govuk-task-list govuk-task-list__nested">
+                                                <li class="govuk-task-list__item">
+                                                    <a class="tree-link" href="#">Normal inspection</a>
+                                                </li>
+                                            </ul>
+                                        </div>
 
                                     </li>
 
@@ -552,6 +593,10 @@ href: "javascript:window.history.back()"
                                 <ul class="govuk-task-list govuk-task-list__nested">
                                                                     
                         
+                                    <li class="govuk-task-list__item">
+                                        <a class="tree-link" href="#">IVA17 appeal</a>
+                                    </li>
+
                                     <li class="govuk-task-list__item">
                                         <a class="tree-link" href="#">RPC/LEC3 appeal</a>
                                     </li>
