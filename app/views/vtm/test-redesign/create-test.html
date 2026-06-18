@@ -109,11 +109,33 @@ href: "javascript:window.history.back()"
                         <li class="govuk-task-list__item is-parent">
                             <button class="tree-link hierarchy-button" type="button" aria-expanded="false"
                                 aria-controls="roadworthiness-retest">
-                                <span>Roadworthiness test</span>
+                                <span>Roadworthiness retest</span>
                                 <img class="chevron-icon" src="/public/images/chevron.png" alt="" aria-hidden="true">
                             </button>
 
                             <div class="hierarchy-content" id="roadworthiness-retest" hidden>
+                                <ul class="govuk-task-list govuk-task-list__nested">
+
+                                    <li class="govuk-task-list__item">
+                                        <a class="tree-link" href="#">Paid retest</a>
+                                    </li>
+
+                                    <li class="govuk-task-list__item">
+                                        <a class="tree-link" href="#">Part paid retest</a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="govuk-task-list__item is-parent">
+                            <button class="tree-link hierarchy-button" type="button" aria-expanded="false"
+                                aria-controls="first-test-retest">
+                                <span>First test retest</span>
+                                <img class="chevron-icon" src="/public/images/chevron.png" alt="" aria-hidden="true">
+                            </button>
+
+                            <div class="hierarchy-content" id="first-test-retest" hidden>
                                 <ul class="govuk-task-list govuk-task-list__nested">
 
                                     <li class="govuk-task-list__item">
@@ -375,6 +397,11 @@ href: "javascript:window.history.back()"
 
                     </ul>
                 </div>
+            </li>
+
+            <!-- First test -->
+            <li class="govuk-task-list__item">
+                <a class="tree-link" style="padding-left:32px;" href="#"><strong>First test</strong></a>
             </li>
 
             <!-- Specialist test -->
