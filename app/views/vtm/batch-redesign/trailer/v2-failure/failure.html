@@ -15,7 +15,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
     tab)</a>.'
 }) }}
 {{ govukBackLink({
-text: "Back",
+text: "Go back to home page",
 href: "javascript:window.history.back()"
 }) }}
 {% endblock %}
@@ -44,25 +44,24 @@ href: "javascript:window.history.back()"
             </div>
         </div>
 
-        <h1 class="govuk-heading-l">Batch summary</h1>
-        <h2 class="govuk-heading-m">Successfully processed records</h2>
+        <h1 class="govuk-heading-l"><span class="govuk-caption-l">Application ID: 012345</span>Batch summary</h1>
+        <h2 class="govuk-heading-m">Successfully processed records (3 of 5)</h2>
 
         <dl class="govuk-summary-list">
             <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key" style="width: 20% !important;">
+                <dt class="govuk-summary-list__key" style="width: 32% !important;">
                     VIN
                 </dt>
-                <dt class="govuk-summary-list__key" style="width: 15% !important;">
-                    Trailer ID
-                </dt>
-                <dt class="govuk-summary-list__key" style="width: 15% !important;">
+                <dt class="govuk-summary-list__key" style="width: 18% !important;">
+Trailer ID                </dt>
+                <dt class="govuk-summary-list__key" style="width: 14% !important;">
                     Vehicle type
                 </dt>
-                <dt class="govuk-summary-list__key" style="width: 20% !important;">
+                <dt class="govuk-summary-list__key" style="width: 13% !important;">
                     Record type
                 </dt>
-                <dt class="govuk-summary-list__key" style="width: 30% !important;">
-
+                <dt class="govuk-summary-list__key" style="width: 22% !important;">
+<span class="govuk-visually-hidden">Link to view record</span>
                 </dt>
             </div>
             <div class="govuk-summary-list__row">
@@ -130,24 +129,24 @@ href: "javascript:window.history.back()"
             </div>
         </dl>
 
-        <h2 class="govuk-heading-m">Failed records</h2>
+        <h2 class="govuk-heading-m">Failed records (2 of 5)</h2>
 
         <dl class="govuk-summary-list">
             <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key" style="width: 20% !important;">
+                <dt class="govuk-summary-list__key" style="width: 32% !important;">
                     VIN
                 </dt>
-                <dt class="govuk-summary-list__key" style="width: 15% !important;">
+                <dt class="govuk-summary-list__key" style="width: 18% !important;">
                     Trailer ID
                 </dt>
-                <dt class="govuk-summary-list__key" style="width: 15% !important;">
+                <dt class="govuk-summary-list__key" style="width: 14% !important;">
                     Vehicle type
                 </dt>
-                <dt class="govuk-summary-list__key" style="width: 20% !important;">
+                <dt class="govuk-summary-list__key" style="width: 13% !important;">
                     Record type
                 </dt>
-                <dt class="govuk-summary-list__key" style="width: 30% !important;">
-
+                <dt class="govuk-summary-list__key" style="width: 22% !important;">
+<span class="govuk-visually-hidden">Failure reason</span>
                 </dt>
             </div>
             <div class="govuk-summary-list__row">
@@ -200,7 +199,7 @@ href: "javascript:window.history.back()"
         <div class="govuk-button-group govuk-button-group-record">
             {{ govukButton({
             text: "Retry failed records",
-            href: "success-2.html"
+            href: "success.html"
             }) }}
         </div>
 

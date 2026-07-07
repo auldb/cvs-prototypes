@@ -27,77 +27,43 @@ href: "javascript:window.history.back()"
 <div class="govuk-grid-row">
     <div class="govuk-width-container govuk-width-container--wide">
 
-        <div class="govuk-error-summary" data-module="govuk-error-summary">
-            <div role="alert">
-                <h2 class="govuk-error-summary__title">
-                There is a problem
-                </h2>
-                <div class="govuk-error-summary__body">
-                <ul class="govuk-list govuk-error-summary__list" style="padding:0px;">
-                    <li>
-                    <a href="#">Vehicle 3 VIN must be less than or equal to 21 characters</a>
-                    </li>
-                    <li>
-                    <a href="#">Vehicle 3 Trailer must be less than or equal to 8 characters</a>
-                    </li>
-                </ul>
-                </div>
-            </div>
-            </div>
-
         <h1 class="govuk-heading-l">
             Enter details for each trailer
         </h1>
 
         <form class="form" action="add-trls" method="post">
 
-            <p class="govuk-body">You can: </p>
-            <ul class="govuk-list govuk-list--bullet" style="margin-bottom:0px;">
-                <li>enter only the VIN to create a new record</li>
-                <li>enter the VIN and Trailer ID to update an existing record</li>
-                <li>add up to 40 vehicles</li>
-            </ul>
-            <p class="govuk-body"> Make sure you leave any unused fields blank so that they are not added to the batch.
-            </p>
 
-            <br>
+            <div class="govuk-inset-text">
+                <p>For new trailer records, enter the VIN only. <br>
+                For existing trailer records, enter the VIN and Trailer ID.</p>
+                <p>Add up to 40 vehicles. Leave any unused fields blank.</p>
+            </div>
 
 
             <div class="govuk-grid-row">
 
                 <div class="govuk-grid-column-one-quarter">
-                    <h2 class="govuk-heading-m">Vehicle 1
-                        <span class="vehicle-check" aria-hidden="true"
-                            style="display:inline-block;width:22px;height:22px;line-height:22px;border-radius:50%;background:#107A3A;color:#fff;text-align:center;font-size:10px;font-weight:600;margin-left:8px; position: relative; top: -4px;">✓</span>
-                    </h2>
-
+                    <h2 class="govuk-heading-m">Vehicle 1</h2>
 
                     <div class="govuk-form-group">
                         <label class="govuk-label" for="v1-vin">VIN</label>
-                        <div class="govuk-input__wrapper">
-                            <input class="govuk-input" id="v1-vin" name="v1-vin" type="text" value="148124912123123">
-                        </div>
+                        <input class="govuk-input" id="v1-vin" name="v1-vin" type="text">
                     </div>
 
                     <div class="govuk-form-group">
                         <label class="govuk-label" for="v1-vrm">Trailer ID</label>
-                        <input class="govuk-input" id="v1-vrm" name="v1-vrm" type="text" value="12331242" >
+                        <input class="govuk-input" id="v1-vrm" name="v1-vrm" type="text">
                     </div>
                 </div>
 
                 <div class="govuk-grid-column-one-quarter">
-                    <h2 class="govuk-heading-m">Vehicle 2
-                        <img class="chevron-icon" src="/public/images/spinner.png" alt="" aria-hidden="true" style="display:inline-block;width:22px;height:22px;line-height:22px;margin-left:8px; position: relative; top: 2px;">
-                    </h2>
+                    <h2 class="govuk-heading-m">Vehicle 2</h2>
 
                     <div class="govuk-form-group">
                         <label class="govuk-label" for="v2-vin">VIN</label>
-                        <div class="govuk-input__wrapper">
-                            <input class="govuk-input" id="v2-vin" name="v2-vin" type="text" value="12312313242">
-                        </div>
+                        <input class="govuk-input" id="v2-vin" name="v2-vin" type="text">
                     </div>
-
-
 
                     <div class="govuk-form-group">
                         <label class="govuk-label" for="v2-vrm">Trailer ID</label>
@@ -106,45 +72,31 @@ href: "javascript:window.history.back()"
                 </div>
 
                 <div class="govuk-grid-column-one-quarter">
-                    <h2 class="govuk-heading-m">Vehicle 3                        <span class="vehicle-check" aria-hidden="true"
-                            style="display:inline-block;width:22px;height:22px;line-height:22px;border-radius:50%;background:#ca3535;color:#fff;text-align:center;font-size:18px;font-weight:600;margin-left:8px; position: relative; top: -4px;">×</span>
-</h2>
+                    <h2 class="govuk-heading-m">Vehicle 3</h2>
 
-                    <div class="govuk-form-group govuk-form-group--error">
+                    <div class="govuk-form-group">
                         <label class="govuk-label" for="v3-vin">VIN</label>
-                        <input class="govuk-input" id="v3-vin" name="v3-vin" type="text" value="148124912123123123">
+                        <input class="govuk-input" id="v3-vin" name="v3-vin" type="text">
                     </div>
 
-                    <div class="govuk-form-group govuk-form-group--error">
+                    <div class="govuk-form-group">
                         <label class="govuk-label" for="v3-vrm">Trailer ID</label>
-                        <input class="govuk-input" id="v3-vrm" name="v3-vrm" type="text" value="148124912123123123">
+                        <input class="govuk-input" id="v3-vrm" name="v3-vrm" type="text">
                     </div>
                 </div>
 
                 <div class="govuk-grid-column-one-quarter">
-                    <h2 class="govuk-heading-m">Vehicle 4
-                                                <span class="vehicle-check" aria-hidden="true"
-                            style="display:inline-block;width:22px;height:22px;line-height:22px;border-radius:50%;background:#000000;color:#fff;text-align:center;font-size:16px;font-weight:600;margin-left:8px; position: relative; top: -3px;">!</span>
-                    </h2>
-
-
-
+                    <h2 class="govuk-heading-m">Vehicle 4</h2>
 
                     <div class="govuk-form-group">
                         <label class="govuk-label" for="v4-vin">VIN</label>
-                       <!--  <div class="govuk-inset-text">VIN already exists so a duplicate record will be created</div> -->
-                        <input class="govuk-input" id="v4-vin" name="v4-vin" type="text" value="12312313242">
+                        <input class="govuk-input" id="v4-vin" name="v4-vin" type="text">
                     </div>
 
                     <div class="govuk-form-group">
                         <label class="govuk-label" for="v4-vrm">Trailer ID</label>
-                        <input class="govuk-input" id="v4-vrm" name="v4-vrm" type="text" value="">
+                        <input class="govuk-input" id="v4-vrm" name="v4-vrm" type="text">
                     </div>
-
-                      <div id="event-name-hint" class="govuk-hint">
-                        Matches existing VIN so duplicate will be created.
-                      </div>
-                      <br>
                 </div>
 
             </div>
@@ -702,12 +654,12 @@ href: "javascript:window.history.back()"
 
 
             <script>
-                document.addEventListener('DOMContentLoaded', function () {
+                document.addEventListener('DOMContentLoaded', function() {
                     const addBtn = document.getElementById('add-more-vehicles-btn');
                     let nextVehicle = 6;
                     const maxVehicle = 40;
 
-                    addBtn.addEventListener('click', function () {
+                    addBtn.addEventListener('click', function() {
                         if (nextVehicle <= maxVehicle) {
                             document.getElementById('vehicle-' + nextVehicle).style.display = 'block';
                             nextVehicle++;
@@ -729,10 +681,10 @@ href: "javascript:window.history.back()"
             <div class="govuk-button-group">
                 {{ govukButton({
                 text: "Confirm",
-                href: "create-batch-trl.html"
+                href: "create-batch-trl-2.html"
                 }) }}
 
-                <a class="govuk-link" href="cancel.html">Cancel</a>
+                <a class="govuk-link" href="create-batch-trl">Cancel</a>
             </div>
 
         </form>

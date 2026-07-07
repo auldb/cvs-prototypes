@@ -15,7 +15,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
     tab)</a>.'
 }) }}
 {{ govukBackLink({
-text: "Back",
+text: "Go back to home page",
 href: "javascript:window.history.back()"
 }) }}
 {% endblock %}
@@ -26,47 +26,49 @@ href: "javascript:window.history.back()"
 <div class="govuk-grid-row">
     <div class="govuk-width-container">
 
-        <div class="govuk-notification-banner govuk-notification-banner--success" role="alert"
+        <div class="govuk-notification-banner" role="alert"
             aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
             <div class="govuk-notification-banner__header">
                 <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
-                    Success
+                    In progress
                 </h2>
             </div>
             <div class="govuk-notification-banner__content">
                 <h3 class="govuk-notification-banner__heading">
-                    Technical records processed
+                    Processing 5 trailer technical records
                 </h3>
-                <p class="govuk-body">You have created 3 trailer technical records using application
-                    ID 000000.</p>
-
-                <p class="govuk-body">You have updated 2 trailer technical records using application
-                    ID 000000.</p>
+               <!-- <p class="govuk-body">Successfully processed 3 technical records. <br>Failed to process 2 technical records.</p> -->
+               <p class="govuk-body">80% complete.</p>
             </div>
         </div>
 
-        <h1 class="govuk-heading-l">Batch summary</h1>
-        <h2 class="govuk-heading-m">Successfully processed records</h2>
+
+        <h1 class="govuk-heading-l"><span class="govuk-caption-l">Application ID: 012345</span>Batch summary</h1>
+
+
+
+        <h2 class="govuk-heading-m">Successfully processed records (3 of 5)</h2>
 
         <dl class="govuk-summary-list">
             <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key" style="width: 20% !important;">
+                <dt class="govuk-summary-list__key" style="width: 32% !important;">
                     VIN
                 </dt>
-                <dt class="govuk-summary-list__key" style="width: 15% !important;">
-                    VRM
+                <dt class="govuk-summary-list__key" style="width: 18% !important;">
+                    Trailer ID
                 </dt>
-                <dt class="govuk-summary-list__key" style="width: 15% !important;">
+                <dt class="govuk-summary-list__key" style="width: 14% !important;">
                     Vehicle type
                 </dt>
-                <dt class="govuk-summary-list__key" style="width: 20% !important;">
+                <dt class="govuk-summary-list__key" style="width: 13% !important;">
                     Record type
                 </dt>
-                <dt class="govuk-summary-list__key" style="width: 30% !important;">
-
+                <dt class="govuk-summary-list__key" style="width: 22% !important;">
+<span class="govuk-visually-hidden">Link to view record</span>
                 </dt>
             </div>
             <div class="govuk-summary-list__row">
+
                 <dd class="govuk-summary-list__value">
                     00001
                 </dd>
@@ -88,6 +90,7 @@ href: "javascript:window.history.back()"
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
+  
                 <dd class="govuk-summary-list__value">
                     00002
                 </dd>
@@ -109,6 +112,7 @@ href: "javascript:window.history.back()"
                 </dd>
             </div>
             <div class="govuk-summary-list__row">
+
                 <dd class="govuk-summary-list__value">
                     00003
                 </dd>
@@ -130,12 +134,33 @@ href: "javascript:window.history.back()"
                 </dd>
             </div>
 
+        </dl>
+        <h2 class="govuk-heading-m">Failed records (1 of 5)</h2>
+                <dl class="govuk-summary-list">
             <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key" style="width: 32% !important;">
+                    VIN
+                </dt>
+                <dt class="govuk-summary-list__key" style="width: 18% !important;">
+                    Trailer ID
+                </dt>
+                <dt class="govuk-summary-list__key" style="width: 14% !important;">
+                    Vehicle type
+                </dt>
+                <dt class="govuk-summary-list__key" style="width: 13% !important;">
+                    Record type
+                </dt>
+                <dt class="govuk-summary-list__key" style="width: 22% !important;">
+<span class="govuk-visually-hidden">Failure reason</span>
+                </dt>
+            </div>
+            <div class="govuk-summary-list__row">
+
                 <dd class="govuk-summary-list__value">
                     00004
                 </dd>
                 <dd class="govuk-summary-list__value">
-                    TRLTST4
+                    Z00004
                 </dd>
                 <dd class="govuk-summary-list__value">
 
@@ -147,11 +172,13 @@ href: "javascript:window.history.back()"
 
                 </dd>
                 <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="#">View (opens in new tab)<span class="govuk-visually-hidden">VIN
-                            0123456789 VRM TRLTST1</span></a>
+                    <p class="govuk-error-message" style="padding-bottom:0 !important; margin-bottom:0 !important;"
+                        href="#">Failed to create<span class="govuk-visually-hidden">VIN
+                            0123456789 Trailer ID PSVTST1</span></p>
                 </dd>
+
             </div>
-            <div class="govuk-summary-list__row">
+            <!-- <div class="govuk-summary-list__row">
                 <dd class="govuk-summary-list__value">
                     00005
                 </dd>
@@ -168,10 +195,11 @@ href: "javascript:window.history.back()"
 
                 </dd>
                 <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="#">View (opens in new tab)<span class="govuk-visually-hidden">VIN
-                            0123456789 VRM TRLTST1</span></a>
+                    <p class="govuk-error-message" style="padding-bottom:0 !important; margin-bottom:0 !important;"
+                        href="#">Failed to update<span class="govuk-visually-hidden">VIN
+                            0123456789 Trailer ID TRLTST1</span></p>
                 </dd>
-            </div>
+            </div> -->
         </dl>
 
 

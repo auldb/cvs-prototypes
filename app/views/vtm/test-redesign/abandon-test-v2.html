@@ -1,4 +1,4 @@
-{% extends "layouts/main.html" %}
+{% extends "layouts/redesign.html" %}
 
 {% block pageTitle %}
 Vehicle Testing Management – {{ serviceName }} – GOV.UK Prototype Kit
@@ -20,16 +20,140 @@ href: "javascript:window.history.back()"
 
 {% block content %}
 
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
+<div class="govuk-width-container">
 
+  <h1 class="govuk-heading-l">
+    Abandon test
+  </h1>
+
+  <div class="govuk-grid-row">
+
+    <!-- Summary card -->
+    <div class="govuk-grid-column-one-third-from-desktop vehicle-summary">
+
+      <div class="govuk-summary-card">
+        <div class="govuk-summary-card__title-wrapper">
+          <h2 class="govuk-summary-card__title govuk-summary-card__title-vtm govuk-heading-l">
+            Summary
+          </h2>
+          <ul class="govuk-summary-card__actions">
+            <li class="govuk-summary-card__action">
+              <a class="govuk-link" href="tech-record-hgv">Cancel<span class="govuk-visually-hidden"></span></a>
+            </li>
+          </ul>
+        </div>
+        <div class="govuk-summary-card__content">
+          <dl class="govuk-summary-list govuk-summary-list--no-border">
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key govuk-summary-list__key-tech">
+                Test type
+                <div class="summary-link-wrapper">
+                  <a class="govuk-link summary-link" href="create-test">Change</a> 
+                </div>
+              </dt>
+            </div>
+            <div class="govuk-summary-list__row--value">
+              <dd class="govuk-summary-list__value govuk-summary-list__value--overflow">
+                Annual test (AAV4)
+              </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key govuk-summary-list__key-tech">
+                Vehicle type
+              </dt>
+            </div>
+            <div class="govuk-summary-list__row--value">
+              <dd class="govuk-summary-list__value govuk-summary-list__value--overflow">
+                HGV
+              </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key govuk-summary-list__key-tech">
+                VIN
+              </dt>
+            </div>
+            <div class="govuk-summary-list__row--value">
+              <dd class="govuk-summary-list__value govuk-summary-list__value--vin">
+                WBABW33426PX70804
+              </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key govuk-summary-list__key-tech">
+                VRM
+              </dt>
+            </div>
+            <div class="govuk-summary-list__row--last">
+              <dd class="govuk-summary-list__value govuk-summary-list__value--vrm">
+                <div class="reg-mark-div">
+                  <span
+                    class="reg-mark-sm">4001373Z</span>
+                </div>
+              </dd>
+
+            </div>
+            
+
+          </dl>
+        </div>
+      </div>
+
+      <div class="govuk-button-group govuk-button-group-record">
+        {{ govukButton({
+        text: "Confirm and save",
+        href: ""
+        }) }}
+        {{ govukButton({
+        text: "Cancel",
+        classes: "govuk-button--secondary",
+        href: "test-details"
+        }) }}
+      </div>
+
+    </div>
+
+    <!-- Accordion -->
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+
+      <form class="form" action="tech-record" method="post">
+        
+<div class="govuk-accordion govuk-accordion--vtm"
+     data-module="govuk-accordion"
+     data-open-all="true"
+     id="accordion-with-summary-sections">
+
+          <h2 class="govuk-accordion__section-heading-top-review">
+            <span class="govuk-accordion-heading-vtm">
+              Abandonment details
+            </span>
+          </h2>
+
+          <!--GENERAL-->
+          <div class="govuk-accordion__section govuk-accordion__section-vtm required adr plates">
+            <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
+              <h2 class="govuk-accordion__section-heading">
+                <span
+                  class="govuk-accordion__section-button govuk-accordion__section-button-vtm govuk-accordion__section-heading-vtm"
+                  id="accordion-with-summary-sections-heading-2">
+                 Reasons for abandonment
+                </span>
+              </h2>
+            </div>
+            <div class="govuk-accordion__section-summary-padding"></div>
+
+            <div id="accordion-with-summary-sections-content-1" class="govuk-accordion__section-content">
+              <hr class="expanded">
+              </hr>
+              <ul class="govuk-list">
+                <li>
+
+                
     <div class="govuk-form-group">
+                          <h3 class="govuk-label-wrapper">
+                      <label class="govuk-label govuk-label--s" for="event-name">
+                        Why was this test abandoned?
+                      </label>
+                    </h3>
       <fieldset class="govuk-fieldset" aria-describedby="abandon-hint">
-        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-          <h1 class="govuk-fieldset__heading"><span class="govuk-caption-l">Test type: Annual Test (AAV4)</span>
-            Why was this test abandoned?
-          </h1>
-        </legend>
         <div id="abandon-hint" class="govuk-hint">
           Select all that apply
         </div>
@@ -160,30 +284,62 @@ href: "javascript:window.history.back()"
       </fieldset>
     </div>
 
-    <div class="govuk-form-group govuk-character-count" data-module="govuk-character-count" data-maxlength="500">
-      <h2 class="govuk-label-wrapper">
-        <label class="govuk-label govuk-label--m" for="label-as-page-heading">
-          Additional notes as to why this test was abandoned (optional)
-        </label>
-      </h2>
-      <textarea class="govuk-textarea govuk-js-character-count" id="label-as-page-heading" name="labelAsPageHeading"
-        rows="5" aria-describedby="label-as-page-heading-info"></textarea>
-      <div id="label-as-page-heading-info" class="govuk-hint govuk-character-count__message">
-        You can enter up to 500 characters
-      </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+
+          <!--NOTES-->
+          <div class="govuk-accordion__section govuk-accordion__section-vtm admin">
+            <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
+              <h2 class="govuk-accordion__section-heading">
+                <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
+                  id="accordion-with-summary-sections-heading-2">
+                  Additional notes
+                </span>
+              </h2>
+              <div class="govuk-accordion__section-summary-padding"></div>
+            </div>
+            <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
+              <hr class="expanded">
+              </hr>
+              <ul class="govuk-list">
+                <li>
+
+                  <div class="govuk-form-group govuk-character-count" data-module="govuk-character-count"
+                    data-maxlength="1024">
+                    <h3 class="govuk-label-wrapper">
+                      <label class="govuk-label govuk-label--s" for="event-name">
+                        Notes (optional)
+                      </label>
+                    </h3>
+                    <label class="govuk-label" for="label-as-page-heading">
+                      Enter any notes as to why this test was abandoned
+                    </label>
+                    <textarea class="govuk-textarea" id="label-as-page-heading" name="labelAsPageHeading" rows="5"
+                      aria-describedby="label-as-page-heading-info"></textarea>
+                    <div id="label-as-page-heading-info" class="govuk-hint govuk-character-count__message">
+                      You have 500 characters remaining
+                    </div>
+                  </div>
+
+                </li>
+              </ul>
+            </div>
+          </div>
+
+
+        </div>
+
+
+      </form>
     </div>
 
 
-    <div class="govuk-button-group govuk-button-group-record">
-      {{ govukButton({
-      text: "Confirm and save",
-      href: "/"
-      }) }}
-
-      <a href="/" class="govuk-link">Cancel</a>
-    </div>
 
   </div>
+
 </div>
 
 
