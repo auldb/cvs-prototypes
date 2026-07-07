@@ -61,6 +61,8 @@ href: "javascript:window.history.back()"
                 </fieldset>
             </div>
 
+            <div id="batch-details" hidden>
+
             <div class="govuk-form-group">
                 <fieldset class="govuk-fieldset">
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
@@ -95,9 +97,6 @@ href: "javascript:window.history.back()"
                                             Trailer form type
                                         </h1>
                                     </legend>
-                                                                         <div id="signIn-hint" class="govuk-hint">
-                                            Trailer form type must be TES1 if vehicle status is current.
-                                        </div>
                                     <div class="govuk-radios govuk-radios--small" data-module="govuk-radios">
                                         <div class="govuk-radios__item">
                                             <input class="govuk-radios__input" id="tes1" name="trailerType" type="radio"
@@ -150,46 +149,30 @@ href: "javascript:window.history.back()"
                 <a class="govuk-link" href="#">Cancel</a>
             </div>
 
+            </div>
+
         </form>
 
     </div>
 </div>
 
+
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-  const currentRadio = document.getElementById('vehstatus');
-  const provisionalRadio = document.getElementById('vehstatus-2');
+  const radios = document.querySelectorAll(
+    'input[name="vehicleStatus"]'
+  );
 
-  const tes1 = document.getElementById('tes1');
-  const tes2 = document.getElementById('tes2');
+  const details = document.getElementById('batch-details');
 
-  function updateTrailerOptions() {
-    if (currentRadio.checked) {
-      // Auto-select TES1
-      tes1.checked = true;
-
-      // Disable both options
-      tes1.disabled = true;
-      tes2.disabled = true;
-    }
-
-    if (provisionalRadio.checked) {
-      // Re-enable options
-      tes1.disabled = false;
-      tes2.disabled = false;
-
-      // Clear trailer form type selection
-      tes1.checked = false;
-      tes2.checked = false;
-    }
-  }
-
-  currentRadio.addEventListener('change', updateTrailerOptions);
-  provisionalRadio.addEventListener('change', updateTrailerOptions);
-
-  // Run on page load
-  updateTrailerOptions();
+  radios.forEach(radio => {
+    radio.addEventListener('change', () => {
+      details.hidden = false;
+    });
+  });
 });
 </script>
-
 {% endblock %}
+
+
+
