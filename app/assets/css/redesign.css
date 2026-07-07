@@ -37,6 +37,8 @@
 }
 .defect-tag {
     margin-left: 10px !important;
+    padding: 2px 6px !important;
+    line-height: 1.2 !important;
 }
 
 .popout {
@@ -253,6 +255,12 @@
 }
 
 .app-c-filter-summary__remove-filter--selected:focus 
+
+/* defect description styling */
+.defect-desc {
+  color: #0b0c0c;
+  padding-top: 32px !important;
+}
 .app-c-filter-summary__remove-filter-text--selected {
   color: black !important;
 }
