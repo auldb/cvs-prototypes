@@ -15,7 +15,7 @@ html: 'This is a new service. Help us improve it and <a class="govuk-link" href=
     tab)</a>.'
 }) }}
 {{ govukBackLink({
-text: "Back",
+text: "Go back to home page",
 href: "javascript:window.history.back()"
 }) }}
 {% endblock %}
@@ -35,31 +35,31 @@ href: "javascript:window.history.back()"
             </div>
             <div class="govuk-notification-banner__content">
                 <h3 class="govuk-notification-banner__heading">
-                    Technical records processed
+                    Successfully processed 5 trailer technical records
                 </h3>
-                <p class="govuk-body">You have created 5 HGV technical records using application
-                    ID 000000.</p>
+                <p class="govuk-body">You have created 3 technical records. <br>You have updated 2 technical records.</p>
             </div>
         </div>
 
-                <h1 class="govuk-heading-l">Batch summary</h1>
-                <h2 class="govuk-heading-m">Successfully processed records</h2>
+        <h1 class="govuk-heading-l"><span class="govuk-caption-l">Application ID: 012345</span>Batch summary</h1>
+        <h2 class="govuk-heading-m">Successfully processed records (5 of 5)</h2>
+
         <dl class="govuk-summary-list">
             <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key" style="width: 20% !important;">
+                <dt class="govuk-summary-list__key" style="width: 32% !important;">
                     VIN
                 </dt>
-                <dt class="govuk-summary-list__key" style="width: 15% !important;">
+                <dt class="govuk-summary-list__key" style="width: 18% !important;">
                     Trailer ID
                 </dt>
-                <dt class="govuk-summary-list__key" style="width: 15% !important;">
+                <dt class="govuk-summary-list__key" style="width: 14% !important;">
                     Vehicle type
                 </dt>
-                <dt class="govuk-summary-list__key" style="width: 20% !important;">
+                <dt class="govuk-summary-list__key" style="width: 13% !important;">
                     Record type
                 </dt>
-                <dt class="govuk-summary-list__key" style="width: 30% !important;">
-
+                <dt class="govuk-summary-list__key" style="width: 22% !important;">
+<span class="govuk-visually-hidden">Link to view record</span>
                 </dt>
             </div>
             <div class="govuk-summary-list__row">
@@ -67,11 +67,11 @@ href: "javascript:window.history.back()"
                     00001
                 </dd>
                 <dd class="govuk-summary-list__value">
-                    HGVTST1
+                    Z00001
                 </dd>
                 <dd class="govuk-summary-list__value">
 
-                    HGV
+                    TRL
 
                 </dd>
                 <dd class="govuk-summary-list__value">
@@ -80,19 +80,19 @@ href: "javascript:window.history.back()"
                 </dd>
                 <dd class="govuk-summary-list__actions">
                     <a class="govuk-link" href="#">View (opens in new tab)<span class="govuk-visually-hidden">VIN
-                            0123456789 Trailer ID HGVTST1</span></a>
+                            0123456789 VRM TRLTST1</span></a>
                 </dd>
             </div>
-                        <div class="govuk-summary-list__row">
+            <div class="govuk-summary-list__row">
                 <dd class="govuk-summary-list__value">
                     00002
                 </dd>
                 <dd class="govuk-summary-list__value">
-                    HGVTST2
+                    Z00002
                 </dd>
                 <dd class="govuk-summary-list__value">
 
-                    HGV
+                    TRL
 
                 </dd>
                 <dd class="govuk-summary-list__value">
@@ -101,19 +101,19 @@ href: "javascript:window.history.back()"
                 </dd>
                 <dd class="govuk-summary-list__actions">
                     <a class="govuk-link" href="#">View (opens in new tab)<span class="govuk-visually-hidden">VIN
-                            0123456789 Trailer ID HGVTST1</span></a>
+                            0123456789 VRM TRLTST1</span></a>
                 </dd>
             </div>
-                        <div class="govuk-summary-list__row">
+            <div class="govuk-summary-list__row">
                 <dd class="govuk-summary-list__value">
                     00003
                 </dd>
                 <dd class="govuk-summary-list__value">
-                    HGVTST3
+                    Z00003
                 </dd>
                 <dd class="govuk-summary-list__value">
 
-                    HGV
+                    TRL
 
                 </dd>
                 <dd class="govuk-summary-list__value">
@@ -122,19 +122,20 @@ href: "javascript:window.history.back()"
                 </dd>
                 <dd class="govuk-summary-list__actions">
                     <a class="govuk-link" href="#">View (opens in new tab)<span class="govuk-visually-hidden">VIN
-                            0123456789 Trailer ID HGVTST1</span></a>
+                            0123456789 VRM TRLTST1</span></a>
                 </dd>
             </div>
-                        <div class="govuk-summary-list__row">
+
+            <div class="govuk-summary-list__row">
                 <dd class="govuk-summary-list__value">
                     00004
                 </dd>
                 <dd class="govuk-summary-list__value">
-                    HGVTST4
+                    TRLTST4
                 </dd>
                 <dd class="govuk-summary-list__value">
 
-                    HGV
+                    TRL
 
                 </dd>
                 <dd class="govuk-summary-list__value">
@@ -143,19 +144,19 @@ href: "javascript:window.history.back()"
                 </dd>
                 <dd class="govuk-summary-list__actions">
                     <a class="govuk-link" href="#">View (opens in new tab)<span class="govuk-visually-hidden">VIN
-                            0123456789 Trailer ID HGVTST1</span></a>
+                            0123456789 VRM TRLTST1</span></a>
                 </dd>
             </div>
-                        <div class="govuk-summary-list__row">
+            <div class="govuk-summary-list__row">
                 <dd class="govuk-summary-list__value">
                     00005
                 </dd>
                 <dd class="govuk-summary-list__value">
-                    HGVTST5
+                    TRLTST5
                 </dd>
                 <dd class="govuk-summary-list__value">
 
-                    HGV
+                    TRL
 
                 </dd>
                 <dd class="govuk-summary-list__value">
@@ -164,10 +165,18 @@ href: "javascript:window.history.back()"
                 </dd>
                 <dd class="govuk-summary-list__actions">
                     <a class="govuk-link" href="#">View (opens in new tab)<span class="govuk-visually-hidden">VIN
-                            0123456789 Trailer ID HGVTST1</span></a>
+                            0123456789 VRM TRLTST1</span></a>
                 </dd>
             </div>
         </dl>
+
+
+      <div class="govuk-button-group govuk-button-group-record">
+        {{ govukButton({
+        text: "Go back to home page",
+        href: "failure.html"
+        }) }}
+      </div>
 
 
 
