@@ -27,22 +27,6 @@ href: "javascript:window.history.back()"
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
-        <div class="govuk-error-summary" data-module="govuk-error-summary">
-  <div role="alert">
-    <h2 class="govuk-error-summary__title">
-      There is a problem
-    </h2>
-    <div class="govuk-error-summary__body">
-      <ul class="govuk-list govuk-error-summary__list" style="padding:0px !important;">
-        <li >
-          <a href="#">Select a trailer form type</a>
-        </li>
-
-      </ul>
-    </div>
-  </div>
-</div>
-
         <h1 class="govuk-heading-l">
             Enter details for this batch
         </h1>
@@ -58,7 +42,6 @@ href: "javascript:window.history.back()"
                             Vehicle status
                         </h2>
                     </legend>
-
                     <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
                         <div class="govuk-radios__item">
                             <input class="govuk-radios__input" id="vehstatus" name="vehicleStatus" type="radio"
@@ -105,20 +88,16 @@ href: "javascript:window.history.back()"
 
                         <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
                             id="conditional-trltype">
-                            <div class="govuk-form-group govuk-form-group--error">
+                            <div class="govuk-form-group">
                                 <fieldset class="govuk-fieldset">
                                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                                         <h1 class="govuk-fieldset__heading">
                                             Trailer form type
                                         </h1>
                                     </legend>
-                                    
-                                        <div id="signIn-hint" class="govuk-hint">
+                                                                         <div id="signIn-hint" class="govuk-hint">
                                             Trailer form type must be TES1 if vehicle status is current.
                                         </div>
-                                         <p id="passport-issued-error" class="govuk-error-message">
-      <span class="govuk-visually-hidden">Error:</span> Select a trailer form type
-    </p>
                                     <div class="govuk-radios govuk-radios--small" data-module="govuk-radios">
                                         <div class="govuk-radios__item">
                                             <input class="govuk-radios__input" id="tes1" name="trailerType" type="radio"
@@ -176,6 +155,41 @@ href: "javascript:window.history.back()"
     </div>
 </div>
 
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const currentRadio = document.getElementById('vehstatus');
+  const provisionalRadio = document.getElementById('vehstatus-2');
 
+  const tes1 = document.getElementById('tes1');
+  const tes2 = document.getElementById('tes2');
+
+  function updateTrailerOptions() {
+    if (currentRadio.checked) {
+      // Auto-select TES1
+      tes1.checked = true;
+
+      // Disable both options
+      tes1.disabled = true;
+      tes2.disabled = true;
+    }
+
+    if (provisionalRadio.checked) {
+      // Re-enable options
+      tes1.disabled = false;
+      tes2.disabled = false;
+
+      // Clear trailer form type selection
+      tes1.checked = false;
+      tes2.checked = false;
+    }
+  }
+
+  currentRadio.addEventListener('change', updateTrailerOptions);
+  provisionalRadio.addEventListener('change', updateTrailerOptions);
+
+  // Run on page load
+  updateTrailerOptions();
+});
+</script>
 
 {% endblock %}

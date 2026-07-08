@@ -1,0 +1,189 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+Vehicle Testing Management – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+
+{{ govukPhaseBanner({
+tag: {
+text: "Beta"
+},
+html: 'This is a new service. Help us improve it and <a class="govuk-link" href="#">give your feedback (opens in new
+    tab)</a>.'
+}) }}
+{{ govukBackLink({
+text: "Go back to home page",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+
+<div class="govuk-grid-row">
+    <div class="govuk-width-container">
+
+        <div class="govuk-notification-banner govuk-notification-banner--success" role="alert"
+            aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+            <div class="govuk-notification-banner__header">
+                <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+                    Success
+                </h2>
+            </div>
+            <div class="govuk-notification-banner__content">
+                <h3 class="govuk-notification-banner__heading">
+                    Successfully processed 5 trailer technical records
+                </h3>
+                <p class="govuk-body">You have created 3 technical records. <br>You have updated 2 technical records.</p>
+            </div>
+        </div>
+
+        <h1 class="govuk-heading-l"><span class="govuk-caption-l">Application ID: 012345</span>Batch summary</h1>
+        <h2 class="govuk-heading-m">Successfully processed records (5 of 5)</h2>
+
+        <dl class="govuk-summary-list">
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key" style="width: 32% !important;">
+                    VIN
+                </dt>
+                <dt class="govuk-summary-list__key" style="width: 18% !important;">
+                    Trailer ID
+                </dt>
+                <dt class="govuk-summary-list__key" style="width: 14% !important;">
+                    Vehicle type
+                </dt>
+                <dt class="govuk-summary-list__key" style="width: 13% !important;">
+                    Record type
+                </dt>
+                <dt class="govuk-summary-list__key" style="width: 22% !important;">
+<span class="govuk-visually-hidden">Link to view record</span>
+                </dt>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dd class="govuk-summary-list__value">
+                    00001
+                </dd>
+                <dd class="govuk-summary-list__value">
+                    Z00001
+                </dd>
+                <dd class="govuk-summary-list__value">
+
+                    TRL
+
+                </dd>
+                <dd class="govuk-summary-list__value">
+                    <strong class="govuk-tag govuk-tag--red">Provisional</strong>
+
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="#">View (opens in new tab)<span class="govuk-visually-hidden">VIN
+                            0123456789 VRM TRLTST1</span></a>
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dd class="govuk-summary-list__value">
+                    00002
+                </dd>
+                <dd class="govuk-summary-list__value">
+                    Z00002
+                </dd>
+                <dd class="govuk-summary-list__value">
+
+                    TRL
+
+                </dd>
+                <dd class="govuk-summary-list__value">
+                    <strong class="govuk-tag govuk-tag--red">Provisional</strong>
+
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="#">View (opens in new tab)<span class="govuk-visually-hidden">VIN
+                            0123456789 VRM TRLTST1</span></a>
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dd class="govuk-summary-list__value">
+                    00003
+                </dd>
+                <dd class="govuk-summary-list__value">
+                    Z00003
+                </dd>
+                <dd class="govuk-summary-list__value">
+
+                    TRL
+
+                </dd>
+                <dd class="govuk-summary-list__value">
+                    <strong class="govuk-tag govuk-tag--red">Provisional</strong>
+
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="#">View (opens in new tab)<span class="govuk-visually-hidden">VIN
+                            0123456789 VRM TRLTST1</span></a>
+                </dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dd class="govuk-summary-list__value">
+                    00004
+                </dd>
+                <dd class="govuk-summary-list__value">
+                    TRLTST4
+                </dd>
+                <dd class="govuk-summary-list__value">
+
+                    TRL
+
+                </dd>
+                <dd class="govuk-summary-list__value">
+                    <strong class="govuk-tag govuk-tag--red">Provisional</strong>
+
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="#">View (opens in new tab)<span class="govuk-visually-hidden">VIN
+                            0123456789 VRM TRLTST1</span></a>
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dd class="govuk-summary-list__value">
+                    00005
+                </dd>
+                <dd class="govuk-summary-list__value">
+                    TRLTST5
+                </dd>
+                <dd class="govuk-summary-list__value">
+
+                    TRL
+
+                </dd>
+                <dd class="govuk-summary-list__value">
+                    <strong class="govuk-tag govuk-tag--red">Provisional</strong>
+
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="#">View (opens in new tab)<span class="govuk-visually-hidden">VIN
+                            0123456789 VRM TRLTST1</span></a>
+                </dd>
+            </div>
+        </dl>
+
+
+      <div class="govuk-button-group govuk-button-group-record">
+        {{ govukButton({
+        text: "Go back to home page",
+        href: "failure.html"
+        }) }}
+      </div>
+
+
+
+
+    </div>
+</div>
+
+
+
+{% endblock %}

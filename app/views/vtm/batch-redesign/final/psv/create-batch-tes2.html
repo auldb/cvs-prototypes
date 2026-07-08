@@ -27,22 +27,6 @@ href: "javascript:window.history.back()"
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
-        <div class="govuk-error-summary" data-module="govuk-error-summary">
-  <div role="alert">
-    <h2 class="govuk-error-summary__title">
-      There is a problem
-    </h2>
-    <div class="govuk-error-summary__body">
-      <ul class="govuk-list govuk-error-summary__list" style="padding:0px !important;">
-        <li >
-          <a href="#">Select a trailer form type</a>
-        </li>
-
-      </ul>
-    </div>
-  </div>
-</div>
-
         <h1 class="govuk-heading-l">
             Enter details for this batch
         </h1>
@@ -58,11 +42,10 @@ href: "javascript:window.history.back()"
                             Vehicle status
                         </h2>
                     </legend>
-
                     <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
                         <div class="govuk-radios__item">
                             <input class="govuk-radios__input" id="vehstatus" name="vehicleStatus" type="radio"
-                                value="yes">
+                                value="yes" checked>
                             <label class="govuk-label govuk-radios__label" for="vehstatus">
                                 Current
                             </label>
@@ -97,7 +80,7 @@ href: "javascript:window.history.back()"
 
                         <div class="govuk-radios__item">
                             <input class="govuk-radios__input" id="trltype" name="vehicleType" type="radio" value="text"
-                                data-aria-controls="conditional-trltype">
+                                data-aria-controls="conditional-trltype" checked>
                             <label class="govuk-label govuk-radios__label" for="trltype">
                                 Trailer (TRL)
                             </label>
@@ -105,7 +88,7 @@ href: "javascript:window.history.back()"
 
                         <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
                             id="conditional-trltype">
-                            <div class="govuk-form-group govuk-form-group--error">
+                            <div class="govuk-form-group">
                                 <fieldset class="govuk-fieldset">
                                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                                         <h1 class="govuk-fieldset__heading">
@@ -116,20 +99,17 @@ href: "javascript:window.history.back()"
                                         <div id="signIn-hint" class="govuk-hint">
                                             Trailer form type must be TES1 if vehicle status is current.
                                         </div>
-                                         <p id="passport-issued-error" class="govuk-error-message">
-      <span class="govuk-visually-hidden">Error:</span> Select a trailer form type
-    </p>
                                     <div class="govuk-radios govuk-radios--small" data-module="govuk-radios">
                                         <div class="govuk-radios__item">
                                             <input class="govuk-radios__input" id="tes1" name="trailerType" type="radio"
-                                                value="month">
+                                                value="month" checked disabled>
                                             <label class="govuk-label govuk-radios__label" for="tes1">
                                                 TES 1
                                             </label>
                                         </div>
                                         <div class="govuk-radios__item">
                                             <input class="govuk-radios__input" id="tes2" name="trailerType" type="radio"
-                                                value="year">
+                                                value="year" disabled>
                                             <label class="govuk-label govuk-radios__label" for="tes2">
                                                 TES 2
                                             </label>
