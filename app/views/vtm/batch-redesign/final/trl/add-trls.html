@@ -38,7 +38,7 @@ href: "javascript:window.history.back()"
                     <a href="#">Vehicle 3 VIN must be less than or equal to 21 characters</a>
                     </li>
                     <li>
-                    <a href="#">Vehicle 3 Trailer must be less than or equal to 8 characters</a>
+                    <a href="#">Vehicle 3 Trailer ID must be less than or equal to 8 characters</a>
                     </li>
                 </ul>
                 </div>
@@ -55,7 +55,7 @@ href: "javascript:window.history.back()"
             <ul class="govuk-list govuk-list--bullet" style="margin-bottom:0px;">
                 <li>enter only the VIN to create a new record</li>
                 <li>enter the VIN and Trailer ID to update an existing record</li>
-                <li>add up to 40 vehicles</li>
+                <li>add up to 41 vehicles</li>
             </ul>
             <p class="govuk-body"> Make sure you leave any unused fields blank so that they are not added to the batch.
             </p>
@@ -112,12 +112,12 @@ href: "javascript:window.history.back()"
 
                     <div class="govuk-form-group govuk-form-group--error">
                         <label class="govuk-label" for="v3-vin">VIN</label>
-                        <input class="govuk-input" id="v3-vin" name="v3-vin" type="text" value="148124912123123123">
+                        <input class="govuk-input govuk-input--error" id="v3-vin" name="v3-vin" type="text" value="148124912123123123">
                     </div>
 
                     <div class="govuk-form-group govuk-form-group--error">
                         <label class="govuk-label" for="v3-vrm">Trailer ID</label>
-                        <input class="govuk-input" id="v3-vrm" name="v3-vrm" type="text" value="148124912123123123">
+                        <input class="govuk-input govuk-input--error" id="v3-vrm" name="v3-vrm" type="text" value="148124912123123123">
                     </div>
                 </div>
 
