@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 <div class="govuk-width-container" id="view-record">
 
-  <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+  <!-- <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
     <div class="govuk-notification-banner__header">
       <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
         Success
@@ -159,7 +159,7 @@ document.addEventListener('DOMContentLoaded', function () {
         You have created a technical record.
       </h3>
     </div>
-  </div>
+  </div> -->
 
   <h1 class="govuk-heading-l">
     View technical record
@@ -1353,7 +1353,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 </span>
               </h2>
               <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
-                Tyre details.
+                Speed restriction, tyre details.
               </div>
               <div class="govuk-accordion__section-summary-padding"></div>
             </div>
@@ -1375,6 +1375,29 @@ document.addEventListener('DOMContentLoaded', function () {
                         Enter the number of axles to be able to add tyre details.
                       </strong>
                     </div>
+                  </div>
+
+
+                  <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
+                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                        <h1 class="govuk-fieldset__heading">
+                          Speed restriction
+                        </h1>
+                      </legend>
+                      <div class="govuk-date-input" id="passport-issued">
+
+                        <div class="govuk-date-input__item">
+                          <div class="govuk-form-group">
+                            <div class="govuk-input__wrapper">
+                              <input class="govuk-input govuk-date-input__input govuk-input--width-3"
+                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="60" disabled>
+                              <div class="govuk-input__suffix" aria-hidden="true">mph</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
                   </div>
   
                     <div id="tyre-axle1" class="govuk-form-group plates" style="display:none;">
@@ -1836,7 +1859,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 </span>
               </h2>
               <div class="govuk-accordion__section-summary govuk-body" id="accordion-with-summary-sections-summary-2">
-                Vehicle markers, fuel system, speed restriction.
+                Vehicle markers, fuel system.
               </div>
               <div class="govuk-accordion__section-summary-padding"></div>
             </div>
@@ -1929,27 +1952,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     </select>
                   </div>
 
-                  <div class="govuk-form-group">
-                    <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
-                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-                        <h1 class="govuk-fieldset__heading">
-                          Speed restriction
-                        </h1>
-                      </legend>
-                      <div class="govuk-date-input" id="passport-issued">
-
-                        <div class="govuk-date-input__item">
-                          <div class="govuk-form-group">
-                            <div class="govuk-input__wrapper">
-                              <input class="govuk-input govuk-date-input__input govuk-input--width-3"
-                                id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric" value="60" disabled>
-                              <div class="govuk-input__suffix" aria-hidden="true">mph</div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </fieldset>
-                  </div>
 
                 </li>
               </ul>
