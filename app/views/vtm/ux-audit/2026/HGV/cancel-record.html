@@ -1,0 +1,71 @@
+{% extends "layouts/noheader.html" %}
+
+{% block pageTitle %}
+  Unbranded page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+
+<style>
+body {
+    background-image: url('/public/images/tech-record.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    color: #FFFFFF;
+    height: 56rem;
+}
+</style>
+
+<div class="govuk-modal-dialogue__backdrop"></div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <div class="govuk-modal-dialogue govuk-modal-dialogue--open" data-module="govuk-modal-dialogue">
+      <div class="govuk-modal-dialogue__wrapper">
+        <dialog aria-describedby="timeout-description" aria-labelledby="timeout-title" class="govuk-modal-dialogue__box" id="timeout" role="alertdialog" tabindex="0" open="">
+          <div class="govuk-modal-dialogue__header">
+            <a href="docs.html" aria-label="Close modal dialogue" class="govuk-modal-dialogue__close" data-module="govuk-button" type="button">×</a>
+            <h2 class="govuk-heading-m" id="modal-heading">Cancel new technical record</h2>
+
+          </div>
+          <div class="govuk-modal-dialogue__content">
+            <div class="govuk-modal-dialogue__description" id="timeout-description">
+
+
+
+<!-- Selections -->
+
+
+  <!-- <label for="category" class="govuk-label">Confirm that you want to cancel creating a new record.</label>
+  <br> -->
+  <label for="category" class="govuk-label govuk-label-vtm">This will delete any data in the record and return you to the homepage.</label>
+
+  <br>
+
+  </div>
+                <div class="govuk-button-group">
+                  {{ govukButton({
+                    href: "send-letter",
+                    text: "Cancel record",
+                    classes: "govuk-button--warning"
+                  }) }}
+
+                <a class="govuk-link" href="javascript:window.history.back()">Back</a>
+              </div>
+
+            </div>
+          </dialog>
+        </div>
+
+    </div>
+
+  </div>
+</div>
+
+
+
+
+{% endblock %}

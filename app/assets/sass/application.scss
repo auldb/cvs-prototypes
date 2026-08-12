@@ -11,6 +11,50 @@
 
 // Add extra styles here
 
+.govuk-width-container {
+  max-width: 1050px !important;
+}
+
+.prefix {
+  font-size: 16px !important;
+  padding:5px;
+  min-width:1.8rem;
+}
+
+.suffix {
+  font-size: 16px !important;
+  padding:5px;
+  min-width:1.8rem;
+}
+
+.button-group {
+  margin-bottom: 0px !important;
+}
+
+.axle-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.axle-heading .govuk-fieldset__legend {
+  margin-bottom: 0;
+}
+
+.axle-heading .govuk-fieldset__heading {
+  margin-bottom: 0;
+}
+
+.axle-heading .govuk-button {
+  margin-bottom: 0;
+}
+
+.axle-divider {
+  height: 35px;
+  border-left: 1px solid #b1b4b6;
+  margin: 0 5px;
+}
 
 .popout {
   margin-bottom: 0px !important;
