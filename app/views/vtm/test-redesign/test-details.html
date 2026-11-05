@@ -394,6 +394,84 @@ function popOut() {
             </span>
           </h2>
 
+                    <!--VISIT-->
+          <div class="govuk-accordion__section govuk-accordion__section-vtm plates">
+            <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
+              <h2 class="govuk-accordion__section-heading">
+                <span
+                  class="govuk-accordion__section-button govuk-accordion__section-button-vtm govuk-accordion__section-heading-vtm"
+                  id="accordion-with-summary-sections-heading-2">
+                  Visit
+                </span>
+              </h2>
+              <div class="govuk-accordion__section-summary-padding"></div>
+            </div>
+            <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
+              <hr class="expanded">
+              </hr>
+              <ul class="govuk-list">
+                <li>
+
+                  <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset" role="group">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                      <h1 class="govuk-fieldset__heading">
+                        Test facility
+                      </h1>
+                    </legend>
+                    <select class="govuk-select govuk-!-width-one-half" id="location" name="location"
+                        aria-describedby="location-hint">
+                        <option value="choose" selected>Select test facility</option>
+                        <option value="eastmidlands">Abshire Kub - 09-1234567</option>
+                        <option value="eastofengland">Bergnaum Group - 09-1234568</option>
+                        <option value="london">Abshire Kub - 09-1234567</option>
+                        <option value="northeast" selected>Bergnaum Group - 09-1234568</option>
+                        <option value="northwest">Abshire Kub - 09-1234567</option>
+                        <option value="southeast">Bergnaum Group - 09-1234568</option>
+                        <option value="southwest">Abshire Kub - 09-1234567</option>
+                        <option value="westmidlands">Bergnaum Group - 09-1234568</option>
+                        <option value="yorkshire">Abshire Kub - 09-1234567</option>
+                      </select>
+                    </fieldset>
+                  </div>
+
+                  <div class="govuk-form-group">
+                    <h1 class="govuk-label-wrapper">
+                      <label class="govuk-label govuk-label--s" for="event-name">
+                        Type of test facility
+                      </label>
+                    </h1>
+                    <input class="govuk-input govuk-input--width-5" id="event-name" name="eventName" type="text" value="ATF" disabled>
+                  </div>
+
+
+                  <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset" role="group">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                      <h1 class="govuk-fieldset__heading">
+                        Tester
+                      </h1>
+                    </legend>
+                    <select class="govuk-select govuk-!-width-one-half" id="location" name="location" aria-describedby="location-hint">
+                        <option value="choose" selected>Select tester</option>
+                        <option value="eastmidlands">Tester name</option>
+                        <option value="eastofengland">Tester name</option>
+                        <option value="london">Tester name</option>
+                        <option value="northeast" selected>Tester name</option>
+                        <option value="northwest">Tester name</option>
+                        <option value="southeast">Tester name</option>
+                        <option value="southwest">Tester name</option>
+                        <option value="westmidlands">Tester name</option>
+                        <option value="yorkshire">Tester name</option>
+                      </select>
+                    </fieldset>
+                  </div>
+
+                </li>
+              </ul>
+            </div>
+          </div>
+
           <!--GENERAL-->
           <div class="govuk-accordion__section govuk-accordion__section-vtm required adr plates">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
@@ -498,6 +576,38 @@ function popOut() {
             </div>
           </div>
 
+                    <!--DEFECTS-->
+          <div class="govuk-accordion__section govuk-accordion__section-vtm admin">
+            <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
+              <h2 class="govuk-accordion__section-heading">
+                <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
+                  id="accordion-with-summary-sections-heading-2">
+                  Defects
+                </span>
+              </h2>
+              <div class="govuk-accordion__section-summary-padding"></div>
+            </div>
+            <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
+              <hr class="expanded">
+              </hr>
+              <ul class="govuk-list">
+                <li>
+
+                  <p class="govuk-body">No defects added.</p>
+
+                        <div class="govuk-button-group">
+                          {{ govukButton({
+                          text: "Add defect",
+                          classes: "govuk-button--secondary",
+                          href: "select-defect"
+                          }) }}
+                        </div>  
+
+                </li>
+              </ul>
+            </div>
+          </div>
+
           <!--TEST-->
           <div class="govuk-accordion__section govuk-accordion__section-vtm plates">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
@@ -505,7 +615,7 @@ function popOut() {
                 <span
                   class="govuk-accordion__section-button govuk-accordion__section-button-vtm govuk-accordion__section-heading-vtm"
                   id="accordion-with-summary-sections-heading-2">
-                  Test
+                  Certification
                 </span>
               </h2>
               <div class="govuk-accordion__section-summary-padding"></div>
@@ -678,83 +788,7 @@ function popOut() {
             </div>
           </div>
 
-          <!--VISIT-->
-          <div class="govuk-accordion__section govuk-accordion__section-vtm plates">
-            <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
-              <h2 class="govuk-accordion__section-heading">
-                <span
-                  class="govuk-accordion__section-button govuk-accordion__section-button-vtm govuk-accordion__section-heading-vtm"
-                  id="accordion-with-summary-sections-heading-2">
-                  Visit
-                </span>
-              </h2>
-              <div class="govuk-accordion__section-summary-padding"></div>
-            </div>
-            <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
-              <hr class="expanded">
-              </hr>
-              <ul class="govuk-list">
-                <li>
 
-                  <div class="govuk-form-group">
-                    <fieldset class="govuk-fieldset" role="group">
-                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-                      <h1 class="govuk-fieldset__heading">
-                        Test facility
-                      </h1>
-                    </legend>
-                    <select class="govuk-select govuk-!-width-one-half" id="location" name="location"
-                        aria-describedby="location-hint">
-                        <option value="choose" selected>Choose test facility</option>
-                        <option value="eastmidlands">Abshire Kub - 09-1234567</option>
-                        <option value="eastofengland">Bergnaum Group - 09-1234568</option>
-                        <option value="london">Abshire Kub - 09-1234567</option>
-                        <option value="northeast" selected>Bergnaum Group - 09-1234568</option>
-                        <option value="northwest">Abshire Kub - 09-1234567</option>
-                        <option value="southeast">Bergnaum Group - 09-1234568</option>
-                        <option value="southwest">Abshire Kub - 09-1234567</option>
-                        <option value="westmidlands">Bergnaum Group - 09-1234568</option>
-                        <option value="yorkshire">Abshire Kub - 09-1234567</option>
-                      </select>
-                    </fieldset>
-                  </div>
-
-                  <div class="govuk-form-group">
-                    <h1 class="govuk-label-wrapper">
-                      <label class="govuk-label govuk-label--s" for="event-name">
-                        Type of test facility
-                      </label>
-                    </h1>
-                    <input class="govuk-input govuk-input--width-5" id="event-name" name="eventName" type="text" value="ATF" disabled>
-                  </div>
-
-
-                  <div class="govuk-form-group">
-                    <fieldset class="govuk-fieldset" role="group">
-                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-                      <h1 class="govuk-fieldset__heading">
-                        Tester
-                      </h1>
-                    </legend>
-                    <select class="govuk-select govuk-!-width-one-half" id="location" name="location" aria-describedby="location-hint">
-                        <option value="choose" selected>Choose tester</option>
-                        <option value="eastmidlands">Tester name</option>
-                        <option value="eastofengland">Tester name</option>
-                        <option value="london">Tester name</option>
-                        <option value="northeast" selected>Tester name</option>
-                        <option value="northwest">Tester name</option>
-                        <option value="southeast">Tester name</option>
-                        <option value="southwest">Tester name</option>
-                        <option value="westmidlands">Tester name</option>
-                        <option value="yorkshire">Tester name</option>
-                      </select>
-                    </fieldset>
-                  </div>
-
-                </li>
-              </ul>
-            </div>
-          </div>
 
           <!--NOTES-->
           <div class="govuk-accordion__section govuk-accordion__section-vtm admin">
@@ -795,37 +829,7 @@ function popOut() {
             </div>
           </div>
 
-          <!--DEFECTS-->
-          <div class="govuk-accordion__section govuk-accordion__section-vtm admin">
-            <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
-              <h2 class="govuk-accordion__section-heading">
-                <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
-                  id="accordion-with-summary-sections-heading-2">
-                  Defects
-                </span>
-              </h2>
-              <div class="govuk-accordion__section-summary-padding"></div>
-            </div>
-            <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
-              <hr class="expanded">
-              </hr>
-              <ul class="govuk-list">
-                <li>
 
-                  <p class="govuk-body">No defects added.</p>
-
-                        <div class="govuk-button-group">
-                          {{ govukButton({
-                          text: "Add defect",
-                          classes: "govuk-button--secondary",
-                          href: "select-defect"
-                          }) }}
-                        </div>  
-
-                </li>
-              </ul>
-            </div>
-          </div>
 
           <!--REASON FOR CREATION-->
           <div class="govuk-accordion__section govuk-accordion__section-vtm required adr plates">

@@ -250,6 +250,86 @@ href: "javascript:window.history.back()"
             </span>
           </h2>
 
+                    <!--VISIT-->
+          <div class="govuk-accordion__section govuk-accordion__section-vtm plates">
+            <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
+              <h2 class="govuk-accordion__section-heading">
+                <span
+                  class="govuk-accordion__section-button govuk-accordion__section-button-vtm govuk-accordion__section-heading-vtm"
+                  id="accordion-with-summary-sections-heading-2">
+                  Visit
+                </span>
+              </h2>
+              <div class="govuk-accordion__section-summary-padding"></div>
+            </div>
+            <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
+              <hr class="expanded">
+              </hr>
+              <ul class="govuk-list">
+                <li>
+
+                  <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset" role="group">
+                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                        <h1 class="govuk-fieldset__heading">
+                          Test facility
+                        </h1>
+                      </legend>
+                      <select class="govuk-select govuk-!-width-one-half" id="location" name="location"
+                        aria-describedby="location-hint" disabled>
+                        <option value="choose">Choose tester</option>
+                        <option value="eastmidlands">Tester name</option>
+                        <option value="eastofengland">Tester name</option>
+                        <option value="london">Tester name</option>
+                        <option value="northeast" selected>Tester name</option>
+                        <option value="northwest">Tester name</option>
+                        <option value="southeast">Tester name</option>
+                        <option value="southwest">Tester name</option>
+                        <option value="westmidlands">Tester name</option>
+                        <option value="yorkshire">Tester name</option>
+                      </select>
+                    </fieldset>
+                  </div>
+
+                  <div class="govuk-form-group">
+                    <h1 class="govuk-label-wrapper">
+                      <label class="govuk-label govuk-label--s" for="event-name">
+                        Type of test facility
+                      </label>
+                    </h1>
+                    <input class="govuk-input govuk-input--width-5" id="event-name" name="eventName" type="text"
+                      value="ATF" disabled>
+                  </div>
+
+
+                  <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset" role="group">
+                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                        <h1 class="govuk-fieldset__heading">
+                          Tester
+                        </h1>
+                      </legend>
+                      <select class="govuk-select govuk-!-width-one-half" id="location" name="location"
+                        aria-describedby="location-hint" disabled>
+                        <option value="choose">Choose test facility</option>
+                        <option value="eastmidlands" selected>Abshire Kub - 09-1234567</option>
+                        <option value="eastofengland">Bergnaum Group - 09-1234568</option>
+                        <option value="london">Abshire Kub - 09-1234567</option>
+                        <option value="northeast" selected>Bergnaum Group - 09-1234568</option>
+                        <option value="northwest">Abshire Kub - 09-1234567</option>
+                        <option value="southeast">Bergnaum Group - 09-1234568</option>
+                        <option value="southwest">Abshire Kub - 09-1234567</option>
+                        <option value="westmidlands">Bergnaum Group - 09-1234568</option>
+                        <option value="yorkshire">Abshire Kub - 09-1234567</option>
+                      </select>
+                    </fieldset>
+                  </div>
+
+                </li>
+              </ul>
+            </div>
+          </div>
+
           <!--GENERAL-->
           <div class="govuk-accordion__section govuk-accordion__section-vtm required adr plates">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
@@ -353,6 +433,73 @@ href: "javascript:window.history.back()"
             </div>
           </div>
 
+                    <!--DEFECTS-->
+          <div class="govuk-accordion__section govuk-accordion__section-vtm admin">
+            <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
+              <h2 class="govuk-accordion__section-heading">
+                <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
+                  id="accordion-with-summary-sections-heading-2">
+                  Defects
+                </span>
+              </h2>
+              <div class="govuk-accordion__section-summary-padding"></div>
+            </div>
+            <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
+              <hr class="expanded">
+              </hr>
+              <ul class="govuk-list">
+                <li>
+
+                  <div class="govuk-inset-text">
+                    Any unresolved major or dangerous defects will result in failed test.
+                  </div>
+
+                 <dl class="govuk-summary-list">
+                    <div class="govuk-summary-list__row">
+                      <dt class="govuk-summary-list__key" style="width: 20% !important;">
+                        Reference
+                      </dt>
+                      <dt class="govuk-summary-list__key" style="width: 40% !important;">
+                        Description
+                      </dt>
+                      <dt class="govuk-summary-list__key" style="width: 18% !important;">
+                        Category
+                      </dt>
+                      <dt class="govuk-summary-list__key" style="width: 10% !important;">
+                        PRS
+                      </dt>
+                      <dt class="govuk-summary-list__key" style="width: 12% !important;">
+                        Media
+                      </dt>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                      <dd class="govuk-summary-list__value">
+                        <a href="amend-defect-details" class="archive-link">1.1(a)</a>
+                      </dd>
+                      <dd class="govuk-summary-list__value">
+                        A registration plate: missing.
+                      </dd>
+                      <dd class="govuk-summary-list__value">
+                          <strong class="govuk-tag govuk-tag--red">
+                            Major
+                          </strong>
+                      </dd>
+                      <dd class="govuk-summary-list__value">
+                        No
+                      </dd>
+                      <dd class="govuk-summary-list__value">
+                        None
+                      </dd>
+                    </div>
+                  </dl>
+
+                  <p class="govuk-body"></p>
+
+                </li>
+              </ul>
+            </div>
+          </div>
+
           <!--TEST-->
           <div class="govuk-accordion__section govuk-accordion__section-vtm plates">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
@@ -360,7 +507,7 @@ href: "javascript:window.history.back()"
                 <span
                   class="govuk-accordion__section-button govuk-accordion__section-button-vtm govuk-accordion__section-heading-vtm"
                   id="accordion-with-summary-sections-heading-2">
-                  Test
+                  Certification
                 </span>
               </h2>
               <div class="govuk-accordion__section-summary-padding"></div>
@@ -644,86 +791,6 @@ href: "javascript:window.history.back()"
             </div>
           </div>
 
-          <!--VISIT-->
-          <div class="govuk-accordion__section govuk-accordion__section-vtm plates">
-            <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
-              <h2 class="govuk-accordion__section-heading">
-                <span
-                  class="govuk-accordion__section-button govuk-accordion__section-button-vtm govuk-accordion__section-heading-vtm"
-                  id="accordion-with-summary-sections-heading-2">
-                  Visit
-                </span>
-              </h2>
-              <div class="govuk-accordion__section-summary-padding"></div>
-            </div>
-            <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
-              <hr class="expanded">
-              </hr>
-              <ul class="govuk-list">
-                <li>
-
-                  <div class="govuk-form-group">
-                    <fieldset class="govuk-fieldset" role="group">
-                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-                        <h1 class="govuk-fieldset__heading">
-                          Test facility
-                        </h1>
-                      </legend>
-                      <select class="govuk-select govuk-!-width-one-half" id="location" name="location"
-                        aria-describedby="location-hint" disabled>
-                        <option value="choose">Choose tester</option>
-                        <option value="eastmidlands">Tester name</option>
-                        <option value="eastofengland">Tester name</option>
-                        <option value="london">Tester name</option>
-                        <option value="northeast" selected>Tester name</option>
-                        <option value="northwest">Tester name</option>
-                        <option value="southeast">Tester name</option>
-                        <option value="southwest">Tester name</option>
-                        <option value="westmidlands">Tester name</option>
-                        <option value="yorkshire">Tester name</option>
-                      </select>
-                    </fieldset>
-                  </div>
-
-                  <div class="govuk-form-group">
-                    <h1 class="govuk-label-wrapper">
-                      <label class="govuk-label govuk-label--s" for="event-name">
-                        Type of test facility
-                      </label>
-                    </h1>
-                    <input class="govuk-input govuk-input--width-5" id="event-name" name="eventName" type="text"
-                      value="ATF" disabled>
-                  </div>
-
-
-                  <div class="govuk-form-group">
-                    <fieldset class="govuk-fieldset" role="group">
-                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-                        <h1 class="govuk-fieldset__heading">
-                          Tester
-                        </h1>
-                      </legend>
-                      <select class="govuk-select govuk-!-width-one-half" id="location" name="location"
-                        aria-describedby="location-hint" disabled>
-                        <option value="choose">Choose test facility</option>
-                        <option value="eastmidlands" selected>Abshire Kub - 09-1234567</option>
-                        <option value="eastofengland">Bergnaum Group - 09-1234568</option>
-                        <option value="london">Abshire Kub - 09-1234567</option>
-                        <option value="northeast" selected>Bergnaum Group - 09-1234568</option>
-                        <option value="northwest">Abshire Kub - 09-1234567</option>
-                        <option value="southeast">Bergnaum Group - 09-1234568</option>
-                        <option value="southwest">Abshire Kub - 09-1234567</option>
-                        <option value="westmidlands">Bergnaum Group - 09-1234568</option>
-                        <option value="yorkshire">Abshire Kub - 09-1234567</option>
-                      </select>
-                    </fieldset>
-                  </div>
-
-                </li>
-              </ul>
-            </div>
-          </div>
-
           <!--NOTES-->
           <div class="govuk-accordion__section govuk-accordion__section-vtm admin">
             <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
@@ -757,73 +824,6 @@ href: "javascript:window.history.back()"
                       You have 500 characters remaining
                     </div>
                   </div>
-
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <!--DEFECTS-->
-          <div class="govuk-accordion__section govuk-accordion__section-vtm admin">
-            <div class="govuk-accordion__section-header govuk-accordion__section-header-vtm">
-              <h2 class="govuk-accordion__section-heading">
-                <span class="govuk-accordion__section-button govuk-accordion__section-heading-vtm"
-                  id="accordion-with-summary-sections-heading-2">
-                  Defects
-                </span>
-              </h2>
-              <div class="govuk-accordion__section-summary-padding"></div>
-            </div>
-            <div id="accordion-with-summary-sections-content-2" class="govuk-accordion__section-content">
-              <hr class="expanded">
-              </hr>
-              <ul class="govuk-list">
-                <li>
-
-                  <div class="govuk-inset-text">
-                    Any unresolved major or dangerous defects will result in failed test.
-                  </div>
-
-                 <dl class="govuk-summary-list">
-                    <div class="govuk-summary-list__row">
-                      <dt class="govuk-summary-list__key" style="width: 20% !important;">
-                        Reference
-                      </dt>
-                      <dt class="govuk-summary-list__key" style="width: 40% !important;">
-                        Description
-                      </dt>
-                      <dt class="govuk-summary-list__key" style="width: 18% !important;">
-                        Category
-                      </dt>
-                      <dt class="govuk-summary-list__key" style="width: 10% !important;">
-                        PRS
-                      </dt>
-                      <dt class="govuk-summary-list__key" style="width: 12% !important;">
-                        Media
-                      </dt>
-                    </div>
-                    <div class="govuk-summary-list__row">
-                      <dd class="govuk-summary-list__value">
-                        <a href="amend-defect-details" class="archive-link">1.1(a)</a>
-                      </dd>
-                      <dd class="govuk-summary-list__value">
-                        A registration plate: missing.
-                      </dd>
-                      <dd class="govuk-summary-list__value">
-                          <strong class="govuk-tag govuk-tag--red">
-                            Major
-                          </strong>
-                      </dd>
-                      <dd class="govuk-summary-list__value">
-                        No
-                      </dd>
-                      <dd class="govuk-summary-list__value">
-                        None
-                      </dd>
-                    </div>
-                  </dl>
-
-                  <p class="govuk-body"></p>
 
                 </li>
               </ul>
