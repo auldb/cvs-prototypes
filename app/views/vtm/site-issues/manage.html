@@ -1,0 +1,210 @@
+{% extends "layouts/redesign.html" %}
+
+{% block pageTitle %}
+Create a technical record – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+
+{{ govukPhaseBanner({
+tag: {
+text: "Beta"
+},
+html: 'This is a new service. Help us improve it and <a class="govuk-link" href="#">give your feedback (opens in new
+    tab)</a>.'
+}) }}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<h1 class="govuk-heading-l">
+    Manage site issues
+</h1>
+
+<div class="filter-panel">
+
+    <div class="filter-row">
+
+        <div class="govuk-form-group atf-group">
+            <label class="govuk-label" for="atf-filter">
+                Filter by ATF
+            </label>
+
+            <select class="govuk-select atf-filter" name="atf-filter">
+                <option value="">Select ATF</option>
+                <option>Arriva Northwest Liverpool (P50333)</option>
+                <option>ASD Transport (incorp) Lakeside Motors (P50366)</option>
+                <option>DH Hall and Son (P50555)</option>
+                <option>Ford Motor Company Ltd (P50530)</option>
+                <option>Freightliner Limited (P51079)</option>
+                <option>Moreton C Cullimore and Son Ltd (P50343)</option>
+                <option>West Pennine Trucks - Trafford Park Depot (P50284)</option>
+            </select>
+        </div>
+
+        <div class="govuk-form-group status-group">
+            <label class="govuk-label" for="status-filter">
+                Filter by status
+            </label>
+            <select class="govuk-select status-filter" id="status-filter" name="status-filter">
+                <option value="published" selected>Select status</option>
+                <option value="updated">Open</option>
+                <option value="views">Closed</option>
+            </select>
+        </div>
+
+        <div class="govuk-form-group category-group">
+            <label class="govuk-label" for="category-filter">
+                Filter by category
+            </label>
+            <select class="govuk-select category-filter" id="category-filter" name="category-filter">
+                <option value="published" selected>Select category</option>
+                <option value="updated">Equipment</option>
+                <option value="views">Visibility and obstruction</option>
+                <option value="comments">Cleanliness</option>
+                <option value="comments">Access and connectivity</option>
+                <option value="comments">Markings and flooring</option>
+                <option value="comments">Emergency facilities</option>
+                <option value="comments">Lane setup and people</option>
+            </select>
+        </div>
+
+
+        <button type="submit" class="govuk-button" data-module="govuk-button" style="white-space: nowrap;">
+            Apply filters
+        </button>
+
+
+    </div>
+
+
+
+    <div class="clear-filters-row">
+        <ul class="govuk-summary-card__actions" style="text-align:left !important; justify-content: left !important;">
+            <li class="govuk-summary-card__action" style="text-align:left !important;">
+                <a class="govuk-link" href="#">Clear filters</a>
+            </li>
+            <li class="govuk-summary-card__action">
+                <a class="govuk-link" href="#">Raise a new site issue</a>
+            </li>
+        </ul>
+    </div>
+
+</div>
+
+
+
+
+<table class="govuk-table">
+    <thead class="govuk-table__head table_site-issues">
+        <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header govuk-!-width-one-half">ATF</th>
+            <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">Date raised</th>
+            <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">Status</th>
+            <th scope="col" class="govuk-table__header govuk-!-width-one-quarter table_right-align">Category</th>
+        </tr>
+    </thead>
+    <tbody class="govuk-table__body table_site-issues">
+        <tr class="govuk-table__row table_border-row">
+            <td class="govuk-table__cell">ASD Transport (incorp) Lakeside Motors (P50366)</td>
+            <td class="govuk-table__cell">17/11/2026 <br>14:32</td>
+            <td class="govuk-table__cell">Open</td>
+            <td class="govuk-table__cell table_right-align">Equipment</td>
+        </tr>
+        <tr class="govuk-table__row table_border-row">
+            <td class="govuk-table__cell">Moreton C Cullimore and Son Ltd (P50343)</td>
+            <td class="govuk-table__cell">16/11/2026 <br>12:21</td>
+            <td class="govuk-table__cell">Open</td>
+            <td class="govuk-table__cell table_right-align">Visibility and obstruction</td>
+        </tr>
+        <tr class="govuk-table__row table_border-row">
+            <td class="govuk-table__cell">Ford Motor Company Ltd (P50530)</td>
+            <td class="govuk-table__cell">15/11/2026 <br>11:52</td>
+            <td class="govuk-table__cell">Open</td>
+            <td class="govuk-table__cell table_right-align">Cleanliness</td>
+        </tr>
+        <tr class="govuk-table__row table_border-row">
+            <td class="govuk-table__cell">West Pennine Trucks - Trafford Park Depot (P50284)</td>
+            <td class="govuk-table__cell">15/11/2026 <br>10:23</td>
+            <td class="govuk-table__cell">Open</td>
+            <td class="govuk-table__cell table_right-align">Visibility and obstruction</td>
+        </tr>
+        <tr class="govuk-table__row table_border-row">
+            <td class="govuk-table__cell">Arriva Northwest Liverpool (P50333)</td>
+            <td class="govuk-table__cell">14/11/2026 <br>14:57</td>
+            <td class="govuk-table__cell">Open</td>
+            <td class="govuk-table__cell table_right-align">Access and connectivity</td>
+        </tr>
+        <tr class="govuk-table__row table_border-row">
+            <td class="govuk-table__cell">DH Hall and Son (P50555)</td>
+            <td class="govuk-table__cell">13/11/2026 <br>13:01</td>
+            <td class="govuk-table__cell">Open</td>
+            <td class="govuk-table__cell table_right-align">Cleanliness</td>
+        </tr>
+        <tr class="govuk-table__row table_border-row">
+            <td class="govuk-table__cell">Freightliner Limited (P51079)</td>
+            <td class="govuk-table__cell">12/11/2026 <br>10:34</td>
+            <td class="govuk-table__cell">Open</td>
+            <td class="govuk-table__cell table_right-align">Emergency facilities</td>
+        </tr>
+        <tr class="govuk-table__row table_border-row">
+            <td class="govuk-table__cell">Moreton C Cullimore and Son Ltd (P50343)</td>
+            <td class="govuk-table__cell">12/11/2026 <br>09:31</td>
+            <td class="govuk-table__cell">Open</td>
+            <td class="govuk-table__cell table_right-align">Markings and flooring</td>
+        </tr>
+        <tr class="govuk-table__row table_border-row">
+            <td class="govuk-table__cell">Freightliner Limited (P51079)</td>
+            <td class="govuk-table__cell">11/11/2026 <br>08:43</td>
+            <td class="govuk-table__cell">Open</td>
+            <td class="govuk-table__cell table_right-align">Cleanliness</td>
+        </tr>
+        <tr class="govuk-table__row table_border-row">
+            <td class="govuk-table__cell">Moreton C Cullimore and Son Ltd (P50343)</td>
+            <td class="govuk-table__cell">10/11/2026 <br>12:21</td>
+            <td class="govuk-table__cell">Open</td>
+            <td class="govuk-table__cell table_right-align">Lane setup and people</td>
+        </tr>
+    </tbody>
+</table>
+
+<nav class="govuk-pagination" aria-label="Pagination">
+    <ul class="govuk-pagination__list">
+        <li class="govuk-pagination__item govuk-pagination__item--current">
+            <a class="govuk-link govuk-pagination__link" href="#" aria-label="Page 1" aria-current="page">
+                1
+            </a>
+        </li>
+        <li class="govuk-pagination__item">
+            <a class="govuk-link govuk-pagination__link" href="#" aria-label="Page 2">
+                2
+            </a>
+        </li>
+        <li class="govuk-pagination__item">
+            <a class="govuk-link govuk-pagination__link" href="#" aria-label="Page 3">
+                3
+            </a>
+        </li>
+    </ul>
+    <div class="govuk-pagination__next">
+        <a class="govuk-link govuk-pagination__link" href="#" rel="next">
+            <span class="govuk-pagination__link-title">
+                Next<span class="govuk-visually-hidden"> page</span>
+            </span>
+            <svg class="govuk-pagination__icon govuk-pagination__icon--next" xmlns="http://www.w3.org/2000/svg"
+                height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13">
+                <path
+                    d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z">
+                </path>
+            </svg>
+        </a>
+    </div>
+</nav>
+
+
+{% endblock %}

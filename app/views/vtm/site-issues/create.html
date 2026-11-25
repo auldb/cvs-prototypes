@@ -1,0 +1,342 @@
+{% extends "layouts/redesign.html" %}
+
+{% block pageTitle %}
+Create a technical record – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+
+{{ govukPhaseBanner({
+tag: {
+text: "Beta"
+},
+html: 'This is a new service. Help us improve it and <a class="govuk-link" href="#">give your feedback (opens in new
+  tab)</a>.'
+}) }}
+{{ govukBackLink({
+text: "Back",
+href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<h1 class="govuk-heading-l">
+  Raise a new site issue
+</h1>
+
+<div class="govuk-form-group">
+  <label class="govuk-label" for="sort">
+    <strong>
+    ATF name
+    </strong>
+  </label>
+  <select class="govuk-select" id="sort" name="sort">
+                    <option value="">Select ATF</option>
+                <option>Arriva Northwest Liverpool (P50333)</option>
+                <option>ASD Transport (incorp) Lakeside Motors (P50366)</option>
+                <option>DH Hall and Son (P50555)</option>
+                <option>Ford Motor Company Ltd (P50530)</option>
+                <option>Freightliner Limited (P51079)</option>
+                <option>Moreton C Cullimore and Son Ltd (P50343)</option>
+                <option>West Pennine Trucks - Trafford Park Depot (P50284)</option>
+  </select>
+</div>
+
+<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+<div class="govuk-form-group" style="display: inline-block; margin-right: 20px; margin-bottom: 10px;">
+  <label class="govuk-label" for="width-30"><strong>
+      ID
+    </strong>
+  </label>
+  <input disabled class="govuk-input govuk-input--width-5" id="width-5" name="width5" type="text" value="8414">
+</div>
+
+<div class="govuk-form-group" style="display: inline-block; margin-right: 20px;  margin-bottom: 10px;">
+  <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
+    <legend class="govuk-fieldset__legend" style="margin-bottom:0px;padding-bottom:0px;"><strong>
+        Date raised
+      </strong>
+    </legend>
+    <div class="govuk-date-input" id="passport-issued">
+      <div class="govuk-date-input__item">
+        <div class="govuk-form-group">
+          <label class="govuk-label govuk-date-input__label" for="passport-issued-day">
+            Day
+          </label>
+          <input disabled value="15" class="govuk-input govuk-date-input__input govuk-input--width-2"
+            id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric">
+        </div>
+      </div>
+      <div class="govuk-date-input__item">
+        <div class="govuk-form-group">
+          <label class="govuk-label govuk-date-input__label" for="passport-issued-month">
+            Month
+          </label>
+          <input disabled value="11" class="govuk-input govuk-date-input__input govuk-input--width-2"
+            id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric">
+        </div>
+      </div>
+      <div class="govuk-date-input__item">
+        <div class="govuk-form-group">
+          <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+            Year
+          </label>
+          <input disabled value="2026" class="govuk-input govuk-date-input__input govuk-input--width-4"
+            id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+        </div>
+      </div>
+    </div>
+  </fieldset>
+</div>
+
+
+<div class="govuk-form-group" style="display: inline-block; margin-right: 20px;  margin-bottom: 10px;">
+  <label class="govuk-label" for="width-30"><strong>
+      Time raised</strong>
+  </label>
+  <input disabled class="govuk-input govuk-input--width-5" id="width-10" name="width10" type="text" value="14:32">
+</div>
+
+<div class="govuk-form-group" style="display: inline-block; margin-right: 20px;  margin-bottom: 10px;">
+  <label class="govuk-label" for="width-30"><strong>
+      Raised by
+    </strong>
+  </label>
+  <input disabled class="govuk-input govuk-input--width-10" id="width-15" name="width15" type="text" value="Ben Auld">
+</div>
+
+<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+<div class="govuk-form-group" style="display: inline-block; margin-right: 20px;  margin-bottom: 10px;">
+  <label class="govuk-label" for="sort">
+    <strong>
+    Category
+    </strong>
+  </label>
+  <select class="govuk-select" id="sort" name="sort">
+                <option value="published" selected>Select category</option>
+                <option value="updated">Equipment</option>
+                <option value="views">Visibility and obstruction</option>
+                <option value="comments">Cleanliness</option>
+                <option value="comments">Access and connectivity</option>
+                <option value="comments">Markings and flooring</option>
+                <option value="comments">Emergency facilities</option>
+                <option value="comments">Lane setup and people</option>
+  </select>
+</div>
+
+<div class="govuk-form-group" style="display: inline-block; margin-right: 20px;  margin-bottom: 10px;">
+  <label class="govuk-label" for="sort">
+    <strong>
+    Sub-category
+    </strong>
+  </label>
+  <select class="govuk-select" id="sort" name="sort">
+                <option value="published" selected>Select sub-category</option>
+                <option value="updated">Equipment</option>
+                <option value="views">Visibility and obstruction</option>
+                <option value="comments">Cleanliness</option>
+                <option value="comments">Access and connectivity</option>
+                <option value="comments">Markings and flooring</option>
+                <option value="comments">Emergency facilities</option>
+                <option value="comments">Lane setup and people</option>
+  </select>
+</div>
+
+<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+<div class="govuk-form-group">
+  <label class="govuk-label" for="more-detail"><strong>
+      Description of issue
+    </strong>
+  </label>
+  <textarea class="govuk-textarea" id="more-detail" name="moreDetail" rows="5"></textarea>
+</div>
+
+<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+<h3 class="govuk-heading-s">Media</h3>
+
+<button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+  Add media
+</button>
+
+<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+<div class="govuk-form-group" style="display: inline-block; margin-right: 20px;  margin-bottom: 10px;">
+  <label class="govuk-label" for="width-30"><strong>
+      Who has been notified
+    </strong>
+  </label>
+  <input class="govuk-input govuk-input--width-10" id="width-15" name="width15" type="text" value="">
+</div>
+
+<div class="govuk-form-group" style="display: inline-block; margin-right: 20px;  margin-bottom: 10px;">
+  <label class="govuk-label" for="width-30"><strong>Position of person notified
+    </strong>
+  </label>
+  <input class="govuk-input govuk-input--width-10" id="width-15" name="width15" type="text"
+    value="">
+</div>
+
+<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+<div class="govuk-form-group">
+  <fieldset class="govuk-fieldset" aria-describedby="changedName-hint">
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+      <h3 class="govuk-fieldset__heading">
+        Has the issue been rectified
+      </h3>
+    </legend>
+    <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="changedName" name="changedName" type="radio" value="yes">
+        <label class="govuk-label govuk-radios__label" for="changedName">
+          Yes
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="changedName-2" name="changedName" type="radio" value="no">
+        <label class="govuk-label govuk-radios__label" for="changedName-2">
+          No
+        </label>
+      </div>
+    </div>
+  </fieldset>
+</div>
+
+<!-- <div class="govuk-form-group">
+  <label class="govuk-label" for="more-detail"><strong>
+      Why has the issue not been rectified
+    </strong>
+  </label>
+  <textarea class="govuk-textarea" id="more-detail" name="moreDetail" rows="5"></textarea>
+</div> -->
+
+<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+<div class="govuk-form-group" style="display: inline-block; margin-right: 20px;  margin-bottom: 10px;">
+  <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
+    <legend class="govuk-fieldset__legend" style="margin-bottom:0px;padding-bottom:0px;"><strong>
+        Date ATF contacted
+      </strong>
+    </legend>
+    <div class="govuk-date-input" id="passport-issued">
+      <div class="govuk-date-input__item">
+        <div class="govuk-form-group">
+          <label class="govuk-label govuk-date-input__label" for="passport-issued-day">
+            Day
+          </label>
+          <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="passport-issued-day"
+            name="passport-issued-day" type="text" inputmode="numeric">
+        </div>
+      </div>
+      <div class="govuk-date-input__item">
+        <div class="govuk-form-group">
+          <label class="govuk-label govuk-date-input__label" for="passport-issued-month">
+            Month
+          </label>
+          <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="passport-issued-month"
+            name="passport-issued-month" type="text" inputmode="numeric">
+        </div>
+      </div>
+      <div class="govuk-date-input__item">
+        <div class="govuk-form-group">
+          <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+            Year
+          </label>
+          <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="passport-issued-year"
+            name="passport-issued-year" type="text" inputmode="numeric">
+        </div>
+      </div>
+    </div>
+  </fieldset>
+</div>
+
+<div class="govuk-form-group" style="display: inline-block; margin-right: 20px;  margin-bottom: 10px;">
+  <label class="govuk-label" for="sort"><strong>
+      Risk level
+    </strong>
+  </label>
+  <select class="govuk-select" id="sort" name="sort">
+    <option value="published" selected>Select risk level</option>
+    <option value="updated">Not met</option>
+    <option value="views">Part met</option>
+    <option value="comments">Fully met</option>
+  </select>
+</div>
+
+<div class="govuk-form-group" style="display: inline-block; margin-right: 20px;  margin-bottom: 10px;">
+  <label class="govuk-label" for="width-half"><strong>
+      Status</strong>
+  </label>
+  <input disabled class="govuk-input govuk-input--width-5" id="width-10" name="width10" type="text" value="Open">
+</div>
+
+<div class="govuk-form-group" style="display: inline-block; margin-right: 20px;  margin-bottom: 10px;">
+  <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
+    <legend class="govuk-fieldset__legend" style="margin-bottom:0px;padding-bottom:0px;"><strong>
+        Closure date
+      </strong>
+    </legend>
+    <div class="govuk-date-input" id="passport-issued">
+      <div class="govuk-date-input__item">
+        <div class="govuk-form-group">
+          <label class="govuk-label govuk-date-input__label" for="passport-issued-day">
+            Day
+          </label>
+          <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="passport-issued-day"
+            name="passport-issued-day" type="text" inputmode="numeric">
+        </div>
+      </div>
+      <div class="govuk-date-input__item">
+        <div class="govuk-form-group">
+          <label class="govuk-label govuk-date-input__label" for="passport-issued-month">
+            Month
+          </label>
+          <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="passport-issued-month"
+            name="passport-issued-month" type="text" inputmode="numeric">
+        </div>
+      </div>
+      <div class="govuk-date-input__item">
+        <div class="govuk-form-group">
+          <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+            Year
+          </label>
+          <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="passport-issued-year"
+            name="passport-issued-year" type="text" inputmode="numeric">
+        </div>
+      </div>
+    </div>
+  </fieldset>
+</div>
+
+<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+<h3 class="govuk-heading-s">Comments</h3>
+
+<div class="govuk-form-group">
+  <label class="govuk-label" for="more-detail">
+    Add comment
+  </label>
+  <textarea class="govuk-textarea" id="more-detail" name="moreDetail" rows="5"></textarea>
+</div>
+
+<button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+  Add comment
+</button>
+
+<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+
+<div class="govuk-button-group">
+  <button type="submit" class="govuk-button" data-module="govuk-button">
+    Submit
+  </button>
+  <a class="govuk-link" href="#">Cancel</a>
+</div>
+
+{% endblock %}

@@ -19,6 +19,31 @@ href: "javascript:window.history.back()"
 {% endblock %}
 
 {% block content %}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const toggleButton = document.getElementById('filterToggleButton');
+        const filterPanel = document.getElementById('filterPanel');
+
+        toggleButton.addEventListener('click', function () {
+            // Toggle chevron rotation
+            toggleButton.classList.toggle('is-open');
+
+            // Toggle visibility of the panel
+            const isHidden = filterPanel.hasAttribute('hidden');
+            if (isHidden) {
+                filterPanel.removeAttribute('hidden');
+            } else {
+                filterPanel.setAttribute('hidden', '');
+            }
+
+            // Update aria-expanded for accessibility
+            toggleButton.setAttribute('aria-expanded', isHidden ? 'true' : 'false');
+        });
+    });
+</script>
+
+
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
@@ -46,10 +71,57 @@ href: "javascript:window.history.back()"
 
             </form>
 
+            <div class="app-c-filter-panel__header">
+                <button class="app-c-filter-panel__button govuk-link" id="filterToggleButton" aria-expanded="false"
+                    aria-controls="filterPanel">
+                    <span class="app-c-filter-panel__button-inner">Filter results</span>
+                </button>
+
+                <div id="changedName-hint" class="govuk-hint govuk-search-results-count">
+
+                </div>
+            </div>
+
+
+            <div id="filterPanel" class="govuk-form-group app-c-filter-panel__content" hidden>
+
+                <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset">
+                        <div class="govuk-radios govuk-radios--small" data-module="govuk-radios">
+                            <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
+                                <div class="govuk-checkboxes__item">
+                                    <input checked class="govuk-checkboxes__input" id="organisation" name="organisation"
+                                        type="checkbox" value="hmrc">
+                                    <label class="govuk-label govuk-checkboxes__label" for="organisation">
+                                        Include basic required standards
+                                    </label>
+                                </div>
+                                <div class="govuk-checkboxes__item">
+                                    <input checked class="govuk-checkboxes__input" id="organisation" name="organisation"
+                                        type="checkbox" value="hmrc">
+                                    <label class="govuk-label govuk-checkboxes__label" for="organisation">
+                                        Include normal required standards
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+
+
+                <div class="app-c-filter-panel__actions" style="padding-top:0px;">
+                    <input type="submit" value="Apply"
+                        class="govuk-button app-c-filter-panel__action app-c-filter-panel__action--submit"
+                        data-ga4-event="{&quot;event_name&quot;:&quot;select_content&quot;,&quot;type&quot;:&quot;finder&quot;,&quot;text&quot;:&quot;Apply&quot;,&quot;section&quot;:&quot;Filter and sort&quot;,&quot;action&quot;:&quot;apply&quot;,&quot;index_section&quot;:0,&quot;index_section_count&quot;:4}"
+                        data-disable-with="Apply">
+
+                </div>
+
+            </div>
 
 
 
-            <ul class="govuk-task-list">
+            <ul class="govuk-task-list" style="padding-top:20px;">
 
                 <!-- Basic -->
                 <li class="govuk-task-list__item is-parent">
